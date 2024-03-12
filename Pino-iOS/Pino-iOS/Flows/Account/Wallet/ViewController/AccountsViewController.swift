@@ -13,11 +13,16 @@ class AccountsViewController: UIViewController {
 	private let accountsVM: AccountsViewModel
 	private let profileVM: ProfileViewModel
 	private let hasDismiss: Bool
-	private var onDismiss: (() -> Void)?
+	private var onDismiss: () -> Void
 
 	// MARK: Initializers
 
-	init(accountsVM: AccountsViewModel, profileVM: ProfileViewModel, hasDismiss: Bool = false, onDismiss: (() -> Void)?) {
+	init(
+		accountsVM: AccountsViewModel,
+		profileVM: ProfileViewModel,
+		hasDismiss: Bool = false,
+		onDismiss: @escaping (() -> Void)
+	) {
 		self.accountsVM = accountsVM
 		self.onDismiss = onDismiss
 		self.profileVM = profileVM

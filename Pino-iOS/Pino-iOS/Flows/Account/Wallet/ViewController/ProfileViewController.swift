@@ -14,11 +14,11 @@ class ProfileViewController: UIViewController {
 	private let profileVM: ProfileViewModel
 	private let accountsVM: AccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
-	private var onDismiss: (() -> Void)?
+	private var onDismiss: () -> Void
 
 	// MARK: Initializers
 
-	init(profileVM: ProfileViewModel, onDismiss: (() -> Void)?) {
+	init(profileVM: ProfileViewModel, onDismiss: @escaping (() -> Void)) {
 		self.profileVM = profileVM
 		self.onDismiss = onDismiss
 		self.accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)

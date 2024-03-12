@@ -14,7 +14,7 @@ class SyncWalletViewController: UIViewController {
 	private var syncWalletView: SyncWalletView!
 	private var selectedAccounts: [ActiveAccountViewModel]
 	private var mnemonics: String
-	private var okBtnTappedCompletion: (() -> Void)?
+	private var okBtnDidTap: (() -> Void)?
 
 	// MARK: - View Overrides
 
@@ -45,9 +45,9 @@ class SyncWalletViewController: UIViewController {
 		super.init(nibName: nil, bundle: nil)
 	}
 
-	convenience init(okBtnTappedCompletion: @escaping () -> Void) {
+	convenience init(okBtnDidTap: @escaping () -> Void) {
 		self.init(selectedAccounts: [], mnemonics: .emptyString)
-		self.okBtnTappedCompletion = okBtnTappedCompletion
+		self.okBtnDidTap = okBtnDidTap
 	}
 
 	required init?(coder: NSCoder) {
@@ -59,8 +59,13 @@ class SyncWalletViewController: UIViewController {
 	private func setupView() {
 		syncWalletView = SyncWalletView(syncWalletVM: syncWalletVM, presentTutorialPage: {
 			self.presentTutorialPage()
-		}, presentAllDonePage: {
-			self.presentAllDonePage()
+		}, presentAllDonePage: { [self] in
+			if let okBtnDidTap {
+				okBtnDidTap()
+				dismiss(animated: true)
+			} else {
+				presentAllDonePage()
+			}
 		})
 
 		view = syncWalletView
@@ -75,15 +80,10 @@ class SyncWalletViewController: UIViewController {
 	}
 
 	private func presentAllDonePage() {
-		if let okBtnTappedCompletion {
-			okBtnTappedCompletion()
-			dismiss(animated: true)
-		} else {
-			let allDoneVC = AllDoneViewController(
-				selectedAccounts: selectedAccounts,
-				mnemonics: mnemonics
-			)
-			navigationController?.pushViewController(allDoneVC, animated: true)
-		}
+		let allDoneVC = AllDoneViewController(
+			selectedAccounts: selectedAccounts,
+			mnemonics: mnemonics
+		)
+		navigationController?.pushViewController(allDoneVC, animated: true)
 	}
 }

@@ -15,11 +15,11 @@ class AddNewAccountViewController: UIViewController {
 	private var addNewAccountCollectionView: AddNewAccountCollectionView!
 	private var addNewAccountVM = AddNewAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
-	private var onDismiss: (() -> Void)?
+	private var onDismiss: () -> Void
 
 	// MARK: - Initializers
 
-	init(accountsVM: AccountsViewModel, onDismiss: (() -> Void)?) {
+	init(accountsVM: AccountsViewModel, onDismiss: @escaping (() -> Void)) {
 		self.accountsVM = accountsVM
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
@@ -99,7 +99,7 @@ class AddNewAccountViewController: UIViewController {
 
 	private func openSyncPage() {
 		let syncPage = SyncWalletViewController {
-			self.onDismiss?()
+			self.onDismiss()
 		}
 		syncPage.modalPresentationStyle = .overFullScreen
 		present(syncPage, animated: true)
