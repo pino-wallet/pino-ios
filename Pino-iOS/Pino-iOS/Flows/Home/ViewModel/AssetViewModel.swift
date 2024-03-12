@@ -51,7 +51,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var price: BigNumber {
-		BigNumber(number: assetModel.detail!.price, decimal: 6)
+		BigNumber(number: assetModel.detail!.price, decimal: Web3Core.Constants.pricePercision)
 	}
 
 	public var decimal: Int {

@@ -355,7 +355,7 @@ extension BigNumber: CustomStringConvertible {
 	public var priceFormatForFields: String {
 		var formattedNumber: String!
 		formattedNumber = formattedAmountOf(type: .priceRule)
-		let minAmount = BigNumber(unSignedNumber: 1, decimal: 6)
+		let minAmount = BigNumber(unSignedNumber: 1, decimal: Web3Core.Constants.pricePercision)
 		if self <= minAmount && !isZero {
 			return "0"
 		} else {
