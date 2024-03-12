@@ -173,12 +173,22 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 
 	@objc
 	private func validateInviteCode() {
-		codeTextField.style = .normal
-		if let inviteCode = codeTextField.text, inviteCode.count == 12 {
+        guard let inviteCode = codeTextField.text, !inviteCode.isEmpty else {
+            codeTextField.style = .normal
+            nextButton.style = .deactive
+            nextButton.title = "Next"
+            return
+        }
+		if inviteCode.count == 12 {
 			codeTextField.style = .pending
 			nextButton.style = .deactive
+            nextButton.title = "Please wait"
 			enterInviteCodeVM.activateDeviceForBeta(inviteCode: inviteCode)
-		}
+        } else {
+            codeTextField.style = .normal
+            nextButton.style = .deactive
+            nextButton.title = "Not valid"
+        }
 	}
 }
 

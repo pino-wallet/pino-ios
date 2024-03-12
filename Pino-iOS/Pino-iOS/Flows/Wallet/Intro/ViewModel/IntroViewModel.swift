@@ -15,7 +15,6 @@ class IntroViewModel {
 	public var contentList: [IntroModel]!
 	public let createButtonTitle = "Create new wallet"
 	public let importButtonTitle = "I already have a wallet"
-	public var userCanTestBeta: Bool?
 
 	// MARK: - Private Properties
 
@@ -59,7 +58,6 @@ class IntroViewModel {
 
 	public func checkBetaAvailibity(completion: ((Bool) -> Void)? = nil) {
 		if UIDevice.current.isSimulator {
-			userCanTestBeta = true
 			completion?(true)
 			return
 		}
@@ -69,16 +67,13 @@ class IntroViewModel {
 				print("Info received successfully")
 			case let .failure(error):
 				print(error)
-				self.userCanTestBeta = false
 				completion?(false)
 			}
 		} receiveValue: { [weak self] response in
 			guard let self = self else { return }
 			if response.valid {
-				self.userCanTestBeta = true
 				completion?(true)
 			} else {
-				self.userCanTestBeta = false
 				completion?(false)
 			}
 		}.store(in: &cancellables)
