@@ -77,7 +77,7 @@ class InvestmentBoardViewController: UIViewController {
 	}
 
 	private func setupLoading() {
-		investmentBoardView.$showLoading.sink { showLoading in
+		investmentBoardView.$isLoading.sink { showLoading in
 			if showLoading {
 				self.view.showGradientSkeletonView(endLocation: 0.25)
 			} else {
