@@ -17,21 +17,22 @@ final class AccountingAPIClient: AccountingAPIService {
 	private var currentAccountAdd: String {
 		GlobalVariables.shared.currentAccount.eip55Address
 	}
-    
-    private var currentDeviceID: String {
-        UIDevice.current.identifierForVendor!.uuidString
-    }
 
-    // MARK: - Private Methods
-    private func getDeviceID() -> String {
-        let cloudKitManager = CloudKitKeyStoreManager(key: .inviteCode)
-        if let deviceID = cloudKitManager.getValue() {
-            return deviceID
-        } else {
-            return currentDeviceID
-        }
-    }
-    
+	private var currentDeviceID: String {
+		UIDevice.current.identifierForVendor!.uuidString
+	}
+
+	// MARK: - Private Methods
+
+	private func getDeviceID() -> String {
+		let cloudKitManager = CloudKitKeyStoreManager(key: .inviteCode)
+		if let deviceID = cloudKitManager.getValue() {
+			return deviceID
+		} else {
+			return currentDeviceID
+		}
+	}
+
 	// MARK: - Public Methods
 
 	public func userBalance() -> AnyPublisher<BalanceModel, APIError> {
