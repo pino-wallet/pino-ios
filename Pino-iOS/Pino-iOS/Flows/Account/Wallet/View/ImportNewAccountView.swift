@@ -91,6 +91,7 @@ class ImportNewAccountView: UIView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
+			self.importButton.style = .loading
 			self.importButtonDidTap()
 		}), for: .touchUpInside)
 

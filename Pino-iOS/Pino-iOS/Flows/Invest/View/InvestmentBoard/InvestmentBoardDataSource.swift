@@ -32,7 +32,7 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 	// MARK: - Internal Methods
 
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		if let investableAssets {
+		if investableAssets != nil {
 			return 2
 		} else {
 			return 1
@@ -101,8 +101,10 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 		) as! AssetsBoardHeaderView
 		switch indexPath.section {
 		case 0:
-			headerView.title = "My investments"
-			headerView.hasFilter = false
+			if let investableAssets {
+				headerView.title = "My investments"
+				headerView.hasFilter = false
+			}
 		case 1:
 			headerView.title = "Investable assets"
 			headerView.hasFilter = true

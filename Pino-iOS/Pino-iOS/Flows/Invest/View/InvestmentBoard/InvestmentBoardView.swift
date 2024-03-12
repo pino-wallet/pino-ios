@@ -16,11 +16,6 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 	private let filterDidTap: () -> Void
 	private var cancellables = Set<AnyCancellable>()
 
-	// MARK: - Public Properties
-
-	@Published
-	public var showLoading = true
-
 	// MARK: - Initializers
 
 	init(
@@ -64,9 +59,9 @@ class InvestmentBoardView: AssetsBoardCollectionView {
 			self.assets = filteredAssets ?? []
 			self.reloadData()
 			if filteredAssets == nil {
-				self.showLoading = true
+				self.isLoading = true
 			} else {
-				self.showLoading = false
+				self.isLoading = false
 			}
 		}.store(in: &cancellables)
 	}
