@@ -107,7 +107,8 @@ class ApproveSpeedUpViewModel {
 						increasedBigNumberGasPrice: increasedBigNumberGasPrice,
 						gasUsed: txObject!.gas
 					)
-					self.speedUpFeeInDollars = self.calculateSpeedUpFeeInDollars(speedUpFee: speedUpFee).priceFormat
+					self.speedUpFeeInDollars = self.calculateSpeedUpFeeInDollars(speedUpFee: speedUpFee)
+						.priceFormat(of: .coin, withRule: .standard)
 
 					if self.ethToken!.holdAmount.isZero || self.ethToken!.holdAmount < speedUpFee {
 						self.didSpeedUpTransaction(.insufficientBalanceError)

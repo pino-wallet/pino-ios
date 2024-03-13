@@ -241,7 +241,8 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	private func updateFee(gasInfos: [GasInfo]) {
 		gasFee = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
-		formattedFeeInDollar = gasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +).priceFormat
+		formattedFeeInDollar = gasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +)
+			.priceFormat(of: .coin, withRule: .standard)
 		formattedFeeInETH = gasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat
 	}
 

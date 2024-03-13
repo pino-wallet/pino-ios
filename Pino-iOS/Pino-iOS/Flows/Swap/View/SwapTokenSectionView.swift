@@ -96,7 +96,10 @@ class SwapTokenSectionView: UIView {
 
 		if swapVM.selectedToken.isVerified {
 			changeTokenView.tokenImageURL = swapVM.selectedToken.image
-			estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
+			estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat(
+				of: swapVM.selectedToken.assetType,
+				withRule: .standard
+			)
 			estimatedAmountLabel.isHidden = false
 		} else {
 			changeTokenView.customTokenImage = swapVM.selectedToken.customAssetImage
@@ -177,14 +180,14 @@ class SwapTokenSectionView: UIView {
 		} else {
 			amountTextfield.text = swapVM.tokenAmount?.sevenDigitFormatForFewAmounts
 		}
-		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
+		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat(of: swapVM.selectedToken.assetType, withRule: .standard)
 		maxAmountLabel.text = swapVM.selectedTokenMaxAmount.sevenDigitFormat
 		updateBalanceStatus()
 	}
 
 	private func updateEstimatedAmount(enteredAmount: BigNumber?) {
 		swapVM.calculateDollarAmount(enteredAmount)
-		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat
+		estimatedAmountLabel.text = swapVM.dollarAmount?.priceFormat(of: swapVM.selectedToken.assetType, withRule: .standard)
 		updateBalanceStatus()
 		swapVM.amountUpdated(enteredAmount)
 	}

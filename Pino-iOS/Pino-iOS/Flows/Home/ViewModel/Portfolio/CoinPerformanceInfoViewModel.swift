@@ -20,20 +20,20 @@ class CoinPerformanceInfoViewModel {
 	@Published
 	public var allTimeLow: String?
 
-	public func updateNetProfit(_ chartData: [AssetChartDataViewModel], selectedAssetCapital: BigNumber) {
+	public func updateNetProfit(_ chartData: [AssetChartDataViewModel], selectedAsset: AssetViewModel) {
 		guard let currentWorth = chartData.last?.networth else {
 			netProfit = GlobalZeroAmounts.dollars.zeroAmount
 			return
 		}
-		let userNetProfit = currentWorth - selectedAssetCapital
+		let userNetProfit = currentWorth - selectedAsset.assetCapital
 		if userNetProfit.isZero {
 			netProfit = GlobalZeroAmounts.dollars.zeroAmount
 			return
 		}
 		if userNetProfit < 0.bigNumber {
-			netProfit = "-\(userNetProfit.priceFormat)"
+			netProfit = "-\(userNetProfit.priceFormat(of: selectedAsset.assetType, withRule: .standard))"
 		} else {
-			netProfit = userNetProfit.priceFormat
+			netProfit = userNetProfit.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
 	}
 
@@ -57,28 +57,28 @@ class CoinPerformanceInfoViewModel {
 		}
 	}
 
-	public func updateTokenAllTime(_ tokenAllTime: TokenAllTimePerformance) {
-		updateAllTimeHigh(tokenAllTime.ath)
-		updateAllTimelow(tokenAllTime.atl)
+	public func updateTokenAllTime(_ tokenAllTime: TokenAllTimePerformance, selectedAsset: AssetViewModel) {
+		updateAllTimeHigh(tokenAllTime.ath, selectedAsset: selectedAsset)
+		updateAllTimelow(tokenAllTime.atl, selectedAsset: selectedAsset)
 	}
 
 	// MARK: - Private Methods
 
-	private func updateAllTimeHigh(_ ath: String) {
+	private func updateAllTimeHigh(_ ath: String, selectedAsset: AssetViewModel) {
 		let allTimeHighBigNumber = BigNumber(number: ath, decimal: 2)
 		if allTimeHighBigNumber.isZero {
 			allTimeHigh = GlobalZeroAmounts.dollars.zeroAmount
 		} else {
-			allTimeHigh = allTimeHighBigNumber.priceFormat
+			allTimeHigh = allTimeHighBigNumber.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
 	}
 
-	private func updateAllTimelow(_ atl: String) {
+	private func updateAllTimelow(_ atl: String, selectedAsset: AssetViewModel) {
 		let allTimeLowBigNumber = BigNumber(number: atl, decimal: 2)
 		if allTimeLowBigNumber.isZero {
 			allTimeLow = GlobalZeroAmounts.dollars.zeroAmount
 		} else {
-			allTimeLow = allTimeLowBigNumber.priceFormat
+			allTimeLow = allTimeLowBigNumber.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
 	}
 }

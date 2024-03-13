@@ -39,7 +39,7 @@ class EnterSendAmountViewModel {
 	}
 
 	public var formattedMaxAmountInDollar: String {
-		maxAmountInDollar.priceFormat
+		maxAmountInDollar.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var formattedAmount: String {
@@ -47,7 +47,10 @@ class EnterSendAmountViewModel {
 			return tokenAmount == nil ? .emptyString :
 				"\(tokenAmount!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return dollarAmount == nil ? .emptyString : dollarAmount!.priceFormat
+			return dollarAmount == nil ? .emptyString : dollarAmount!.priceFormat(
+				of: selectedToken.assetType,
+				withRule: .standard
+			)
 		}
 	}
 

@@ -51,7 +51,7 @@ class RepayConfirmViewModel {
 
 	public var tokenAmountInDollars: String {
 		let repayAmountInDollars = repayAmountBigNumber * selectedToken.price
-		return repayAmountInDollars.priceFormat
+		return repayAmountInDollars.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var tokenImage: URL {
@@ -136,7 +136,7 @@ class RepayConfirmViewModel {
 
 	private func setFeeInfoByDepositGasInfo(repayGasinfo: GasInfo) {
 		feeInfo = (
-			feeInDollars: repayGasinfo.feeInDollar!.priceFormat,
+			feeInDollars: repayGasinfo.feeInDollar!.priceFormat(of: selectedToken.assetType, withRule: .standard),
 			feeInETH: repayGasinfo.fee!.sevenDigitFormat.ethFormatting,
 			bigNumberFee: repayGasinfo.fee!
 		)

@@ -97,8 +97,8 @@ class CoinPerformanceViewModel {
 		}.done { [weak self] assetChartVM, tokenAllTime in
 			guard let self else { return }
 			chartVM = assetChartVM
-			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAssetCapital: selectedAsset.assetCapital)
-			coinInfoVM.updateTokenAllTime(tokenAllTime)
+			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
+			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
 		}.catch { [weak self] error in
 			self?.showError(error)
 		}

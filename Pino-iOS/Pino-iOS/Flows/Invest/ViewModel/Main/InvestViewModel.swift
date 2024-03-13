@@ -43,7 +43,8 @@ class InvestViewModel {
 				else { return nil }
 				return InvestAssetViewModel(assetModel: investment, token: userToken)
 			}
-			self.totalInvestments = self.assets?.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +).priceFormat
+			self.totalInvestments = self.assets?.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +)
+				.priceFormat(of: .coin, withRule: .standard)
 		}.store(in: &cancellables)
 	}
 

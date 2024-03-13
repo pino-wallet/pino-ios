@@ -69,7 +69,7 @@ class BorrowIncreaseAmountViewModel {
 	}
 
 	public var maxHoldAmountInDollars: String {
-		(maxHoldAmount * selectedToken.price).priceFormat
+		(maxHoldAmount * selectedToken.price).priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var prevHealthScore: BigNumber {
@@ -114,7 +114,7 @@ class BorrowIncreaseAmountViewModel {
 		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
-			dollarAmount = amountInDollarDecimalValue.priceFormat
+			dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		} else {
 			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString

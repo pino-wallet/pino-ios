@@ -67,7 +67,7 @@ public class AssetViewModel: SecurityModeProtocol {
 	}
 
 	public var formattedHoldAmount: String {
-		holdAmountInDollor.priceFormat
+		holdAmountInDollor.priceFormat(of: assetType, withRule: .standard)
 	}
 
 	public var change24h: BigNumber {
@@ -88,6 +88,14 @@ public class AssetViewModel: SecurityModeProtocol {
 
 	public var isPosition: Bool {
 		assetModel.detail!.isPosition
+	}
+
+	public var assetType: AssetType {
+		if Web3Core.Constants.shitcoinsList.map({ $0.lowercased() }).contains(id.lowercased()) {
+			return .shitcoin
+		} else {
+			return .coin
+		}
 	}
 
 	public var assetCapital: BigNumber {
@@ -144,9 +152,9 @@ public class AssetViewModel: SecurityModeProtocol {
 		} else {
 			switch volatilityType {
 			case .loss:
-				return "-\(change24h.priceFormat)"
+				return "-\(change24h.priceFormat(of: assetType, withRule: .standard))"
 			case .profit, .none:
-				return "+\(change24h.priceFormat)"
+				return "+\(change24h.priceFormat(of: assetType, withRule: .standard))"
 			}
 		}
 	}
@@ -163,4 +171,9 @@ extension AssetViewModel {
 		)
 		return AssetViewModel(assetModel: newAssetModel, isSelected: isSelected)
 	}
+}
+
+public enum AssetType {
+	case coin
+	case shitcoin
 }

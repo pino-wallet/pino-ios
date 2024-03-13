@@ -51,7 +51,7 @@ class CollateralConfirmViewModel {
 
 	public var tokenAmountInDollars: String {
 		let collateralIncreaseAmountInDollars = collateralIncreaseAmountBigNumber * selectedToken.price
-		return collateralIncreaseAmountInDollars.priceFormat
+		return collateralIncreaseAmountInDollars.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var tokenImage: URL {
@@ -109,7 +109,7 @@ class CollateralConfirmViewModel {
 
 	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
 		feeInfo = (
-			feeInDollars: depositGasInfo.feeInDollar!.priceFormat,
+			feeInDollars: depositGasInfo.feeInDollar!.priceFormat(of: selectedToken.assetType, withRule: .standard),
 			feeInETH: depositGasInfo.fee!.sevenDigitFormat.ethFormatting,
 			bigNumberFee: depositGasInfo.fee!
 		)
@@ -117,7 +117,8 @@ class CollateralConfirmViewModel {
 
 	private func setFeeInfosByDepositGasInfo(depositGasInfos: [GasInfo]) {
 		feeInfo = (
-			feeInDollars: depositGasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +).priceFormat,
+			feeInDollars: depositGasInfos.map { $0.feeInDollar! }.reduce(0.bigNumber, +)
+				.priceFormat(of: selectedToken.assetType, withRule: .standard),
 			feeInETH: depositGasInfos.map { $0.fee! }.reduce(0.bigNumber, +).sevenDigitFormat.ethFormatting,
 			bigNumberFee: depositGasInfos.map { $0.fee! }.reduce(0.bigNumber, +)
 		)

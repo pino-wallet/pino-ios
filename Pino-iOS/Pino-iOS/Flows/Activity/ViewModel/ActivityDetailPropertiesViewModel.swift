@@ -250,7 +250,7 @@ struct ActivityDetailProperties {
 		if feeInDollar.isZero {
 			return GlobalZeroAmounts.dollars.zeroAmount
 		} else {
-			return feeInDollar.priceFormat
+			return feeInDollar.priceFormat(of: .coin, withRule: .standard)
 		}
 	}
 
