@@ -107,7 +107,7 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 			}
 		case 1:
 			headerView.title = "Investable assets"
-			headerView.hasFilter = true
+			headerView.hasFilter = false
 			headerView.filterDidTap = investmentFilterDidTap
 		default:
 			fatalError("Invalid section index in notificaition collection view")
