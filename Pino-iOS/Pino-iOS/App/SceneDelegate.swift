@@ -46,13 +46,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		if isUserLoggedIn {
 			window?.rootViewController = TabBarViewController()
-            modifyAppLock()
+			modifyAppLock()
 		} else {
 			let navigationController = CustomNavigationController(rootViewController: IntroViewController())
 			window?.rootViewController = navigationController
 		}
 		window?.makeKeyAndVisible()
-
 
 		// Disable animations in test mode to speed up tests
 		disableAllAnimationsInTestMode()
