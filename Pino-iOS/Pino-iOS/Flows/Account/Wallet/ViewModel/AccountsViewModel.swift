@@ -97,14 +97,6 @@ class AccountsViewModel {
 			?? .green_apple
 	}
 
-	private func saveSyncFinishTime(accountInfo: AccountActivationModel) {
-		if accountInfo.created_at.serverFormattedDate > Date.now {
-			if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
-				UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
-			}
-		}
-	}
-
 	// MARK: - Public Methods
 
 	public func getAccounts() {
@@ -173,7 +165,7 @@ class AccountsViewModel {
 				accountName: accountName,
 				accountAvatar: accountAvatar
 			)
-			saveSyncFinishTime(accountInfo: accountInfo)
+			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
 			resetPendingActivities()
 			completion(nil)
 		}.catch { error in

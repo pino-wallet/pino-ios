@@ -198,11 +198,7 @@ class ImportAccountsViewModel {
 
 	private func saveSyncFinishTime(accountsResponse: [AccountActivationModel]) {
 		accountsResponse.forEach { account in
-			if account.created_at.serverFormattedDate > Date.now {
-				if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
-					UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
-				}
-			}
+			SyncWalletViewModel.saveSyncTime(accountInfo: account)
 		}
 	}
 
