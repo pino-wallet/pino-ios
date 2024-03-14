@@ -97,12 +97,6 @@ class AccountsViewModel {
 			?? .green_apple
 	}
 
-	private func saveSyncFinishTime() {
-		if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
-			UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
-		}
-	}
-
 	// MARK: - Public Methods
 
 	public func getAccounts() {
@@ -163,7 +157,7 @@ class AccountsViewModel {
 		accountAvatar: Avatar? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
-		accountActivationVM.activateNewAccountAddress(account).done { [self] accountId in
+		accountActivationVM.activateNewAccountAddress(account).done { [self] accountInfo in
 			addNewWalletAccountWithAddress(
 				account.eip55Address,
 				derivationPath: derivationPath,
@@ -171,7 +165,7 @@ class AccountsViewModel {
 				accountName: accountName,
 				accountAvatar: accountAvatar
 			)
-			saveSyncFinishTime()
+			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
 			resetPendingActivities()
 			completion(nil)
 		}.catch { error in

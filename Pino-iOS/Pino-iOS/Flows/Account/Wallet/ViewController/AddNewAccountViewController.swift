@@ -75,7 +75,11 @@ class AddNewAccountViewController: UIViewController {
 				if let error {
 					importWalletVC.showValidationError(error)
 				} else {
-					self.openSyncPage()
+					if !SyncWalletViewModel.isSyncFinished {
+						self.openSyncPage()
+					} else {
+						self.dismiss(animated: true)
+					}
 				}
 			}
 		}

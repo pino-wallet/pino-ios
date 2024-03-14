@@ -196,9 +196,9 @@ class ImportAccountsViewModel {
 		}
 	}
 
-	private func saveSyncFinishTime() {
-		if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
-			UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
+	private func saveSyncFinishTime(accountsResponse: [AccountActivationModel]) {
+		accountsResponse.forEach { account in
+			SyncWalletViewModel.saveSyncTime(accountInfo: account)
 		}
 	}
 
@@ -212,7 +212,7 @@ class ImportAccountsViewModel {
 		}
 
 		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
-			saveSyncFinishTime()
+			saveSyncFinishTime(accountsResponse: activateAccountsResp)
 			syncFinished()
 		}.catch { error in
 			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
