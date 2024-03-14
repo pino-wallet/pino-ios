@@ -42,7 +42,7 @@ class SyncWalletViewModel {
 	}
 
 	public static func saveSyncTime(accountInfo: AccountActivationModel) {
-		if accountInfo.created_at.serverFormattedDate.add(1, .minute, to: nil) > Date.now {
+		if accountInfo.created_at.serverFormattedDate.add(1, .minute) > Date.now {
 			if let oneMinuteLater = Calendar.current.date(byAdding: .minute, value: 1, to: .now) {
 				UserDefaultsManager.syncFinishTime.setValue(value: oneMinuteLater)
 			}

@@ -48,8 +48,8 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 
-	public func add(_ number: Int, _ componenet: Calendar.Component, to date: Date?) -> Date {
-		Calendar.current.date(byAdding: componenet, value: number, to: date ?? self)!
+	public func add(_ number: Int, _ componenet: Calendar.Component) -> Date {
+		Calendar.current.date(byAdding: componenet, value: number, to: self)!
 	}
 
 	public var relativeDate: String {
