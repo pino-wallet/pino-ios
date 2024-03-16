@@ -24,14 +24,16 @@ class ImportAccountsViewModel {
 	// MARK: Public Properties
 
 	public let pageTitle = "Import account"
+    public let signDescriptionText = "By tapping continue, you sign an off-chain message that activates the selected account in Pino."
+    public let continueButtonText = "Continue"
 	public var pageDescription: String {
 		if accounts.first(where: { $0.isNewWallet }) != nil {
 			return "You have no account with activity. Try to import some new one."
 		}
 		if accounts.count > 1 {
-			return "We found \(accounts.count) accounts with activity"
+			return "We have found \(accounts.count) accounts with activity"
 		} else {
-			return "We found an account with activity"
+			return "We have found an account with activity"
 		}
 	}
 
