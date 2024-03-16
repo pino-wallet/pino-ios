@@ -12,13 +12,13 @@ class ImportAccountsView: UIView {
 	// MARK: - Private Properties
 
 	private let contentStackView = UIStackView()
-    private let continueStackView = UIStackView()
+	private let continueStackView = UIStackView()
 	private let accountsCollectionView: ImportAccountsCollectionView
 	private let importButton = PinoButton(style: .deactive)
 	private let importButtonDidTap: () -> Void
-    private let signDescriptionTextContainerView = UIView()
-    private let signDescriptionTextLabel = PinoLabel(style: .description, text: "")
-    private var accountsVM: ImportAccountsViewModel
+	private let signDescriptionTextContainerView = UIView()
+	private let signDescriptionTextLabel = PinoLabel(style: .description, text: "")
+	private var accountsVM: ImportAccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -54,11 +54,11 @@ class ImportAccountsView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        signDescriptionTextContainerView.addSubview(signDescriptionTextLabel)
-        
-        continueStackView.addArrangedSubview(importButton)
-        continueStackView.addArrangedSubview(signDescriptionTextContainerView)
-        
+		signDescriptionTextContainerView.addSubview(signDescriptionTextLabel)
+
+		continueStackView.addArrangedSubview(importButton)
+		continueStackView.addArrangedSubview(signDescriptionTextContainerView)
+
 		contentStackView.addArrangedSubview(accountsCollectionView)
 		contentStackView.addArrangedSubview(continueStackView)
 		addSubview(contentStackView)
@@ -70,16 +70,16 @@ class ImportAccountsView: UIView {
 	}
 
 	private func setupStyle() {
-        importButton.title = accountsVM.continueButtonText
+		importButton.title = accountsVM.continueButtonText
 		backgroundColor = .Pino.secondaryBackground
 		contentStackView.axis = .vertical
-        
-        continueStackView.axis = .vertical
-        continueStackView.spacing = 12
-        
-        signDescriptionTextLabel.font = .PinoStyle.mediumFootnote
-        signDescriptionTextLabel.text = accountsVM.signDescriptionText
-        signDescriptionTextLabel.textAlignment = .center
+
+		continueStackView.axis = .vertical
+		continueStackView.spacing = 12
+
+		signDescriptionTextLabel.font = .PinoStyle.mediumFootnote
+		signDescriptionTextLabel.text = accountsVM.signDescriptionText
+		signDescriptionTextLabel.textAlignment = .center
 	}
 
 	private func setupContstraint() {
@@ -88,7 +88,7 @@ class ImportAccountsView: UIView {
 			.bottom(to: layoutMarginsGuide, padding: 8),
 			.horizontalEdges(padding: 16)
 		)
-        signDescriptionTextLabel.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 0))
+		signDescriptionTextLabel.pin(.horizontalEdges(padding: 8), .verticalEdges(padding: 0))
 	}
 
 	private func setupBinding() {
