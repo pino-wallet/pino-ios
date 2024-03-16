@@ -23,15 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	private var lockScreenVC: LockScreenViewController?
-    private var topPresentedVC: UIViewController? {
-        if var topVC = window?.rootViewController {
-            while let presentedVC = topVC.presentedViewController {
-                topVC = presentedVC
-            }
-            return topVC
-        }
-        return nil
-    }
+	private var topPresentedVC: UIViewController? {
+		if var topVC = window?.rootViewController {
+			while let presentedVC = topVC.presentedViewController {
+				topVC = presentedVC
+			}
+			return topVC
+		}
+		return nil
+	}
 
 	func scene(
 		_ scene: UIScene,
@@ -104,12 +104,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// Save changes in the application's managed object context when the application transitions to the background.
 		CoreDataStack.pinoSharedStack.saveContext()
 		modifyAppLock()
-        if let currentLockVC = topPresentedVC as? UnlockAppViewController {
-            currentLockVC.dismiss(animated: false)
-        }
+		if let currentLockVC = topPresentedVC as? UnlockAppViewController {
+			currentLockVC.dismiss(animated: false)
+		}
 		dismissLockScreenVC()
-        
-        
+
 		print("scene: sceneDidEnterBackground: \(appIsLocked)")
 	}
 
@@ -132,18 +131,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	private func showLockView() {
 		guard isUserLoggedIn == true, let window = window, showPrivateScreen && lockScreenVC == nil else { return }
-        let rootVC = window.rootViewController
-				lockScreenVC = LockScreenViewController(onSuccessLoginClosure: {
-					self.appIsLocked = false
-					self.dismissLockScreenVC()
-				}, shouldUnlockApp: appIsLocked)
-				lockScreenVC?.modalPresentationStyle = .overFullScreen
-        
-				if topPresentedVC != nil {
-					topPresentedVC?.present(lockScreenVC!, animated: false)
-				} else {
-					rootVC?.present(lockScreenVC!, animated: false)
-				}
+		let rootVC = window.rootViewController
+		lockScreenVC = LockScreenViewController(onSuccessLoginClosure: {
+			self.appIsLocked = false
+			self.dismissLockScreenVC()
+		}, shouldUnlockApp: appIsLocked)
+		lockScreenVC?.modalPresentationStyle = .overFullScreen
+
+		if topPresentedVC != nil {
+			topPresentedVC?.present(lockScreenVC!, animated: false)
+		} else {
+			rootVC?.present(lockScreenVC!, animated: false)
+		}
 	}
 
 	private func dismissLockScreenVC() {
