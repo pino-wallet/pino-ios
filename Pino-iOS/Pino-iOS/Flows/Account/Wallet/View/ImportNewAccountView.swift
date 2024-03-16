@@ -98,7 +98,7 @@ class ImportNewAccountView: UIView {
 		accountNameTextField.textDidChange = {
 			let accountName = self.accountNameTextField.getText() ?? .emptyString
 			self.importAccountVM.accountName = accountName
-			self.updateValidationState(self.importAccountVM.validationStatus)
+			self.importAccountVM.validateAccountName(accountName)
 		}
 	}
 
@@ -190,8 +190,12 @@ class ImportNewAccountView: UIView {
 	}
 
 	private func setupBindings() {
-		importAccountVM.$validationStatus.sink { validationStatus in
-			self.updateValidationState(validationStatus)
+		importAccountVM.$privateKeyValidationStatus.sink { validationStatus in
+			self.updatePrivateKeyValidationState(validationStatus)
+		}.store(in: &cancellables)
+
+		importAccountVM.$accountNameValidationStatus.sink { validationStatus in
+			self.updateAccountNameValidationStatus(validationStatus)
 		}.store(in: &cancellables)
 
 		importAccountVM.$accountAvatar.sink { accountAvatar in
@@ -200,24 +204,34 @@ class ImportNewAccountView: UIView {
 		}.store(in: &cancellables)
 	}
 
-	private func updateValidationState(_ validationStatus: ImportNewAccountViewModel.ValidationStatus) {
+	private func updatePrivateKeyValidationState(_ validationStatus: PrivateKeyValidationStatus) {
 		switch validationStatus {
 		case .empty:
-			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
-			activateImportButton(false)
 			importTextView.hideValidationView()
 		case .validKey:
-			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
-			activateImportButton(true)
 			importTextView.showSuccess()
 		case .invalidKey:
-			importButton.setTitle(importAccountVM.InvalidTitle, for: .normal)
-			activateImportButton(false)
 			importTextView.showError()
 		case .invalidAccount:
-			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
-			activateImportButton(true)
+			break
 		}
+		activateImportButton(
+			privateKeyValidationStatus: validationStatus,
+			accountNameValidationStatus: importAccountVM.accountNameValidationStatus
+		)
+	}
+
+	private func updateAccountNameValidationStatus(_ validationStatus: AccountNameValidationStatus) {
+		switch validationStatus {
+		case .isEmpty, .duplicateName:
+			accountNameTextField.style = .error
+		case .valid:
+			accountNameTextField.style = .normal
+		}
+		activateImportButton(
+			privateKeyValidationStatus: importAccountVM.privateKeyValidationStatus,
+			accountNameValidationStatus: validationStatus
+		)
 	}
 
 	@objc
@@ -225,11 +239,31 @@ class ImportNewAccountView: UIView {
 		changeAvatarDidTap()
 	}
 
-	private func activateImportButton(_ isActive: Bool) {
-		if isActive, importAccountVM.accountName != .emptyString {
+	private func activateImportButton(
+		privateKeyValidationStatus: PrivateKeyValidationStatus,
+		accountNameValidationStatus: AccountNameValidationStatus
+	) {
+		if privateKeyValidationStatus == .validKey, accountNameValidationStatus == .valid {
 			importButton.style = .active
 		} else {
 			importButton.style = .deactive
+		}
+		updateImportButtonTitle(
+			privateKeyValidationStatus: privateKeyValidationStatus,
+			accountNameValidationStatus: accountNameValidationStatus
+		)
+	}
+
+	private func updateImportButtonTitle(
+		privateKeyValidationStatus: PrivateKeyValidationStatus,
+		accountNameValidationStatus: AccountNameValidationStatus
+	) {
+		if privateKeyValidationStatus == .invalidKey {
+			importButton.setTitle(importAccountVM.invalidPrivateKeyTitle, for: .normal)
+		} else if accountNameValidationStatus == .duplicateName || accountNameValidationStatus == .isEmpty {
+			importButton.setTitle(importAccountVM.invalidNameTitle, for: .normal)
+		} else {
+			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
 		}
 	}
 

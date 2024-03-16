@@ -15,23 +15,35 @@ class ImportNewAccountViewModel {
 		"By tapping on Import, you sign an off-chain message that activates this account in Pino."
 	public var textViewDescription = "Typically 64 alphanumeric characters"
 	public var textViewPlaceholder = "Private Key"
-	public var InvalidTitle = "Invalid Private Key"
+	public var invalidPrivateKeyTitle = "Invalid Private Key"
+	public var invalidNameTitle = "Invalid Name"
 	public let pasteButtonTitle = "Paste"
 	public let continueButtonTitle = "Import"
 	public let newAvatarButtonTitle = "Set new avatar"
 	public let accountNamePlaceHolder = "Enter name"
+	public var accounts: [AccountInfoViewModel]
 
 	@Published
 	public var accountAvatar = Avatar.avocado
 	public var accountName = Avatar.avocado.name
 
 	@Published
-	public var validationStatus: ValidationStatus = .empty
+	public var privateKeyValidationStatus: PrivateKeyValidationStatus
+	@Published
+	public var accountNameValidationStatus: AccountNameValidationStatus
 
 	// MARK: - Private Properties
 
 	private let pinoWalletManager = PinoWalletManager()
 	private let coreDataManager = CoreDataManager()
+
+	// MARK: - Initializers
+
+	init(accounts: [AccountInfoViewModel]) {
+		self.accounts = accounts
+		self.privateKeyValidationStatus = .empty
+		self.accountNameValidationStatus = .valid
+	}
 
 	// MARK: Public Methods
 
@@ -49,22 +61,26 @@ class ImportNewAccountViewModel {
 
 	public func validatePrivateKey(_ privateKey: String) {
 		guard privateKey != .emptyString else {
-			validationStatus = .empty
+			privateKeyValidationStatus = .empty
 			return
 		}
 		if pinoWalletManager.isPrivatekeyValid(privateKey) {
-			validationStatus = .validKey
+			privateKeyValidationStatus = .validKey
 		} else {
-			validationStatus = .invalidKey
+			privateKeyValidationStatus = .invalidKey
 		}
 	}
-}
 
-extension ImportNewAccountViewModel {
-	public enum ValidationStatus: Equatable {
-		case empty
-		case validKey
-		case invalidKey
-		case invalidAccount
+	public func validateAccountName(_ newAccountName: String) {
+		if newAccountName.trimmingCharacters(in: .whitespaces).isEmpty {
+			accountNameValidationStatus = .isEmpty
+			return
+		}
+
+		if accounts.contains(where: { $0.name == newAccountName }) {
+			accountNameValidationStatus = .duplicateName
+		} else {
+			accountNameValidationStatus = .valid
+		}
 	}
 }

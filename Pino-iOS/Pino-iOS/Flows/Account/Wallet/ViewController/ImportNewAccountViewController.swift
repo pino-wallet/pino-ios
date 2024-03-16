@@ -11,8 +11,19 @@ class ImportNewAccountViewController: UIViewController {
 	// MARK: - PublicProperties
 
 	public var importAccountView: ImportNewAccountView!
-	public var importAccountVM = ImportNewAccountViewModel()
+	public var importAccountVM: ImportNewAccountViewModel
 	public var newAccountDidImport: ((_ privateKey: String, _ avatar: Avatar, _ accountName: String) -> Void)!
+
+	// MARK: Initializers
+
+	init(accounts: [AccountInfoViewModel]) {
+		self.importAccountVM = ImportNewAccountViewModel(accounts: accounts)
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - View Overrides
 
@@ -66,7 +77,7 @@ class ImportNewAccountViewController: UIViewController {
 	// MARK: - Public Methods
 
 	public func showValidationError(_ error: Error) {
-		importAccountVM.validationStatus = .invalidAccount
+		importAccountVM.privateKeyValidationStatus = .invalidAccount
 		Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
 	}
 }

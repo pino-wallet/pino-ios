@@ -699,6 +699,8 @@
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E3099FEC2B00B901004474F0 /* CompoundDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */; };
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
+		E3153AF62BA57E17006A72C1 /* AccountNameValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */; };
+		E3153AF82BA5873D006A72C1 /* PrivateKeyValidationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */; };
 		E31D646B2B89DDA400A9FF94 /* SendRecipientAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
@@ -1589,6 +1591,8 @@
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
 		E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDepositManager.swift; sourceTree = "<group>"; };
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
+		E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNameValidationError.swift; sourceTree = "<group>"; };
+		E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyValidationStatus.swift; sourceTree = "<group>"; };
 		E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRecipientAddress.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
@@ -2523,6 +2527,8 @@
 				58286A1B4653A65C97F71CAB /* AddNewAccountOptionModel.swift */,
 				886A8F723E50C884CA276AB4 /* WalletsModel.swift */,
 				D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */,
+				E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */,
+				E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5008,6 +5014,7 @@
 				29B332492B8612E8001E34B7 /* ActivityUnwrapETHModel.swift in Sources */,
 				DFCB13A02B09DCB800EEFD0F /* CDInvestActivityDetails+CoreDataProperties.swift in Sources */,
 				DFCB13A12B09DCB800EEFD0F /* CDCollateralActivityDetails+CoreDataClass.swift in Sources */,
+				E3153AF82BA5873D006A72C1 /* PrivateKeyValidationStatus.swift in Sources */,
 				D9F8BF622B667DC5009DB092 /* RecentAddressHelper.swift in Sources */,
 				DFCB13A22B09DCB800EEFD0F /* CDInvestmentActivityDetails+CoreDataClass.swift in Sources */,
 				DFCB13A32B09DCB800EEFD0F /* CDRepayActivityDetails+CoreDataProperties.swift in Sources */,
@@ -5670,6 +5677,7 @@
 				8F2B1AD252EE32B2F328105B /* URLParameterEncoding.swift in Sources */,
 				7788C1D86DF1F4B1E6B2DE54 /* URLRequest+Extension.swift in Sources */,
 				71ED4673E278D4F56B0CC895 /* UnlockAppViewController.swift in Sources */,
+				E3153AF62BA57E17006A72C1 /* AccountNameValidationError.swift in Sources */,
 				DF6DEDD82AAA30150080B47B /* W3SwapManager.swift in Sources */,
 				D9556E6F2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift in Sources */,
 				E3FC69EC2A9247BD009B3341 /* InvestmentBoardFilterView.swift in Sources */,
