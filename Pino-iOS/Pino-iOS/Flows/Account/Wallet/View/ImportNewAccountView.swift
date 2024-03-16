@@ -146,6 +146,10 @@ class ImportNewAccountView: UIView {
 		privateKeyCardView.layer.cornerRadius = 8
 		privateKeyCardView.layer.borderColor = UIColor.Pino.gray5.cgColor
 		privateKeyCardView.layer.borderWidth = 1
+
+		accountNameTextField.textFieldKeyboardOnReturn = {
+			self.endEditing(true)
+		}
 	}
 
 	private func setupContstraint() {
