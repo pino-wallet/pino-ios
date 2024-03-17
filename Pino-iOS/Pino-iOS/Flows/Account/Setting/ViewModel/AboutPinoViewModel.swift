@@ -10,9 +10,10 @@ import Foundation
 struct AboutPinoViewModel {
 	// MARK: Public Properties
 
-	public let logo = "pino_logo_light"
+	public let logo = "appAboutIcon"
 	public let name = "Pino"
 	public let version = "Version 1.0.0"
+    #warning("we should change this")
 	public let termsOfServiceURL = "http://google.com/"
 	public let privacyPolicyURL = "http://google.com/"
 	public let websiteURL = "http://google.com/"
