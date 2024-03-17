@@ -215,8 +215,10 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-23
 
 DEPENDENCIES
+  dotenv
   fastlane
   fastlane-plugin-git_switch_branch
   fastlane-plugin-swiftformat
