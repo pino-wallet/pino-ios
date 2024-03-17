@@ -8,7 +8,7 @@
 class EditAccountNameViewModel {
 	// MARK: - Closures
 
-	public var didValidatedAccountName: (_ error: ValidateAccountNameErrorType) -> Void
+	public var didValidatedAccountName: (AccountNameValidationStatus) -> Void
 
 	// MARK: - Public Properties
 
@@ -24,7 +24,7 @@ class EditAccountNameViewModel {
 	// MARK: - Initializers
 
 	init(
-		didValidatedAccountName: @escaping (_: ValidateAccountNameErrorType) -> Void,
+		didValidatedAccountName: @escaping (AccountNameValidationStatus) -> Void,
 		selectedAccount: AccountInfoViewModel,
 		accounts: [AccountInfoViewModel]
 	) {
@@ -40,18 +40,10 @@ class EditAccountNameViewModel {
 			didValidatedAccountName(.isEmpty)
 		} else {
 			if accounts.contains(where: { $0.name == newAccountName && $0.id != selectedAccount.id }) {
-				didValidatedAccountName(.repeatedName)
+				didValidatedAccountName(.duplicateName)
 			} else {
-				didValidatedAccountName(.clear)
+				didValidatedAccountName(.isValid)
 			}
 		}
-	}
-}
-
-extension EditAccountNameViewModel {
-	public enum ValidateAccountNameErrorType: Error {
-		case isEmpty
-		case repeatedName
-		case clear
 	}
 }

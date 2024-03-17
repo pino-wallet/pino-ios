@@ -69,7 +69,7 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func openImportAccountPage() {
-		let importWalletVC = ImportNewAccountViewController()
+		let importWalletVC = ImportNewAccountViewController(accounts: accountsVM.accountsList)
 		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
 			self.importAccount(privateKey: privateKey, avatar: avatar, accountName: accountName) { error in
 				if let error {
