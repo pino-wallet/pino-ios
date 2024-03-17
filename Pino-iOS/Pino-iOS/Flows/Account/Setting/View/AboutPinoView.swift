@@ -95,7 +95,7 @@ class AboutPinoView: UIView {
 		privacyPolicyTitle.text = "Privacy policy"
 		websiteTitle.text = "Visit website"
 		pinoLogo.image = UIImage(named: aboutPinoVM.logo)
-        pinoLogo.contentMode = .center
+		pinoLogo.contentMode = .center
 		for detailIcon in detailIcons {
 			detailIcon.image = UIImage(named: "chevron_right")
 			detailIcon.contentMode = .left
