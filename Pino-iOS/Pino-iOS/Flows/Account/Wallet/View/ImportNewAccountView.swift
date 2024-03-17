@@ -206,9 +206,9 @@ class ImportNewAccountView: UIView {
 
 	private func updatePrivateKeyValidationState(_ validationStatus: PrivateKeyValidationStatus) {
 		switch validationStatus {
-		case .empty:
+		case .isEmpty:
 			importTextView.hideValidationView()
-		case .validKey:
+		case .isValid:
 			importTextView.showSuccess()
 		case .invalidKey:
 			importTextView.showError()
@@ -225,7 +225,7 @@ class ImportNewAccountView: UIView {
 		switch validationStatus {
 		case .isEmpty, .duplicateName:
 			accountNameTextField.style = .error
-		case .valid:
+		case .isValid:
 			accountNameTextField.style = .normal
 		}
 		activateImportButton(
@@ -243,7 +243,7 @@ class ImportNewAccountView: UIView {
 		privateKeyValidationStatus: PrivateKeyValidationStatus,
 		accountNameValidationStatus: AccountNameValidationStatus
 	) {
-		if privateKeyValidationStatus == .validKey, accountNameValidationStatus == .valid {
+		if privateKeyValidationStatus == .isValid, accountNameValidationStatus == .isValid {
 			importButton.style = .active
 		} else {
 			importButton.style = .deactive

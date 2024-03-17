@@ -106,7 +106,7 @@ class EditAccountNameViewController: UIViewController {
 			editAccountNameView.doneButton.style = .deactive
 			editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsRepeatedError
 			editAccountNameView.walletNameTextFieldView.style = .error
-		case .valid:
+		case .isValid:
 			navigationItem.rightBarButtonItem?.isEnabled = true
 			editAccountNameView.doneButton.style = .active
 			editAccountNameView.doneButton.title = editAccountNameVM.doneButtonName

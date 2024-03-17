@@ -42,7 +42,7 @@ class EditAccountNameViewModel {
 			if accounts.contains(where: { $0.name == newAccountName && $0.id != selectedAccount.id }) {
 				didValidatedAccountName(.duplicateName)
 			} else {
-				didValidatedAccountName(.valid)
+				didValidatedAccountName(.isValid)
 			}
 		}
 	}

@@ -41,8 +41,8 @@ class ImportNewAccountViewModel {
 
 	init(accounts: [AccountInfoViewModel]) {
 		self.accounts = accounts
-		self.privateKeyValidationStatus = .empty
-		self.accountNameValidationStatus = .valid
+		self.privateKeyValidationStatus = .isEmpty
+		self.accountNameValidationStatus = .isValid
 	}
 
 	// MARK: Public Methods
@@ -61,11 +61,11 @@ class ImportNewAccountViewModel {
 
 	public func validatePrivateKey(_ privateKey: String) {
 		guard privateKey != .emptyString else {
-			privateKeyValidationStatus = .empty
+			privateKeyValidationStatus = .isEmpty
 			return
 		}
 		if pinoWalletManager.isPrivatekeyValid(privateKey) {
-			privateKeyValidationStatus = .validKey
+			privateKeyValidationStatus = .isValid
 		} else {
 			privateKeyValidationStatus = .invalidKey
 		}
@@ -80,7 +80,7 @@ class ImportNewAccountViewModel {
 		if accounts.contains(where: { $0.name == newAccountName }) {
 			accountNameValidationStatus = .duplicateName
 		} else {
-			accountNameValidationStatus = .valid
+			accountNameValidationStatus = .isValid
 		}
 	}
 }

@@ -8,8 +8,8 @@
 import Foundation
 
 public enum PrivateKeyValidationStatus: Equatable {
-	case empty
-	case validKey
+	case isEmpty
+	case isValid
 	case invalidKey
 	case invalidAccount
 }

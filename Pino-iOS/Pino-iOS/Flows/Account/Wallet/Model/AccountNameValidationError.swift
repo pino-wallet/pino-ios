@@ -10,5 +10,5 @@ import Foundation
 public enum AccountNameValidationStatus {
 	case isEmpty
 	case duplicateName
-	case valid
+	case isValid
 }
