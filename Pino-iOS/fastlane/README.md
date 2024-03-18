@@ -15,30 +15,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios sync_development
-
-```sh
-[bundle exec] fastlane ios sync_development
-```
-
-
-
-### ios get_dev_certs
-
-```sh
-[bundle exec] fastlane ios get_dev_certs
-```
-
-
-
-### ios checkout
-
-```sh
-[bundle exec] fastlane ios checkout
-```
-
-
-
 ### ios run_ui_tests
 
 ```sh
@@ -55,29 +31,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### ios push
+### ios certificates
 
 ```sh
-[bundle exec] fastlane ios push
+[bundle exec] fastlane ios certificates
 ```
 
+Get certificates
 
-
-### ios pull
+### ios generate_certs
 
 ```sh
-[bundle exec] fastlane ios pull
+[bundle exec] fastlane ios generate_certs
 ```
 
-
-
-### ios testflight_beta
-
-```sh
-[bundle exec] fastlane ios testflight_beta
-```
-
-
+Generate new certificates
 
 ----
 
