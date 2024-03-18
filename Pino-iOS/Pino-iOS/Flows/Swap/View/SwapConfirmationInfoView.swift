@@ -129,7 +129,6 @@ class SwapConfirmationInfoView: UIView {
 		feeErrorIcon.tintColor = .Pino.red
 
 		feeLabel.layer.masksToBounds = true
-		feeLabel.layer.cornerRadius = 12
 		feeLabel.textAlignment = .right
 		rateLabel.textAlignment = .right
 
@@ -140,7 +139,6 @@ class SwapConfirmationInfoView: UIView {
 		feeErrorStackView.spacing = 4
 
 		setSketonable()
-		showFeeLoading()
 		feeErrorStackView.isHidden = true
 	}
 
@@ -167,10 +165,12 @@ class SwapConfirmationInfoView: UIView {
 		feeErrorStackView.pin(
 			.allEdges
 		)
+        
 
 		NSLayoutConstraint.activate([
 			feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 			feeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: feeResultView.leadingAnchor),
+            feeResultView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
 		])
 	}
 
@@ -239,6 +239,6 @@ class SwapConfirmationInfoView: UIView {
 	}
 
 	public func hideFeeLoading() {
-		feeStackView.showSkeletonView()
+		feeStackView.hideSkeletonView()
 	}
 }

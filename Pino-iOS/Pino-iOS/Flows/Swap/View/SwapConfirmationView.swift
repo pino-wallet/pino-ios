@@ -12,6 +12,10 @@ class SwapConfirmationView: UIView {
 	// MARK: - TypeAlises
 
 	typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
+    
+    
+    // MARK: - Public Properties
+    public let swapConfirmationInfoView: SwapConfirmationInfoView
 
 	// MARK: - Private Properties
 
@@ -25,7 +29,6 @@ class SwapConfirmationView: UIView {
 	private let arrowImageView = UIImageView()
 	private let swapArrowStackView = UIStackView()
 	private let swapArrowSpacerView = UIView()
-	private let swapConfirmationInfoView: SwapConfirmationInfoView
 	private let continueButton = PinoButton(style: .active)
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
@@ -130,8 +133,8 @@ class SwapConfirmationView: UIView {
 		Publishers.Zip(swapConfirmationVM.$formattedFeeInDollar, swapConfirmationVM.$formattedFeeInETH)
 			.sink { [weak self] feeInDollar, feeInETH in
 				guard let self, let feeInETH, let feeInDollar else { return }
-				self.swapConfirmationInfoView.hideSkeletonView()
 				self.swapConfirmationInfoView.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
+                self.swapConfirmationInfoView.hideFeeLoading()
 				self.checkBalanceEnough()
 			}.store(in: &cancellables)
 
