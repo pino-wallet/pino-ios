@@ -15,7 +15,7 @@ class AllDoneViewModel {
 	public let title = "You’re all done!"
 	public let description = "The world of DeFi awaits you."
 	public let continueButtonTitle = "Get started"
-    public let allDoneAnimationName = "AllDoneAnimation"
+	public let allDoneAnimationName = "AllDoneAnimation"
 
 	public var agreementAttributedTest: NSMutableAttributedString {
 		#warning("This must be replaced with pino urls")
