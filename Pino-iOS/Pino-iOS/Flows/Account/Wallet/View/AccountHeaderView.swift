@@ -106,7 +106,7 @@ class AccountHeaderView: UICollectionReusableView {
 			.allEdges(padding: 16)
 		)
 		networkImageViewContainer.pin(.fixedWidth(20))
-        networkImageView.pin(.fixedHeight(20), .horizontalEdges(), .centerY, .centerX)
+		networkImageView.pin(.fixedHeight(20), .horizontalEdges(), .centerY, .centerX)
 		accountAddressInfoContainerView.pin(.fixedHeight(30))
 		accountAddressInfoStackView.pin(.horizontalEdges(padding: 6), .verticalEdges(padding: 4))
 	}
