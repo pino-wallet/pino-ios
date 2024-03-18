@@ -105,8 +105,8 @@ class AccountHeaderView: UICollectionReusableView {
 		accountIcon.pin(
 			.allEdges(padding: 16)
 		)
-		networkImageViewContainer.pin(.fixedWidth(20), .fixedHeight(20))
-		networkImageView.pin(.fixedWidth(20), .fixedHeight(20), .centerY, .centerX)
+		networkImageViewContainer.pin(.fixedWidth(20))
+        networkImageView.pin(.fixedHeight(20), .horizontalEdges(), .centerY, .centerX)
 		accountAddressInfoContainerView.pin(.fixedHeight(30))
 		accountAddressInfoStackView.pin(.horizontalEdges(padding: 6), .verticalEdges(padding: 4))
 	}
