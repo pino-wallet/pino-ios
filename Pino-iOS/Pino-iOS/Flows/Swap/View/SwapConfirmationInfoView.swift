@@ -165,12 +165,11 @@ class SwapConfirmationInfoView: UIView {
 		feeErrorStackView.pin(
 			.allEdges
 		)
-        
 
 		NSLayoutConstraint.activate([
 			feeLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 60),
 			feeLabel.leadingAnchor.constraint(greaterThanOrEqualTo: feeResultView.leadingAnchor),
-            feeResultView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
+			feeResultView.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
 		])
 	}
 

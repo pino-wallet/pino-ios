@@ -128,7 +128,7 @@ class SwapConfirmationViewModel {
 			self.pendingSwapTrx = swapTrx
 			self.pendingSwapGasInfo = gasInfo
 			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(of: .coin, withRule: .standard)
-            self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
+			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
 		}.catch { error in
 			completion(error)
 		}

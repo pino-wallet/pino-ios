@@ -12,10 +12,10 @@ class SwapConfirmationView: UIView {
 	// MARK: - TypeAlises
 
 	typealias PresentFeeInfoType = (InfoActionSheet, _ completion: @escaping () -> Void) -> Void
-    
-    
-    // MARK: - Public Properties
-    public let swapConfirmationInfoView: SwapConfirmationInfoView
+
+	// MARK: - Public Properties
+
+	public let swapConfirmationInfoView: SwapConfirmationInfoView
 
 	// MARK: - Private Properties
 
@@ -134,7 +134,7 @@ class SwapConfirmationView: UIView {
 			.sink { [weak self] feeInDollar, feeInETH in
 				guard let self, let feeInETH, let feeInDollar else { return }
 				self.swapConfirmationInfoView.updateFeeLabel(feeInETH: feeInETH, feeInDollar: feeInDollar)
-                self.swapConfirmationInfoView.hideFeeLoading()
+				self.swapConfirmationInfoView.hideFeeLoading()
 				self.checkBalanceEnough()
 			}.store(in: &cancellables)
 

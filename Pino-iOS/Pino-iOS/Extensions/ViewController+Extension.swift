@@ -34,14 +34,14 @@ extension UIViewController {
 		navigationTitle.textColor = .Pino.white
 		navigationTitle.font = .PinoStyle.semiboldBody
 		navigationItem.titleView = navigationTitle
-        navigationItem.backButtonTitle = title
+		navigationItem.backButtonTitle = title
 	}
 
 	public func setupPrimaryColorNavigationBar() {
 		let navBarAppearance = UINavigationBarAppearance()
 		navBarAppearance.configureWithOpaqueBackground()
 		navBarAppearance.backgroundColor = .Pino.primary
-        navigationItem.backButtonDisplayMode = .minimal
+		navigationItem.backButtonDisplayMode = .minimal
 		let customBackImage = UIImage(systemName: "arrow.left")
 		navBarAppearance.setBackIndicatorImage(customBackImage, transitionMaskImage: customBackImage)
 		navigationController?.navigationBar.standardAppearance = navBarAppearance
