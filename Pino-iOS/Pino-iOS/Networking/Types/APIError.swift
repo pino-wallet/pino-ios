@@ -17,6 +17,7 @@ public enum APIError: Error {
 	case encodingFailed
 	case missingURL
 	case notFound
+	case failedWith(statusCode: Int)
 
 	// MARK: Public Properties
 
@@ -24,6 +25,8 @@ public enum APIError: Error {
 		switch self {
 		case .failedRequest:
 			return "Sent request is failed."
+		case let .failedWith(statusCode):
+			return "Sent request is failed with status: \(statusCode)."
 		case .invalidRequest:
 			return "Sent request is invalid."
 		case .unreachable:

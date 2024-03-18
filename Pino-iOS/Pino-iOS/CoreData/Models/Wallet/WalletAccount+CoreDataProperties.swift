@@ -41,4 +41,6 @@ extension WalletAccount {
 	public var isPositionEnabled: Bool
 	@NSManaged
 	public var hasDefaultAssets: Bool
+	@NSManaged
+	public var createdAt: Date
 }

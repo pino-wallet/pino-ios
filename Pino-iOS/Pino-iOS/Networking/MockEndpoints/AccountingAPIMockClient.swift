@@ -40,9 +40,15 @@ final class AccountingAPIMockClient: AccountingAPIService {
 			.eraseToAnyPublisher()
 	}
 
-	func activateAccountWithInviteCode(inviteCode: String)
+	func activateDeviceWithInviteCode(inviteCode: String)
 		-> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError> {
 		Just(ActivateAccountWithInviteCodeModel(status: "failed"))
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
+
+	func validateDeviceForBeta() -> AnyPublisher<ValidateDeviceForBetaModel, APIError> {
+		Just(ValidateDeviceForBetaModel(valid: true))
 			.setFailureType(to: APIError.self)
 			.eraseToAnyPublisher()
 	}

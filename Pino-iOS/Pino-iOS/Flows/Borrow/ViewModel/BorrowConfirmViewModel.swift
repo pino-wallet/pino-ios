@@ -50,7 +50,7 @@ class BorrowConfirmViewModel {
 
 	public var tokenAmountInDollars: String {
 		let userTokenAmountInDollars = tokenAmountBigNumber * selectedToken.price
-		return userTokenAmountInDollars.priceFormat
+		return userTokenAmountInDollars.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var tokenImage: URL {
@@ -108,7 +108,7 @@ class BorrowConfirmViewModel {
 
 	private func setFeeInfoByDepositGasInfo(depositGasInfo: GasInfo) {
 		feeInfo = (
-			feeInDollars: depositGasInfo.feeInDollar!.priceFormat,
+			feeInDollars: depositGasInfo.feeInDollar!.priceFormat(of: selectedToken.assetType, withRule: .standard),
 			feeInETH: depositGasInfo.fee!.sevenDigitFormat.ethFormatting,
 			bigNumberFee: depositGasInfo.fee!
 		)

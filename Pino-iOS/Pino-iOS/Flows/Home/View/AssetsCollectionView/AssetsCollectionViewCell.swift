@@ -41,6 +41,15 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		}
 	}
 
+	// MARK: - View Overrides
+
+	override public func prepareForReuse() {
+		super.prepareForReuse()
+
+		assetTitleLabelHeightconstraint.constant = 0
+		assetAmountLabelHeightConstraint.constant = 0
+	}
+
 	// MARK: Private UI Methods
 
 	private func setupView() {

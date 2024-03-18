@@ -27,13 +27,6 @@ class InvestViewModel {
 	@Published
 	public var chartDataEntries: [ChartDataEntry]?
 
-	// MARK: Initializers
-
-	init() {
-		setupBinding()
-		getChartData()
-	}
-
 	// MARK: - Private Methods
 
 	private func getAssets(userTokens: [AssetViewModel]) {
@@ -50,7 +43,8 @@ class InvestViewModel {
 				else { return nil }
 				return InvestAssetViewModel(assetModel: investment, token: userToken)
 			}
-			self.totalInvestments = self.assets?.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +).priceFormat
+			self.totalInvestments = self.assets?.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +)
+				.priceFormat(of: .coin, withRule: .standard)
 		}.store(in: &cancellables)
 	}
 
@@ -82,5 +76,12 @@ class InvestViewModel {
 				self.chartDataEntries = nil
 			}
 		}.store(in: &cancellables)
+	}
+
+	// MARK: - Public Methods
+
+	public func getInvestData() {
+		setupBinding()
+		getChartData()
 	}
 }

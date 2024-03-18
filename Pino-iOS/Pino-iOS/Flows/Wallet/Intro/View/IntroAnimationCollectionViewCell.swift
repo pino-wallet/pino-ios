@@ -14,6 +14,7 @@ public class IntroAnimationCollectionViewCell: UICollectionViewCell {
 	private let introAnimationView = LottieAnimationView()
 	private let introTitle = PinoLabel(style: .title, text: "hi")
 	private let introGradientView = UIImageView()
+	private let animationBtmCoverView = UIView()
 	private var topGradientView = UIImageView()
 	private var btmGradientView = UIImageView()
 
@@ -40,34 +41,41 @@ extension IntroAnimationCollectionViewCell {
 		contentView.insertSubview(introGradientView, belowSubview: introAnimationView)
 		contentView.insertSubview(topGradientView, aboveSubview: introAnimationView)
 		contentView.insertSubview(btmGradientView, aboveSubview: introAnimationView)
+		contentView.addSubview(animationBtmCoverView)
 	}
 
 	private func setupStyle() {
 		introTitle.text = introTitleModel
-		introTitle.numberOfLines = 2
+		introTitle.numberOfLines = 0
+		introTitle.lineBreakMode = .byWordWrapping
 		introTitle.textAlignment = .center
+		introTitle.layer.zPosition = 1
 
 		introGradientView.image = UIImage(named: "intro-gradient")
 		introGradientView.contentMode = .redraw
 
 		topGradientView.image = .init(named: "intro-top-grad")
 		btmGradientView.image = .init(named: "intro-btm-grad")
+
+		animationBtmCoverView.backgroundColor = .Pino.secondaryBackground
 	}
 
 	private func setupConstraint() {
+		introTitle.widthAnchor.constraint(lessThanOrEqualToConstant: 180).isActive = true
+		introTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+
 		introGradientView.pin(
 			.allEdges
 		)
 		introAnimationView.pin(
 			.horizontalEdges,
 			.top(padding: -100),
-			.bottom(padding: -70)
+			.relative(.bottom, 40, to: btmGradientView, .bottom)
 		)
 		introTitle.pin(
-			.horizontalEdges(padding: 16),
 			.bottom,
-			.relative(.top, -16, to: introAnimationView, .bottom),
-			.fixedHeight(30)
+			.relative(.top, -106, to: introAnimationView, .bottom),
+			.centerX
 		)
 		topGradientView.pin(
 			.top(padding: -10),
@@ -77,7 +85,13 @@ extension IntroAnimationCollectionViewCell {
 		btmGradientView.pin(
 			.bottom(padding: 30),
 			.horizontalEdges,
-			.fixedHeight(150)
+			.fixedHeight(190)
+		)
+
+		animationBtmCoverView.pin(
+			.horizontalEdges,
+			.fixedHeight(40),
+			.relative(.bottom, 0, to: introAnimationView, .bottom)
 		)
 	}
 
@@ -95,7 +109,6 @@ extension IntroAnimationCollectionViewCell {
 		if introAnimationView.animation == nil {
 			introAnimationView.backgroundColor = .Pino.clear
 			introAnimationView.animation = LottieAnimation.named("IntroAnimation")
-			//        introAnimationView.configuration.renderingEngine = .
 			introAnimationView.play()
 			introAnimationView.animationSpeed = 1
 			introAnimationView.loopMode = .loop

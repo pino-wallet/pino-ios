@@ -84,7 +84,8 @@ Pino-iOS/fastlane/Preview.html
 Pino-iOS/fastlane/screenshots/**/*.png
 Pino-iOS/fastlane/test_output
 Pino-iOS/fastlane/AuthKey_76VYZ92QRJ.p8
-Pino-iOS/fastlane/.env
+Pino-iOS/fastlane/.env.default
+Pino-iOS/fastlane/Matchfile
 
 # Code Injection
 #

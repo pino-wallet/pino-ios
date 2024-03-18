@@ -54,7 +54,7 @@ class RepayAmountViewModel {
 	}
 
 	public var maxHoldAmountInDollars: String {
-		maxHoldAmount.priceFormat
+		maxHoldAmount.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var tokenImage: URL {
@@ -117,7 +117,7 @@ class RepayAmountViewModel {
 		if let decimalBigNum = BigNumber(numberWithDecimal: amount) {
 			let amountInDollarDecimalValue = decimalBigNum * selectedToken.price
 			newHealthScore = calculateNewHealthScore(dollarAmount: amountInDollarDecimalValue)
-			dollarAmount = amountInDollarDecimalValue.priceFormat
+			dollarAmount = amountInDollarDecimalValue.priceFormat(of: selectedToken.assetType, withRule: .standard)
 		} else {
 			newHealthScore = calculateCurrentHealthScore()
 			dollarAmount = .emptyString

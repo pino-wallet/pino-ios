@@ -11,11 +11,17 @@ class IntroViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let introVM = IntroViewModel()
+	private var introView: IntroView!
 
 	// MARK: View Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		introVM.checkBetaAvailibity()
 	}
 
 	override func loadView() {
@@ -25,27 +31,47 @@ class IntroViewController: UIViewController {
 	// MARK: Private Methods
 
 	private func setupView() {
-		let introView = IntroView(
+		introView = IntroView(
 			introVM: introVM,
 			createWallet: {
-				self.goToCreateWalletPage()
+				self.openCreateWalletPage()
 			},
 			importWallet: {
-				self.goToImportWalletPage()
+				self.openImportWalletPage()
 			}
 		)
 		navigationController?.navigationBar.prefersLargeTitles = false
 		view = introView
 	}
 
-	private func goToCreateWalletPage() {
-		let showSecretPhrasePage = ShowSecretPhraseViewController()
-		navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+	private func openCreateWalletPage() {
+		introView.showCreateWalletLoading()
+		introVM.checkBetaAvailibity { isValid in
+			self.introView.resetButtonsStatus()
+			if isValid {
+				let showSecretPhrasePage = ShowSecretPhraseViewController()
+				self.navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+			} else {
+				self.openInviteCodePage()
+			}
+		}
 	}
 
-	private func goToImportWalletPage() {
-		let importSecretPhrasePage = ImportSecretPhraseViewController()
-		importSecretPhrasePage.isNewWallet = true
-		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+	private func openImportWalletPage() {
+		introView.showImportWalletLoading()
+		introVM.checkBetaAvailibity { isValid in
+			self.introView.resetButtonsStatus()
+			if isValid {
+				let importSecretPhrasePage = ImportSecretPhraseViewController()
+				self.navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+			} else {
+				self.openInviteCodePage()
+			}
+		}
+	}
+
+	private func openInviteCodePage() {
+		let inviteCodePage = EnterInviteCodeViewController()
+		present(inviteCodePage, animated: true)
 	}
 }

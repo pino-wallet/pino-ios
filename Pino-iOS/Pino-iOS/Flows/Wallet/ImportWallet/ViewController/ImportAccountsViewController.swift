@@ -6,6 +6,7 @@
 //
 
 import Combine
+import PromiseKit
 import UIKit
 
 class ImportAccountsViewController: UIViewController {
@@ -28,8 +29,8 @@ class ImportAccountsViewController: UIViewController {
 
 	// MARK: - View Overrides
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+	override func viewWillDisappear(_ animated: Bool) {
+		importLoadingView.findingAccountLottieAnimationView.animation = nil
 	}
 
 	override func loadView() {
@@ -46,34 +47,34 @@ class ImportAccountsViewController: UIViewController {
 				self.openPasscodePage()
 			},
 			findMoreAccountsDidTap: {
-				self.importAccountsVM.findMoreAccounts { error in
-					if let error {
-						Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
-					}
+				self.importAccountsVM.findMoreAccounts().catch { error in
+					Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
 				}
 			}
 		)
 		view = importLoadingView
-		importAccountsVM.getFirstAccounts { error in
-			if let error {
-				Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
-			} else {
-				self.view = self.importAccountsView
+		importAccountsVM.getFirstAccounts().done { [weak self] _ in
+			if self?.navigationController?.topViewController == self {
+				self?.view = self?.importAccountsView
 			}
+		}.catch { error in
+			Toast.default(title: "Failed to fetch accounts", style: .error).show(haptic: .success)
 		}
 	}
 
 	private func openPasscodePage() {
-		guard let accounts = importAccountsVM.accounts else { return }
-		let selectedAccounts = accounts.filter { $0.isSelected }
-		if !selectedAccounts.isEmpty {
-			let createPasscodeViewController = CreatePasscodeViewController(
-				selectedAccounts: selectedAccounts,
-				mnemonics: importAccountsVM.walletMnemonics
-			)
-			createPasscodeViewController.pageSteps = 4
-			createPasscodeViewController.currentStep = 3
-			navigationController?.pushViewController(createPasscodeViewController, animated: true)
+		importAccountsVM.startSync { [unowned self] in
+			importAccountsView.stopLoading()
+			let selectedAccounts = importAccountsVM.accounts.filter { $0.isSelected }
+			if !selectedAccounts.isEmpty {
+				let createPasscodeViewController = CreatePasscodeViewController(
+					selectedAccounts: selectedAccounts,
+					mnemonics: importAccountsVM.walletMnemonics
+				)
+				createPasscodeViewController.pageSteps = 4
+				createPasscodeViewController.currentStep = 3
+				navigationController?.pushViewController(createPasscodeViewController, animated: true)
+			}
 		}
 	}
 }

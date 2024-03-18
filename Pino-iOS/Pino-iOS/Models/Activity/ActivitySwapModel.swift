@@ -59,7 +59,16 @@ extension ActivitySwapModel {
 		)
 		self.fromAddress = cdSwapActivityModel.fromAddress
 		self.toAddress = cdSwapActivityModel.toAddress
-		self.failed = nil
+		switch ActivityStatus(rawValue: cdSwapActivityModel.status) {
+		case .pending:
+			self.failed = nil
+		case .success:
+			self.failed = false
+		case .failed:
+			self.failed = true
+		default:
+			self.failed = nil
+		}
 		self.blockNumber = nil
 		self.blockTime = cdSwapActivityModel.blockTime
 		self.gasUsed = cdSwapActivityModel.gasUsed

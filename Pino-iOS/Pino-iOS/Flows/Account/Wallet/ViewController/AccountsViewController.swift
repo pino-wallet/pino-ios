@@ -13,11 +13,18 @@ class AccountsViewController: UIViewController {
 	private let accountsVM: AccountsViewModel
 	private let profileVM: ProfileViewModel
 	private let hasDismiss: Bool
+	private var onDismiss: () -> Void
 
 	// MARK: Initializers
 
-	init(accountsVM: AccountsViewModel, profileVM: ProfileViewModel, hasDismiss: Bool = false) {
+	init(
+		accountsVM: AccountsViewModel,
+		profileVM: ProfileViewModel,
+		hasDismiss: Bool = false,
+		onDismiss: @escaping (() -> Void)
+	) {
 		self.accountsVM = accountsVM
+		self.onDismiss = onDismiss
 		self.profileVM = profileVM
 		self.hasDismiss = hasDismiss
 		super.init(nibName: nil, bundle: nil)
@@ -84,7 +91,7 @@ class AccountsViewController: UIViewController {
 
 	@objc
 	private func openCreateImportWalletPage() {
-		let createImportWalletVC = AddNewAccountViewController(accountsVM: accountsVM)
+		let createImportWalletVC = AddNewAccountViewController(accountsVM: accountsVM, onDismiss: onDismiss)
 		navigationController?.pushViewController(createImportWalletVC, animated: true)
 	}
 

@@ -127,7 +127,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		TrxWithGasInfo { seal in
 			let stethToken = selectedToken.copy(newId: tokenPositionID)
 			swapPriceManager.getSwapResponseFrom(
-				provider: .paraswap,
+				provider: .zeroX,
 				srcToken: stethToken,
 				destToken: selectedToken,
 				swapSide: .sell,

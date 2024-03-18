@@ -30,7 +30,7 @@ struct CollateralDetailsViewModel {
 
 	public var totalTokenAmountInDollar: String {
 		let userAmountInDollars = userAmountInToken * foundCollateralledToken.price
-		return userAmountInDollars.priceFormat
+		return userAmountInDollars.priceFormat(of: foundCollateralledToken.assetType, withRule: .standard)
 	}
 
 	public var tokenIcon: URL {

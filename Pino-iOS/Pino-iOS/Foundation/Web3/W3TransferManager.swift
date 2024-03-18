@@ -98,9 +98,7 @@ public struct W3TransferManager: Web3HelperProtocol {
 	}
 
 	public func getTrxOfsendEtherTo(recipient address: String, amount: BigUInt) -> TrxWithGasInfo {
-		let enteredAmount = EthereumQuantity(quantity: amount)
-
-		return TrxWithGasInfo { seal in
+		TrxWithGasInfo { seal in
 			firstly {
 				gasInfoManager.calculateEthGasFee(enteredAmount: amount.etherumQuantity, to: address.eip55Address!)
 			}.then { [self] gasInfo in

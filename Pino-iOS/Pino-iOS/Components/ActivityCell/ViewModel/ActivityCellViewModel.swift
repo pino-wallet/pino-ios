@@ -35,26 +35,26 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		switch uiType {
 		case .swap, .wrapETH, .unwrapETH:
 			return "Swapping"
-		case .borrow:
-			return "Borrowing"
+//		case .borrow:
+//			return "Borrowing"
 		case .send:
 			return "Sending"
 		case .receive:
 			return "Receiving"
 		case .collateral:
 			return "Collateralizing"
-		case .withdraw_collateral:
-			return "Uncollateralizing"
+//		case .withdraw_collateral:
+//			return "Uncollateralizing"
 		case .invest:
 			return "Investing"
-		case .repay:
-			return "Repaying"
+//		case .repay:
+//			return "Repaying"
 		case .withdraw_investment:
 			return "Withdrawing"
-		case .enable_collateral:
-			return "Enabling"
-		case .disable_collateral:
-			return "Disabling"
+//		case .enable_collateral:
+//			return "Enabling"
+//		case .disable_collateral:
+//			return "Disabling"
 		case .approve:
 			return "Approving"
 		}
@@ -64,26 +64,26 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 		switch uiType {
 		case .swap, .unwrapETH, .wrapETH:
 			return "Swapped"
-		case .borrow:
-			return "Borrowed"
+//		case .borrow:
+//			return "Borrowed"
 		case .send:
 			return "Sent"
 		case .receive:
 			return "Received"
 		case .collateral:
 			return "Collateralized"
-		case .withdraw_collateral:
-			return "Uncollateralized"
+//		case .withdraw_collateral:
+//			return "Uncollateralized"
 		case .invest:
 			return "Invested"
-		case .repay:
-			return "Repaid"
+//		case .repay:
+//			return "Repaid"
 		case .withdraw_investment:
 			return "Withdrew"
-		case .enable_collateral:
-			return "Enabled"
-		case .disable_collateral:
-			return "Disabled"
+//		case .enable_collateral:
+//			return "Enabled"
+//		case .disable_collateral:
+//			return "Disabled"
 		case .approve:
 			return "Approved"
 		}
@@ -118,18 +118,18 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			return .invest
 		case .decrease_investment, .withdraw_investment:
 			return .withdraw_investment
-		case .borrow:
-			return .borrow
-		case .repay, .repay_behalf:
-			return .repay
-		case .increase_collateral, .create_collateral:
+//		case .borrow:
+//			return .borrow
+//		case .repay, .repay_behalf:
+//			return .repay
+		case /* .increase_collateral, */ .create_collateral:
 			return .collateral
-		case .decrease_collateral, .remove_collateral:
-			return .withdraw_collateral
-		case .enable_collateral:
-			return .enable_collateral
-		case .disable_collateral:
-			return .disable_collateral
+//		case .decrease_collateral, .remove_collateral:
+//			return .withdraw_collateral
+//		case .enable_collateral:
+//			return .enable_collateral
+//		case .disable_collateral:
+//			return .disable_collateral
 		case .approve:
 			return .approve
 		case .wrap_eth, .swap_wrap:
@@ -298,22 +298,22 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
 			// set cell icon
 			icon = receiveIcon
-		case .borrow:
-			// set cell title
-			title =
-				"\(baseTitle) \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
-			// set cell moreInfo
-			activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
-			// set cell icon
-			icon = borrowIcon
-		case .repay:
-			// set cell title
-			title =
-				"\(baseTitle) \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
-			// set cell moreInfo
-			activityMoreInfo = repayDetailsVM!.activityProtocol.capitalized
-			// set cell icon
-			icon = repaidIcon
+//		case .borrow:
+//			// set cell title
+//			title =
+//				"\(baseTitle) \(borrowDetailsVM!.tokenAmount.sevenDigitFormat) \(borrowDetailsVM!.tokenSymbol)"
+//			// set cell moreInfo
+//			activityMoreInfo = borrowDetailsVM!.activityProtocol.capitalized
+//			// set cell icon
+//			icon = borrowIcon
+//		case .repay:
+//			// set cell title
+//			title =
+//				"\(baseTitle) \(repayDetailsVM!.tokenAmount.sevenDigitFormat) \(repayDetailsVM!.tokenSymbol)"
+//			// set cell moreInfo
+//			activityMoreInfo = repayDetailsVM!.activityProtocol.capitalized
+//			// set cell icon
+//			icon = repaidIcon
 		case .withdraw_investment:
 			// set cell title
 			title =
@@ -338,32 +338,33 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 			activityMoreInfo = collateralDetailsVM!.activityProtocol.capitalized
 			// set cell icon
 			icon = collateralIcon
-		case .withdraw_collateral:
-			// set cell title
-			title =
-				"\(baseTitle) \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat) \(withdrawCollateralDetailsVM!.tokenSymbol)"
-			// set cell moreInfo
-			activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
-			// set cell icon
-			icon = decreaseCollateral
-		case .enable_collateral:
-			// set cell title
-			title =
-				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
-			// set cell moreInfo
-			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
-			// set cell icon
-			#warning("this should change")
-			icon = approveIcon
-		case .disable_collateral:
-			// set cell title
-			title =
-				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
-			// set cell moreInfo
-			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
-			// set cell icon
-			#warning("this should change")
-			icon = approveIcon
+//		case .withdraw_collateral:
+//			// set cell title
+//			title =
+//				"\(baseTitle) \(withdrawCollateralDetailsVM!.tokenAmount.sevenDigitFormat)
+//				\(withdrawCollateralDetailsVM!.tokenSymbol)"
+//			// set cell moreInfo
+//			activityMoreInfo = withdrawCollateralDetailsVM!.activityProtocol.capitalized
+//			// set cell icon
+//			icon = decreaseCollateral
+//		case .enable_collateral:
+//			// set cell title
+//			title =
+//				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
+//			// set cell moreInfo
+//			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
+//			// set cell icon
+//			#warning("this should change")
+//			icon = approveIcon
+//		case .disable_collateral:
+//			// set cell title
+//			title =
+//				"\(baseTitle) \(collateralStatusDetailsVM!.tokenSymbol) to collateralized"
+//			// set cell moreInfo
+//			activityMoreInfo = collateralStatusDetailsVM!.activityProtocol.capitalized
+//			// set cell icon
+//			#warning("this should change")
+//			icon = approveIcon
 		case .approve:
 			// set cell title
 			title =

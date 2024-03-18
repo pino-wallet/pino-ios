@@ -11,6 +11,7 @@ class AssetsBoardCollectionView: UICollectionView {
 	// MARK: - Public Properties
 
 	public var assets: [AssetsBoardProtocol]
+	@Published
 	public var isLoading = false
 
 	// MARK: - Private Properties
@@ -95,15 +96,15 @@ extension AssetsBoardCollectionView: UICollectionViewDelegateFlowLayout {
 	) -> CGSize {
 		switch section {
 		case 0:
+			guard !isLoading else {
+				return CGSize(width: collectionView.frame.width, height: 24)
+			}
 			if userAssets.isEmpty {
 				return .zero
 			} else {
 				return CGSize(width: collectionView.frame.width, height: 54)
 			}
 		case 1:
-			guard !isLoading else {
-				return CGSize(width: collectionView.frame.width, height: 54)
-			}
 			if assets.isEmpty {
 				return .zero
 			} else {

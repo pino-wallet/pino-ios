@@ -33,7 +33,7 @@ struct UserBorrowingAssetViewModel: AssetsBoardProtocol {
 
 	public var userBorrowingInDollars: String {
 		let borrowingAmountinDollars = foundBorrowedToken.price * userAmountInToken
-		return borrowingAmountinDollars.priceFormat
+		return borrowingAmountinDollars.priceFormat(of: foundBorrowedToken.assetType, withRule: .standard)
 	}
 
 	public var userBorrowingTokenID: String {

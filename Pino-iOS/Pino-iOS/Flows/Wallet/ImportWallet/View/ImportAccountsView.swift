@@ -42,6 +42,12 @@ class ImportAccountsView: UIView {
 		fatalError()
 	}
 
+	// MARK: - Public Methods
+
+	public func stopLoading() {
+		importButton.style = .active
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -50,11 +56,10 @@ class ImportAccountsView: UIView {
 		addSubview(contentStackView)
 
 		importButton.addAction(UIAction(handler: { _ in
+			self.importButton.style = .loading
 			self.importButtonDidTap()
 		}), for: .touchUpInside)
 	}
-
-	// MARK: - Private Methods
 
 	private func setupStyle() {
 		importButton.title = "Continue"

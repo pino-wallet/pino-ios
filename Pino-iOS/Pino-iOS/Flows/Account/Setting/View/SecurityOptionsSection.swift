@@ -15,7 +15,7 @@ class SecurityOptionsSection: UICollectionReusableView {
 
 	// MARK: - Public Peoperties
 
-	public var securityVM: SecurityViewModel! {
+	public var securityVM: SecuritySettingsViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()

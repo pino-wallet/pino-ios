@@ -54,7 +54,16 @@ extension ActivityBorrowModel {
 		)
 		self.fromAddress = cdBorrowActivityModel.fromAddress
 		self.toAddress = cdBorrowActivityModel.toAddress
-		self.failed = nil
+		switch ActivityStatus(rawValue: cdBorrowActivityModel.status) {
+		case .pending:
+			self.failed = nil
+		case .success:
+			self.failed = false
+		case .failed:
+			self.failed = true
+		default:
+			self.failed = nil
+		}
 		self.blockNumber = nil
 		self.blockTime = cdBorrowActivityModel.blockTime
 		self.gasUsed = cdBorrowActivityModel.gasUsed

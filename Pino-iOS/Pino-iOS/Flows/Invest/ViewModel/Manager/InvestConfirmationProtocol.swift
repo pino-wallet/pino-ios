@@ -28,6 +28,7 @@ protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
 	var customAssetImage: String { get }
 	var selectedProtocolImage: String { get }
 	var selectedProtocolName: String { get }
+	var pageTitle: String { get }
 	var sendTransactions: [SendTransactionViewModel]? { get }
 	func getTransactionInfo()
 }
@@ -55,7 +56,7 @@ extension InvestConfirmationViewProtocol {
 	var feeErrorText: String { "Error in calculation!" }
 	var feeErrorIcon: String { "refresh" }
 	var confirmButtonTitle: String { "Confirm" }
-	var insuffientButtonTitle: String { "Insufficient Amount" }
+	var insuffientButtonTitle: String { "Insufficient amount" }
 }
 
 extension InvestConfirmationProtocol {
@@ -90,13 +91,5 @@ extension InvestConfirmationProtocol {
 
 	var formattedTransactionAmountInDollar: String {
 		transactionAmountInDollar
-	}
-
-	var userBalanceIsEnough: Bool {
-		if gasFee > ethToken.holdAmount {
-			return false
-		} else {
-			return true
-		}
 	}
 }

@@ -13,13 +13,14 @@ class ProfileViewController: UIViewController {
 
 	private let profileVM: ProfileViewModel
 	private let accountsVM: AccountsViewModel
-	private let devModeUserDefaultsManager = UserDefaultsManager(userDefaultKey: .isInDevMode)
 	private var cancellables = Set<AnyCancellable>()
+	private var onDismiss: () -> Void
 
 	// MARK: Initializers
 
-	init(profileVM: ProfileViewModel) {
+	init(profileVM: ProfileViewModel, onDismiss: @escaping (() -> Void)) {
 		self.profileVM = profileVM
+		self.onDismiss = onDismiss
 		self.accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -46,8 +47,8 @@ class ProfileViewController: UIViewController {
 
 	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		if motion == .motionShake {
-			let devMode: Bool = devModeUserDefaultsManager.getValue() ?? false
-			devModeUserDefaultsManager.setValue(value: !devMode)
+			let devMode: Bool = UserDefaultsManager.isDevModeUser.getValue() ?? false
+			UserDefaultsManager.isDevModeUser.setValue(value: !devMode)
 			if devMode {
 				Toast.default(title: "DevMode DeActivated", style: .error).show(haptic: .success)
 			} else {
@@ -86,13 +87,13 @@ class ProfileViewController: UIViewController {
 	private func openSettingDetail(settingVM: SettingsViewModel) {
 		switch settingVM {
 		case .wallets:
-			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM)
+			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, onDismiss: onDismiss)
 			navigationController?.pushViewController(walletsVC, animated: true)
 		case .notification:
 			let notificationsVC = NotificationSettingsViewController()
 			navigationController?.pushViewController(notificationsVC, animated: true)
 		case .securityLock:
-			let securityLockVC = SecurityViewController()
+			let securityLockVC = SecuritySettingsViewController()
 			navigationController?.pushViewController(securityLockVC, animated: true)
 		case .recoverPhrase:
 			let recoverPhraseVC = RecoveryPhraseViewController()

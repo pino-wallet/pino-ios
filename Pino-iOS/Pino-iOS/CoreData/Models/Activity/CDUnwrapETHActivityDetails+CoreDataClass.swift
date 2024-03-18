@@ -2,7 +2,7 @@
 //  CDUnwrapETHActivityDetails+CoreDataClass.swift
 //
 //
-//  Created by Amir Kazemi on 2/21/24.
+//  Created by Amir hossein kazemi seresht on 2/24/24.
 //
 //
 

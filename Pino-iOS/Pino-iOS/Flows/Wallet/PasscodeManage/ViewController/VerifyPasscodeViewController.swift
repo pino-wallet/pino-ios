@@ -60,32 +60,50 @@ class VerifyPasscodeViewController: UIViewController {
 
 	func configVerifyPassVM() {
 		verifyPassVM = VerifyPassViewModel(
-			finishPassCreation: {
+			finishPassCreation: { [self] in
 				// Passcode was verified -> Show all done page
-				let allDoneVC = AllDoneViewController(
-					selectedAccounts: self.selectedAccounts,
-					mnemonics: self.mnemonics
-				)
-				self.navigationController?.pushViewController(allDoneVC, animated: true)
+				if verifyPassVM.showSyncPage() {
+					openSyncPage()
+				} else {
+					openAllDonePage()
+				}
 			},
 			onErrorHandling: { error in
-				// display error
-				switch error {
-				case .dontMatch:
-					self.verifyPassView?.passDotsView.showErrorState()
-					self.verifyPassView?.showErrorWith(text: self.verifyPassVM.errorTitle)
-				case .saveFailed:
-					fatalError("Print Failed")
-				case .unknown:
-					fatalError("Uknown Error")
-				case .emptyPasscode:
-					fatalError("Passcode sent to verify is empty")
-				}
+				self.displayError(error)
 			},
 			hideError: {
 				self.verifyPassView?.hideError()
 			},
-			selectedPasscode: selectedPasscode
+			selectedPasscode: selectedPasscode,
+			selectedAccounts: selectedAccounts
 		)
+	}
+
+	private func displayError(_ error: PassVerifyError) {
+		// display error
+		switch error {
+		case .dontMatch:
+			verifyPassView?.passDotsView.showErrorState()
+			verifyPassView?.showErrorWith(text: verifyPassVM.errorTitle)
+		case .saveFailed:
+			fatalError("Print Failed")
+		case .unknown:
+			fatalError("Uknown Error")
+		case .emptyPasscode:
+			fatalError("Passcode sent to verify is empty")
+		}
+	}
+
+	private func openAllDonePage() {
+		let allDoneVC = AllDoneViewController(
+			selectedAccounts: selectedAccounts,
+			mnemonics: mnemonics
+		)
+		navigationController?.pushViewController(allDoneVC, animated: true)
+	}
+
+	private func openSyncPage() {
+		let syncPage = SyncWalletViewController(selectedAccounts: selectedAccounts!, mnemonics: mnemonics)
+		navigationController?.pushViewController(syncPage, animated: true)
 	}
 }

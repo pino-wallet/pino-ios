@@ -14,8 +14,12 @@ struct RecentAddressViewModel {
 
 	// MARK: - Public Properties
 
+	public var address: String {
+		recentAddressModel.address
+	}
+
 	public var shortEndAddress: String {
-		recentAddressModel.address.addressFormating()
+		address.addressFormating()
 	}
 
 	public var logoText: String {

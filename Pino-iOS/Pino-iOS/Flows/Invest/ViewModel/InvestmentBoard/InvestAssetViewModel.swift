@@ -11,9 +11,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	// MARK: - Private Properties
 
 	private let assetModel: InvestmentModel
-	private let investToken: AssetViewModel
 
 	// MARK: - Public Properties
+
+	public let investToken: AssetViewModel
 
 	public var investmentId: String {
 		assetModel.id
@@ -48,7 +49,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var formattedInvestmentAmount: String {
-		investmentAmount.priceFormat
+		investmentAmount.priceFormat(of: assetType, withRule: .standard)
 	}
 
 	public var prevoiusInvestmentAmount: BigNumber {
@@ -68,7 +69,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var formattedTokenAmountInDollor: String {
-		tokenAmountInDollor.priceFormat
+		tokenAmountInDollor.priceFormat(of: assetType, withRule: .standard)
 	}
 
 	public var assetVolatility: BigNumber {
@@ -76,7 +77,7 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 	}
 
 	public var formattedAssetVolatility: String {
-		assetVolatility.priceFormat
+		assetVolatility.priceFormat(of: assetType, withRule: .standard)
 	}
 
 	public var volatilityType: AssetVolatilityType {
@@ -105,6 +106,10 @@ public struct InvestAssetViewModel: AssetsBoardProtocol {
 
 	public var tokenTotalAmountInDollar: BigNumber {
 		tokenTotalAmount * investToken.price
+	}
+
+	public var assetType: AssetType {
+		investToken.assetType
 	}
 
 	// MARK: - Initializers

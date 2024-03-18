@@ -54,33 +54,47 @@ class AccountsViewModel {
 
 	private func addNewWalletAccountWithAddress(
 		_ address: String,
-		derivationPath: String? = nil,
-		publicKey: EthereumPublicKey
+		derivationPath: String?,
+		publicKey: EthereumPublicKey,
+		accountName: String?,
+		accountAvatar: Avatar?
 	) {
 		var walletType: Wallet.WalletType = .nonHDWallet
 		if derivationPath != nil {
 			walletType = .hdWallet
 		}
 		let wallet = coreDataManager.getAllWallets().first(where: { $0.walletType == walletType })
-		let walletsAvatar = accountsList.map { $0.profileImage }
-		let walletsName = accountsList.map { $0.name }
-		let newAvatar = Avatar
-			.allCases
-			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }
-			.randomElement()
-			?? .green_apple
+		var newAccountName: String
+		var newAvatar: Avatar
+		if let accountAvatar {
+			newAvatar = accountAvatar
+			newAccountName = accountName ?? accountAvatar.name
+		} else {
+			newAvatar = generateRandomAvatar()
+			newAccountName = newAvatar.name
+		}
 
 		guard let newAccount = coreDataManager.createWalletAccount(
 			address: address,
 			derivationPath: derivationPath,
 			publicKey: publicKey.hex(),
-			name: newAvatar.name,
+			name: newAccountName,
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,
 			wallet: wallet!
 		) else { return }
 		getAccounts()
 		GlobalVariables.shared.updateCurrentAccount(newAccount)
+	}
+
+	private func generateRandomAvatar() -> Avatar {
+		let walletsAvatar = accountsList.map { $0.profileImage }
+		let walletsName = accountsList.map { $0.name }
+		return Avatar
+			.allCases
+			.filter { !walletsAvatar.contains($0.rawValue) && !walletsName.contains($0.name) }
+			.randomElement()
+			?? .green_apple
 	}
 
 	// MARK: - Public Methods
@@ -109,14 +123,24 @@ class AccountsViewModel {
 		}
 	}
 
-	public func importAccountWith(privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
+	public func importAccount(
+		privateKey: String,
+		accountName: String,
+		accountAvatar: Avatar,
+		completion: @escaping (WalletOperationError?) -> Void
+	) {
 		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
 		switch importedAccount {
 		case let .success(account):
 			if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
 				completion(WalletOperationError.wallet(.accountAlreadyExists))
 			} else {
-				activateNewAccountAddress(account, publicKey: account.publicKey) { error in
+				activateNewAccountAddress(
+					account,
+					publicKey: account.publicKey,
+					accountName: accountName,
+					accountAvatar: accountAvatar
+				) { error in
 					completion(error)
 				}
 			}
@@ -129,10 +153,19 @@ class AccountsViewModel {
 		_ account: Account,
 		publicKey: EthereumPublicKey,
 		derivationPath: String? = nil,
+		accountName: String? = nil,
+		accountAvatar: Avatar? = nil,
 		completion: @escaping (WalletOperationError?) -> Void
 	) {
-		accountActivationVM.activateNewAccountAddress(account).done { [self] accountId in
-			addNewWalletAccountWithAddress(account.eip55Address, derivationPath: derivationPath, publicKey: publicKey)
+		accountActivationVM.activateNewAccountAddress(account).done { [self] accountInfo in
+			addNewWalletAccountWithAddress(
+				account.eip55Address,
+				derivationPath: derivationPath,
+				publicKey: publicKey,
+				accountName: accountName,
+				accountAvatar: accountAvatar
+			)
+			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
 			resetPendingActivities()
 			completion(nil)
 		}.catch { error in

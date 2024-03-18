@@ -41,7 +41,6 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 				readWeb3.eth.estimateGas(call: .init(
 					from: trx.from,
 					to: trx.to!,
-					gasPrice: trx.gasPrice,
 					data: trx.data
 				)).map { ($0, nonce) }
 			}.done { gasLimit, nonce in
@@ -66,7 +65,6 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 					.estimateGas(call: .init(
 						from: userPrivateKey.address,
 						to: to,
-						gasPrice: gasInfo.maxFeePerGas.etherumQuantity,
 						value: value,
 						data: data
 					)).map { $0 }
@@ -99,7 +97,6 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 					.estimateGas(call: .init(
 						from: userPrivateKey.address,
 						to: address,
-						gasPrice: gasInfo.maxFeePerGas.etherumQuantity,
 						value: enteredAmount
 					)).map { $0 }
 			}.done { gasLimit in

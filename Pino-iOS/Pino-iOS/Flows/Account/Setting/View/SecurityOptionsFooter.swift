@@ -10,7 +10,7 @@ import UIKit
 class SecurityOptionsFooter: UICollectionReusableView {
 	// MARK: - Public Properties
 
-	public var securityVM: SecurityViewModel! {
+	public var securityVM: SecuritySettingsViewModel! {
 		didSet {
 			setupView()
 			setupConstraints()

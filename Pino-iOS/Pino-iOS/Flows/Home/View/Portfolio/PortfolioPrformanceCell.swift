@@ -18,13 +18,15 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 	private let assetName = UILabel()
 	private let assetAmount = UILabel()
 	private let assetAmountPercentage = UILabel()
+	private let assetLoadingView = UIView()
+	private let assetAmountLoadingView = UIView()
 	private let progressView = UIProgressView()
 
 	// MARK: Public Properties
 
 	public static let cellReuseID = "portfolioPerformanceCell"
 
-	public var assetVM: ShareOfAssetsProtocol! {
+	public var assetVM: ShareOfAssetsProtocol? {
 		didSet {
 			setupView()
 			setupStyle()
@@ -40,26 +42,35 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 		contentStackView.addArrangedSubview(amountStackView)
 		amountStackView.addArrangedSubview(titleStackView)
 		amountStackView.addArrangedSubview(progressStackView)
+		amountStackView.addArrangedSubview(assetLoadingView)
 		titleStackView.addArrangedSubview(assetName)
 		titleStackView.addArrangedSubview(assetAmount)
 		progressStackView.addArrangedSubview(progressView)
 		progressStackView.addArrangedSubview(assetAmountPercentage)
+		assetLoadingView.addSubview(assetAmountLoadingView)
 	}
 
 	private func setupStyle() {
-		assetName.text = assetVM.assetName
-		assetAmount.text = assetVM.assetAmount
-		assetAmountPercentage.text = assetVM.amountPercentage
+		if let assetVM {
+			assetName.text = assetVM.assetName
+			assetAmount.text = assetVM.assetAmount
+			assetAmountPercentage.text = assetVM.amountPercentage
 
-		if let assetImageURL = assetVM.assetImage {
-			assetImage.kf.indicatorType = .activity
-			assetImage.kf.setImage(with: assetImageURL)
+			if let assetImageURL = assetVM.assetImage {
+				assetImage.kf.indicatorType = .activity
+				assetImage.kf.setImage(with: assetImageURL)
+			} else {
+				assetImage.image = UIImage(named: assetVM.othersImage)
+			}
+
+			let progressbarFloatValue = Float(assetVM.progressBarValue.decimalString)!
+			progressView.setProgress(progressbarFloatValue, animated: true)
+
+			assetLoadingView.isHiddenInStackView = true
 		} else {
-			assetImage.image = UIImage(named: assetVM.othersImage)
+			assetLoadingView.isHiddenInStackView = false
 		}
 
-		let progressbarFloatValue = Float(assetVM.progressBarValue.decimalString)!
-		progressView.setProgress(progressbarFloatValue, animated: true)
 		progressView.progressTintColor = .Pino.gray3
 		progressView.trackTintColor = .Pino.clear
 
@@ -83,6 +94,10 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 		titleStackView.distribution = .equalCentering
 		progressStackView.distribution = .fill
 		progressStackView.alignment = .center
+
+		assetImage.isSkeletonable = true
+		assetName.isSkeletonable = true
+		assetAmountLoadingView.isSkeletonable = true
 	}
 
 	private func setupConstraint() {
@@ -97,5 +112,17 @@ class PortfolioPerformanceCell: GroupCollectionViewCell {
 			.fixedWidth(40),
 			.fixedHeight(40)
 		)
+		assetAmountLoadingView.pin(
+			.fixedHeight(12),
+			.fixedWidth(56),
+			.centerY,
+			.leading
+		)
+		if assetVM == nil {
+			assetName.pin(
+				.fixedHeight(14),
+				.fixedWidth(130)
+			)
+		}
 	}
 }

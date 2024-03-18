@@ -19,6 +19,9 @@ struct InvestmentShareOfAssetsViewModel: ShareOfAssetsProtocol {
 
 	internal var holdAmount: BigNumber
 	internal var totalAmount: BigNumber
+	internal var assetAmount: String {
+		holdAmount.priceFormat(of: assetVM.assetType, withRule: .standard)
+	}
 
 	// MARK: - Initializers
 

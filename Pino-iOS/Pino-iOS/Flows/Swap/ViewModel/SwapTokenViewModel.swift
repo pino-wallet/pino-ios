@@ -33,6 +33,10 @@ class SwapTokenViewModel {
 		}
 	}
 
+	public var selectedTokenMaxAmount: BigNumber {
+		SwapGasLimitsManager.getMaxAmount(selectedToken: selectedToken)
+	}
+
 	// MARK: - Initializers
 
 	init(selectedToken: AssetViewModel) {
@@ -42,11 +46,16 @@ class SwapTokenViewModel {
 	// MARK: - Public Methods
 
 	public func calculateDollarAmount(_ enteredAmount: BigNumber?) {
+		tokenAmount = enteredAmount
+
+		guard selectedToken.isVerified else {
+			dollarAmount = nil
+			return
+		}
+
 		if let enteredAmount {
-			tokenAmount = enteredAmount
 			dollarAmount = enteredAmount * selectedToken.price
 		} else {
-			tokenAmount = nil
 			dollarAmount = nil
 		}
 	}
@@ -66,8 +75,9 @@ class SwapTokenViewModel {
 	}
 
 	public func checkBalanceStatus(token: AssetViewModel) -> AmountStatus {
+		let maxAmount = SwapGasLimitsManager.getMaxAmount(selectedToken: selectedToken)
 		if let amount = tokenAmount, !amount.isZero {
-			if amount > token.holdAmount {
+			if amount > maxAmount {
 				return .isNotEnough
 			} else {
 				return .isEnough
@@ -82,7 +92,7 @@ class SwapTokenViewModel {
 	private func convertDollarAmountToTokenAmount(dollarAmount: BigNumber?) -> BigNumber? {
 		if let dollarAmount {
 			let priceAmount = dollarAmount.number * 10.bigNumber.number
-				.power(6 + selectedToken.decimal - dollarAmount.decimal)
+				.power(Web3Core.Constants.pricePercision + selectedToken.decimal - dollarAmount.decimal)
 			let price = selectedToken.price
 
 			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)

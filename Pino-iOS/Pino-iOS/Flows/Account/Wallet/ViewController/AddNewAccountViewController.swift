@@ -15,11 +15,13 @@ class AddNewAccountViewController: UIViewController {
 	private var addNewAccountCollectionView: AddNewAccountCollectionView!
 	private var addNewAccountVM = AddNewAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
+	private var onDismiss: () -> Void
 
 	// MARK: - Initializers
 
-	init(accountsVM: AccountsViewModel) {
+	init(accountsVM: AccountsViewModel, onDismiss: @escaping (() -> Void)) {
 		self.accountsVM = accountsVM
+		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -60,42 +62,65 @@ class AddNewAccountViewController: UIViewController {
 	private func openAddNewAccountPage(option: AddNewAccountOptionModel) {
 		switch option.type {
 		case .Create:
-			// New Wallet should be created
-			// Loading should be shown
-			// Homepage in the new account should be opened
-			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
-			accountsVM.createNewAccount { [weak self] error in
-				if let error {
-					Toast.default(title: error.description, style: .error).show(haptic: .warning)
-					self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
-					return
-				} else {
-					self?.dismiss(animated: true)
-				}
-			}
+			createNewAccount()
 		case .Import:
-			let importWalletVC = ImportSecretPhraseViewController()
-			importWalletVC.isNewWallet = false
-			importWalletVC.addedNewWalletWithPrivateKey = { privateKey in
-				self.importAccountWithKey(privateKey) { error in
-					if let error {
-						importWalletVC.importsecretPhraseView.activateButton()
-						Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+			openImportAccountPage()
+		}
+	}
+
+	private func openImportAccountPage() {
+		let importWalletVC = ImportNewAccountViewController(accounts: accountsVM.accountsList)
+		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
+			self.importAccount(privateKey: privateKey, avatar: avatar, accountName: accountName) { error in
+				if let error {
+					importWalletVC.showValidationError(error)
+				} else {
+					if !SyncWalletViewModel.isSyncFinished {
+						self.openSyncPage()
 					} else {
 						self.dismiss(animated: true)
 					}
 				}
 			}
-			navigationController?.pushViewController(importWalletVC, animated: true)
 		}
+		navigationController?.pushViewController(importWalletVC, animated: true)
 	}
 
-	private func importAccountWithKey(_ privateKey: String, completion: @escaping (WalletOperationError?) -> Void) {
-		accountsVM.importAccountWith(privateKey: privateKey) { error in
+	private func importAccount(
+		privateKey: String,
+		avatar: Avatar,
+		accountName: String,
+		completion: @escaping (WalletOperationError?) -> Void
+	) {
+		accountsVM.importAccount(privateKey: privateKey, accountName: accountName, accountAvatar: avatar) { error in
 			if let error {
 				completion(error)
 			} else {
 				completion(nil)
+			}
+		}
+	}
+
+	private func openSyncPage() {
+		let syncPage = SyncWalletViewController {
+			self.onDismiss()
+		}
+		syncPage.modalPresentationStyle = .overFullScreen
+		present(syncPage, animated: true)
+	}
+
+	private func createNewAccount() {
+		// New Wallet should be created
+		// Loading should be shown
+		// Homepage in the new account should be opened
+		addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
+		accountsVM.createNewAccount { [weak self] error in
+			if let error {
+				Toast.default(title: error.description, style: .error).show(haptic: .warning)
+				self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
+				return
+			} else {
+				self?.dismiss(animated: true)
 			}
 		}
 	}

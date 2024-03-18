@@ -5,9 +5,10 @@
 //  Created by Amir hossein kazemi seresht on 7/3/23.
 //
 
+import Combine
 import Foundation
 
-struct ActivityHelper {
+class ActivityHelper {
 	// MARK: - TypeAliases
 
 	public typealias SeparatedActivitiesType = [(title: String, activities: [ActivityCellViewModel])]
@@ -18,9 +19,25 @@ struct ActivityHelper {
 		finalSeparatedActivities: SeparatedActivitiesType
 	)
 
-	// MARK: - Public Properties
+	// MARK: - Private Properties
 
-	public var globalAssetsList: [AssetViewModel]?
+	private var globalAssetsList: [AssetViewModel]?
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Initializers
+
+	init() {
+		setupBindings()
+	}
+
+	// MARK: - Private Methods
+
+	private func setupBindings() {
+		GlobalVariables.shared.$manageAssetsList.sink { globalTokens in
+			self.globalAssetsList = globalTokens
+			self.cancellables.removeAll()
+		}.store(in: &cancellables)
+	}
 
 	// MARK: - Public Methods
 
@@ -32,10 +49,10 @@ struct ActivityHelper {
 			return transferActivity
 		case let .transfer_from(transferActivity):
 			return transferActivity
-		case let .borrow(borrowActivity):
-			return borrowActivity
-		case let .repay(repayActvity):
-			return repayActvity
+//		case let .borrow(borrowActivity):
+//			return borrowActivity
+//		case let .repay(repayActvity):
+//			return repayActvity
 		case let .withdraw(withdrawActivity):
 			return withdrawActivity
 		case let .invest(investActivity):
@@ -65,6 +82,48 @@ struct ActivityHelper {
 		return iteratedActivities
 	}
 
+	public func iterateCoreDataActivity(coreDataActivity: CDActivityParent) -> ActivityModelProtocol {
+		switch ActivityType(rawValue: coreDataActivity.type) {
+		case .swap:
+			let cdSwapActivity = coreDataActivity as! CDSwapActivity
+			return ActivitySwapModel(cdSwapActivityModel: cdSwapActivity)
+		case .transfer:
+			let cdTransferActivity = coreDataActivity as! CDTransferActivity
+			return ActivityTransferModel(cdTransferActivityModel: cdTransferActivity)
+		case .transfer_from:
+			let cdTransferActivity = coreDataActivity as! CDTransferActivity
+			return ActivityTransferModel(cdTransferActivityModel: cdTransferActivity)
+		case .approve:
+			let cdApproveActivity = coreDataActivity as! CDApproveActivity
+			return ActivityApproveModel(cdApproveActivityModel: cdApproveActivity)
+		case .create_investment, .increase_investment:
+			let cdInvestActivity = coreDataActivity as! CDInvestActivity
+			return ActivityInvestModel(cdInvestActivityModel: cdInvestActivity)
+		case .decrease_investment, .withdraw_investment:
+			let cdWithdrawActivity = coreDataActivity as! CDWithdrawActivity
+			return ActivityWithdrawModel(cdWithDrawActivityModel: cdWithdrawActivity)
+//		case .borrow:
+//			let cdBorrowActivity = coreDataActivity as! CDBorrowActivity
+//			return ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity)
+//		case .repay:
+//			let cdRepayActivity = coreDataActivity as! CDRepayActivity
+//			return ActivityRepayModel(cdRepayActivityModel: cdRepayActivity)
+//		case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
+//		     .enable_collateral,
+//		     .disable_collateral:
+//			let cdCollateralActivity = coreDataActivity as! CDCollateralActivity
+//			return ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity)
+		case .wrap_eth, .swap_wrap:
+			let cdWrapETHActivity = coreDataActivity as! CDWrapETHActivity
+			return ActivityWrapETHModel(cdWrapActivityModel: cdWrapETHActivity)
+		case .unwrap_eth, .swap_unwrap:
+			let cdUnwrapETHActivity = coreDataActivity as! CDUnwrapETHActivity
+			return ActivityUnwrapETHModel(cdUnwrapActivityModel: cdUnwrapETHActivity)
+		default:
+			fatalError("Unknown activity type from coredata")
+		}
+	}
+
 	public func getActivityDate(activityBlockTime: String) -> Date {
 		activityBlockTime.serverFormattedDate
 	}
@@ -79,90 +138,6 @@ struct ActivityHelper {
 		separatedActivitiesWithDay = separateActivitiesByDay(activities: activities)
 
 		return sortSeparatedActivities(separatedActivitiesWithDay: separatedActivitiesWithDay)
-	}
-
-	public func getNewActivitiesInfo(
-		separatedActivities: SeparatedActivitiesType,
-		newSeparatedActivities: SeparatedActivitiesType
-	) -> ActivitiesInfoType {
-		var indexPaths = [IndexPath]()
-		var indexSets: [IndexSet] = []
-		var finalSeparatedActivities: SeparatedActivitiesType = separatedActivities
-
-		for newSeparatedActivity in newSeparatedActivities {
-			let foundSectionIndex = finalSeparatedActivities.firstIndex { $0.title == newSeparatedActivity.title }
-			if foundSectionIndex != nil {
-				finalSeparatedActivities[foundSectionIndex!].activities
-					.append(contentsOf: newSeparatedActivity.activities)
-				finalSeparatedActivities[foundSectionIndex!].activities = finalSeparatedActivities[foundSectionIndex!]
-					.activities
-					.sorted(by: {
-						getActivityDate(activityBlockTime: $0.blockTime)
-							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970
-					})
-				for (index, item) in finalSeparatedActivities[foundSectionIndex!].activities.enumerated() {
-					if newSeparatedActivity.activities
-						.contains(where: { item.defaultActivityModel.txHash == $0.defaultActivityModel.txHash }) {
-						indexPaths.append(IndexPath(row: index, section: foundSectionIndex!))
-					}
-				}
-			} else {
-				finalSeparatedActivities.append(newSeparatedActivity)
-				finalSeparatedActivities = finalSeparatedActivities
-					.sorted(by: {
-						getActivityDate(activityBlockTime: $0.activities[0].blockTime)
-							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.activities[0].blockTime)
-							.timeIntervalSince1970
-					})
-				let foundSectionIndex = finalSeparatedActivities
-					.firstIndex(where: { $0.title == newSeparatedActivity.title })
-				finalSeparatedActivities[foundSectionIndex!].activities = finalSeparatedActivities[foundSectionIndex!]
-					.activities
-					.sorted(by: {
-						getActivityDate(activityBlockTime: $0.blockTime)
-							.timeIntervalSince1970 > getActivityDate(activityBlockTime: $1.blockTime).timeIntervalSince1970
-					})
-				indexSets.append(IndexSet(integer: foundSectionIndex!))
-				for _ in finalSeparatedActivities[foundSectionIndex!].activities {
-					indexPaths
-						.append(IndexPath(
-							row: finalSeparatedActivities[foundSectionIndex!].activities.count - 1,
-							section: foundSectionIndex!
-						))
-				}
-			}
-		}
-
-		return (indexPaths: indexPaths, sections: indexSets, finalSeparatedActivities: finalSeparatedActivities)
-	}
-
-	public func getReplacedActivitiesInfo(
-		replacedActivities: [ActivityCellViewModel],
-		separatedActivities: SeparatedActivitiesType
-	) -> (indexPaths: [IndexPath], finalSeparatedActivities: SeparatedActivitiesType) {
-		var indexPaths: [IndexPath] = []
-		var finalSeparatedActivities = separatedActivities
-
-		for (index, separatedActivity) in finalSeparatedActivities.enumerated() {
-			for replacedActivity in replacedActivities {
-				let foundReplacingIndex = separatedActivity.activities
-					.firstIndex(where: { $0.defaultActivityModel.txHash == replacedActivity.defaultActivityModel.txHash })
-				let foundReplactingIndexWithPrevTxHash = separatedActivity.activities
-					.firstIndex(where: {
-						$0.defaultActivityModel.txHash == replacedActivity.defaultActivityModel.prev_txHash
-					})
-				if foundReplacingIndex != nil {
-					finalSeparatedActivities[index].activities[foundReplacingIndex!] = replacedActivity
-					indexPaths.append(IndexPath(item: foundReplacingIndex!, section: index))
-				} else if foundReplactingIndexWithPrevTxHash != nil {
-					finalSeparatedActivities[index].activities[foundReplactingIndexWithPrevTxHash!] = replacedActivity
-					indexPaths.append(IndexPath(item: foundReplactingIndexWithPrevTxHash!, section: index))
-				} else {
-					print("no replacing activities there")
-				}
-			}
-		}
-		return (indexPaths: indexPaths, finalSeparatedActivities: finalSeparatedActivities)
 	}
 
 	public func findTokenInGlobalAssetsList(tokenId: String) -> AssetViewModel? {
@@ -210,28 +185,28 @@ struct ActivityHelper {
 				toToken: toToken
 			)
 			return resultActivity
-		case .borrow:
-			guard let borrowActivityModel = activityDefaultModel as? ActivityBorrowModel,
-			      let borrowToken = findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID)
-			else {
-				return nil
-			}
-			resultActivity.borrowDetailsVM = BorrowActivityDetailsViewModel(
-				activityModel: borrowActivityModel,
-				token: borrowToken
-			)
-			return resultActivity
-		case .repay, .repay_behalf:
-			guard let repayActivityModel = activityDefaultModel as? ActivityRepayModel,
-			      let repayToken = findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID)
-			else {
-				return nil
-			}
-			resultActivity.repayDetailsVM = RepayActivityDetailsViewModel(
-				activityModel: repayActivityModel,
-				token: repayToken
-			)
-			return resultActivity
+//		case .borrow:
+//			guard let borrowActivityModel = activityDefaultModel as? ActivityBorrowModel,
+//			      let borrowToken = findTokenInGlobalAssetsList(tokenId: borrowActivityModel.detail.token.tokenID)
+//			else {
+//				return nil
+//			}
+//			resultActivity.borrowDetailsVM = BorrowActivityDetailsViewModel(
+//				activityModel: borrowActivityModel,
+//				token: borrowToken
+//			)
+//			return resultActivity
+//		case .repay, .repay_behalf:
+//			guard let repayActivityModel = activityDefaultModel as? ActivityRepayModel,
+//			      let repayToken = findTokenInGlobalAssetsList(tokenId: repayActivityModel.detail.repaidToken.tokenID)
+//			else {
+//				return nil
+//			}
+//			resultActivity.repayDetailsVM = RepayActivityDetailsViewModel(
+//				activityModel: repayActivityModel,
+//				token: repayToken
+//			)
+//			return resultActivity
 		case .decrease_investment, .withdraw_investment:
 			guard let withdrawActivityModel = activityDefaultModel as? ActivityWithdrawModel,
 			      let withdrawToken = findTokenInGlobalAssetsList(
@@ -284,7 +259,7 @@ struct ActivityHelper {
 				)
 				return resultActivity
 			}
-		case .create_collateral, .increase_collateral:
+		case .create_collateral /* , .increase_collateral */:
 			guard let collateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
 			      let collateralToken = findTokenInGlobalAssetsList(
 			      	tokenId: collateralActivityModel.detail.tokens[0]
@@ -297,32 +272,32 @@ struct ActivityHelper {
 				token: collateralToken
 			)
 			return resultActivity
-		case .remove_collateral, .decrease_collateral:
-			guard let withdrawCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
-			      let withdrawCollateralToken = findTokenInGlobalAssetsList(
-			      	tokenId: withdrawCollateralActivityModel
-			      		.detail.tokens[0].tokenID
-			      ) else {
-				return nil
-			}
-			resultActivity.withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
-				activityModel: withdrawCollateralActivityModel,
-				token: withdrawCollateralToken
-			)
-			return resultActivity
-		case .enable_collateral, .disable_collateral:
-			guard let enableCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
-			      let enableCollateralToken = findTokenInGlobalAssetsList(
-			      	tokenId: enableCollateralActivityModel.detail
-			      		.tokens[0].tokenID
-			      ) else {
-				return nil
-			}
-			resultActivity.collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
-				activityModel: enableCollateralActivityModel,
-				token: enableCollateralToken
-			)
-			return resultActivity
+//		case .remove_collateral, .decrease_collateral:
+//			guard let withdrawCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+//			      let withdrawCollateralToken = findTokenInGlobalAssetsList(
+//			      	tokenId: withdrawCollateralActivityModel
+//			      		.detail.tokens[0].tokenID
+//			      ) else {
+//				return nil
+//			}
+//			resultActivity.withdrawCollateralDetailsVM = WithdrawCollateralActivityDetailsViewModel(
+//				activityModel: withdrawCollateralActivityModel,
+//				token: withdrawCollateralToken
+//			)
+//			return resultActivity
+//		case .enable_collateral, .disable_collateral:
+//			guard let enableCollateralActivityModel = activityDefaultModel as? ActivityCollateralModel,
+//			      let enableCollateralToken = findTokenInGlobalAssetsList(
+//			      	tokenId: enableCollateralActivityModel.detail
+//			      		.tokens[0].tokenID
+//			      ) else {
+//				return nil
+//			}
+//			resultActivity.collateralStatusDetailsVM = CollateralStatusActivityDetailsViewModel(
+//				activityModel: enableCollateralActivityModel,
+//				token: enableCollateralToken
+//			)
+//			return resultActivity
 		case .approve:
 			guard let approveActivityModel = activityDefaultModel as? ActivityApproveModel,
 			      var approveToken = findTokenInGlobalAssetsList(tokenId: approveActivityModel.detail.tokenID) else {

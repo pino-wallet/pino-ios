@@ -39,7 +39,7 @@ class EnterSendAmountViewModel {
 	}
 
 	public var formattedMaxAmountInDollar: String {
-		maxAmountInDollar.priceFormat
+		maxAmountInDollar.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var formattedAmount: String {
@@ -47,7 +47,10 @@ class EnterSendAmountViewModel {
 			return tokenAmount == nil ? .emptyString :
 				"\(tokenAmount!.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol))"
 		} else {
-			return dollarAmount == nil ? .emptyString : dollarAmount!.priceFormat
+			return dollarAmount == nil ? .emptyString : dollarAmount!.priceFormat(
+				of: selectedToken.assetType,
+				withRule: .standard
+			)
 		}
 	}
 
@@ -134,7 +137,7 @@ class EnterSendAmountViewModel {
 
 			let amountInDollarDecimalValue = BigNumber(
 				number: amount.number * price.number,
-				decimal: amount.decimal + 6
+				decimal: amount.decimal + Web3Core.Constants.pricePercision
 			)
 			dollarAmount = amountInDollarDecimalValue
 		} else {
@@ -145,7 +148,8 @@ class EnterSendAmountViewModel {
 
 	private func convertDollarAmountToTokenValue(amount: BigNumber) {
 		if amount != 0.bigNumber {
-			let priceAmount = amount.number * BigInt(10).power(6 + selectedToken.decimal - amount.decimal)
+			let priceAmount = amount.number * BigInt(10)
+				.power(Web3Core.Constants.pricePercision + selectedToken.decimal - amount.decimal)
 			let price = selectedToken.price
 
 			let tokenAmountDecimalValue = priceAmount.quotientAndRemainder(dividingBy: price.number)

@@ -23,6 +23,7 @@ struct AccountDataSource: DataSourceProtocol {
 
 	internal mutating func fetchEntities() {
 		let accountFetch: NSFetchRequest<WalletAccount> = WalletAccount.fetchRequest()
+		accountFetch.sortDescriptors = [NSSortDescriptor(key: #keyPath(WalletAccount.name), ascending: true)]
 		do {
 			let results = try managedContext.fetch(accountFetch)
 			accounts = results
@@ -33,8 +34,9 @@ struct AccountDataSource: DataSourceProtocol {
 
 	// MARK: - Public Methods
 
-	public func getAll() -> [WalletAccount] {
-		accounts
+	public mutating func getAll() -> [WalletAccount] {
+		fetchEntities()
+		return accounts
 	}
 
 	public func getBy(id: String) -> WalletAccount? {

@@ -38,7 +38,7 @@ struct BorrowingPropertiesViewModel {
 			return "0"
 		}
 
-		return totalBorrowingAmountInDollars.priceFormat
+		return totalBorrowingAmountInDollars.priceFormat(of: .coin, withRule: .standard)
 	}
 
 	public var borrowingAssetsDetailList: [BorrowingTokenModel]? {

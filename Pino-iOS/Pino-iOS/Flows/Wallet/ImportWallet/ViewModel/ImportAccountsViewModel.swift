@@ -19,12 +19,15 @@ class ImportAccountsViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private let internetConnectivity = InternetConnectivity()
 	private var createdWallet: HDWallet?
+	private let accountActivationVM = AccountActivationViewModel()
 
 	// MARK: Public Properties
 
 	public let pageTitle = "Import account"
 	public var pageDescription: String {
-		guard let accounts else { return .emptyString }
+		if accounts.first(where: { $0.isNewWallet }) != nil {
+			return "You have no account with activity. Try to import some new one."
+		}
 		if accounts.count > 1 {
 			return "We found \(accounts.count) accounts with activity"
 		} else {
@@ -37,7 +40,7 @@ class ImportAccountsViewModel {
 	public var lastAccountIndex: Int?
 
 	@Published
-	public var accounts: [ActiveAccountViewModel]?
+	public var accounts: [ActiveAccountViewModel] = []
 
 	// MARK: - Initializers
 
@@ -45,122 +48,182 @@ class ImportAccountsViewModel {
 		self.walletMnemonics = walletMnemonics
 	}
 
-	// MARK: Private Methods
+	// MARK: - Private Methods
 
-	private func createWallet(mnemonics: String, completion: @escaping (Result<HDWallet>) -> Void) {
-		internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
-			if isConnected {
-				let hdWallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-				switch hdWallet {
-				case let .success(hdWallet):
-					completion(.fulfilled(hdWallet))
-				case let .failure(error):
-					completion(.rejected(error))
-				}
+	private func getWallet() -> Promise<HDWallet> {
+		Promise<HDWallet> { seal in
+			if let createdWallet {
+				seal.fulfill(createdWallet)
 			} else {
-				completion(.rejected(WalletOperationError.wallet(.netwrokError)))
-			}
-		}.store(in: &cancellables)
-	}
-
-	private func createAccount(wallet: HDWallet, accountIndex: Int) throws -> Account {
-		let derivationPath = "m/44'/60'/0'/0/\(accountIndex)"
-		let privateKey = wallet.getKey(coin: .ethereum, derivationPath: derivationPath)
-		let account = try Account(privateKeyData: privateKey.data)
-		account.derivationPath = derivationPath
-		return account
-	}
-
-	private func getActiveAddresses(accountAddresses: [String], completion: @escaping (Result<[String]>) -> Void) {
-		accountingAPIClient.activeAddresses(addresses: accountAddresses)
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Accounts received successfully")
-				case let .failure(error):
-					print("Error getting accounts:\(error)")
-					completion(.rejected(error))
+				createWallet(mnemonics: walletMnemonics).done { wallet in
+					seal.fulfill(wallet)
+				}.catch { error in
+					seal.reject(error)
 				}
-			} receiveValue: { accounts in
-				print("Active accounts: \(accounts)")
-				completion(.fulfilled(accounts.addresses))
+			}
+		}
+	}
+
+	private func createWallet(mnemonics: String) -> Promise<HDWallet> {
+		Promise<HDWallet> { seal in
+			internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
+				if isConnected {
+					let hdWallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+					switch hdWallet {
+					case let .success(hdWallet):
+						seal.fulfill(hdWallet)
+					case let .failure(error):
+						seal.reject(error)
+					}
+				} else {
+					seal.reject(WalletOperationError.wallet(.netwrokError))
+				}
 			}.store(in: &cancellables)
-	}
-
-	private func getAccountsBalance(of accounts: [Account], completion: @escaping ([ActiveAccountViewModel]) -> Void) {
-		let promises = accounts.compactMap { account in
-			Web3Core.shared.getETHBalance(of: account.eip55Address).map {
-				ActiveAccountViewModel(account: account, balance: $0)
-			}
-		}
-		when(fulfilled: promises).done { accountsVM in
-			completion(accountsVM)
-		}.catch { error in
 		}
 	}
 
-	private func setupActiveAccounts(createdAccounts: [Account], completion: @escaping (Error?) -> Void) {
-		let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
-		getActiveAddresses(accountAddresses: accountAddresses) { result in
-			switch result {
-			case let .fulfilled(activeAccountAddresses):
-				let activeAccounts = createdAccounts.filter {
-					activeAccountAddresses.contains($0.eip55Address.lowercased())
-				}
-				self.getAccountsBalance(of: activeAccounts) { accountsVM in
-					self.accounts = self.accounts! + accountsVM
-					completion(nil)
-				}
-				if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
-					self.lastAccountIndex = nil
-				}
-			case let .rejected(error):
-				completion(error)
+	private func createAccount(wallet: HDWallet, accountIndex: Int) -> Promise<Account> {
+		Promise<Account> { seal in
+			let derivationPath = "m/44'/60'/0'/0/\(accountIndex)"
+			let privateKey = wallet.getKey(coin: .ethereum, derivationPath: derivationPath)
+			do {
+				let account = try Account(privateKeyData: privateKey.data)
+				account.derivationPath = derivationPath
+				seal.fulfill(account)
+			} catch {
+				seal.reject(error)
 			}
+		}
+	}
+
+	private func getActiveAddresses(accountAddresses: [String]) -> Promise<[String]> {
+		Promise<[String]> { seal in
+			accountingAPIClient.activeAddresses(addresses: accountAddresses)
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Accounts received successfully")
+					case let .failure(error):
+						print("Error getting accounts:\(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { accounts in
+					print("Active accounts: \(accounts)")
+					seal.fulfill(accounts.addresses)
+				}.store(in: &cancellables)
+		}
+	}
+
+	private func getAccountsBalance(of accounts: [Account]) -> Promise<[ActiveAccountViewModel]> {
+		Promise<[ActiveAccountViewModel]> { seal in
+			let promises = accounts.compactMap { account in
+				Web3Core.shared.getETHBalance(of: account.eip55Address).map {
+					ActiveAccountViewModel(account: account, balance: $0)
+				}
+			}
+			when(fulfilled: promises).done { accountsVM in
+				seal.fulfill(accountsVM)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func setupActiveAccounts(_ activeAccounts: [ActiveAccountViewModel]) -> Promise<[ActiveAccountViewModel]> {
+		Promise<[ActiveAccountViewModel]> { seal in
+			self.accounts = self.accounts + activeAccounts
+			guard self.accounts.isEmpty else {
+				seal.fulfill(self.accounts)
+				return
+			}
+			activateNewAccount().done { newCreatedAccount in
+				self.accounts = [newCreatedAccount]
+				seal.fulfill(self.accounts)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func activateNewAccount() -> Promise<ActiveAccountViewModel> {
+		Promise<ActiveAccountViewModel> { seal in
+			firstly {
+				createAccount(wallet: createdWallet!, accountIndex: 0)
+			}.then { account in
+				self.accountActivationVM.activateNewAccountAddress(account).map { (account, $0) }
+			}.done { account, _ in
+				seal.fulfill(ActiveAccountViewModel(account: account, balance: nil, isNewWallet: true))
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func createAccounts(of wallet: HDWallet, from firstIndex: Int, to lastIndex: Int) -> Promise<[Account]> {
+		Promise<[Account]> { seal in
+			self.createdWallet = wallet
+			var createdAccounts: [Promise<Account>] = []
+			for index in firstIndex ... lastIndex {
+				self.lastAccountIndex = index
+				createdAccounts.append(self.createAccount(wallet: wallet, accountIndex: index))
+			}
+			when(fulfilled: createdAccounts).done { accounts in
+				seal.fulfill(accounts)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getActiveAccounts(form firstIndex: Int, to lastIndex: Int) -> Promise<[ActiveAccountViewModel]> {
+		firstly {
+			getWallet()
+		}.then { wallet in
+			self.createAccounts(of: wallet, from: firstIndex, to: lastIndex)
+		}.then { createdAccounts in
+			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
+			return self.getActiveAddresses(accountAddresses: accountAddresses).map { (createdAccounts, $0) }
+		}.then { createdAccounts, activeAddresses in
+			let activeAccounts = createdAccounts.filter {
+				activeAddresses.contains($0.eip55Address.lowercased())
+			}
+			if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
+				self.lastAccountIndex = nil
+			}
+			return self.getAccountsBalance(of: activeAccounts)
+		}.then { activeAccounts in
+			self.setupActiveAccounts(activeAccounts)
+		}
+	}
+
+	private func saveSyncFinishTime(accountsResponse: [AccountActivationModel]) {
+		accountsResponse.forEach { account in
+			SyncWalletViewModel.saveSyncTime(accountInfo: account)
 		}
 	}
 
 	// MARK: - Public Methods
 
-	public func getFirstAccounts(completion: @escaping (Error?) -> Void) {
-		createWallet(mnemonics: walletMnemonics) { result in
-			switch result {
-			case let .fulfilled(wallet):
-				self.createdWallet = wallet
-				var createdAccounts: [Account] = []
-				for index in 0 ..< 10 {
-					self.lastAccountIndex = index
-					do {
-						let account = try self.createAccount(wallet: wallet, accountIndex: index)
-						createdAccounts.append(account)
-					} catch {
-						completion(error)
-					}
-				}
-				self.accounts = []
-				self.setupActiveAccounts(createdAccounts: createdAccounts, completion: completion)
-			case let .rejected(error):
-				completion(error)
-			}
+	public func startSync(syncFinished: @escaping () -> Void) {
+		let selectedAccounts = accounts.filter { $0.isSelected }
+
+		let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
+			accountActivationVM.activateNewAccountAddress(selectedAccount.account)
+		}
+
+		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
+			saveSyncFinishTime(accountsResponse: activateAccountsResp)
+			syncFinished()
+		}.catch { error in
+			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
 		}
 	}
 
-	public func findMoreAccounts(completion: @escaping (Error?) -> Void) {
-		guard let lastAccountIndex else { return }
-		if let createdWallet {
-			var createdAccounts: [Account] = []
-			for index in (lastAccountIndex + 1) ... (lastAccountIndex + 10) {
-				self.lastAccountIndex = index
-				do {
-					let account = try createAccount(wallet: createdWallet, accountIndex: index)
-					createdAccounts.append(account)
-				} catch {
-					completion(error)
-				}
-			}
-			setupActiveAccounts(createdAccounts: createdAccounts, completion: completion)
-		} else {
-			getFirstAccounts(completion: completion)
-		}
+	public func getFirstAccounts() -> Promise<[ActiveAccountViewModel]> {
+		getActiveAccounts(form: 0, to: 9)
+	}
+
+	public func findMoreAccounts() -> Promise<[ActiveAccountViewModel]> {
+		getActiveAccounts(form: lastAccountIndex! + 1, to: lastAccountIndex! + 10)
 	}
 }

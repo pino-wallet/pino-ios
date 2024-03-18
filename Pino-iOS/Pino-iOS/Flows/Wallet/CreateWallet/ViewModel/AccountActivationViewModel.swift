@@ -19,7 +19,7 @@ class AccountActivationViewModel {
 
 	// MARK: - Public Methods
 
-	public func activateNewAccountAddress(_ account: Account) -> Promise<String> {
+	public func activateNewAccountAddress(_ account: Account) -> Promise<AccountActivationModel> {
 		let activateTime = Date().timeIntervalSince1970
 		return firstly {
 			fetchHash(address: account.eip55Address.lowercased(), activateTime: Int(activateTime))
@@ -36,8 +36,12 @@ class AccountActivationViewModel {
 
 	// MARK: - Private Methods
 
-	private func activateAccountWithHash(address: String, userHash: String, activateTime: Int) -> Promise<String> {
-		Promise<String> { seal in
+	private func activateAccountWithHash(
+		address: String,
+		userHash: String,
+		activateTime: Int
+	) -> Promise<AccountActivationModel> {
+		Promise<AccountActivationModel> { seal in
 			let accountInfo = AccountActivationRequestModel(
 				address: address,
 				sig: userHash,
@@ -52,7 +56,7 @@ class AccountActivationViewModel {
 						seal.reject(error)
 					}
 				} receiveValue: { activatedAccount in
-					seal.fulfill(activatedAccount.id)
+					seal.fulfill(activatedAccount)
 				}.store(in: &cancellables)
 		}
 	}

@@ -89,9 +89,8 @@ class ActivitiesCollectionView: UICollectionView {
 	}
 
 	private func setupBinding() {
-		var activityHelper = ActivityHelper()
-		activityHelper.globalAssetsList = GlobalVariables.shared.manageAssetsList
-		coinInfoVM.$coinHistoryActivitiesList.sink { [weak self] activities in
+		let activityHelper = ActivityHelper()
+		coinInfoVM.$coinHistoryActivitiesCellVMList.sink { [weak self] activities in
 			guard let userActivitiesOnToken = activities else {
 				self?.showLoading = true
 				return
@@ -107,46 +106,6 @@ class ActivitiesCollectionView: UICollectionView {
 			}
 			self?.showLoading = false
 			self?.reloadData()
-		}.store(in: &cancellables)
-
-		coinInfoVM.$coinHistoryNewActivitiesList.sink { newActivities in
-			guard !newActivities.isEmpty else {
-				self.refreshControl?.endRefreshing()
-				return
-			}
-			let newSeparatedActivities = activityHelper.separateActivitiesByTime(activities: newActivities)
-			let newActivitiesInfo = activityHelper.getNewActivitiesInfo(
-				separatedActivities: self.separatedActivities,
-				newSeparatedActivities: newSeparatedActivities
-			)
-			self.performBatchUpdates({
-				self.separatedActivities = newActivitiesInfo.finalSeparatedActivities
-				if !newActivitiesInfo.sections.isEmpty {
-					for newActivitySection in newActivitiesInfo.sections {
-						self.insertSections(newActivitySection)
-						self.collectionViewLayout.invalidateLayout()
-					}
-				}
-				self.insertItems(at: newActivitiesInfo.indexPaths)
-				self.collectionViewLayout.invalidateLayout()
-			}, completion: nil)
-			self.refreshControl?.endRefreshing()
-		}.store(in: &cancellables)
-
-		coinInfoVM.$shouldReplacedActivites.sink { shouldReplacedActivities in
-			guard !shouldReplacedActivities.isEmpty else {
-				return
-			}
-			let replacedActivitiesInfo = activityHelper.getReplacedActivitiesInfo(
-				replacedActivities: shouldReplacedActivities,
-				separatedActivities: self.separatedActivities
-			)
-			self.performBatchUpdates({
-				self.separatedActivities = replacedActivitiesInfo.finalSeparatedActivities
-				self.reloadItems(at: replacedActivitiesInfo.indexPaths)
-				self.collectionViewLayout.invalidateLayout()
-			}, completion: nil)
-
 		}.store(in: &cancellables)
 	}
 
@@ -331,7 +290,7 @@ extension ActivitiesCollectionView: UICollectionViewDataSource {
 	) -> CGSize {
 		switch coinInfoVM.coinPortfolio.type {
 		case .verified:
-			guard let userAcitivites = coinInfoVM.coinHistoryActivitiesList else {
+			guard let userAcitivites = coinInfoVM.coinHistoryActivitiesCellVMList else {
 				return CGSize(width: 0, height: 0)
 			}
 			if userAcitivites.isEmpty {

@@ -7,10 +7,10 @@
 
 import UIKit
 
-class SecurityViewController: UIViewController {
+class SecuritySettingsViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let securityVM = SecurityViewModel()
+	private let securityVM = SecuritySettingsViewModel()
 
 	// MARK: - View Overrides
 

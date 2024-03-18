@@ -52,9 +52,12 @@ public class PinoTextFieldView: UIView {
 //	}
 
 	public var text: String? {
-		didSet {
-			textField.text = text
+		set {
+			textField.text = newValue
 			textField.font = .PinoStyle.mediumBody
+		}
+		get {
+			textField.text
 		}
 	}
 
@@ -136,7 +139,7 @@ public class PinoTextFieldView: UIView {
 		case .error:
 			textField.setRightViewWithPadding(UIImageView(image: UIImage(named: "error")), paddingLeft: 10)
 			textField.rightViewMode = .always
-			errorLabel.isHidden = false
+			errorLabel.isHidden = true
 		case .success:
 			textField.setRightViewWithPadding(UIImageView(image: UIImage(named: "done")), paddingLeft: 10)
 			textField.rightViewMode = .always

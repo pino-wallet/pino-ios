@@ -19,3 +19,9 @@ struct InvestmentActivityDetails: Codable {
 		case nftId = "nft_id"
 	}
 }
+
+extension Array where Element == ActivityTokenModel {
+	internal func containsTokenId(_ id: String) -> Bool {
+		first(where: { $0.tokenID.lowercased() == id }) != nil
+	}
+}

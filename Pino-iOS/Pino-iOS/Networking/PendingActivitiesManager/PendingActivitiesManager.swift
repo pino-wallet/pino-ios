@@ -21,19 +21,19 @@ class PendingActivitiesManager {
 	// MARK: - Private Properties
 
 	private let activityAPIClient = ActivityAPIClient()
-	private let activityHelper = ActivityHelper()
 	private let coreDataManager = CoreDataManager()
 	private let requestsDispatchGroup = DispatchGroup()
 	private let walletManager = PinoWalletManager()
 	private var requestsTimer: Cancellable?
 	private var cancellables = Set<AnyCancellable>()
+	private lazy var activityHelper = ActivityHelper()
 
 	// MARK: - Public Methods
 
 	public func startActivityPendingRequests() {
 		getPendingActivitiesFromCoreData()
 		stopActivityPendingRequests()
-		requestsTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect().prepend(Date()).sink { _ in
+		requestsTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect().prepend(Date()).sink { _ in
 			self.getActivityPendings()
 		}
 	}
@@ -45,6 +45,7 @@ class PendingActivitiesManager {
 
 	public func removePendingActivity(txHash: String) {
 		pendingActivitiesList.removeAll(where: { $0.txHash.lowercased() == txHash.lowercased() })
+		coreDataManager.deleteActivityByID(txHash)
 		if pendingActivitiesList.isEmpty {
 			stopActivityPendingRequests()
 		}
@@ -58,45 +59,7 @@ class PendingActivitiesManager {
 			.getUserAllActivities(userID: walletManager.currentAccount.eip55Address)
 			.filter { ActivityStatus(rawValue: $0.status) == ActivityStatus.pending }
 		for activity in allUserPendingActivities {
-			switch ActivityType(rawValue: activity.type) {
-			case .swap:
-				let cdSwapActivity = activity as! CDSwapActivity
-				pendingActivitiesList.append(ActivitySwapModel(cdSwapActivityModel: cdSwapActivity))
-			case .transfer:
-				let cdTransferActivity = activity as! CDTransferActivity
-				pendingActivitiesList.append(ActivityTransferModel(cdTransferActivityModel: cdTransferActivity))
-			case .transfer_from:
-				let cdTransferActivity = activity as! CDTransferActivity
-				pendingActivitiesList.append(ActivityTransferModel(cdTransferActivityModel: cdTransferActivity))
-			case .approve:
-				let cdApproveActivity = activity as! CDApproveActivity
-				pendingActivitiesList.append(ActivityApproveModel(cdApproveActivityModel: cdApproveActivity))
-			case .create_investment, .increase_investment:
-				let cdInvestActivity = activity as! CDInvestActivity
-				pendingActivitiesList.append(ActivityInvestModel(cdInvestActivityModel: cdInvestActivity))
-			case .decrease_investment, .withdraw_investment:
-				let cdWithdrawActivity = activity as! CDWithdrawActivity
-				pendingActivitiesList.append(ActivityWithdrawModel(cdWithDrawActivityModel: cdWithdrawActivity))
-			case .borrow:
-				let cdBorrowActivity = activity as! CDBorrowActivity
-				pendingActivitiesList.append(ActivityBorrowModel(cdBorrowActivityModel: cdBorrowActivity))
-			case .repay:
-				let cdRepayActivity = activity as! CDRepayActivity
-				pendingActivitiesList.append(ActivityRepayModel(cdRepayActivityModel: cdRepayActivity))
-			case .increase_collateral, .decrease_collateral, .create_collateral, .remove_collateral,
-			     .enable_collateral,
-			     .disable_collateral:
-				let cdCollateralActivity = activity as! CDCollateralActivity
-				pendingActivitiesList.append(ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity))
-			case .wrap_eth, .swap_wrap:
-				let cdWrapETHActivity = activity as! CDWrapETHActivity
-				pendingActivitiesList.append(ActivityWrapETHModel(cdApproveActivityModel: cdWrapETHActivity))
-			case .unwrap_eth, .swap_unwrap:
-				let cdUnwrapETHActivity = activity as! CDUnwrapETHActivity
-				pendingActivitiesList.append(ActivityUnwrapETHModel(cdApproveActivityModel: cdUnwrapETHActivity))
-			default:
-				print("unknown activity type")
-			}
+			pendingActivitiesList.append(activityHelper.iterateCoreDataActivity(coreDataActivity: activity))
 		}
 	}
 

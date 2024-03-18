@@ -127,7 +127,7 @@ class SwapConfirmationViewModel {
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.pendingSwapTrx = swapTrx
 			self.pendingSwapGasInfo = gasInfo
-			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat
+			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(of: .coin, withRule: .standard)
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
 		}.catch { error in
 			completion(error)
@@ -143,10 +143,18 @@ class SwapConfirmationViewModel {
 	}
 
 	public func checkEnoughBalance() -> Bool {
-		if pendingSwapGasInfo!.fee! > ethToken.holdAmount {
-			return false
+		if fromToken.selectedToken.isEth {
+			if pendingSwapGasInfo!.fee! > ethToken.holdAmount - fromToken.fullAmount! {
+				return false
+			} else {
+				return true
+			}
 		} else {
-			return true
+			if pendingSwapGasInfo!.fee! > ethToken.holdAmount {
+				return false
+			} else {
+				return true
+			}
 		}
 	}
 

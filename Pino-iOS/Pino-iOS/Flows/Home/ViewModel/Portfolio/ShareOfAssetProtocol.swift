@@ -20,10 +20,6 @@ protocol ShareOfAssetsProtocol {
 }
 
 extension ShareOfAssetsProtocol {
-	var assetAmount: String {
-		holdAmount.priceFormat
-	}
-
 	var amountPercentage: String {
 		guard let amountPercentage = (holdAmount * 100.bigNumber) / totalAmount else { return "0.00%" }
 		if amountPercentage.isZero {

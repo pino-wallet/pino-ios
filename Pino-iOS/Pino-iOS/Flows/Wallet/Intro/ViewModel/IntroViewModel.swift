@@ -6,14 +6,22 @@
 //
 // swiftlint: disable trailing_comma
 
-struct IntroViewModel {
-	// MARK: Public Properties
+import Combine
+import UIKit
+
+class IntroViewModel {
+	// MARK: - Public Properties
 
 	public var contentList: [IntroModel]!
 	public let createButtonTitle = "Create new wallet"
 	public let importButtonTitle = "I already have a wallet"
 
-	// MARK: Initializers
+	// MARK: - Private Properties
+
+	private let accountingClient = AccountingAPIClient()
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Initializers
 
 	init() {
 		setupIntroContentList()
@@ -21,7 +29,7 @@ struct IntroViewModel {
 
 	// MARK: - Private Methods
 
-	private mutating func setupIntroContentList() {
+	private func setupIntroContentList() {
 		contentList = [
 			IntroModel(
 				image: "intro-exp",
@@ -44,5 +52,30 @@ struct IntroViewModel {
 				description: "Secure your interactions with Permit 2 and biometric authentication."
 			),
 		]
+	}
+
+	// MARK: - Public Methods
+
+	public func checkBetaAvailibity(completion: ((Bool) -> Void)? = nil) {
+		if UIDevice.current.isSimulator {
+			completion?(true)
+			return
+		}
+		accountingClient.validateDeviceForBeta().sink { completed in
+			switch completed {
+			case .finished:
+				print("Info received successfully")
+			case let .failure(error):
+				print(error)
+				completion?(false)
+			}
+		} receiveValue: { [weak self] response in
+			guard let self = self else { return }
+			if response.valid {
+				completion?(true)
+			} else {
+				completion?(false)
+			}
+		}.store(in: &cancellables)
 	}
 }

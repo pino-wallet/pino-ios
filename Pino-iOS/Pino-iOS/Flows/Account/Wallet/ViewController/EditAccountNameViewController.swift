@@ -80,8 +80,8 @@ class EditAccountNameViewController: UIViewController {
 
 	private func setupEditAccountNameVM() {
 		editAccountNameVM = EditAccountNameViewModel(
-			didValidatedAccountName: { [weak self] error in
-				self?.showErrorMessage(error: error)
+			didValidatedAccountName: { [weak self] validationStatus in
+				self?.showErrorMessage(validationStatus: validationStatus)
 			},
 			selectedAccount: selectedAccountVM,
 			accounts: accountsVM.accountsList
@@ -94,19 +94,19 @@ class EditAccountNameViewController: UIViewController {
 		navigationController?.popViewController(animated: true)
 	}
 
-	private func showErrorMessage(error: EditAccountNameViewModel.ValidateAccountNameErrorType) {
-		switch error {
+	private func showErrorMessage(validationStatus: AccountNameValidationStatus) {
+		switch validationStatus {
 		case .isEmpty:
 			navigationItem.rightBarButtonItem?.isEnabled = false
 			editAccountNameView.doneButton.style = .deactive
 			editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsEmptyError
 			editAccountNameView.walletNameTextFieldView.style = .error
-		case .repeatedName:
+		case .duplicateName:
 			navigationItem.rightBarButtonItem?.isEnabled = false
 			editAccountNameView.doneButton.style = .deactive
 			editAccountNameView.doneButton.title = editAccountNameVM.accountNameIsRepeatedError
 			editAccountNameView.walletNameTextFieldView.style = .error
-		case .clear:
+		case .isValid:
 			navigationItem.rightBarButtonItem?.isEnabled = true
 			editAccountNameView.doneButton.style = .active
 			editAccountNameView.doneButton.title = editAccountNameVM.doneButtonName

@@ -17,9 +17,7 @@ struct SwapGasLimitsManager {
 	private var isEth: Bool
 	private var provider: SwapProvider
 
-	// MARK: - Public Properties
-
-	public var gasInfo: GasInfo {
+	private var gasInfo: GasInfo {
 		switch provider {
 		case .oneInch:
 			return getGasOf(provider: gasLimitsModel.oneInchSwaps)
@@ -30,13 +28,36 @@ struct SwapGasLimitsManager {
 		}
 	}
 
-	// MARK: - Public Initializer
+	// MARK: - Private Initializer
 
-	init(swapAmount: BigNumber, gasLimitsModel: GasLimitsModel, isEth: Bool, provider: SwapProvider) {
+	private init(swapAmount: BigNumber, gasLimitsModel: GasLimitsModel, isEth: Bool, provider: SwapProvider) {
 		self.swapAmount = swapAmount
 		self.gasLimitsModel = gasLimitsModel
 		self.isEth = isEth
 		self.provider = provider
+	}
+
+	// MARK: - Public Methods
+
+	public static func getMaxAmount(selectedToken: AssetViewModel) -> BigNumber {
+		if selectedToken.isEth {
+			guard let gasLimits = UserDefaultsManager.gasLimits.getValue() else { return selectedToken.holdAmount }
+			let maxEthAmount = selectedToken.holdAmountInDollor
+			let gasLimitsManager = SwapGasLimitsManager(
+				swapAmount: maxEthAmount,
+				gasLimitsModel: gasLimits,
+				isEth: true,
+				provider: .paraswap
+			)
+			let maxAmount = selectedToken.holdAmount - gasLimitsManager.medianGasInfo.fee!
+			if maxAmount.number > 0 {
+				return maxAmount
+			} else {
+				return 0.bigNumber
+			}
+		} else {
+			return selectedToken.holdAmount
+		}
 	}
 
 	// MARK: - Private Methods

@@ -7,6 +7,7 @@
 import Combine
 import DGCharts
 import Foundation
+import PromiseKit
 
 class CoinPerformanceViewModel {
 	// MARK: - Private Properties
@@ -29,42 +30,77 @@ class CoinPerformanceViewModel {
 		self.selectedAsset = selectedAsset
 		self.assetName = selectedAsset.symbol
 		self.assetImage = selectedAsset.image
-		getChartData()
-		getCoinPerformanceInfo()
+	}
+
+	// MARK: - Public Methods
+
+	public func getChartData(dateFilter: ChartDateFilter) {
+		getChartData(dateFilter: dateFilter).done { [weak self] assetChartVM in
+			self?.chartVM = assetChartVM
+		}.catch { [weak self] error in
+			self?.showError(error)
+		}
 	}
 
 	// MARK: - Private Methods
 
-	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: selectedAsset.id)
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Portfolio received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { portfolio in
-				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
-				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
-			}.store(in: &cancellables)
+	private func getChartData(dateFilter: ChartDateFilter = .day) -> Promise<AssetChartViewModel> {
+		Promise<AssetChartViewModel> { seal in
+			accountingAPIClient.coinPerformance(timeFrame: dateFilter.timeFrame, tokenID: selectedAsset.id)
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Portfolio received successfully")
+					case let .failure(error):
+						print(error)
+						seal.reject(error)
+					}
+				} receiveValue: { portfolio in
+					let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
+					seal.fulfill(AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter))
+				}.store(in: &cancellables)
+		}
 	}
 
-	private func getCoinPerformanceInfo() {
-		let allTimeFrame = ChartDateFilter.all.timeFrame
-		accountingAPIClient.coinPerformance(timeFrame: allTimeFrame, tokenID: selectedAsset.id)
-			.sink { completed in
+	private func getAllTimePerformance() -> Promise<TokenAllTimePerformance> {
+		Promise<TokenAllTimePerformance> { seal in
+			accountingAPIClient.getAllTimePerformanceOf(selectedAsset.id).sink { completed in
 				switch completed {
 				case .finished:
-					print("Portfolio received successfully")
+					print("ATL and ATH recieved successfully")
 				case let .failure(error):
 					print(error)
+					seal.reject(error)
 				}
-			} receiveValue: { portfolio in
-				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
-				self.coinInfoVM.updateAllTimeHigh(chartDataVM)
-				self.coinInfoVM.updateAllTimelow(chartDataVM)
-				self.coinInfoVM.updateNetProfit(chartDataVM, selectedAssetCapital: self.selectedAsset.assetCapital)
+			} receiveValue: { tokenAllTime in
+				seal.fulfill(tokenAllTime)
 			}.store(in: &cancellables)
+		}
+	}
+
+	private func showError(_ error: Error) {
+		Toast.default(
+			title: "\(error.localizedDescription)",
+			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
+			style: .error
+		)
+		.show(haptic: .warning)
+	}
+
+	// MARK: - Public Methods
+
+	public func getCoinPerformance() {
+		firstly {
+			getChartData()
+		}.then { assetChartVM in
+			self.getAllTimePerformance().map { (assetChartVM, $0) }
+		}.done { [weak self] assetChartVM, tokenAllTime in
+			guard let self else { return }
+			chartVM = assetChartVM
+			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
+			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
+		}.catch { [weak self] error in
+			self?.showError(error)
+		}
 	}
 }

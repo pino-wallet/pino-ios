@@ -41,7 +41,7 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var volatilityType: AssetVolatilityType {
-		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 6))
+		AssetVolatilityType(change24h: BigNumber(number: changePercentage, decimal: 2))
 	}
 
 	public var volatilityRatePercentage: String? {
@@ -64,11 +64,11 @@ struct CoinPortfolioViewModel {
 	}
 
 	public var coinPrice: BigNumber {
-		BigNumber(number: coinPortfolioModel.detail!.price, decimal: 6)
+		BigNumber(number: coinPortfolioModel.detail!.price, decimal: Web3Core.Constants.pricePercision)
 	}
 
 	public var price: String {
-		coinPrice.priceFormat
+		coinPrice.priceFormat(of: assetType, withRule: .standard)
 	}
 
 	public var type: CoinType {
@@ -82,6 +82,14 @@ struct CoinPortfolioViewModel {
 		}
 	}
 
+	public var assetType: AssetType {
+		if Web3Core.Constants.shitcoinsList.map({ $0.lowercased() }).contains(coinPortfolioModel.id.lowercased()) {
+			return .shitcoin
+		} else {
+			return .coin
+		}
+	}
+
 	public var website: String {
 		let websiteURL = URL(string: coinPortfolioModel.detail!.website)
 		return (websiteURL!.host ?? coinPortfolioModel.detail?.website)?
@@ -90,7 +98,7 @@ struct CoinPortfolioViewModel {
 
 	public var userAmountInDollar: String {
 		let totalAmountInDollar = userAmount * coinPrice
-		return totalAmountInDollar.priceFormat
+		return totalAmountInDollar.priceFormat(of: assetType, withRule: .standard)
 	}
 
 	public var isEthCoin: Bool {

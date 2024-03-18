@@ -53,7 +53,7 @@ class WithdrawConfirmViewModel {
 
 	public var tokenAmountInDollars: String {
 		let withdrawAmountInDollars = withdrawAmountBigNumber * selectedToken.price
-		return withdrawAmountInDollars.priceFormat
+		return withdrawAmountInDollars.priceFormat(of: selectedToken.assetType, withRule: .standard)
 	}
 
 	public var tokenImage: URL {
@@ -116,7 +116,7 @@ class WithdrawConfirmViewModel {
 
 	private func setFeeInfoByDepositGasInfo(withdrawGasinfo: GasInfo) {
 		feeInfo = (
-			feeInDollars: withdrawGasinfo.feeInDollar!.priceFormat,
+			feeInDollars: withdrawGasinfo.feeInDollar!.priceFormat(of: selectedToken.assetType, withRule: .standard),
 			feeInETH: withdrawGasinfo.fee!.sevenDigitFormat.ethFormatting,
 			bigNumberFee: withdrawGasinfo.fee!
 		)

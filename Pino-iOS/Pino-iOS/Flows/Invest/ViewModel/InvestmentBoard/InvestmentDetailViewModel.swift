@@ -57,17 +57,17 @@ class InvestmentDetailViewModel {
 
 	public var investmentAmount: String {
 		if selectedAsset.tokenInvestedAmountInDollar < 0.bigNumber {
-			return "-\(selectedAsset.tokenInvestedAmountInDollar.priceFormat)"
+			return "-" + selectedAsset.tokenInvestedAmountInDollar.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		} else {
-			return selectedAsset.tokenInvestedAmountInDollar.priceFormat
+			return selectedAsset.tokenInvestedAmountInDollar.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
 	}
 
 	public var earnedFee: String {
 		if selectedAsset.earnedFee < 0.bigNumber {
-			return "-\(selectedAsset.earnedFee.priceFormat)"
+			return "-" + (selectedAsset.earnedFee.priceFormat(of: selectedAsset.assetType, withRule: .standard))
 		} else {
-			return selectedAsset.earnedFee.priceFormat
+			return selectedAsset.earnedFee.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
 	}
 
@@ -76,7 +76,7 @@ class InvestmentDetailViewModel {
 	}
 
 	public var totalInvestmentAmount: String {
-		selectedAsset.tokenTotalAmountInDollar.priceFormat
+		selectedAsset.tokenTotalAmountInDollar.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 	}
 
 	// MARK: Initializers
