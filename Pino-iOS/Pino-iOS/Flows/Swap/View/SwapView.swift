@@ -275,11 +275,6 @@ class SwapView: UIView {
 				toTokenSectionView.hideDollarAmount()
 			}
 		}.store(in: &cancellables)
-
-		GlobalVariables.shared.$currentAccount.sink { walletAccount in
-			self.swapVM.swapState = .initial
-			self.swapVM.removeRateTimer()
-		}.store(in: &cancellables)
 	}
 
 	private func updateSwapProtocol(_ swapProtocol: SwapProtocolModel) {

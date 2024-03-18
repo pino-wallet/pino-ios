@@ -109,6 +109,14 @@ class SwapViewController: UIViewController {
 	}
 
 	private func setupBinding() {
+		GlobalVariables.shared.$currentAccount.sink { walletAccount in
+			self.swapVM.swapState = .initial
+			self.swapVM.removeRateTimer()
+			guard let ethToken = self.assets?.first(where: { $0.isEth }) else { return }
+			self.swapVM.fromToken.selectedToken = ethToken
+			self.swapVM.fromToken.swapDelegate.selectedTokenDidChange()
+		}.store(in: &cancellables)
+
 		swapVM.$selectedProtocol.sink { selectedProtocol in
 			self.protocolChangeButton.setTitle(selectedProtocol.name, for: .normal)
 		}.store(in: &cancellables)
