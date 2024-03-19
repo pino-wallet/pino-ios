@@ -364,6 +364,7 @@
 		D957823B2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957823A2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift */; };
 		D957823D2AFCE87D0007D580 /* InvestmentActivityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */; };
 		D95A57CE2B17240D005A57EB /* WithdrawMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95A57CD2B17240D005A57EB /* WithdrawMode.swift */; };
+		D95B5BBF2BA8642D00DA416B /* AllDoneAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = D95B5BBE2BA8642D00DA416B /* AllDoneAnimation.json */; };
 		D95CD85C2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95CD85B2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift */; };
 		D95CD85E2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95CD85D2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift */; };
 		D95CD8602B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95CD85F2B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift */; };
@@ -1282,6 +1283,7 @@
 		D957823A2AFCDD4E0007D580 /* ActivityInvestmentModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInvestmentModelProtocol.swift; sourceTree = "<group>"; };
 		D957823C2AFCE87D0007D580 /* InvestmentActivityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentActivityDetails.swift; sourceTree = "<group>"; };
 		D95A57CD2B17240D005A57EB /* WithdrawMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawMode.swift; sourceTree = "<group>"; };
+		D95B5BBE2BA8642D00DA416B /* AllDoneAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AllDoneAnimation.json; sourceTree = "<group>"; };
 		D95CD85B2B00B14F003C1CF0 /* WithdrawCollateralActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawCollateralActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95CD85D2B00B210003C1CF0 /* CollateralActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95CD85F2B00BC00003C1CF0 /* CollateralStatusActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollateralStatusActivityDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -3989,6 +3991,7 @@
 		DFB60DA22B1B3F8300464143 /* LottieFiles */ = {
 			isa = PBXGroup;
 			children = (
+				D95B5BBE2BA8642D00DA416B /* AllDoneAnimation.json */,
 				DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */,
 				DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */,
 				DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */,
@@ -4835,6 +4838,7 @@
 				51F472CF1A7E5D15F58A5CF5 /* PPPangramSans-RegularItalic.ttf in Resources */,
 				B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */,
 				D924C34A2A949712007299A4 /* user-borrowing-stub.json in Resources */,
+				D95B5BBF2BA8642D00DA416B /* AllDoneAnimation.json in Resources */,
 				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
 				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
 				DFB60DA92B1B3F9D00464143 /* BorrowEnsureLoanSafety.json in Resources */,
@@ -5885,11 +5889,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5GVCMNN555;
+				DEVELOPMENT_TEAM = 5GVCMNN555;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Pino;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5898,7 +5900,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nitolabs.pino;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.nitolabs.pino";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -5951,11 +5952,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 24;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5GVCMNN555;
+				DEVELOPMENT_TEAM = 5GVCMNN555;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Pino;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5964,7 +5963,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nitolabs.pino;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.nitolabs.pino";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

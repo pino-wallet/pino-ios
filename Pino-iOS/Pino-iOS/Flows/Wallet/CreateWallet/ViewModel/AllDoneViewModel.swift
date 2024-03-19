@@ -13,8 +13,9 @@ class AllDoneViewModel {
 
 	public let image = "pino_logo"
 	public let title = "You’re all done!"
-	public let description = "A one line description should be here"
+	public let description = "The world of DeFi awaits you."
 	public let continueButtonTitle = "Get started"
+	public let allDoneAnimationName = "AllDoneAnimation"
 
 	public var agreementAttributedTest: NSMutableAttributedString {
 		#warning("This must be replaced with pino urls")
