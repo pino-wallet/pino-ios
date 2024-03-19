@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import FirebaseCore
 import Kingfisher
 import UIKit
 
@@ -21,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setCacheLimitForKingFisherImages()
 		setupNotifications()
 
-		// setupPushNotifications(application: application)
+		setupPushNotifications(application: application)
 		return true
 	}
 
@@ -96,25 +97,23 @@ extension AppDelegate {
 	}
 }
 
-/*
- // MARK: - Push notification conformation
+// MARK: - Push notification conformation
 
- extension AppDelegate: UNUserNotificationCenterDelegate {
- 	private func setupPushNotifications(application: UIApplication) {
- 		// FirebaseApp.configure() // 1
- 		_ = PushNotificationManager.shared // 2
- 		UNUserNotificationCenter.current().delegate = self // 3
- 		application.registerForRemoteNotifications() // 4
- 	}
+extension AppDelegate: UNUserNotificationCenterDelegate {
+	private func setupPushNotifications(application: UIApplication) {
+		FirebaseApp.configure() // 1
+		_ = PushNotificationManager.shared // 2
+		UNUserNotificationCenter.current().delegate = self // 3
+		application.registerForRemoteNotifications() // 4
+	}
 
- 	func userNotificationCenter(
- 		_ center: UNUserNotificationCenter,
- 		didReceive response: UNNotificationResponse
- 	) async {
- 		let userInfo = response.notification.request.content.userInfo
+	func userNotificationCenter(
+		_ center: UNUserNotificationCenter,
+		didReceive response: UNNotificationResponse
+	) async {
+		let userInfo = response.notification.request.content.userInfo
 
- 		// Print full message.
- 		print(userInfo)
- 	}
- }
- */
+		// Print full message.
+		print(userInfo)
+	}
+}

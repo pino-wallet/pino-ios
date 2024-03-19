@@ -5,6 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 5/15/23.
 //
 
+import Combine
 import Foundation
 
 class AllowNotificationsViewModel {
@@ -19,10 +20,22 @@ class AllowNotificationsViewModel {
 	public let sampleNotificationCardImage2 = "sample_notification_2"
 	public let navbarDismissImageName = "close"
 
+	// MARK: - Private Properties
+
 	// MARK: - Public Properties
 
 	public func enableNotifications() {
 		// enable notifications here...
-		#warning("we will refactor this function")
+		PushNotificationManager.shared.requestAuthorization {
+			if let fcmToken = FCMTokenManager.shared.currentToken {
+				let walletManager = PinoWalletManager()
+				walletManager.accounts.forEach { account in
+					PushNotificationManager.shared.registerUserFCMToken(
+						token: fcmToken,
+						userAddress: account.eip55Address
+					)
+				}
+			}
+		}
 	}
 }
