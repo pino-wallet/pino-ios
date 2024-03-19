@@ -43,6 +43,10 @@ class SwapConfirmationViewController: UIViewController {
 		swapConfirmationVM.fetchSwapInfo { error in
 			self.showFeeError(error)
 		}
+
+		if isBeingPresented || isMovingToParent {
+			swapConfirmationView.swapConfirmationInfoView.showFeeLoading()
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
