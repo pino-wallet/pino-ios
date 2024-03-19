@@ -5,7 +5,9 @@
 //  Created by Sobhan Eskandari on 11/12/23.
 //
 
-// import FirebaseMessaging
+import Combine
+import Firebase
+import FirebaseMessaging
 import Foundation
 import UIKit
 import UserNotifications
@@ -15,16 +17,22 @@ class PushNotificationManager: NSObject, ObservableObject {
 
 	public static let shared = PushNotificationManager()
 
-	// MARK: - Public Properties
+	// MARK: - Private Properties
+
+	private let accountinClient = AccountingAPIClient()
+	private let walletManager = PinoWalletManager()
+	private var cancellables = Set<AnyCancellable>()
+
+	// MARK: - Initiliazers
 
 	override init() {
 		super.init()
-		// Messaging.messaging().delegate = self // 1
+		Messaging.messaging().delegate = self // 1
 	}
 
-	// MARK: - Private Methds
+	// MARK: - Public Methds
 
-	private func requestAuthorization(completionHandler: @escaping () -> Void) {
+	public func requestAuthorization(completionHandler: @escaping () -> Void) {
 		let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
 		UNUserNotificationCenter.current().getNotificationSettings { settings in // 2
 			switch settings.authorizationStatus {
@@ -56,11 +64,46 @@ class PushNotificationManager: NSObject, ObservableObject {
 			}
 		}
 	}
+
+	public func fetchFCMToken(completion: @escaping (String) -> Void) {
+		Messaging.messaging().token { token, error in
+			if let error = error {
+				print("Error fetching FCM registration token: \(error)")
+			} else if let token = token {
+				print("FCM registration token: \(token)")
+				FCMTokenManager.shared.currentToken = token
+				completion(token)
+			}
+		}
+	}
+
+	public func registerUserFCMToken(token: String, userAddress: String?) {
+		guard UserDefaultsManager.isUserLoggedIn.getValue() ?? false else { return }
+		let userAdd = userAddress ?? walletManager.currentAccount.eip55Address
+		accountinClient.registerDeviceToken(fcmToken: token, userAdd: userAdd).sink { completed in
+			switch completed {
+			case .finished:
+				print("Info received successfully")
+			case let .failure(error):
+				print(error)
+			}
+		} receiveValue: { resp in
+			if resp.success {
+				FCMTokenManager.shared.currentToken = token
+			}
+		}.store(in: &cancellables)
+	}
 }
 
-// extension PushNotificationManager: MessagingDelegate {
-//	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-//		guard let fcmToken = fcmToken else { return }
-//		FCMTokenManager.shared.currentToken = fcmToken // 6
-//	}
-// }
+extension PushNotificationManager: MessagingDelegate {
+	func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+		guard let fcmToken = fcmToken else { return }
+		if let currentToken = FCMTokenManager.shared.currentToken {
+			if currentToken != fcmToken {
+				registerUserFCMToken(token: fcmToken, userAddress: nil)
+			}
+		} else {
+			registerUserFCMToken(token: fcmToken, userAddress: nil)
+		}
+	}
+}

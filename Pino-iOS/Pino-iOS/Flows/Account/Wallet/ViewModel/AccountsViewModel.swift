@@ -97,6 +97,12 @@ class AccountsViewModel {
 			?? .green_apple
 	}
 
+	private func registerUserFCMToken(userAdd: String) {
+		if let fcmToken = FCMTokenManager.shared.currentToken {
+			PushNotificationManager.shared.registerUserFCMToken(token: fcmToken, userAddress: userAdd)
+		}
+	}
+
 	// MARK: - Public Methods
 
 	public func getAccounts() {
@@ -167,6 +173,7 @@ class AccountsViewModel {
 			)
 			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
 			resetPendingActivities()
+			registerUserFCMToken(userAdd: account.eip55Address)
 			completion(nil)
 		}.catch { error in
 			completion(WalletOperationError.wallet(.accountActivationFailed(error)))

@@ -71,6 +71,10 @@ final class AccountingAPIClient: AccountingAPIService {
 	func getAllTimePerformanceOf(_ tokenID: String) -> AnyPublisher<TokenAllTimePerformance, APIError> {
 		networkManager.request(.tokenAllTime(accountADD: currentAccountAdd, tokenID: tokenID))
 	}
+
+	func registerDeviceToken(fcmToken: String, userAdd: String) -> AnyPublisher<FCMTokenRegistrationModel, APIError> {
+		networkManager.request(.addFCMToken(token: fcmToken, userAdd: userAdd))
+	}
 }
 
 struct NoContent: Codable {}

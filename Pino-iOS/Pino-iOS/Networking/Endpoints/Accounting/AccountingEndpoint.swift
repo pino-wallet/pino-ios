@@ -23,6 +23,7 @@ enum AccountingEndpoint: EndpointType {
 	case activateAccountWithInviteCode(deciveID: String, inviteCode: String)
 	case validateDeviceForBeta(deviceID: String)
 	case tokenAllTime(accountADD: String, tokenID: String)
+	case addFCMToken(token: String, userAdd: String)
 
 	// MARK: - Internal Methods
 
@@ -69,6 +70,12 @@ enum AccountingEndpoint: EndpointType {
 				bodyEncoding: .jsonEncoding,
 				urlParameters: nil
 			)
+		case let .addFCMToken(fcmToken, userAddress):
+			let body = [
+				"device_token": fcmToken,
+				"address": userAddress,
+			]
+			return .requestParameters(bodyParameters: .json(body), bodyEncoding: .jsonEncoding, urlParameters: nil)
 		}
 	}
 
@@ -92,7 +99,7 @@ enum AccountingEndpoint: EndpointType {
 			return "user/\(accountADD)/portfolio"
 		case let .coinPerformance(_, tokenID: tokenID, accountADD: accountADD):
 			return "user/\(accountADD)/portfolio/\(tokenID)"
-		case let .activateAccount(activateReqModel):
+		case .activateAccount:
 			return "\(endpointParent)/activate-sig"
 		case .activeAddresses:
 			return "\(endpointParent)/active-addresses"
@@ -102,6 +109,8 @@ enum AccountingEndpoint: EndpointType {
 			return "user/\(accountADD)/balance/\(tokenID)/all-time"
 		case let .validateDeviceForBeta(deviceID: deviceID):
 			return "\(endpointParent)/validate-device/\(deviceID)"
+		case .addFCMToken:
+			return "\(endpointParent)/device-token"
 		}
 	}
 
@@ -109,7 +118,7 @@ enum AccountingEndpoint: EndpointType {
 		switch self {
 		case .cts, .balances, .coinPerformance, .tokenAllTime, .validateDeviceForBeta:
 			return .get
-		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode, .portfolio:
+		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode, .portfolio, .addFCMToken:
 			return .post
 		}
 	}
