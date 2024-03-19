@@ -70,13 +70,15 @@ class AuthenticationLockManager {
 	private func unlockWithPasscode(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		unlockAppVC = UnlockAppViewController(
 			onSuccessUnlock: {
-				onSuccess()
-				self.parentVC.dismiss(animated: true)
+				self.parentVC.dismiss(animated: true) {
+					onSuccess()
+				}
 			},
 			onFaceIDSelected: {
 				self.unlockWithBiometric {
-					onSuccess()
-					self.parentVC.dismiss(animated: true)
+					self.parentVC.dismiss(animated: true) {
+						onSuccess()
+					}
 				} onFailure: { [self] in
 					(unlockAppVC!.view as! UnlockPasscodeView).biometricsAuthFailed()
 					onFailure()
