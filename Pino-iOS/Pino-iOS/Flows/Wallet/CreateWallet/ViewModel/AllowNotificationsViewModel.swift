@@ -28,7 +28,13 @@ class AllowNotificationsViewModel {
 		// enable notifications here...
 		PushNotificationManager.shared.requestAuthorization {
 			if let fcmToken = FCMTokenManager.shared.currentToken {
-				PushNotificationManager.shared.registerUserFCMToken(token: fcmToken, userAddress: nil)
+				let walletManager = PinoWalletManager()
+				walletManager.accounts.forEach { account in
+					PushNotificationManager.shared.registerUserFCMToken(
+						token: fcmToken,
+						userAddress: account.eip55Address
+					)
+				}
 			}
 		}
 	}
