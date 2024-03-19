@@ -14,6 +14,10 @@ class AccountHeaderView: UICollectionReusableView {
 	private let accountIconBackgroundView = UIView()
 	private let accountIcon = UIImageView()
 	private let accountName = UILabel()
+	private let accountAddressInfoContainerView = UIView()
+	private let accountAddressInfoStackView = UIStackView()
+	private let networkImageViewContainer = UIView()
+	private let networkImageView = UIImageView()
 	private let accountAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
 	private let accountHeaderVM = AccountHeaderViewModel()
@@ -34,16 +38,31 @@ class AccountHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
+		networkImageViewContainer.addSubview(networkImageView)
+
+		accountAddressInfoContainerView.addSubview(accountAddressInfoStackView)
+		accountAddressInfoStackView.addArrangedSubview(networkImageViewContainer)
+		accountAddressInfoStackView.addArrangedSubview(accountAddress)
+
 		accountInfoStackview.addArrangedSubview(accountIconBackgroundView)
 		accountInfoStackview.addArrangedSubview(accountNameStackView)
 		accountNameStackView.addArrangedSubview(accountName)
-		accountNameStackView.addArrangedSubview(accountAddress)
+		accountNameStackView.addArrangedSubview(accountAddressInfoContainerView)
 		accountIconBackgroundView.addSubview(accountIcon)
 		addSubview(accountInfoStackview)
 		addSubview(accountSettingsTitle)
 	}
 
 	private func setupStyle() {
+		accountAddressInfoStackView.axis = .horizontal
+		accountAddressInfoStackView.spacing = 6
+
+		accountAddressInfoContainerView.backgroundColor = .Pino.secondaryBackground
+		accountAddressInfoContainerView.layer.cornerRadius = 15
+
+		networkImageView.image = UIImage(named: accountInfoVM.currentNetworkImageName)
+		networkImageView.layer.cornerRadius = 10
+
 		accountName.text = accountInfoVM.name
 		accountAddress.text = accountInfoVM.address.addressFormating()
 		accountSettingsTitle.text = accountHeaderVM.accountsTitleText
@@ -51,7 +70,7 @@ class AccountHeaderView: UICollectionReusableView {
 		accountIconBackgroundView.backgroundColor = UIColor(named: accountInfoVM.profileColor)
 
 		accountName.textColor = .Pino.label
-		accountAddress.textColor = .Pino.secondaryLabel
+		accountAddress.textColor = .Pino.label
 		accountSettingsTitle.textColor = .Pino.secondaryLabel
 
 		accountName.font = .PinoStyle.mediumTitle1
@@ -65,7 +84,7 @@ class AccountHeaderView: UICollectionReusableView {
 		accountInfoStackview.alignment = .center
 
 		accountInfoStackview.spacing = 8
-		accountNameStackView.spacing = 2
+		accountNameStackView.spacing = 4
 
 		accountIconBackgroundView.layer.cornerRadius = 44
 	}
@@ -86,6 +105,10 @@ class AccountHeaderView: UICollectionReusableView {
 		accountIcon.pin(
 			.allEdges(padding: 16)
 		)
+		networkImageViewContainer.pin(.fixedWidth(20))
+		networkImageView.pin(.fixedHeight(20), .horizontalEdges(), .centerY, .centerX)
+		accountAddressInfoContainerView.pin(.fixedHeight(30))
+		accountAddressInfoStackView.pin(.horizontalEdges(padding: 6), .verticalEdges(padding: 4))
 	}
 
 	private func setupWalletAddressTapGesture() {

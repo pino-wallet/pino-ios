@@ -95,6 +95,7 @@ class AboutPinoView: UIView {
 		privacyPolicyTitle.text = "Privacy policy"
 		websiteTitle.text = "Visit website"
 		pinoLogo.image = UIImage(named: aboutPinoVM.logo)
+		pinoLogo.contentMode = .center
 		for detailIcon in detailIcons {
 			detailIcon.image = UIImage(named: "chevron_right")
 			detailIcon.contentMode = .left
@@ -207,7 +208,6 @@ class AboutPinoView: UIView {
 
 extension AboutPinoView: UITextFieldDelegate {
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		print(textField.text)
 		AboutPinoView.web3URL = textField.text
 		return true
 	}
