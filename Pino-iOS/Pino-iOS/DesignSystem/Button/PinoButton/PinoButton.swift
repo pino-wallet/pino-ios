@@ -109,17 +109,15 @@ public class PinoButton: UIButton {
 		loadingView.pin(.centerX, .centerY)
 	}
 
-	override public var isHighlighted: Bool {
-		didSet {
-			if isHighlighted {
-				backgroundColor = selectedStyle.backgroundColor
-				layer.borderColor = selectedStyle.borderColor?.cgColor
-			} else {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-					self.backgroundColor = self.style.backgroundColor
-					self.layer.borderColor = self.style.borderColor?.cgColor
-				}
-			}
-		}
+	override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesBegan(touches, with: event)
+		backgroundColor = selectedStyle.backgroundColor
+		layer.borderColor = selectedStyle.borderColor?.cgColor
+	}
+
+	override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+		super.touchesEnded(touches, with: event)
+		backgroundColor = style.backgroundColor
+		layer.borderColor = style.borderColor?.cgColor
 	}
 }
