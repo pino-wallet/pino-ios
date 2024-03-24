@@ -53,6 +53,8 @@ class ImportNewAccountViewController: UIViewController {
 	}
 
 	private func importWallet() {
+		guard importAccountVM.isAccountNameValid() else { return }
+		importAccountView.showLoading()
 		let privateKey = importAccountView.textViewText
 		importAccountVM.validateWalletAccount(
 			privateKey: privateKey,

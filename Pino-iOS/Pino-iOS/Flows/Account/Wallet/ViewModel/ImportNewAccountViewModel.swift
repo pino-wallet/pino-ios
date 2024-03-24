@@ -83,4 +83,13 @@ class ImportNewAccountViewModel {
 			accountNameValidationStatus = .isValid
 		}
 	}
+
+	public func isAccountNameValid() -> Bool {
+		validateAccountName(accountName)
+		if accountNameValidationStatus == .isValid {
+			return true
+		} else {
+			return false
+		}
+	}
 }
