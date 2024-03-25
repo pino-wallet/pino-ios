@@ -21,12 +21,6 @@ class NotificationSettingsViewModel {
 			description: "Send, swap, borrow, and more."
 		),
 		NotificationOptionModel(
-			title: "Liquidation notice",
-			type: .liquidation_notice,
-			isSelected: false,
-			description: "Health Score reaches danger zone"
-		),
-		NotificationOptionModel(
 			title: "Pino update",
 			type: .pino_update,
 			isSelected: true,

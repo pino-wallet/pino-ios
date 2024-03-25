@@ -50,7 +50,9 @@ class AuthenticationLockManager {
 	private func unlockWithBiometric(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		biometricAuthentication.evaluate(
 			onSuccess: {
-				onSuccess()
+				self.parentVC.dismiss(animated: true) {
+					onSuccess()
+				}
 			},
 			onFailure: { errorCode in
 				switch errorCode {
