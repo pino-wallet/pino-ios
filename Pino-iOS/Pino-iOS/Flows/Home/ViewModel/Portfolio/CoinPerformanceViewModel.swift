@@ -34,6 +34,21 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Public Methods
 
+	public func getCoinPerformance() {
+		firstly {
+			getChartData()
+		}.then { assetChartVM in
+			self.getAllTimePerformance().map { (assetChartVM, $0) }
+		}.done { [weak self] assetChartVM, tokenAllTime in
+			guard let self else { return }
+			chartVM = assetChartVM
+			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
+			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
+		}.catch { [weak self] error in
+			self?.showError(error)
+		}
+	}
+
 	public func getChartData(dateFilter: ChartDateFilter) {
 		getChartData(dateFilter: dateFilter).done { [weak self] assetChartVM in
 			self?.chartVM = assetChartVM
@@ -52,7 +67,7 @@ class CoinPerformanceViewModel {
 					case .finished:
 						print("Portfolio received successfully")
 					case let .failure(error):
-						print(error)
+						print(error.description)
 						seal.reject(error)
 					}
 				} receiveValue: { portfolio in
@@ -69,7 +84,7 @@ class CoinPerformanceViewModel {
 				case .finished:
 					print("ATL and ATH recieved successfully")
 				case let .failure(error):
-					print(error)
+					print(error.description)
 					seal.reject(error)
 				}
 			} receiveValue: { tokenAllTime in
@@ -79,28 +94,8 @@ class CoinPerformanceViewModel {
 	}
 
 	private func showError(_ error: Error) {
-		Toast.default(
-			title: "\(error.localizedDescription)",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		)
-		.show(haptic: .warning)
-	}
-
-	// MARK: - Public Methods
-
-	public func getCoinPerformance() {
-		firstly {
-			getChartData()
-		}.then { assetChartVM in
-			self.getAllTimePerformance().map { (assetChartVM, $0) }
-		}.done { [weak self] assetChartVM, tokenAllTime in
-			guard let self else { return }
-			chartVM = assetChartVM
-			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
-			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
-		}.catch { [weak self] error in
-			self?.showError(error)
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 		}
 	}
 }

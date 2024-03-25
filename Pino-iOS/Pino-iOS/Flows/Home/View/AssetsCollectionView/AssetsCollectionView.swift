@@ -116,13 +116,10 @@ class AssetsCollectionView: UICollectionView {
 		GlobalVariables.shared.fetchSharedInfo().done { _ in
 			self.refreshControl?.endRefreshing()
 		}.catch { error in
-			Toast.default(
-				title: "Error fetching info from server",
-				subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-				style: .error
-			)
-			.show(haptic: .warning)
 			self.refreshControl?.endRefreshing()
+			if let error = error as? APIError {
+				Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
+			}
 		}
 	}
 }

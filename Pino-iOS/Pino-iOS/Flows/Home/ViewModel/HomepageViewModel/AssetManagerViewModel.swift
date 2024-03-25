@@ -35,20 +35,11 @@ class AssetManagerViewModel {
 		Promise<[AssetViewModel]> { seal in
 			firstly {
 				getTokens()
-			}.done { [self] tokens in
-				accountingAPIClient.userBalance()
-					.sink { completed in
-						switch completed {
-						case .finished:
-							print("Assets received successfully")
-						case let .failure(error):
-							print("Error getting tokens:\(error)")
-							seal.reject(APIError.failedRequest)
-						}
-					} receiveValue: { assets in
-						let managedAssets = self.getManageAsset(tokens: tokens, userAssets: assets)
-						seal.fulfill(managedAssets)
-					}.store(in: &cancellables)
+			}.then { tokens in
+				self.getUserBalance().map { (tokens, $0) }
+			}.done { tokens, userBalance in
+				let managedAssets = self.getManageAsset(tokens: tokens, userAssets: userBalance)
+				seal.fulfill(managedAssets)
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -81,13 +72,30 @@ class AssetManagerViewModel {
 					print("tokens received successfully")
 				case let .failure(error):
 					print("Failed to fetch tokens:\(error)")
-					seal.reject(APIError.failedRequest)
+					seal.reject(error)
 				}
 			} receiveValue: { tokens in
 				let customAssets = self.getCustomAssets()
 				self.tokens = tokens + customAssets
 				seal.fulfill(self.tokens)
 			}.store(in: &cancellables)
+		}
+	}
+
+	internal func getUserBalance() -> Promise<[BalanceAssetModel]> {
+		Promise<[BalanceAssetModel]> { seal in
+			accountingAPIClient.userBalance()
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Assets received successfully")
+					case let .failure(error):
+						print("Error getting tokens:\(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { assets in
+					seal.fulfill(assets)
+				}.store(in: &cancellables)
 		}
 	}
 

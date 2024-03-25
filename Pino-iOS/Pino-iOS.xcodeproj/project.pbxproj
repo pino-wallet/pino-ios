@@ -252,7 +252,6 @@
 		B5021409923FBC4DF43B6138 /* PPPangramSans-RegularReclined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55CD7DABDCFD6941F9E22E49 /* PPPangramSans-RegularReclined.ttf */; };
 		B50FCAEE54A91AE8515115B9 /* coin-performance-info-stub.json in Resources */ = {isa = PBXBuildFile; fileRef = EA79C702C8831F7059E16070 /* coin-performance-info-stub.json */; };
 		B6C747AA398D7E37B1B727AC /* PassDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DCACC427D66E42E2D55705 /* PassDotsView.swift */; };
-		B6CA82D12404F5406CFF9CFD /* HomeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A884CD0074F3F660E0B8C960 /* HomeError.swift */; };
 		B890491BC2BBD99CF83AFE9A /* SecuritySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB500BB3E02CB030D09B2A0 /* SecuritySettingsViewController.swift */; };
 		B8DEA2647A8204A5771748D2 /* CustomAssetInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B71C440B0E4128B1952D6 /* CustomAssetInfoModel.swift */; };
 		B96CE8969DBE6398977B87D5 /* ChartMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7396196A2B462E6998B84802 /* ChartMarker.swift */; };
@@ -812,6 +811,7 @@
 		E3C8027B2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */; };
 		E3C8027D2A95427800A13792 /* InvestmentRiskItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */; };
 		E3CB68482AB5D3C10042359D /* ActiveAddressesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CB68472AB5D3C10042359D /* ActiveAddressesModel.swift */; };
+		E3CDFCA42BB196D70018382D /* CustomAssetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CDFCA32BB196D70018382D /* CustomAssetError.swift */; };
 		E3CFC07A2A2F241500E165A4 /* CircleMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC0792A2F241500E165A4 /* CircleMarker.swift */; };
 		E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204C92A3992EB0027FEBC /* TokenView.swift */; };
 		E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */; };
@@ -1153,7 +1153,6 @@
 		A63629240845E89034EB1956 /* CreateWalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletUITests.swift; sourceTree = "<group>"; };
 		A76E946D4DB4C97594C15C22 /* SecurityOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityOptionModel.swift; sourceTree = "<group>"; };
 		A7C48BF270C9A3E1CA6D9F33 /* PPPangramSans-ThinReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-ThinReclined.ttf"; sourceTree = "<group>"; };
-		A884CD0074F3F660E0B8C960 /* HomeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeError.swift; sourceTree = "<group>"; };
 		AACC44FE53317ADAF4E94A03 /* PPPangramSans-SemiboldReclined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PPPangramSans-SemiboldReclined.ttf"; sourceTree = "<group>"; };
 		ABE00D81C2E445CD26124F30 /* AboutPinoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPinoView.swift; sourceTree = "<group>"; };
 		AC85295F255DE999F94EA171 /* CustomSwitchOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitchOptionView.swift; sourceTree = "<group>"; };
@@ -1708,6 +1707,7 @@
 		E3C8027A2A949AEE00A13792 /* InvestmentRiskPerformanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskPerformanceView.swift; sourceTree = "<group>"; };
 		E3C8027C2A95427800A13792 /* InvestmentRiskItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentRiskItemView.swift; sourceTree = "<group>"; };
 		E3CB68472AB5D3C10042359D /* ActiveAddressesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveAddressesModel.swift; sourceTree = "<group>"; };
+		E3CDFCA32BB196D70018382D /* CustomAssetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetError.swift; sourceTree = "<group>"; };
 		E3CFC0792A2F241500E165A4 /* CircleMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleMarker.swift; sourceTree = "<group>"; };
 		E3D204C92A3992EB0027FEBC /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
@@ -1892,7 +1892,6 @@
 		0320D435219DAABE7B18FE38 /* Types */ = {
 			isa = PBXGroup;
 			children = (
-				829CA4C0A06D84219F432590 /* APIError.swift */,
 				29586CCAC21CB070FEBA025F /* BodyParamsType.swift */,
 				404287D5077C670FADEE9987 /* HTTPMethod.swift */,
 				B677CAE87B1A7D14774BE29D /* HTTPTask.swift */,
@@ -2054,6 +2053,7 @@
 				1D13366B966864F971A82F68 /* Resources */,
 				3E4B7A8B106106B96A2983A0 /* Services */,
 				6204A1AEB94F779966B28753 /* Utilities */,
+				E3CDFCA12BB1684B0018382D /* Error */,
 			);
 			path = "Pino-iOS";
 			sourceTree = "<group>";
@@ -2700,14 +2700,6 @@
 				66E135038F69F74B221F7A09 /* CoinInfoViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		7864B118BE0C1A89836D485D /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				A884CD0074F3F660E0B8C960 /* HomeError.swift */,
-			);
-			path = Error;
 			sourceTree = "<group>";
 		};
 		7A20D213409A0FB263C8C645 /* Stepper */ = {
@@ -4396,6 +4388,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		E3CDFCA12BB1684B0018382D /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				829CA4C0A06D84219F432590 /* APIError.swift */,
+				E3CDFCA32BB196D70018382D /* CustomAssetError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		E3D204C82A3992630027FEBC /* tokenView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4612,7 +4613,6 @@
 		E592A8E4290E95A67BA5D5CF /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				7864B118BE0C1A89836D485D /* Error */,
 				956948FAAA3C16A71ACE503D /* Model */,
 				5BF756DDC1A3035E2801A7EE /* View */,
 				4F9772693068BAF01A551E26 /* ViewControllers */,
@@ -5401,7 +5401,6 @@
 				E3FC69B32A8A2C96009B3341 /* InvestAssetImageView.swift in Sources */,
 				FBA81FB09332C152D88C289E /* HTTPMethod.swift in Sources */,
 				7B93C0D0822EF34F9EB40FAA /* HTTPTask.swift in Sources */,
-				B6CA82D12404F5406CFF9CFD /* HomeError.swift in Sources */,
 				D9BE05192A8221C8008670F9 /* CDTransferActivity+CoreDataProperties.swift in Sources */,
 				DF0347B42A39FAFF00A6C265 /* Web3ABI.swift in Sources */,
 				D9BBEEED2B6A56DD00DE6C84 /* UserDefaultsManager.swift in Sources */,
@@ -5525,6 +5524,7 @@
 				7EF5AA653545082C4C0D04EF /* PinoButton.swift in Sources */,
 				3ACA10D15DD3199674C38954 /* PinoButtonStyle.swift in Sources */,
 				D9D462D92AA466B20010ED76 /* RepayConfirmViewModel.swift in Sources */,
+				E3CDFCA42BB196D70018382D /* CustomAssetError.swift in Sources */,
 				15A1DA694D1E9C595492510B /* PinoCheckBox.swift in Sources */,
 				D90782972B5FAE250068D451 /* UserAccountInfoView.swift in Sources */,
 				D97F0B972A9490840083DA81 /* SelectDexSystemCollectionView.swift in Sources */,
