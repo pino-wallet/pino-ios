@@ -31,11 +31,9 @@ class ProfileViewModel {
 	private func setupSettings() {
 		accountSettings = [.wallets]
 		generalSettings = [
-			.currency,
 			.notification,
 			.securityLock,
 			.recoverPhrase,
-			.support,
 			.aboutPino,
 		]
 	}
