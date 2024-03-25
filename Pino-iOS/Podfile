@@ -7,6 +7,7 @@ target 'Pino-iOS' do
 
   # Pods for Pino-iOS
   pod 'TrustWalletCore'
+  pod 'FirebaseMessaging'
 
   target 'Pino-iOSTests' do
     inherit! :search_paths

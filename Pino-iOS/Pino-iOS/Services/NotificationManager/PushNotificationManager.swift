@@ -6,7 +6,7 @@
 //
 
 import Combine
-import Firebase
+import FirebaseCore
 import FirebaseMessaging
 import Foundation
 import UIKit
