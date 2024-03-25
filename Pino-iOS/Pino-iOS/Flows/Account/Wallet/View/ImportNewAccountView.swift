@@ -91,7 +91,6 @@ class ImportNewAccountView: UIView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.importButton.style = .loading
 			self.importButtonDidTap()
 		}), for: .touchUpInside)
 
@@ -271,5 +270,11 @@ class ImportNewAccountView: UIView {
 	private func dissmisskeyBoard() {
 		importTextView.endEditing(true)
 		accountNameTextField.endEditing(true)
+	}
+
+	// MARK: - Public Methods
+
+	public func showLoading() {
+		importButton.style = .loading
 	}
 }
