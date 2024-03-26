@@ -357,6 +357,10 @@
 		D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */; };
 		D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */; };
+		D94F906A2BB2A5EE003BDEBC /* BuildNumberInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F90692BB2A5EE003BDEBC /* BuildNumberInfo.swift */; };
+		D94F906D2BB2A84F003BDEBC /* BuildNumberInfoAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F906C2BB2A84F003BDEBC /* BuildNumberInfoAPIClient.swift */; };
+		D94F906F2BB2A868003BDEBC /* BuildNumberInfoEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F906E2BB2A868003BDEBC /* BuildNumberInfoEndpoint.swift */; };
+		D94F90712BB2AA9D003BDEBC /* BuildBumberInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F90702BB2AA9D003BDEBC /* BuildBumberInfoService.swift */; };
 		D9556E6F2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */; };
 		D9556E712AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */; };
 		D95782372AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */; };
@@ -1278,6 +1282,10 @@
 		D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
 		D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewModel.swift; sourceTree = "<group>"; };
+		D94F90692BB2A5EE003BDEBC /* BuildNumberInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildNumberInfo.swift; sourceTree = "<group>"; };
+		D94F906C2BB2A84F003BDEBC /* BuildNumberInfoAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildNumberInfoAPIClient.swift; sourceTree = "<group>"; };
+		D94F906E2BB2A868003BDEBC /* BuildNumberInfoEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildNumberInfoEndpoint.swift; sourceTree = "<group>"; };
+		D94F90702BB2AA9D003BDEBC /* BuildBumberInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildBumberInfoService.swift; sourceTree = "<group>"; };
 		D9556E6E2AFB89B800ADF1B9 /* BorrowActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D9556E702AFBA79D00ADF1B9 /* RepayActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepayActivityDetailsViewModel.swift; sourceTree = "<group>"; };
 		D95782362AFCC0B70007D580 /* WithdrawInvestmentActivityDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawInvestmentActivityDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -1976,6 +1984,7 @@
 		1FE31AB67FFCB1A4C1E2B6C6 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				D94F906B2BB2A80B003BDEBC /* BuildNumberInfo */,
 				D99F746D2AAF01B400802BCF /* Borrowing */,
 				E3ABD1E72AB0B24900947D37 /* Investment */,
 				DF6DEDC72AA8C1080080B47B /* Web3 */,
@@ -2985,6 +2994,7 @@
 		B306C5049CC723CBB7E23D2B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D94F90682BB2A57E003BDEBC /* BuildNumberInfo */,
 				D9BFE9952AD28B5D005E4562 /* ContractDetails */,
 				E3ABD1F02AB0BAA400947D37 /* Invest */,
 				D924C3422A94962A007299A4 /* Borrow */,
@@ -3052,6 +3062,7 @@
 				D924C3472A94969F007299A4 /* BorrowAPIService.swift */,
 				DF6DEDCC2AA8C1890080B47B /* Web3APIService.swift */,
 				E3ABD1EC2AB0B74F00947D37 /* InvestmentAPIService.swift */,
+				D94F90702BB2AA9D003BDEBC /* BuildBumberInfoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -3207,6 +3218,23 @@
 				D933C3382A99F6A600C2BD5A /* CollateralizableAssetCell.swift */,
 			);
 			path = CollateralizingBoard;
+			sourceTree = "<group>";
+		};
+		D94F90682BB2A57E003BDEBC /* BuildNumberInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D94F90692BB2A5EE003BDEBC /* BuildNumberInfo.swift */,
+			);
+			path = BuildNumberInfo;
+			sourceTree = "<group>";
+		};
+		D94F906B2BB2A80B003BDEBC /* BuildNumberInfo */ = {
+			isa = PBXGroup;
+			children = (
+				D94F906C2BB2A84F003BDEBC /* BuildNumberInfoAPIClient.swift */,
+				D94F906E2BB2A868003BDEBC /* BuildNumberInfoEndpoint.swift */,
+			);
+			path = BuildNumberInfo;
 			sourceTree = "<group>";
 		};
 		D95D49802A386BB00042FC85 /* TitleWithInfo */ = {
@@ -5078,6 +5106,7 @@
 				E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */,
 				E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */,
 				D95D20342AAC9B2E00E0A885 /* HealthScoreSystemViewController.swift in Sources */,
+				D94F906D2BB2A84F003BDEBC /* BuildNumberInfoAPIClient.swift in Sources */,
 				D9BE15B02A693593005E4063 /* SwapActivityDetailsViewModel.swift in Sources */,
 				D98355D72A9A1D4000294DCF /* BorrowLoanDetailsView.swift in Sources */,
 				D99CAFCB2A3AF2C800DBEF2B /* EnterSendAddressViewModel.swift in Sources */,
@@ -5158,6 +5187,7 @@
 				D16E6EA70136FF5D5C83ED88 /* AssetsAPIMockClient.swift in Sources */,
 				A19CFCA76D9396A5A2612F7E /* AssetsAPIService.swift in Sources */,
 				D9F927AC2B1213D800147013 /* AaveWithdrawManager.swift in Sources */,
+				D94F906F2BB2A868003BDEBC /* BuildNumberInfoEndpoint.swift in Sources */,
 				DF62CEC32B272F2C00AA6D41 /* IntroAnimationCollectionViewCell.swift in Sources */,
 				1B60F4A0467FB90C104F4521 /* AssetsCollectionView.swift in Sources */,
 				D924C3392A94952D007299A4 /* BorrowingDetailsView.swift in Sources */,
@@ -5534,6 +5564,7 @@
 				E3C0BCCB2B0A0DC900DAA409 /* InvestViewModelProtocol.swift in Sources */,
 				5D31EA0F77D4268D45A4B438 /* PinoTextFieldView.swift in Sources */,
 				D95A57CE2B17240D005A57EB /* WithdrawMode.swift in Sources */,
+				D94F906A2BB2A5EE003BDEBC /* BuildNumberInfo.swift in Sources */,
 				D9F9D5CC2AE4FC7700F81C38 /* W3AaveDepositManager.swift in Sources */,
 				D91AAF592AA36CBA00A823E6 /* BorrowConfirmViewController.swift in Sources */,
 				A6BFD6F684AF4BA205C23CE7 /* Pino_iOS.xcdatamodeld in Sources */,
@@ -5566,6 +5597,7 @@
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
 				DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */,
+				D94F90712BB2AA9D003BDEBC /* BuildBumberInfoService.swift in Sources */,
 				1DACABBF0C73761FBAF64811 /* ReceiveActionButton.swift in Sources */,
 				D94A9A2429FE75FC00DCA28D /* EditAccountNameViewModel.swift in Sources */,
 				05B960E15A9EEF333D3A8296 /* ReceiveAssetView.swift in Sources */,
