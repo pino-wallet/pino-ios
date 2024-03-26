@@ -8,7 +8,8 @@
 import Foundation
 
 // MARK: - BuildNumberInfo
+
 struct BuildNumberInfo: Codable {
-    let version: Int
-    let force: Bool
+	let version: Int
+	let force: Bool
 }

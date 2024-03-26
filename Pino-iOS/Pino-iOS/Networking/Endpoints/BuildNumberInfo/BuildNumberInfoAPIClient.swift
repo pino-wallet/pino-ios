@@ -5,15 +5,17 @@
 //  Created by Amir hossein kazemi seresht on 3/26/24.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class BuildNumberInfoAPIClient: BuildBumberInfoService {
-    // MARK: - Private Properties
-    private let networkManager = NetworkManager<BuildNumberInfoEndpoint>()
-    
-    // MARK: - Public Methods
-    public func getCurrentAppBuildNumberInfo() -> AnyPublisher<BuildNumberInfo, APIError> {
-        networkManager.request(.getCurrentAppBuildNumberInfo)
-    }
+	// MARK: - Private Properties
+
+	private let networkManager = NetworkManager<BuildNumberInfoEndpoint>()
+
+	// MARK: - Public Methods
+
+	public func getCurrentAppBuildNumberInfo() -> AnyPublisher<BuildNumberInfo, APIError> {
+		networkManager.request(.getCurrentAppBuildNumberInfo)
+	}
 }

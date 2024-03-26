@@ -5,9 +5,8 @@
 //  Created by Sobhan Eskandari on 11/5/22.
 //
 
-import UIKit
 import Combine
-
+import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	var window: UIWindow?
@@ -18,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	private var authManager: AuthenticationLockManager!
 	private var appIsLocked = false
 	private var showPrivateScreen = true
-    private var cancellables = Set<AnyCancellable>()
+	private var cancellables = Set<AnyCancellable>()
 
 	private var isUserLoggedIn: Bool {
 		let isUserLoggedInBool: Bool? = UserDefaultsManager.isUserLoggedIn.getValue()
@@ -63,9 +62,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			let navigationController = CustomNavigationController(rootViewController: IntroViewController())
 			window?.rootViewController = navigationController
 		}
-        
+
 		window?.makeKeyAndVisible()
-        checkForNewForcedUpdate()
+		checkForNewForcedUpdate()
 
 		// Disable animations in test mode to speed up tests
 		disableAllAnimationsInTestMode()
@@ -168,34 +167,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			UIView.setAnimationsEnabled(false)
 		}
 	}
-    
-    private func checkForNewForcedUpdate() {
-        let buildNumberInfoAPIClient = BuildNumberInfoAPIClient()
-        
-        buildNumberInfoAPIClient.getCurrentAppBuildNumberInfo().sink { completed in
-            switch completed {
-            case .finished:
-                print("tokens received successfully")
-            case let .failure(error):
-                print("Failed to fetch update details:\(error)")
-                Toast.default(title: "Failed to check for new updates", style: .error).show(haptic: .warning)
-            }
-        } receiveValue: { buildNumberInfo in
-            guard let currentBuildNumberString = Bundle.main.infoDictionary?["CFBundleVersion"] as? String, let currentBuildNumberInt = Int(currentBuildNumberString) else {
-                return
-            }
-            if currentBuildNumberInt < buildNumberInfo.version && buildNumberInfo.force {
-                if !UIDevice.current.isSimulator {
-                    self.showForcedUpdateAlert()
-                }
-            }
-        }.store(in: &cancellables)
-    }
-    
-    private func showForcedUpdateAlert() {
-        let forcedUpdateAlertVC = AlertHelper.alertController(title: "Major Update Required", message: "A major update has been detected, please update app to the latest version.", actions: [.gotIt(handler: { _ in
-        exit(0)
-        })])
-        window?.rootViewController?.present(forcedUpdateAlertVC, animated: true)
-    }
+
+	private func checkForNewForcedUpdate() {
+		let buildNumberInfoAPIClient = BuildNumberInfoAPIClient()
+
+		buildNumberInfoAPIClient.getCurrentAppBuildNumberInfo().sink { completed in
+			switch completed {
+			case .finished:
+				print("tokens received successfully")
+			case let .failure(error):
+				print("Failed to fetch update details:\(error)")
+				Toast.default(title: "Failed to check for new updates", style: .error).show(haptic: .warning)
+			}
+		} receiveValue: { buildNumberInfo in
+			guard let currentBuildNumberString = Bundle.main.infoDictionary?["CFBundleVersion"] as? String,
+			      let currentBuildNumberInt = Int(currentBuildNumberString) else {
+				return
+			}
+			if currentBuildNumberInt < buildNumberInfo.version && buildNumberInfo.force {
+				if !UIDevice.current.isSimulator {
+					self.showForcedUpdateAlert()
+				}
+			}
+		}.store(in: &cancellables)
+	}
+
+	private func showForcedUpdateAlert() {
+		let forcedUpdateAlertVC = AlertHelper.alertController(
+			title: "Major Update Required",
+			message: "A major update has been detected, please update app to the latest version.",
+			actions: [.gotIt(handler: { _ in
+				exit(0)
+			})]
+		)
+		window?.rootViewController?.present(forcedUpdateAlertVC, animated: true)
+	}
 }

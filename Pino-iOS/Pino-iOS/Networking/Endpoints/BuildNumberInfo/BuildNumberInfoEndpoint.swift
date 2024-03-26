@@ -8,50 +8,50 @@
 import Foundation
 
 enum BuildNumberInfoEndpoint: EndpointType {
-    // MARK: - Cases
+	// MARK: - Cases
 
-    case getCurrentAppBuildNumberInfo
+	case getCurrentAppBuildNumberInfo
 
-    // MARK: - Internal Properties
+	// MARK: - Internal Properties
 
-    internal func request() throws -> URLRequest {
-        var request = URLRequest(url: url)
-        request.httpMethod = httpMethod.rawValue
+	internal func request() throws -> URLRequest {
+		var request = URLRequest(url: url)
+		request.httpMethod = httpMethod.rawValue
 
-        try task.configParams(&request)
+		try task.configParams(&request)
 
-        return request
-    }
+		return request
+	}
 
-    internal var url: URL {
-        Environment.apiBaseURL.appendingPathComponent(path)
-    }
+	internal var url: URL {
+		Environment.apiBaseURL.appendingPathComponent(path)
+	}
 
-    internal var path: String {
-        switch self {
-        case .getCurrentAppBuildNumberInfo:
-            return "build-number/current"
-        }
-    }
+	internal var path: String {
+		switch self {
+		case .getCurrentAppBuildNumberInfo:
+			return "build-number/current"
+		}
+	}
 
-    internal var task: HTTPTask {
-        switch self {
-        case .getCurrentAppBuildNumberInfo:
-            return .request
-        }
-    }
+	internal var task: HTTPTask {
+		switch self {
+		case .getCurrentAppBuildNumberInfo:
+			return .request
+		}
+	}
 
-    internal var httpMethod: HTTPMethod {
-        switch self {
-        case .getCurrentAppBuildNumberInfo:
-            return .get
-        }
-    }
+	internal var httpMethod: HTTPMethod {
+		switch self {
+		case .getCurrentAppBuildNumberInfo:
+			return .get
+		}
+	}
 
-    internal var headers: HTTPHeaders {
-        [
-            "Content-Type": "application/json",
-            "X-API-TOKEN": "token",
-        ]
-    }
+	internal var headers: HTTPHeaders {
+		[
+			"Content-Type": "application/json",
+			"X-API-TOKEN": "token",
+		]
+	}
 }

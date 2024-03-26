@@ -5,9 +5,9 @@
 //  Created by Amir hossein kazemi seresht on 3/26/24.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 protocol BuildBumberInfoService {
-    func getCurrentAppBuildNumberInfo() -> AnyPublisher<BuildNumberInfo, APIError>
+	func getCurrentAppBuildNumberInfo() -> AnyPublisher<BuildNumberInfo, APIError>
 }
