@@ -18,4 +18,5 @@ protocol AccountingAPIService {
 	func activateDeviceWithInviteCode(inviteCode: String) -> AnyPublisher<ActivateAccountWithInviteCodeModel, APIError>
 	func validateDeviceForBeta() -> AnyPublisher<ValidateDeviceForBetaModel, APIError>
 	func registerDeviceToken(fcmToken: String, userAdd: String) -> AnyPublisher<FCMTokenRegistrationModel, APIError>
+	func removeDeviceToken(fcmToken: String) -> AnyPublisher<FCMTokenRegistrationModel, APIError>
 }

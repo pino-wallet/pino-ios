@@ -75,6 +75,10 @@ final class AccountingAPIClient: AccountingAPIService {
 	func registerDeviceToken(fcmToken: String, userAdd: String) -> AnyPublisher<FCMTokenRegistrationModel, APIError> {
 		networkManager.request(.addFCMToken(token: fcmToken, userAdd: userAdd))
 	}
+
+	func removeDeviceToken(fcmToken: String) -> AnyPublisher<FCMTokenRegistrationModel, APIError> {
+		networkManager.request(.removeFCMToken(token: fcmToken))
+	}
 }
 
 struct NoContent: Codable {}

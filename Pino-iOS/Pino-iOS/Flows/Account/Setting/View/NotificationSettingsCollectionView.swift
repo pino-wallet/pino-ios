@@ -125,13 +125,16 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 				self?.openTooltipAlert(tooltipTitle, tooltipText)
 			}
 			cell.manageIndex = (viewIndex: indexPath.item, viewsCount: notificationsVM.notificationOptions.count)
+
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
 
-		#warning("this closure is for testing and should be updated")
 		cell.switchValueClosure = { isOn, type in
+			let notifType = NotificationOptionModel.NotificationOption(rawValue: type)!
+			self.notificationsVM.saveNotifSettings(isOn: isOn, notifType: notifType)
 		}
+
 		return cell
 	}
 

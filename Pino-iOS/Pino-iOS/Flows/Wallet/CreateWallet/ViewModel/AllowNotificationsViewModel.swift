@@ -26,16 +26,34 @@ class AllowNotificationsViewModel {
 
 	public func enableNotifications() {
 		// enable notifications here...
-		PushNotificationManager.shared.requestAuthorization {
-			if let fcmToken = FCMTokenManager.shared.currentToken {
-				let walletManager = PinoWalletManager()
-				walletManager.accounts.forEach { account in
-					PushNotificationManager.shared.registerUserFCMToken(
-						token: fcmToken,
-						userAddress: account.eip55Address
-					)
-				}
+		PushNotificationManager.shared.requestAuthorization { granted in
+			UserDefaultsManager.allowNotif.setValue(value: granted)
+			if granted {
+                self.activateNotifs()
 			}
 		}
 	}
+    
+    public func activateNotifs() {
+        if let fcmToken = FCMTokenManager.shared.currentToken {
+            activateAccountsWith(token: fcmToken)
+        } else {
+            PushNotificationManager.shared.fetchFCMToken { fcmToken in
+                self.activateAccountsWith(token: fcmToken)
+            }
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func activateAccountsWith(token: String) {
+        let walletManager = PinoWalletManager()
+        walletManager.accounts.forEach { account in
+            PushNotificationManager.shared.registerUserFCMToken(
+                token: token,
+                userAddress: account.eip55Address
+            )
+        }
+    }
+    
 }

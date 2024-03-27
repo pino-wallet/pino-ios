@@ -32,7 +32,7 @@ class PushNotificationManager: NSObject, ObservableObject {
 
 	// MARK: - Public Methds
 
-	public func requestAuthorization(completionHandler: @escaping () -> Void) {
+	public func requestAuthorization(grantedAuth: @escaping (Bool) -> Void) {
 		let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
 		UNUserNotificationCenter.current().getNotificationSettings { settings in // 2
 			switch settings.authorizationStatus {
@@ -44,23 +44,23 @@ class PushNotificationManager: NSObject, ObservableObject {
 				}
 				DispatchQueue.main.async {
 					UIApplication.shared.open(url) // 3
-					completionHandler()
+					grantedAuth(false)
 				}
 			case .notDetermined:
 				UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { granted, _ in // 4
-					guard granted else { return completionHandler() }
+					guard granted else { return grantedAuth(false) }
 					DispatchQueue.main.async {
-						completionHandler()
+						grantedAuth(true)
 					}
 				}
 			case .authorized:
 				DispatchQueue.main.async {
-					completionHandler() // 5
+					grantedAuth(true)
 				}
 			case .provisional, .ephemeral:
-				completionHandler()
+				grantedAuth(true)
 			@unknown default:
-				completionHandler()
+				grantedAuth(true)
 			}
 		}
 	}
@@ -93,6 +93,27 @@ class PushNotificationManager: NSObject, ObservableObject {
 			}
 		}.store(in: &cancellables)
 	}
+    
+    public func deactivateNotifs() {
+        if let token = FCMTokenManager.shared.currentToken {
+            removeUserToken(token)
+        } else {
+            fetchFCMToken { token in
+                self.removeUserToken(token)
+            }
+        }
+    }
+    
+    // MARK: - Private Methds
+
+    private func removeUserToken(_ token: String) {
+        self.accountinClient.removeDeviceToken(fcmToken: token).sink { _ in
+        } receiveValue: { resp in
+            if resp.success {
+                UserDefaultsManager.allowNotif.setValue(value: false)
+            }
+        }.store(in: &cancellables)
+    }
 }
 
 extension PushNotificationManager: MessagingDelegate {

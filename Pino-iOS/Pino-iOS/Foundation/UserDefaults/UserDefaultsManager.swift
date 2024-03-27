@@ -18,6 +18,9 @@ struct UserDefaultsManager {
 	public static let fcmToken = Manager<String>(userDefaultKey: .fcmToken)
 	public static let gasLimits = Manager<GasLimitsModel>(userDefaultKey: .gasLimits)
 	public static let syncFinishTime = Manager<Date>(userDefaultKey: .syncFinishTime)
+	public static let allowActivityNotif = Manager<Bool>(userDefaultKey: .activityNotif)
+	public static let allowPinoUpdateNotif = Manager<Bool>(userDefaultKey: .pinoUpdateNotif)
+	public static let allowNotif = Manager<Bool>(userDefaultKey: .allowNotif)
 }
 
 extension UserDefaultsManager {
@@ -91,6 +94,9 @@ private enum GlobalUserDefaultsKeys: String {
 	case gasLimits
 	case syncFinishTime
 	case securityModes
+	case pinoUpdateNotif
+	case activityNotif
+	case allowNotif
 
 	public var key: String {
 		rawValue

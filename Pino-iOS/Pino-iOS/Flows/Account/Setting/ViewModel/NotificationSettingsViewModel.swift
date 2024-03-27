@@ -6,33 +6,74 @@
 //
 
 import Foundation
+import UIKit
 
 class NotificationSettingsViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Notifications"
 	public let notificationOptionsSectionTitle = "Options"
+    
+    // MARK: - Private Properties
+    private let allowNotifVM = AllowNotificationsViewModel()
 
-	public let notificationOptions = [
-		NotificationOptionModel(
+	// MARK: - Public Methods
+
+	public func getNotifOptions() -> [NotificationOptionModel] {
+		let isActivityNotifOn = UserDefaultsManager.allowActivityNotif.getValue() ?? false
+		let isPinoNotifOn = UserDefaultsManager.allowPinoUpdateNotif.getValue() ?? false
+
+		var walletActivityNotif = NotificationOptionModel(
 			title: "Wallet activity",
 			type: .wallet_activity,
-			isSelected: true,
+			isSelected: isActivityNotifOn,
 			description: "Send, swap, borrow, and more."
-		),
-		NotificationOptionModel(
+		)
+		var pinoUpdateNotif = NotificationOptionModel(
 			title: "Pino update",
 			type: .pino_update,
-			isSelected: true,
+			isSelected: isPinoNotifOn,
 			description: "Feature announcements and update"
-		),
-	]
-	public let generalNotificationOptions = [
-		NotificationOptionModel(
+		)
+
+		return [walletActivityNotif, pinoUpdateNotif]
+	}
+
+	public func getGeneralNotifOptions() -> [NotificationOptionModel] {
+		var isNotifOn = false
+
+		if let allowNotif = UserDefaultsManager.allowNotif.getValue() {
+			if allowNotif {
+				isNotifOn = true
+			} else {
+				isNotifOn = false
+			}
+		}
+
+		var notifOption = NotificationOptionModel(
 			title: "Allow notification",
 			type: .allow_notification,
-			isSelected: true,
+			isSelected: isNotifOn,
 			description: nil
-		),
-	]
+		)
+
+		return [notifOption]
+	}
+
+	public func saveNotifSettings(isOn: Bool, notifType: NotificationOptionModel.NotificationOption) {
+		switch notifType {
+		case .wallet_activity:
+			UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
+		case .pino_update:
+			UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
+		case .liquidation_notice:
+			break
+		case .allow_notification:
+			if isOn {
+                allowNotifVM.activateNotifs()
+			} else {
+                PushNotificationManager.shared.deactivateNotifs()
+            }
+		}
+	}
 }
