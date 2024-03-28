@@ -36,12 +36,18 @@ class PortfolioPerformanceViewModel {
 				case .finished:
 					print("Portfolio received successfully")
 				case let .failure(error):
-					print(error)
+					print(error.description)
+					self.showError(error)
 				}
 			} receiveValue: { portfolio in
 				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
 				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
 			}.store(in: &cancellables)
+	}
+
+	public func getPortfolioPerformanceData() {
+		getChartData()
+		getShareOfAssets()
 	}
 
 	// MARK: - Private Methods
@@ -60,10 +66,7 @@ class PortfolioPerformanceViewModel {
 		}
 	}
 
-	// MARK: - Public Methods
-
-	public func getPortfolioPerformanceData() {
-		getChartData()
-		getShareOfAssets()
+	private func showError(_ error: APIError) {
+		Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 	}
 }
