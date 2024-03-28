@@ -34,9 +34,9 @@ class PortfolioPerformanceViewModel {
 			.sink { completed in
 				switch completed {
 				case .finished:
-					print("Portfolio received successfully")
+					print("Portfolio performance received successfully")
 				case let .failure(error):
-					print(error.description)
+					print("Error: getting portfolio performance: \(error.description)")
 					self.showError(error)
 				}
 			} receiveValue: { portfolio in

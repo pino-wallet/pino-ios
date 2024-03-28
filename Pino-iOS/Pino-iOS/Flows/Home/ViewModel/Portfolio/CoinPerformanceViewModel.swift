@@ -65,9 +65,9 @@ class CoinPerformanceViewModel {
 				.sink { completed in
 					switch completed {
 					case .finished:
-						print("Portfolio received successfully")
+						print("Coin performance received successfully")
 					case let .failure(error):
-						print(error.description)
+						print("Error: getting coin performance: \(error.description)")
 						seal.reject(error)
 					}
 				} receiveValue: { portfolio in
@@ -82,9 +82,9 @@ class CoinPerformanceViewModel {
 			accountingAPIClient.getAllTimePerformanceOf(selectedAsset.id).sink { completed in
 				switch completed {
 				case .finished:
-					print("ATL and ATH recieved successfully")
+					print("Coin all time recieved successfully")
 				case let .failure(error):
-					print(error.description)
+					print("Error: getting coin all time: \(error.description)")
 					seal.reject(error)
 				}
 			} receiveValue: { tokenAllTime in

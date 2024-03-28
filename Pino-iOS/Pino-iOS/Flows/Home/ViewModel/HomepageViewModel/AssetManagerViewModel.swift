@@ -71,7 +71,7 @@ class AssetManagerViewModel {
 				case .finished:
 					print("tokens received successfully")
 				case let .failure(error):
-					print("Failed to fetch tokens:\(error)")
+					print("Error: getting tokens: \(error.description)")
 					seal.reject(error)
 				}
 			} receiveValue: { tokens in
@@ -88,9 +88,9 @@ class AssetManagerViewModel {
 				.sink { completed in
 					switch completed {
 					case .finished:
-						print("Assets received successfully")
+						print("User balance received successfully")
 					case let .failure(error):
-						print("Error getting tokens:\(error)")
+						print("Error: getting user balance: \(error.description)")
 						seal.reject(error)
 					}
 				} receiveValue: { assets in
@@ -170,10 +170,10 @@ class AssetManagerViewModel {
 			assetsAPIClient.getAllPositionAssets().sink { completed in
 				switch completed {
 				case .finished:
-					print("tokens received successfully")
+					print("Position assets received successfully")
 				case let .failure(error):
-					print("Failed to fetch position asset details:\(error)")
-					Toast.default(title: "Failed to get position assets", style: .error).show(haptic: .warning)
+					print("Error: getting position assets: \(error.description)")
+					seal.reject(error)
 				}
 			} receiveValue: { positionAssets in
 				seal.fulfill(positionAssets)
