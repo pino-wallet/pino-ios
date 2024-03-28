@@ -185,7 +185,7 @@ class AllowNotificationsView: UIView {
 
 	@objc
 	private func onSkip() {
-        allowNotificationsVM.skipActivatingNotif()
+		allowNotificationsVM.skipActivatingNotif()
 		dismissPage()
 	}
 

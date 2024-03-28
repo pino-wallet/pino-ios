@@ -16,16 +16,15 @@ class NotificationService: UNNotificationServiceExtension {
 		withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void
 	) {
 		let userInfo = request.content.userInfo
-        print("received notif:\(userInfo["type"])")
+		print("received notif:\(userInfo["type"])")
 		// Check if the notification can be shown based on user pref
 		if canShowNotif(userInfo) {
-            contentHandler(request.content)
-            print("received: show")
+			contentHandler(request.content)
+			print("received: show")
 			return
-        } else {
-            print("received: NOT show")
-        }
-
+		} else {
+			print("received: NOT show")
+		}
 	}
 
 	private func canShowNotif(_ userInfo: [AnyHashable: Any]) -> Bool {
@@ -52,12 +51,12 @@ enum NotificaionType: String {
 	case activity
 
 	public var isAllowed: Bool {
-        let pref = UserDefaults.init(suiteName: "group.id.notif.service")!
-        switch self {
-        case .pinoUpdate:
-            return pref.bool(forKey: GlobalUserDefaultsKeys.pinoUpdateNotif.rawValue)
-        case .activity:
-            return pref.bool(forKey: GlobalUserDefaultsKeys.activityNotif.rawValue)
-        }
+		let pref = UserDefaults(suiteName: "group.id.notif.service")!
+		switch self {
+		case .pinoUpdate:
+			return pref.bool(forKey: GlobalUserDefaultsKeys.pinoUpdateNotif.rawValue)
+		case .activity:
+			return pref.bool(forKey: GlobalUserDefaultsKeys.activityNotif.rawValue)
+		}
 	}
 }

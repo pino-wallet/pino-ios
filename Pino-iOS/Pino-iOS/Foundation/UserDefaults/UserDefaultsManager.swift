@@ -8,9 +8,8 @@
 import Foundation
 
 struct UserDefaultsManager {
-    
-    private static let notifSuit = "group.id.notif.service"
-    
+	private static let notifSuit = "group.id.notif.service"
+
 	public static let isUserLoggedIn = Manager<Bool>(userDefaultKey: .isLogin)
 	public static let isDevModeUser = Manager<Bool>(userDefaultKey: .isInDevMode)
 	public static let biometricCount = Manager<Int>(userDefaultKey: .showBiometricCounts)
@@ -22,30 +21,30 @@ struct UserDefaultsManager {
 	public static let gasLimits = Manager<GasLimitsModel>(userDefaultKey: .gasLimits)
 	public static let syncFinishTime = Manager<Date>(userDefaultKey: .syncFinishTime)
 	public static let allowNotif = Manager<Bool>(userDefaultKey: .allowNotif)
-    
-    // Notif Suit
-    public static let allowActivityNotif = Manager<Bool>(userDefaultKey: .activityNotif, suit: notifSuit)
-    public static let allowPinoUpdateNotif = Manager<Bool>(userDefaultKey: .pinoUpdateNotif, suit: notifSuit)
+
+	// Notif Suit
+	public static let allowActivityNotif = Manager<Bool>(userDefaultKey: .activityNotif, suit: notifSuit)
+	public static let allowPinoUpdateNotif = Manager<Bool>(userDefaultKey: .pinoUpdateNotif, suit: notifSuit)
 }
 
 extension UserDefaultsManager {
 	class Manager<T: Codable> {
 		// MARK: - Private Properties
 
-        private var userDefaults: UserDefaults
+		private var userDefaults: UserDefaults
 		private var userDefaultKey: GlobalUserDefaultsKeys
 
 		// MARK: - Initializers
 
 		fileprivate init(userDefaultKey: GlobalUserDefaultsKeys) {
 			self.userDefaultKey = userDefaultKey
-            self.userDefaults = UserDefaults.standard
+			self.userDefaults = UserDefaults.standard
 		}
-        
-        fileprivate init(userDefaultKey: GlobalUserDefaultsKeys, suit: String) {
-            self.userDefaultKey = userDefaultKey
-            self.userDefaults = .init(suiteName: suit)!
-        }
+
+		fileprivate init(userDefaultKey: GlobalUserDefaultsKeys, suit: String) {
+			self.userDefaultKey = userDefaultKey
+			self.userDefaults = .init(suiteName: suit)!
+		}
 
 		// MARK: - Private Methods
 
@@ -93,4 +92,3 @@ extension UserDefaultsManager {
 		}
 	}
 }
-

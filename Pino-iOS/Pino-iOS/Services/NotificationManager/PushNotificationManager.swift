@@ -93,27 +93,27 @@ class PushNotificationManager: NSObject, ObservableObject {
 			}
 		}.store(in: &cancellables)
 	}
-    
-    public func deactivateNotifs() {
-        if let token = FCMTokenManager.shared.currentToken {
-            removeUserToken(token)
-        } else {
-            fetchFCMToken { token in
-                self.removeUserToken(token)
-            }
-        }
-    }
-    
-    // MARK: - Private Methds
 
-    private func removeUserToken(_ token: String) {
-        self.accountinClient.removeDeviceToken(fcmToken: token).sink { _ in
-        } receiveValue: { resp in
-            if resp.success {
-                UserDefaultsManager.allowNotif.setValue(value: false)
-            }
-        }.store(in: &cancellables)
-    }
+	public func deactivateNotifs() {
+		if let token = FCMTokenManager.shared.currentToken {
+			removeUserToken(token)
+		} else {
+			fetchFCMToken { token in
+				self.removeUserToken(token)
+			}
+		}
+	}
+
+	// MARK: - Private Methds
+
+	private func removeUserToken(_ token: String) {
+		accountinClient.removeDeviceToken(fcmToken: token).sink { _ in
+		} receiveValue: { resp in
+			if resp.success {
+				UserDefaultsManager.allowNotif.setValue(value: false)
+			}
+		}.store(in: &cancellables)
+	}
 }
 
 extension PushNotificationManager: MessagingDelegate {

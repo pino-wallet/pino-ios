@@ -5,12 +5,17 @@
 //  Created by Amir hossein kazemi seresht on 4/10/23.
 //
 
+import Combine
 import UIKit
 
 class NotificationSettingsCollectionView: UICollectionView {
 	// MARK: - Typealiases
 
 	typealias openTooltipAlertType = (_ tooltipTitle: String, _ tooltipText: String) -> Void
+
+	// MARK: - Private Properties
+
+	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
 
@@ -25,14 +30,16 @@ class NotificationSettingsCollectionView: UICollectionView {
 	init(notificationsVM: NotificationSettingsViewModel, openTooltipAlert: @escaping openTooltipAlertType) {
 		let flowLayout = UICollectionViewFlowLayout(
 			scrollDirection: .vertical,
-			sectionInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+			sectionInset: UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
 		)
 		self.notificationsVM = notificationsVM
 		self.openTooltipAlert = openTooltipAlert
 		super.init(frame: .zero, collectionViewLayout: flowLayout)
 		flowLayout.collectionView?.backgroundColor = .Pino.background
+		self.contentInset = .init(top: 24, left: 16, bottom: 0, right: 16)
 
 		configureCollectionView()
+		setupBinding()
 	}
 
 	required init?(coder: NSCoder) {
@@ -56,6 +63,12 @@ class NotificationSettingsCollectionView: UICollectionView {
 		delegate = self
 		dataSource = self
 	}
+
+	private func setupBinding() {
+		notificationsVM.$isNotifAllowed.sink { allowed in
+			self.reloadData()
+		}.store(in: &cancellables)
+	}
 }
 
 extension NotificationSettingsCollectionView: UICollectionViewDelegateFlowLayout {
@@ -66,7 +79,7 @@ extension NotificationSettingsCollectionView: UICollectionViewDelegateFlowLayout
 	) -> CGSize {
 		switch section {
 		case 0:
-			return CGSize(width: collectionView.frame.width, height: 24)
+			return CGSize(width: collectionView.frame.width, height: 0)
 		case 1:
 			return CGSize(width: collectionView.frame.width, height: 78)
 		default:
@@ -79,13 +92,13 @@ extension NotificationSettingsCollectionView: UICollectionViewDelegateFlowLayout
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: collectionView.frame.width - 32, height: 0)
+		CGSize(width: collectionView.frame.width - 32, height: 48)
 	}
 }
 
 extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 	func numberOfSections(in collectionView: UICollectionView) -> Int {
-		2
+		notificationsVM.isNotifAllowed ? 2 : 1
 	}
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -130,9 +143,9 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 			fatalError("Invalid section index in notificaition collection view")
 		}
 
-		cell.switchValueClosure = { isOn, type in
+		cell.switchValueClosure = { [unowned self] isOn, type in
 			let notifType = NotificationOptionModel.NotificationOption(rawValue: type)!
-			self.notificationsVM.saveNotifSettings(isOn: isOn, notifType: notifType)
+			notificationsVM.saveNotifSettings(isOn: isOn, notifType: notifType)
 		}
 
 		return cell
@@ -143,28 +156,12 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 		viewForSupplementaryElementOfKind kind: String,
 		at indexPath: IndexPath
 	) -> UICollectionReusableView {
-		switch indexPath.section {
-		case 0:
-			let generalNotificationSettingsHeader = dequeueReusableSupplementaryView(
-				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: GeneralNotificationSettingsHeader.viewReuseID,
-				for: indexPath
-			)
-			return generalNotificationSettingsHeader
-		case 1:
-			let notificationSettingsHeader = dequeueReusableSupplementaryView(
-				ofKind: UICollectionView.elementKindSectionHeader,
-				withReuseIdentifier: NotificationSettingsSection.viewReuseID,
-				for: indexPath
-			) as! NotificationSettingsSection
-			notificationSettingsHeader.notificationsVM = notificationsVM
-			notificationSettingsHeader.changeAllowNotificationsClosure = { isAllowed in
-                self.notificationsVM.saveNotifSettings(isOn: isAllowed, notifType: .allow_notification)
-			}
-
-			return notificationSettingsHeader
-		default:
-			fatalError("Invalid section index in notificaition collection view")
-		}
+		let notificationSettingsHeader = dequeueReusableSupplementaryView(
+			ofKind: UICollectionView.elementKindSectionHeader,
+			withReuseIdentifier: NotificationSettingsSection.viewReuseID,
+			for: indexPath
+		) as! NotificationSettingsSection
+		notificationSettingsHeader.sectionTitle = notificationsVM.notificationOptionsSectionTitle
+		return notificationSettingsHeader
 	}
 }

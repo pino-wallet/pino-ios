@@ -11,6 +11,7 @@ class NotificationSettingsViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let notificationsVM = NotificationSettingsViewModel()
+	private var notificationsCollectionView: NotificationSettingsCollectionView!
 
 	// MARK: - View Overrides
 
@@ -21,6 +22,12 @@ class NotificationSettingsViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+		setupNotifications()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		notificationsCollectionView.reloadData()
 	}
 
 	// MARK: - Private Methods
@@ -31,7 +38,7 @@ class NotificationSettingsViewController: UIViewController {
 	}
 
 	private func setupView() {
-		let notificationsCollectionView = NotificationSettingsCollectionView(
+		notificationsCollectionView = NotificationSettingsCollectionView(
 			notificationsVM: notificationsVM,
 			openTooltipAlert: { [weak self] tooltipTitle, tooltipText in
 				self?.openTooltipAlertAction(tooltipTitle: tooltipTitle, tooltipText: tooltipText)
@@ -43,5 +50,28 @@ class NotificationSettingsViewController: UIViewController {
 	private func openTooltipAlertAction(tooltipTitle: String, tooltipText: String) {
 		let tooltipActionSheet = InfoActionSheet(title: tooltipTitle, description: tooltipText)
 		present(tooltipActionSheet, animated: true)
+	}
+
+	private func setupNotifications() {
+		let notificationsCenter = NotificationCenter.default
+		notificationsCenter.addObserver(
+			self,
+			selector: #selector(didBecomeActive),
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
+	}
+
+	private func removeNotifications() {
+		NotificationCenter.default.removeObserver(
+			self,
+			name: UIApplication.didBecomeActiveNotification,
+			object: nil
+		)
+	}
+
+	@objc
+	private func didBecomeActive() {
+		notificationsCollectionView.reloadData()
 	}
 }

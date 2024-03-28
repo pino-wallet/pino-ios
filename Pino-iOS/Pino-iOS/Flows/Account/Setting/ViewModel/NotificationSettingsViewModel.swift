@@ -13,9 +13,12 @@ class NotificationSettingsViewModel {
 
 	public let pageTitle = "Notifications"
 	public let notificationOptionsSectionTitle = "Options"
-    
-    // MARK: - Private Properties
-    private let allowNotifVM = AllowNotificationsViewModel()
+	@Published
+	public var isNotifAllowed: Bool = UserDefaultsManager.allowNotif.getValue()!
+
+	// MARK: - Private Properties
+
+	private let allowNotifVM = AllowNotificationsViewModel()
 
 	// MARK: - Public Methods
 
@@ -61,22 +64,35 @@ class NotificationSettingsViewModel {
 	}
 
 	public func saveNotifSettings(isOn: Bool, notifType: NotificationOptionModel.NotificationOption) {
-        PushNotificationManager.shared.requestAuthorization { granted in
-            guard granted else { return }
-            switch notifType {
-            case .wallet_activity:
-                UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
-            case .pino_update:
-                UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
-            case .liquidation_notice:
-                break
-            case .allow_notification:
-                if isOn {
-                    self.allowNotifVM.activateNotifs()
-                } else {
-                    PushNotificationManager.shared.deactivateNotifs()
-                }
-            }
-        }
+		PushNotificationManager.shared.requestAuthorization { granted in
+			guard granted else { return }
+			switch notifType {
+			case .wallet_activity:
+				UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
+			case .pino_update:
+				UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
+			case .liquidation_notice:
+				break
+			case .allow_notification:
+				UserDefaultsManager.allowNotif.setValue(value: isOn)
+				self.isNotifAllowed = isOn
+				if isOn {
+					self.allowNotifVM.activateNotifs()
+				} else {
+					PushNotificationManager.shared.deactivateNotifs()
+				}
+			}
+			self.deactiveNotifsIfNeeded()
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func deactiveNotifsIfNeeded() {
+		let allowActivityNotif = UserDefaultsManager.allowActivityNotif.getValue()!
+
+		if !allowActivityNotif {
+			PushNotificationManager.shared.deactivateNotifs()
+		}
 	}
 }
