@@ -8,6 +8,9 @@
 import Foundation
 
 struct UserDefaultsManager {
+    
+    private static let notifSuit = "group.id.notif.service"
+    
 	public static let isUserLoggedIn = Manager<Bool>(userDefaultKey: .isLogin)
 	public static let isDevModeUser = Manager<Bool>(userDefaultKey: .isInDevMode)
 	public static let biometricCount = Manager<Int>(userDefaultKey: .showBiometricCounts)
@@ -18,23 +21,31 @@ struct UserDefaultsManager {
 	public static let fcmToken = Manager<String>(userDefaultKey: .fcmToken)
 	public static let gasLimits = Manager<GasLimitsModel>(userDefaultKey: .gasLimits)
 	public static let syncFinishTime = Manager<Date>(userDefaultKey: .syncFinishTime)
-	public static let allowActivityNotif = Manager<Bool>(userDefaultKey: .activityNotif)
-	public static let allowPinoUpdateNotif = Manager<Bool>(userDefaultKey: .pinoUpdateNotif)
 	public static let allowNotif = Manager<Bool>(userDefaultKey: .allowNotif)
+    
+    // Notif Suit
+    public static let allowActivityNotif = Manager<Bool>(userDefaultKey: .activityNotif, suit: notifSuit)
+    public static let allowPinoUpdateNotif = Manager<Bool>(userDefaultKey: .pinoUpdateNotif, suit: notifSuit)
 }
 
 extension UserDefaultsManager {
 	class Manager<T: Codable> {
 		// MARK: - Private Properties
 
-		private let userDefaults = UserDefaults.standard
+        private var userDefaults: UserDefaults
 		private var userDefaultKey: GlobalUserDefaultsKeys
 
 		// MARK: - Initializers
 
 		fileprivate init(userDefaultKey: GlobalUserDefaultsKeys) {
 			self.userDefaultKey = userDefaultKey
+            self.userDefaults = UserDefaults.standard
 		}
+        
+        fileprivate init(userDefaultKey: GlobalUserDefaultsKeys, suit: String) {
+            self.userDefaultKey = userDefaultKey
+            self.userDefaults = .init(suiteName: suit)!
+        }
 
 		// MARK: - Private Methods
 
@@ -83,22 +94,3 @@ extension UserDefaultsManager {
 	}
 }
 
-private enum GlobalUserDefaultsKeys: String {
-	case hasShownNotifPage
-	case isInDevMode
-	case showBiometricCounts
-	case recentSentAddresses
-	case isLogin
-	case fcmToken
-	case lockMethodType
-	case gasLimits
-	case syncFinishTime
-	case securityModes
-	case pinoUpdateNotif
-	case activityNotif
-	case allowNotif
-
-	public var key: String {
-		rawValue
-	}
-}

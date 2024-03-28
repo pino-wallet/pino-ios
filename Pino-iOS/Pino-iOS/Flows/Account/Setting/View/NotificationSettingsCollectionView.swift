@@ -91,9 +91,9 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		switch section {
 		case 0:
-			return notificationsVM.generalNotificationOptions.count
+			return notificationsVM.getGeneralNotifOptions().count
 		case 1:
-			return notificationsVM.notificationOptions.count
+			return notificationsVM.getNotifOptions().count
 		default:
 			fatalError("Invalid section index in notificaition collection view")
 		}
@@ -112,19 +112,19 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 			cell
 				.notificationSettingsOptionVM = NotificationSettingsOptionViewModel(
 					notificationOption: notificationsVM
-						.generalNotificationOptions[indexPath.item]
+						.getGeneralNotifOptions()[indexPath.item]
 				)
-			cell.manageIndex = (viewIndex: indexPath.item, viewsCount: notificationsVM.generalNotificationOptions.count)
+			cell.manageIndex = (viewIndex: indexPath.item, viewsCount: notificationsVM.getGeneralNotifOptions().count)
 		case 1:
 			cell
 				.notificationSettingsOptionVM = NotificationSettingsOptionViewModel(
 					notificationOption: notificationsVM
-						.notificationOptions[indexPath.item]
+						.getNotifOptions()[indexPath.item]
 				)
 			cell.onTooltipTapClosure = { [weak self] tooltipTitle, tooltipText in
 				self?.openTooltipAlert(tooltipTitle, tooltipText)
 			}
-			cell.manageIndex = (viewIndex: indexPath.item, viewsCount: notificationsVM.notificationOptions.count)
+			cell.manageIndex = (viewIndex: indexPath.item, viewsCount: notificationsVM.getNotifOptions().count)
 
 		default:
 			fatalError("Invalid section index in notificaition collection view")
@@ -158,8 +158,8 @@ extension NotificationSettingsCollectionView: UICollectionViewDataSource {
 				for: indexPath
 			) as! NotificationSettingsSection
 			notificationSettingsHeader.notificationsVM = notificationsVM
-			#warning("this closure is for testing and should be updated")
 			notificationSettingsHeader.changeAllowNotificationsClosure = { isAllowed in
+                self.notificationsVM.saveNotifSettings(isOn: isAllowed, notifType: .allow_notification)
 			}
 
 			return notificationSettingsHeader

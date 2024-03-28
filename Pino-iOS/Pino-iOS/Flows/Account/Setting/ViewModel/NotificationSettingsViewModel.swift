@@ -50,7 +50,7 @@ class NotificationSettingsViewModel {
 			}
 		}
 
-		var notifOption = NotificationOptionModel(
+		let notifOption = NotificationOptionModel(
 			title: "Allow notification",
 			type: .allow_notification,
 			isSelected: isNotifOn,
@@ -61,19 +61,22 @@ class NotificationSettingsViewModel {
 	}
 
 	public func saveNotifSettings(isOn: Bool, notifType: NotificationOptionModel.NotificationOption) {
-		switch notifType {
-		case .wallet_activity:
-			UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
-		case .pino_update:
-			UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
-		case .liquidation_notice:
-			break
-		case .allow_notification:
-			if isOn {
-                allowNotifVM.activateNotifs()
-			} else {
-                PushNotificationManager.shared.deactivateNotifs()
+        PushNotificationManager.shared.requestAuthorization { granted in
+            guard granted else { return }
+            switch notifType {
+            case .wallet_activity:
+                UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
+            case .pino_update:
+                UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
+            case .liquidation_notice:
+                break
+            case .allow_notification:
+                if isOn {
+                    self.allowNotifVM.activateNotifs()
+                } else {
+                    PushNotificationManager.shared.deactivateNotifs()
+                }
             }
-		}
+        }
 	}
 }

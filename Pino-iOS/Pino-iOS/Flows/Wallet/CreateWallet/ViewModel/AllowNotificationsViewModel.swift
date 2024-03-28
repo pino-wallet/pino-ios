@@ -27,12 +27,20 @@ class AllowNotificationsViewModel {
 	public func enableNotifications() {
 		// enable notifications here...
 		PushNotificationManager.shared.requestAuthorization { granted in
-			UserDefaultsManager.allowNotif.setValue(value: granted)
+            UserDefaultsManager.allowNotif.setValue(value: granted)
+            UserDefaultsManager.allowPinoUpdateNotif.setValue(value: granted)
+			UserDefaultsManager.allowActivityNotif.setValue(value: granted)
 			if granted {
                 self.activateNotifs()
 			}
 		}
 	}
+    
+    public func skipActivatingNotif() {
+        UserDefaultsManager.allowNotif.setValue(value: false)
+        UserDefaultsManager.allowPinoUpdateNotif.setValue(value: false)
+        UserDefaultsManager.allowActivityNotif.setValue(value: false)
+    }
     
     public func activateNotifs() {
         if let fcmToken = FCMTokenManager.shared.currentToken {

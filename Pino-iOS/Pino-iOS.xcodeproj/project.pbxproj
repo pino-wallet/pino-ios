@@ -111,6 +111,8 @@
 		4081E1EA2B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081E1E62B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */; };
 		4081E1EB2B905DB00000E153 /* CDWrapETHActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081E1E72B905DB00000E153 /* CDWrapETHActivityDetails+CoreDataProperties.swift */; };
 		4081E1EC2B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081E1E82B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */; };
+		40B1BCC02BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */; };
+		40B1BCC12BB4391400F89CCA /* GlobalUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
 		40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7C1122AAF6C74006A61DD /* SwapManager.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
@@ -1028,6 +1030,7 @@
 		4081E1E62B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUnwrapETHActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4081E1E72B905DB00000E153 /* CDWrapETHActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWrapETHActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4081E1E82B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUnwrapETHActivityDetails+CoreDataClass.swift"; sourceTree = "<group>"; };
+		40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserDefaultsKeys.swift; sourceTree = "<group>"; };
 		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		40E7C1122AAF6C74006A61DD /* SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapManager.swift; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
@@ -3272,6 +3275,7 @@
 			children = (
 				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
+				40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */,
 			);
 			path = "Global enums";
 			sourceTree = "<group>";
@@ -5537,6 +5541,7 @@
 				DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
 				D9A0BDAA2A974B9800AE132F /* BorrowingBoardViewController.swift in Sources */,
+				40B1BCC02BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
@@ -5875,6 +5880,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF8AB4192BB29E0F0084B2ED /* NotificationService.swift in Sources */,
+				40B1BCC12BB4391400F89CCA /* GlobalUserDefaultsKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,24 +16,24 @@ class NotificationService: UNNotificationServiceExtension {
 		withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void
 	) {
 		let userInfo = request.content.userInfo
-
-		// Check if the notification is a marketing notification (you'll need to define this mechanism)
-		if isMarketingNotification(userInfo) {
-			// Check if the user has opted out of marketing notifications
-			contentHandler(UNNotificationContent()) // Deliver an empty notification
+        print("received notif:\(userInfo["type"])")
+		// Check if the notification can be shown based on user pref
+		if canShowNotif(userInfo) {
+            contentHandler(request.content)
+            print("received: show")
 			return
-		}
+        } else {
+            print("received: NOT show")
+        }
 
-		// If it's not a marketing notification or the user has opted in, deliver it normally
-		contentHandler(request.content)
 	}
 
-	private func isMarketingNotification(_ userInfo: [AnyHashable: Any]) -> Bool {
+	private func canShowNotif(_ userInfo: [AnyHashable: Any]) -> Bool {
 		if let notifInfo = userInfo["type"] as? String,
 		   let notifType = NotificaionType(rawValue: notifInfo) {
 			return notifType.isAllowed
 		} else {
-			return true
+			return false
 		}
 	}
 
@@ -48,11 +48,16 @@ class NotificationService: UNNotificationServiceExtension {
 }
 
 enum NotificaionType: String {
-	case marketing
 	case pinoUpdate
 	case activity
 
 	public var isAllowed: Bool {
-		UserDefaults.standard.bool(forKey: rawValue)
+        let pref = UserDefaults.init(suiteName: "group.id.notif.service")!
+        switch self {
+        case .pinoUpdate:
+            return pref.bool(forKey: GlobalUserDefaultsKeys.pinoUpdateNotif.rawValue)
+        case .activity:
+            return pref.bool(forKey: GlobalUserDefaultsKeys.activityNotif.rawValue)
+        }
 	}
 }
