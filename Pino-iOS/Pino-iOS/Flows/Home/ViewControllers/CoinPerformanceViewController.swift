@@ -37,7 +37,7 @@ class CoinPerformanceViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		if SyncWalletViewModel.isSyncFinished {
-			coinPerformanceVM.getCoinPerformance()
+			getCoinPerformance()
 		}
 		if isBeingPresented || isMovingToParent {
 			view.showSkeletonView()
@@ -47,7 +47,7 @@ class CoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
+		view = CoinPerformanceView(coinPerformanceVM: coinPerformanceVM, chartDateFilterDelegate: self)
 	}
 
 	private func setupNavigationBar() {
@@ -67,5 +67,24 @@ class CoinPerformanceViewController: UIViewController {
 	@objc
 	private func closePage() {
 		dismiss(animated: true)
+	}
+
+	private func getCoinPerformance() {
+		coinPerformanceVM.getCoinPerformance().catch { error in
+			self.showErrorToast(error)
+		}
+	}
+
+	private func showErrorToast(_ error: Error) {
+		guard let error = error as? APIError else { return }
+		Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
+	}
+}
+
+extension CoinPerformanceViewController: LineChartDateFilterDelegate {
+	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
+		coinPerformanceVM.getChartData(dateFilter: dateFilter).catch { error in
+			self.showErrorToast(error)
+		}
 	}
 }

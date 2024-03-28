@@ -34,7 +34,7 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Public Methods
 
-	public func getCoinPerformance() {
+	public func getCoinPerformance() -> Promise<Void> {
 		firstly {
 			getChartData()
 		}.then { assetChartVM in
@@ -44,16 +44,12 @@ class CoinPerformanceViewModel {
 			chartVM = assetChartVM
 			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
 			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
-		}.catch { [weak self] error in
-			self?.showError(error)
 		}
 	}
 
-	public func getChartData(dateFilter: ChartDateFilter) {
+	public func getChartData(dateFilter: ChartDateFilter) -> Promise<Void> {
 		getChartData(dateFilter: dateFilter).done { [weak self] assetChartVM in
 			self?.chartVM = assetChartVM
-		}.catch { [weak self] error in
-			self?.showError(error)
 		}
 	}
 
@@ -90,12 +86,6 @@ class CoinPerformanceViewModel {
 			} receiveValue: { tokenAllTime in
 				seal.fulfill(tokenAllTime)
 			}.store(in: &cancellables)
-		}
-	}
-
-	private func showError(_ error: Error) {
-		if let error = error as? APIError {
-			Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 		}
 	}
 }

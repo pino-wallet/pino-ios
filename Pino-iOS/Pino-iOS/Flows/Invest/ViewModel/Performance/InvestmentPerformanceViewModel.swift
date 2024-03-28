@@ -19,9 +19,11 @@ class InvestmentPerformanceViewModel {
 	@Published
 	public var chartVM: AssetChartViewModel?
 	public var shareOfAssetsVM: [ShareOfAssetsProtocol]?
+	public let chartDateFilterDelegate: LineChartDateFilterDelegate
 
-	init(assets: [InvestAssetViewModel]?) {
+	init(assets: [InvestAssetViewModel]?, chartDateFilterDelegate: LineChartDateFilterDelegate) {
 		self.selectedAssets = assets
+		self.chartDateFilterDelegate = chartDateFilterDelegate
 	}
 
 	// MARK: - Public Methods

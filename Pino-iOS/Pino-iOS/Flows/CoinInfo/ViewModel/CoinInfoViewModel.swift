@@ -281,7 +281,7 @@ class CoinInfoViewModel {
 			case .finished:
 				print("Token activities received successfully")
 			case let .failure(error):
-				print(error)
+				print("Error: getting token activities: \(error.description)")
 			}
 		} receiveValue: { [weak self] fetchedActivities in
 			guard let self else {

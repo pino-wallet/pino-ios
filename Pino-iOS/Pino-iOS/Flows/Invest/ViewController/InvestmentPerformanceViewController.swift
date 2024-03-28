@@ -10,13 +10,13 @@ import UIKit
 class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let investmentPerformaneVM: InvestmentPerformanceViewModel
+	private var investmentPerformaneVM: InvestmentPerformanceViewModel!
 
 	// MARK: Initializers
 
 	init(assets: [InvestAssetViewModel]?) {
-		self.investmentPerformaneVM = InvestmentPerformanceViewModel(assets: assets)
 		super.init(nibName: nil, bundle: nil)
+		self.investmentPerformaneVM = InvestmentPerformanceViewModel(assets: assets, chartDateFilterDelegate: self)
 	}
 
 	required init?(coder: NSCoder) {
@@ -88,5 +88,11 @@ class InvestmentPerformanceViewController: UIViewController {
 
 	private func showSkeletonLoading() {
 		view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
+	}
+}
+
+extension InvestmentPerformanceViewController: LineChartDateFilterDelegate {
+	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
+		investmentPerformaneVM.getChartData(dateFilter: dateFilter)
 	}
 }
