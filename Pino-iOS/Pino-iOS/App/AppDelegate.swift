@@ -107,24 +107,22 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 		application.registerForRemoteNotifications() // 4
 	}
 
-//	func userNotificationCenter(
-//		_ center: UNUserNotificationCenter,
-//		didReceive response: UNNotificationResponse
-//	) async {
-//		let userInfo = response.notification.request.content.userInfo
-//
-//		// Print full message.
-//		print(userInfo)
-//	}
-//
-//	func application(
-//		_ application: UIApplication,
-//		didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-//		fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
-//	) {
-//		// Handle the notification when the app is in the background or inactive
-//		// You can choose to show or hide the notification here
-//
-//		completionHandler(.newData)
-//	}
+	func userNotificationCenter(
+		_ center: UNUserNotificationCenter,
+		didReceive response: UNNotificationResponse
+	) async {
+		let userInfo = response.notification.request.content.userInfo
+
+		// Print full message.
+		print(userInfo)
+		PushNotificationManager.shared.pushNotifTapped()
+	}
+
+	func application(
+		_ application: UIApplication,
+		didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+		fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+	) {
+		completionHandler(.newData)
+	}
 }

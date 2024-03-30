@@ -104,6 +104,17 @@ class PushNotificationManager: NSObject, ObservableObject {
 		}
 	}
 
+	public func pushNotifTapped() {
+		DispatchQueue.main.async {
+			guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+			      let tabBarController = scene.windows.first?.rootViewController as? UITabBarController else {
+				return
+			}
+
+			tabBarController.selectedIndex = 4
+		}
+	}
+
 	// MARK: - Private Methds
 
 	private func removeUserToken(_ token: String) {
