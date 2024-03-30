@@ -78,7 +78,7 @@ class TabBarViewController: UITabBarController {
 //		addCustomTabBarBadgeFor(index: 4, customView: activityPendingBadgeView)
 	}
 
-	private func presentAllowNotifications() {
+	public func presentAllowNotifications() {
 		let hasShownNotifPage: Bool = UserDefaultsManager.hasShowNotifPageUser.getValue() ?? false
 		if !hasShownNotifPage {
 			UserDefaultsManager.hasShowNotifPageUser.setValue(value: true)

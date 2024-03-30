@@ -115,6 +115,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
 		// Print full message.
 		print(userInfo)
+		PushNotificationManager.shared.pushNotifTapped()
 	}
 
 	func application(
@@ -122,9 +123,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 		didReceiveRemoteNotification userInfo: [AnyHashable: Any],
 		fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
 	) {
-		// Handle the notification when the app is in the background or inactive
-		// You can choose to show or hide the notification here
-
 		completionHandler(.newData)
 	}
 }

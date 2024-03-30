@@ -24,6 +24,7 @@ enum AccountingEndpoint: EndpointType {
 	case validateDeviceForBeta(deviceID: String)
 	case tokenAllTime(accountADD: String, tokenID: String)
 	case addFCMToken(token: String, userAdd: String)
+	case removeFCMToken(token: String)
 
 	// MARK: - Internal Methods
 
@@ -76,6 +77,11 @@ enum AccountingEndpoint: EndpointType {
 				"address": userAddress,
 			]
 			return .requestParameters(bodyParameters: .json(body), bodyEncoding: .jsonEncoding, urlParameters: nil)
+		case let .removeFCMToken(fcmToken):
+			let body = [
+				"device_token": fcmToken,
+			]
+			return .requestParameters(bodyParameters: .json(body), bodyEncoding: .jsonEncoding, urlParameters: nil)
 		}
 	}
 
@@ -109,7 +115,7 @@ enum AccountingEndpoint: EndpointType {
 			return "user/\(accountADD)/balance/\(tokenID)/all-time"
 		case let .validateDeviceForBeta(deviceID: deviceID):
 			return "\(endpointParent)/validate-device/\(deviceID)"
-		case .addFCMToken:
+		case .addFCMToken, .removeFCMToken:
 			return "\(endpointParent)/device-token"
 		}
 	}
@@ -120,6 +126,8 @@ enum AccountingEndpoint: EndpointType {
 			return .get
 		case .activateAccount, .activeAddresses, .activateAccountWithInviteCode, .portfolio, .addFCMToken:
 			return .post
+		case .removeFCMToken:
+			return .delete
 		}
 	}
 }

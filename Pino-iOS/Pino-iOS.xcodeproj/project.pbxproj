@@ -111,6 +111,8 @@
 		4081E1EA2B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081E1E62B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */; };
 		4081E1EB2B905DB00000E153 /* CDWrapETHActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081E1E72B905DB00000E153 /* CDWrapETHActivityDetails+CoreDataProperties.swift */; };
 		4081E1EC2B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081E1E82B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */; };
+		40B1BCC02BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */; };
+		40B1BCC12BB4391400F89CCA /* GlobalUserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */; };
 		40BB42282A47157800E1A121 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB42272A47157800E1A121 /* UIDevice+Extension.swift */; };
 		40E7C1132AAF6C74006A61DD /* SwapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7C1122AAF6C74006A61DD /* SwapManager.swift */; };
 		40F704572A03AFFF004D74FE /* AccountActivationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F704562A03AFFF004D74FE /* AccountActivationModel.swift */; };
@@ -630,6 +632,8 @@
 		DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */; };
 		DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
+		DF8AB4192BB29E0F0084B2ED /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AB4182BB29E0F0084B2ED /* NotificationService.swift */; };
+		DF8AB41D2BB29E0F0084B2ED /* Pino-Notif-Service.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8AB4162BB29E0F0084B2ED /* Pino-Notif-Service.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968722A0F8A77007D4513 /* WalletDataSource.swift */; };
 		DFA9687B2A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */; };
 		DFA9687C2A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */; };
@@ -905,9 +909,27 @@
 			remoteGlobalIDString = 76B66D03FC77A6B968427190;
 			remoteInfo = "Pino-iOS";
 		};
+		DF8AB41B2BB29E0F0084B2ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5939E0FFBB001767AF40C17F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF8AB4152BB29E0F0084B2ED;
+			remoteInfo = "Pino-Notif-Service";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		DF8AB4212BB29E0F0084B2ED /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DF8AB41D2BB29E0F0084B2ED /* Pino-Notif-Service.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DFAC22872B6F91B5001388F0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1012,6 +1034,7 @@
 		4081E1E62B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUnwrapETHActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4081E1E72B905DB00000E153 /* CDWrapETHActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWrapETHActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4081E1E82B905DB00000E153 /* CDUnwrapETHActivityDetails+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUnwrapETHActivityDetails+CoreDataClass.swift"; sourceTree = "<group>"; };
+		40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUserDefaultsKeys.swift; sourceTree = "<group>"; };
 		40BB42272A47157800E1A121 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		40E7C1122AAF6C74006A61DD /* SwapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapManager.swift; sourceTree = "<group>"; };
 		40F704562A03AFFF004D74FE /* AccountActivationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountActivationModel.swift; sourceTree = "<group>"; };
@@ -1527,6 +1550,9 @@
 		DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sec256k1Encryption.swift; sourceTree = "<group>"; };
 		DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permit2Model.swift; sourceTree = "<group>"; };
 		DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		DF8AB4162BB29E0F0084B2ED /* Pino-Notif-Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pino-Notif-Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8AB4182BB29E0F0084B2ED /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		DF8AB41A2BB29E0F0084B2ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFA968722A0F8A77007D4513 /* WalletDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDataSource.swift; sourceTree = "<group>"; };
 		DFA968752A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WalletAccount+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DFA968762A0FABB9007D4513 /* SelectedAsset+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SelectedAsset+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -1828,6 +1854,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF8AB4132BB29E0F0084B2ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -2015,6 +2048,7 @@
 				23F1BD4FAC784DB47F844F5D /* Pino-iOS */,
 				BF60D065B05ED69B89F714A0 /* Pino-iOSTests */,
 				003A926B6A7FCC04DB681BCA /* Pino-iOSUITests */,
+				DF8AB4172BB29E0F0084B2ED /* Pino-Notif-Service */,
 				2821FB9CEE9F9B9E6BAE9FD7 /* Products */,
 				E35BB6412A593AF2003987F5 /* Recovered References */,
 				DF954B552A8A68DD000A9D45 /* Frameworks */,
@@ -2059,6 +2093,7 @@
 				8709B718DBC4F0CE1F89E4E2 /* Pino.app */,
 				69F80E5332D902C3DF82DC4A /* Pino-iOSTests.xctest */,
 				B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */,
+				DF8AB4162BB29E0F0084B2ED /* Pino-Notif-Service.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3268,6 +3303,7 @@
 			children = (
 				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
+				40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */,
 			);
 			path = "Global enums";
 			sourceTree = "<group>";
@@ -3967,6 +4003,15 @@
 				DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */,
 			);
 			path = Encryption;
+			sourceTree = "<group>";
+		};
+		DF8AB4172BB29E0F0084B2ED /* Pino-Notif-Service */ = {
+			isa = PBXGroup;
+			children = (
+				DF8AB4182BB29E0F0084B2ED /* NotificationService.swift */,
+				DF8AB41A2BB29E0F0084B2ED /* Info.plist */,
+			);
+			path = "Pino-Notif-Service";
 			sourceTree = "<group>";
 		};
 		DF8DA53F2A556EBA0018EB0A /* Models */ = {
@@ -4710,10 +4755,12 @@
 				A5740CD01138FCD9566A9785 /* Frameworks */,
 				B0BB767DB69437BEF85EB688 /* [CP] Embed Pods Frameworks */,
 				DFAC22872B6F91B5001388F0 /* Embed Frameworks */,
+				DF8AB4212BB29E0F0084B2ED /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DF8AB41C2BB29E0F0084B2ED /* PBXTargetDependency */,
 			);
 			name = "Pino-iOS";
 			packageProductDependencies = (
@@ -4774,12 +4821,30 @@
 			productReference = B40D6EF0262990FF33E91CCD /* Pino-iOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DF8AB4152BB29E0F0084B2ED /* Pino-Notif-Service */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF8AB41E2BB29E0F0084B2ED /* Build configuration list for PBXNativeTarget "Pino-Notif-Service" */;
+			buildPhases = (
+				DF8AB4122BB29E0F0084B2ED /* Sources */,
+				DF8AB4132BB29E0F0084B2ED /* Frameworks */,
+				DF8AB4142BB29E0F0084B2ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pino-Notif-Service";
+			productName = "Pino-Notif-Service";
+			productReference = DF8AB4162BB29E0F0084B2ED /* Pino-Notif-Service.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5939E0FFBB001767AF40C17F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					A7CDCF5E2B678210FB4DF98B = {
@@ -4787,6 +4852,9 @@
 					};
 					B000153529B2F9816B43109C = {
 						TestTargetID = 76B66D03FC77A6B968427190;
+					};
+					DF8AB4152BB29E0F0084B2ED = {
+						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
@@ -4817,6 +4885,7 @@
 				76B66D03FC77A6B968427190 /* Pino-iOS */,
 				A7CDCF5E2B678210FB4DF98B /* Pino-iOSTests */,
 				B000153529B2F9816B43109C /* Pino-iOSUITests */,
+				DF8AB4152BB29E0F0084B2ED /* Pino-Notif-Service */,
 			);
 		};
 /* End PBXProject section */
@@ -4912,6 +4981,13 @@
 				DD1FECFBF7AD18C1E7832CAF /* wallet-info-stub.json in Resources */,
 				D95D96F92AB87CD80082FCA5 /* borrowable-token-stub.json in Resources */,
 				CBFE7BF98941FDC0A72FFD51 /* wallets-stub.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF8AB4142BB29E0F0084B2ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5495,6 +5571,7 @@
 				DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */,
 				403691BC2A3DFFB50013AB6D /* ToastConfiguration.swift in Sources */,
 				D9A0BDAA2A974B9800AE132F /* BorrowingBoardViewController.swift in Sources */,
+				40B1BCC02BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift in Sources */,
 				DF00179529F85774001164EA /* KeychainManager.swift in Sources */,
 				E35BB64D2A596E90003987F5 /* SelectSwapProvidersViewModel.swift in Sources */,
 				325E592A9AA1B24C522EA47F /* MediumStyle.swift in Sources */,
@@ -5830,6 +5907,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DF8AB4122BB29E0F0084B2ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF8AB4192BB29E0F0084B2ED /* NotificationService.swift in Sources */,
+				40B1BCC12BB4391400F89CCA /* GlobalUserDefaultsKeys.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -5842,6 +5928,11 @@
 			isa = PBXTargetDependency;
 			target = 76B66D03FC77A6B968427190 /* Pino-iOS */;
 			targetProxy = DF0F65E129E1B1E900DB7290 /* PBXContainerItemProxy */;
+		};
+		DF8AB41C2BB29E0F0084B2ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF8AB4152BB29E0F0084B2ED /* Pino-Notif-Service */;
+			targetProxy = DF8AB41B2BB29E0F0084B2ED /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5926,6 +6017,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2529D1295B19B2D46D7ABD3A /* Pods-Pino-iOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -5989,6 +6081,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BE45D80645CDD175489653D2 /* Pods-Pino-iOS.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6043,6 +6136,76 @@
 				TEST_TARGET_NAME = "Pino-iOS";
 			};
 			name = Debug;
+		};
+		DF8AB41F2BB29E0F0084B2ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GVCMNN555;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pino-Notif-Service/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pino-Notif-Service";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nitolabs.pino.Pino-Notif-Service";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF8AB4202BB29E0F0084B2ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5GVCMNN555;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pino-Notif-Service/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pino-Notif-Service";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nitolabs.pino.Pino-Notif-Service";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		F393FE673BB9F54B6A3CF074 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -6128,6 +6291,15 @@
 			buildConfigurations = (
 				18C0C7105E9F47F5CEC08BAB /* Debug */,
 				F393FE673BB9F54B6A3CF074 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DF8AB41E2BB29E0F0084B2ED /* Build configuration list for PBXNativeTarget "Pino-Notif-Service" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF8AB41F2BB29E0F0084B2ED /* Debug */,
+				DF8AB4202BB29E0F0084B2ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

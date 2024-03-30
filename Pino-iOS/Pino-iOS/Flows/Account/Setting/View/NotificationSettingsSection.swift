@@ -10,7 +10,7 @@ import UIKit
 class NotificationSettingsSection: UICollectionReusableView {
 	// MARK: - Public Properties
 
-	public var notificationsVM: NotificationSettingsViewModel? {
+	public var sectionTitle: String? {
 		didSet {
 			setupView()
 			setupStyles()
@@ -19,9 +19,6 @@ class NotificationSettingsSection: UICollectionReusableView {
 	}
 
 	public static let viewReuseID = "notificationsCollectionViewHeaderSection"
-
-	// Closures
-	public var changeAllowNotificationsClosure: ((_ isAllowed: Bool) -> Void)!
 
 	// MARK: - Private Properties
 
@@ -34,7 +31,7 @@ class NotificationSettingsSection: UICollectionReusableView {
 	}
 
 	private func setupStyles() {
-		collectionViewTitleLabel.text = notificationsVM?.notificationOptionsSectionTitle
+		collectionViewTitleLabel.text = sectionTitle
 		collectionViewTitleLabel.font = .PinoStyle.mediumSubheadline
 	}
 
