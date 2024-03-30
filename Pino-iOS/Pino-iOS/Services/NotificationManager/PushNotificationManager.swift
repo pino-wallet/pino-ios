@@ -109,9 +109,6 @@ class PushNotificationManager: NSObject, ObservableObject {
 	private func removeUserToken(_ token: String) {
 		accountinClient.removeDeviceToken(fcmToken: token).sink { _ in
 		} receiveValue: { resp in
-			if resp.success {
-				UserDefaultsManager.allowNotif.setValue(value: false)
-			}
 		}.store(in: &cancellables)
 	}
 }

@@ -69,6 +69,9 @@ class NotificationSettingsViewModel {
 			switch notifType {
 			case .wallet_activity:
 				UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
+				if !isOn {
+					self.deactiveNotifsIfNeeded()
+				}
 			case .pino_update:
 				UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
 			case .liquidation_notice:
@@ -82,7 +85,6 @@ class NotificationSettingsViewModel {
 					PushNotificationManager.shared.deactivateNotifs()
 				}
 			}
-			self.deactiveNotifsIfNeeded()
 		}
 	}
 
