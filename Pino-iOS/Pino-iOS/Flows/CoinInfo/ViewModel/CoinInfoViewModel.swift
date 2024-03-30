@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import Network
+import PromiseKit
 
 class CoinInfoViewModel {
 	// MARK: - Public Properties
@@ -104,11 +105,9 @@ class CoinInfoViewModel {
 
 	// MARK: - public Methods
 
-	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
+	public func refreshCoinInfoData() -> Promise<Void> {
 		requestTimer?.fire()
-		GlobalVariables.shared.fetchSharedInfo().catch { error in
-			completion(APIError.unreachable)
-		}
+		return GlobalVariables.shared.fetchSharedInfo()
 	}
 
 	public func getUserActivitiesFromVC() {

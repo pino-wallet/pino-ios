@@ -814,6 +814,7 @@
 		E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204C92A3992EB0027FEBC /* TokenView.swift */; };
 		E3D204CC2A39B7E90027FEBC /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */; };
 		E3D478B32A3064C90030A987 /* CustomAssetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */; };
+		E3DFED7F2BB7F0B9008A6F0A /* EtheriumNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DFED7E2BB7F0B9008A6F0A /* EtheriumNetworkError.swift */; };
 		E3E009E22A06377D00234707 /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E009E12A06377D00234707 /* InternetConnectivity.swift */; };
 		E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */; };
 		E3F482EF2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */; };
@@ -1709,6 +1710,7 @@
 		E3D204C92A3992EB0027FEBC /* TokenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenView.swift; sourceTree = "<group>"; };
 		E3D204CB2A39B7E90027FEBC /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		E3D478B22A3064C90030A987 /* CustomAssetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAssetDataSource.swift; sourceTree = "<group>"; };
+		E3DFED7E2BB7F0B9008A6F0A /* EtheriumNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtheriumNetworkError.swift; sourceTree = "<group>"; };
 		E3E009E12A06377D00234707 /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		E3F482EB2A3485A500EEC9CF /* EnterSendAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSendAmountViewController.swift; sourceTree = "<group>"; };
 		E3F482ED2A35A6E900EEC9CF /* CustomAsset+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CustomAsset+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -4384,6 +4386,7 @@
 			children = (
 				829CA4C0A06D84219F432590 /* APIError.swift */,
 				E3CDFCA32BB196D70018382D /* CustomAssetError.swift */,
+				E3DFED7E2BB7F0B9008A6F0A /* EtheriumNetworkError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -5441,6 +5444,7 @@
 				D95D20362AAC9B6800E0A885 /* HealthScoreSystemViewModel.swift in Sources */,
 				7F79C44B5BF6EB8B1D1674A0 /* KeychainWrapperProtocol.swift in Sources */,
 				D916A8C62A9F647700F391B5 /* CollateralIncreaseAmountView.swift in Sources */,
+				E3DFED7F2BB7F0B9008A6F0A /* EtheriumNetworkError.swift in Sources */,
 				D9A0BDBA2A975E2200AE132F /* BorrowableAssetCell.swift in Sources */,
 				A9DD712BF1A1511733B479FA /* LaunchSettings.swift in Sources */,
 				E3FC69F62A936D6B009B3341 /* InvestmentRiskCell.swift in Sources */,
