@@ -69,9 +69,7 @@ class NotificationSettingsViewModel {
 			switch notifType {
 			case .wallet_activity:
 				UserDefaultsManager.allowActivityNotif.setValue(value: isOn)
-				if !isOn {
-					self.deactiveNotifsIfNeeded()
-				}
+				self.toggleNotifActivation(isOn)
 			case .pino_update:
 				UserDefaultsManager.allowPinoUpdateNotif.setValue(value: isOn)
 			case .liquidation_notice:
@@ -79,21 +77,17 @@ class NotificationSettingsViewModel {
 			case .allow_notification:
 				UserDefaultsManager.allowNotif.setValue(value: isOn)
 				self.isNotifAllowed = isOn
-				if isOn {
-					self.allowNotifVM.activateNotifs()
-				} else {
-					PushNotificationManager.shared.deactivateNotifs()
-				}
+				self.toggleNotifActivation(isOn)
 			}
 		}
 	}
 
 	// MARK: - Private Methods
 
-	private func deactiveNotifsIfNeeded() {
-		let allowActivityNotif = UserDefaultsManager.allowActivityNotif.getValue()!
-
-		if !allowActivityNotif {
+	private func toggleNotifActivation(_ isOn: Bool) {
+		if isOn {
+			allowNotifVM.activateNotifs()
+		} else {
 			PushNotificationManager.shared.deactivateNotifs()
 		}
 	}
