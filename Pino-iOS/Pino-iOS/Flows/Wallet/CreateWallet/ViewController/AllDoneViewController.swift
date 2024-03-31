@@ -77,19 +77,7 @@ class AllDoneViewController: UIViewController {
 	private func openHomepage() {
 		UserDefaultsManager.isUserLoggedIn.setValue(value: true)
 		let tabBarVC = TabBarViewController()
-
-		// Find the current UIWindowScene
-		if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-		   let window = windowScene.windows.first {
-			window.rootViewController = tabBarVC
-			window.makeKeyAndVisible()
-			UIView.transition(
-				with: window,
-				duration: 0.3,
-				options: .transitionCrossDissolve,
-				animations: nil,
-				completion: nil
-			)
-		}
+		tabBarVC.modalPresentationStyle = .fullScreen
+		present(tabBarVC, animated: true)
 	}
 }
