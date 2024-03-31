@@ -12,6 +12,15 @@ enum EtheriumNetworkError {
 	case estimationFailed
 	case unknown
 
+	public var toastMessage: String {
+		switch self {
+		case .estimationFailed:
+			"Failed to estimate gas"
+		case .unknown:
+			"Something went wrong"
+		}
+	}
+
 	init(error: RPCResponse<EthereumQuantity>.Error) {
 		if error.code == -32000 {
 			self = .estimationFailed

@@ -707,6 +707,7 @@
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
 		E3153AF62BA57E17006A72C1 /* AccountNameValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */; };
 		E3153AF82BA5873D006A72C1 /* PrivateKeyValidationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */; };
+		E31C79302BB981DE00CCD3DF /* ApproveError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31C792F2BB981DE00CCD3DF /* ApproveError.swift */; };
 		E31D646B2B89DDA400A9FF94 /* SendRecipientAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
@@ -1602,6 +1603,7 @@
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
 		E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNameValidationError.swift; sourceTree = "<group>"; };
 		E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyValidationStatus.swift; sourceTree = "<group>"; };
+		E31C792F2BB981DE00CCD3DF /* ApproveError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveError.swift; sourceTree = "<group>"; };
 		E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRecipientAddress.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
@@ -4387,6 +4389,7 @@
 				829CA4C0A06D84219F432590 /* APIError.swift */,
 				E3CDFCA32BB196D70018382D /* CustomAssetError.swift */,
 				E3DFED7E2BB7F0B9008A6F0A /* EtheriumNetworkError.swift */,
+				E31C792F2BB981DE00CCD3DF /* ApproveError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -5354,6 +5357,7 @@
 				E3ABD1E92AB0B27A00947D37 /* InvestmentEndpoint.swift in Sources */,
 				D5E4DDCD2A960259000AA235 /* InvestDepositView.swift in Sources */,
 				4CF290BDB2B49F698A864B28 /* Date+Extension.swift in Sources */,
+				E31C79302BB981DE00CCD3DF /* ApproveError.swift in Sources */,
 				D99F4B1D29E2C25C009F7F55 /* PaymentMethodOptionView.swift in Sources */,
 				D9BCE5C72A63C519002A9B58 /* ActivitySwapHeaderView.swift in Sources */,
 				D9D509192AD577D800F40C33 /* W3CompoundBorrowManager.swift in Sources */,

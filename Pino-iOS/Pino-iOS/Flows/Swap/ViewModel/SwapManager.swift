@@ -87,12 +87,14 @@ class SwapManager: Web3ManagerProtocol {
 		}
 	}
 
-	public func confirmSwap(swapTrx trx: EthereumSignedTransaction, completion: @escaping (Result<String>) -> Void) {
-		Web3Core.shared.callTransaction(trx: trx).done { trxHash in
-			self.addPendingTransferActivity(trxHash: trxHash)
-			completion(.fulfilled(trxHash))
-		}.catch { error in
-			completion(.rejected(error))
+	public func confirmSwap(swapTrx trx: EthereumSignedTransaction) -> Promise<String> {
+		Promise<String> { seal in
+			Web3Core.shared.callTransaction(trx: trx).done { trxHash in
+				self.addPendingTransferActivity(trxHash: trxHash)
+				seal.fulfill(trxHash)
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
@@ -145,7 +147,7 @@ class SwapManager: Web3ManagerProtocol {
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				print("Error: getting ERC to ERC swap info: \(error.localizedDescription)")
 				seal.reject(error)
 			}
 		}
@@ -190,7 +192,7 @@ class SwapManager: Web3ManagerProtocol {
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				print("Error: getting ERC to ETH swap info: \(error.localizedDescription)")
 				seal.reject(error)
 			}
 		}
@@ -226,7 +228,7 @@ class SwapManager: Web3ManagerProtocol {
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				print("Error: getting ETH to ERC swap info: \(error.localizedDescription)")
 				seal.reject(error)
 			}
 		}
@@ -250,7 +252,7 @@ class SwapManager: Web3ManagerProtocol {
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				print("Error: getting ETH to WETH swap info: \(error.localizedDescription)")
 				seal.reject(error)
 			}
 		}
@@ -274,7 +276,7 @@ class SwapManager: Web3ManagerProtocol {
 				self.pendingSwapGasInfo = swapResult.1
 				seal.fulfill(swapResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				print("Error: getting WETH to ETH swap info: \(error.localizedDescription)")
 				seal.reject(error)
 			}
 		}
@@ -293,9 +295,10 @@ class SwapManager: Web3ManagerProtocol {
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq.eip712HashReqBody).sink { completed in
 				switch completed {
 				case .finished:
-					print("Info received successfully")
+					print("User hash received successfully")
 				case let .failure(error):
-					print(error)
+					print("Error: getting user hash: \(error)")
+					seal.reject(error)
 				}
 			} receiveValue: { hashResponse in
 				seal.fulfill(hashResponse.hash)
@@ -331,11 +334,7 @@ class SwapManager: Web3ManagerProtocol {
 				priceRoute: priceRoute,
 				provider: selectedProvider.provider
 			)
-		return Promise<String> { seal in
-			callSwapFunction(swapReq: swapReq) { swapResponse in
-				seal.fulfill(swapResponse)
-			}
-		}
+		return callSwapFunction(swapReq: swapReq)
 	}
 
 	private func callProxyMultiCall(data: [String], value: BigUInt?) -> Promise<(EthereumSignedTransaction, GasInfo)> {
@@ -392,42 +391,50 @@ class SwapManager: Web3ManagerProtocol {
 		}
 	}
 
-	private func callSwapFunction(swapReq: SwapRequestModel, completion: @escaping (String) -> Void) {
-		guard let selectedProvider else { return }
-		switch selectedProvider.provider {
-		case .oneInch:
-			oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
-				switch completed {
-				case .finished:
-					print("Swap info received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { swapResponseInfo in
-				completion(swapResponseInfo!.data)
-			}.store(in: &cancellables)
-		case .paraswap:
-			paraSwapAPIClient.swap(swapInfo: swapReq).sink { completed in
-				switch completed {
-				case .finished:
-					print("Swap info received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { swapResponseInfo in
-				completion(swapResponseInfo!.data)
-			}.store(in: &cancellables)
-		case .zeroX:
-			zeroXAPIClient.swap(swapInfo: swapReq).sink { completed in
-				switch completed {
-				case .finished:
-					print("Swap info received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { swapResponseInfo in
-				completion(swapResponseInfo!.data)
-			}.store(in: &cancellables)
+	private func callSwapFunction(swapReq: SwapRequestModel) -> Promise<String> {
+		Promise<String> { seal in
+			guard let selectedProvider else {
+				seal.reject(APIError.invalidRequest)
+				return
+			}
+			switch selectedProvider.provider {
+			case .oneInch:
+				oneInchAPIClient.swap(swapInfo: swapReq).sink { completed in
+					switch completed {
+					case .finished:
+						print("Swap info received successfully")
+					case let .failure(error):
+						print("Error: getting swap info: \(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { swapResponseInfo in
+					seal.fulfill(swapResponseInfo!.data)
+				}.store(in: &cancellables)
+			case .paraswap:
+				paraSwapAPIClient.swap(swapInfo: swapReq).sink { completed in
+					switch completed {
+					case .finished:
+						print("Swap info received successfully")
+					case let .failure(error):
+						print("Error: getting swap info: \(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { swapResponseInfo in
+					seal.fulfill(swapResponseInfo!.data)
+				}.store(in: &cancellables)
+			case .zeroX:
+				zeroXAPIClient.swap(swapInfo: swapReq).sink { completed in
+					switch completed {
+					case .finished:
+						print("Swap info received successfully")
+					case let .failure(error):
+						print("Error: getting swap info: \(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { swapResponseInfo in
+					seal.fulfill(swapResponseInfo!.data)
+				}.store(in: &cancellables)
+			}
 		}
 	}
 

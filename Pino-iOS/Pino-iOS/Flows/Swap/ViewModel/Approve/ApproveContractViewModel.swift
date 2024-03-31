@@ -104,11 +104,11 @@ class ApproveContractViewModel {
 					self.approveStatus = .normal
 				}
 			}.catch { error in
-				print("Failed to get approve gas info")
+				print("Error: getting approve gas info: \(error)")
 				Toast.default(title: self.failedToGetApproveFeeText, style: .error).show(haptic: .warning)
 			}
 		}.catch { error in
-			print("Failed to get approve transaction")
+			print("Error: getting approve transaction: \(error)")
 			Toast.default(title: self.failedToGetApproveDetailsText, style: .error).show(haptic: .warning)
 		}
 	}

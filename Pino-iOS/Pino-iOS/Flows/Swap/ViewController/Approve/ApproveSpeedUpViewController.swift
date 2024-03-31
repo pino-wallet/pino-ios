@@ -41,9 +41,7 @@ class ApproveSpeedUpViewController: UIAlertController {
 		case feeLoading
 		case speedUpLoading
 		case normal
-		case insufficientBalance
-		case somethingWrong
-		case transactionExist
+		case error(ApproveSpeedupError)
 	}
 
 	// MARK: - Initializers
@@ -74,17 +72,8 @@ class ApproveSpeedUpViewController: UIAlertController {
 		approveSpeedUpAlertVM = ApproveSpeedUpViewModel(
 			approveLoadingVM: approveLoadingVM,
 			didSpeedUpTransaction: { error in
-				if error != nil {
-					switch error {
-					case .insufficientBalanceError:
-						self.pageStatus = .insufficientBalance
-					case .somethingWentWrong:
-						self.pageStatus = .somethingWrong
-					case .transactionExistError:
-						self.pageStatus = .transactionExist
-					default:
-						print("unknown error type")
-					}
+				if let error {
+					self.pageStatus = .error(error)
 				} else {
 					self.dismiss(animated: true)
 				}
@@ -188,37 +177,8 @@ class ApproveSpeedUpViewController: UIAlertController {
 			loadingIndicator.isHidden = true
 			titleWarningImageView.isHidden = true
 			isDismissable = true
-		case .insufficientBalance:
-			actionButton.style = .deactive
-			actionButton.title = approveSpeedUpAlertVM.insufficientBalanceTitle
-			mainStackView.isHidden = false
-			loadingIndicator.isHidden = true
-			titleWarningImageView.isHidden = true
-			isDismissable = true
-		case .somethingWrong:
-			mainStackView.isHidden = false
-			loadingIndicator.isHidden = true
-			feeStackView.isHidden = true
-			titleWarningImageView.isHidden = false
-			mainStackView.setCustomSpacing(24, after: titleStackView)
-			mainStackView.setCustomSpacing(48, after: descriptionLabel)
-			titleLabel.text = approveSpeedUpAlertVM.errorTitle
-			descriptionLabel.text = approveSpeedUpAlertVM.errorSomethingWentWrong
-			actionButton.style = .active
-			actionButton.title = approveSpeedUpAlertVM.gotItTitle
-			isDismissable = true
-		case .transactionExist:
-			mainStackView.isHidden = false
-			loadingIndicator.isHidden = true
-			feeStackView.isHidden = true
-			titleWarningImageView.isHidden = false
-			mainStackView.setCustomSpacing(24, after: titleStackView)
-			mainStackView.setCustomSpacing(48, after: descriptionLabel)
-			titleLabel.text = approveSpeedUpAlertVM.errorTitle
-			descriptionLabel.text = approveSpeedUpAlertVM.errorTransactionExist
-			actionButton.style = .active
-			actionButton.title = approveSpeedUpAlertVM.gotItTitle
-			isDismissable = true
+		case let .error(speedupError):
+			showError(speedupError)
 		}
 
 		// ACTIVATING continue button since in devnet we don't need validation
@@ -228,18 +188,38 @@ class ApproveSpeedUpViewController: UIAlertController {
 		}
 	}
 
+	private func showError(_ error: ApproveSpeedupError) {
+		mainStackView.isHidden = false
+		loadingIndicator.isHidden = true
+		isDismissable = true
+		switch error {
+		case .insufficientBalance:
+			actionButton.style = .deactive
+			actionButton.title = error.description
+			titleWarningImageView.isHidden = true
+		case .somethingWrong, .transactionExist:
+			feeStackView.isHidden = true
+			titleWarningImageView.isHidden = false
+			mainStackView.setCustomSpacing(24, after: titleStackView)
+			mainStackView.setCustomSpacing(48, after: descriptionLabel)
+			titleLabel.text = approveSpeedUpAlertVM.errorTitle
+			descriptionLabel.text = error.description
+			actionButton.style = .active
+			actionButton.title = approveSpeedUpAlertVM.gotItTitle
+		}
+	}
+
 	@objc
 	private func confirmSpeedUpTransaction() {
 		switch pageStatus {
-		case .transactionExist:
-			dismiss(animated: true)
-		case .somethingWrong:
-			dismiss(animated: true)
 		case .normal:
 			pageStatus = .speedUpLoading
 			approveSpeedUpAlertVM.speedUpTransaction()
-		default:
-			return
+		case let .error(speedupError):
+			if speedupError == .somethingWrong || speedupError == .transactionExist {
+				dismiss(animated: true)
+			}
+		default: return
 		}
 	}
 }
