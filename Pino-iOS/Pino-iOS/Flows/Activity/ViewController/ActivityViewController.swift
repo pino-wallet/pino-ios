@@ -9,6 +9,8 @@ import Combine
 import UIKit
 
 class ActivityViewController: UIViewController {
+    // MARK: - Public Properties
+    public var shouldOpenActivityTXHash: String?
 	// MARK: - Private Properties
 
 	private let activityVM = ActivityViewModel()
@@ -69,6 +71,15 @@ class ActivityViewController: UIViewController {
 		navigationVC.viewControllers = [activityDetailsVC]
 		present(navigationVC, animated: true)
 	}
+    
+    private func openActivityDetailsFromNotification(activities: [ActivityCellViewModel]) {
+        guard let shouldOpenActivityTXHash else {
+            return
+        }
+        let selectedActivity = activities.first(where: { $0.activityModel.txHash.lowercased() == shouldOpenActivityTXHash.lowercased() })
+        openActivityDetailsPage(activityDetails: selectedActivity!)
+        self.shouldOpenActivityTXHash = nil
+    }
 
 	private func setupBindings() {
 		activityVM.$userActivityCellVMList.sink { [weak self] activities in
@@ -79,6 +90,7 @@ class ActivityViewController: UIViewController {
 			if isActvitiesEmpty {
 				self?.view = self?.activityEmptyStateView
 			} else {
+                self?.openActivityDetailsFromNotification(activities: activities!)
 				self?.view = self?.activityColectionView
 			}
 		}.store(in: &cancellables)

@@ -22,6 +22,10 @@ class PushNotificationManager: NSObject, ObservableObject {
 	private let accountinClient = AccountingAPIClient()
 	private let walletManager = PinoWalletManager()
 	private var cancellables = Set<AnyCancellable>()
+    
+    private enum NotificationType: String {
+        case activity
+    }
 
 	// MARK: - Initiliazers
 
@@ -104,15 +108,27 @@ class PushNotificationManager: NSObject, ObservableObject {
 		}
 	}
 
-	public func pushNotifTapped() {
-		DispatchQueue.main.async {
-			guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-			      let tabBarController = scene.windows.first?.rootViewController as? UITabBarController else {
-				return
-			}
+    public func pushNotifTapped(notificationUserInfo: [AnyHashable: Any]) {
+        let notificationType = NotificationType(rawValue: notificationUserInfo["type"] as! String)
+        switch notificationType {
+        case .activity:
+            let activityTxHash = notificationUserInfo["tx_hash"] as! String
+            DispatchQueue.main.async {
+                guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let tabBarController = scene.windows.first?.rootViewController as? UITabBarController else {
+                    return
+                }
 
-			tabBarController.selectedIndex = 4
-		}
+                tabBarController.selectedIndex = 4
+                for vc in (tabBarController.selectedViewController as! CustomNavigationController).viewControllers {
+                    if vc as? ActivityViewController != nil {
+                        (vc as! ActivityViewController).shouldOpenActivityTXHash = activityTxHash
+                    }
+                }
+            }
+        default:
+            return
+        }
 	}
 
 	// MARK: - Private Methds

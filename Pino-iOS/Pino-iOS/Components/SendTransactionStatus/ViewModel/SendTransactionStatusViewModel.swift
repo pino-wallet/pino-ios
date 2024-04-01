@@ -44,16 +44,19 @@ class SendTransactionStatusViewModel {
 	// MARK: - Private Methods
 
 	private func sendTx() {
-		var sendTXPromiss: [Promise<SendTransactionStatus>] = []
-		transactions.forEach { transaction in
-			sendTXPromiss.append(transaction.sendTx())
-		}
-		when(fulfilled: sendTXPromiss).done { transactionStatus in
-			self.getPendingTransactionActivity()
-			self.sendTransactionStatus = .pending
-		}.catch { error in
-			self.sendTransactionStatus = .failed
-		}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+            var sendTXPromiss: [Promise<SendTransactionStatus>] = []
+            self.transactions.forEach { transaction in
+                sendTXPromiss.append(transaction.sendTx())
+            }
+            when(fulfilled: sendTXPromiss).done { transactionStatus in
+                self.getPendingTransactionActivity()
+                self.sendTransactionStatus = .pending
+            }.catch { error in
+                self.sendTransactionStatus = .failed
+            }
+        })
+		
 	}
 
 	@objc
