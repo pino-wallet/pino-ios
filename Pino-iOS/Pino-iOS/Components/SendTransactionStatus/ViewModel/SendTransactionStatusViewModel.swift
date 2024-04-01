@@ -44,7 +44,6 @@ class SendTransactionStatusViewModel {
 	// MARK: - Private Methods
 
 	private func sendTx() {
-		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 			var sendTXPromiss: [Promise<SendTransactionStatus>] = []
 			self.transactions.forEach { transaction in
 				sendTXPromiss.append(transaction.sendTx())
@@ -55,7 +54,6 @@ class SendTransactionStatusViewModel {
 			}.catch { error in
 				self.sendTransactionStatus = .failed
 			}
-		}
 	}
 
 	@objc
