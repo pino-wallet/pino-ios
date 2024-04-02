@@ -37,7 +37,7 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 		let investmentRiskVM = InvestmentRiskPerformanceViewModel(selectedAsset: investableAsset)
 		view = InvestmentRiskPerformanceView(
 			investmentRiskVM: investmentRiskVM,
-            dismissAndContinue: {
+			dismissAndContinue: {
 				self.closePage()
 				self.dismissAndContinue()
 			}, dismissView: {

@@ -43,7 +43,7 @@ class InvestmentRiskPerformanceView: UIView {
 
 	init(
 		investmentRiskVM: InvestmentRiskPerformanceViewModel,
-        dismissAndContinue: @escaping () -> Void,
+		dismissAndContinue: @escaping () -> Void,
 		dismissView: @escaping () -> Void
 	) {
 		self.investmentRiskVM = investmentRiskVM
