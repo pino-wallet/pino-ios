@@ -40,7 +40,9 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 			viewDidDismiss: {
 				self.closePage()
 				self.viewDidDismiss()
-			}
+            }, dismissView: {
+                self.closePage()
+            }
 		)
 	}
 

@@ -52,8 +52,8 @@ class ShowSecretPhraseViewController: UIViewController {
 	private func setupView() {
 		let secretPhraseView = ShowSecretPhraseView(
 			secretPhraseVM: secretPhraseVM,
-			shareSecretPhare: {
-				self.shareSecretPhrase()
+			copySecretPhare: {
+				self.copySecretPhrase()
 			},
 			savedSecretPhrase: {
 				self.goToVerifyPage()
@@ -89,11 +89,13 @@ class ShowSecretPhraseViewController: UIViewController {
 		present(screenshotAlertController, animated: true)
 	}
 
-	private func shareSecretPhrase() {
+	private func copySecretPhrase() {
 		let userWords = secretPhraseVM.secretPhraseList
-		let shareText = userWords.joined(separator: " ")
-		let shareActivity = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
-		present(shareActivity, animated: true) {}
+		let copyText = userWords.joined(separator: " ")
+        let pasteBoard = UIPasteboard.general
+        pasteBoard.string = copyText
+        
+        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 
 	private func goToVerifyPage() {

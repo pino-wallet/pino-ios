@@ -24,7 +24,7 @@ class ShowSecretPhraseView: UIView {
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
 	private let continueButton = PinoButton(style: .deactive)
-	private var shareSecretPhrase: () -> Void
+	private var copySecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
 	private var secretPhraseVM: ShowSecretPhraseViewModel
 
@@ -32,10 +32,10 @@ class ShowSecretPhraseView: UIView {
 
 	init(
 		secretPhraseVM: ShowSecretPhraseViewModel,
-		shareSecretPhare: @escaping (() -> Void),
+		copySecretPhare: @escaping (() -> Void),
 		savedSecretPhrase: @escaping (() -> Void)
 	) {
-		self.shareSecretPhrase = shareSecretPhare
+		self.copySecretPhrase = copySecretPhare
 		self.savedSecretPhrase = savedSecretPhrase
 		self.secretPhraseVM = secretPhraseVM
 		super.init(frame: .zero)
@@ -74,7 +74,7 @@ extension ShowSecretPhraseView {
 		seedPhraseView.addGestureRecognizer(revealTapGesture)
 
 		shareButton.addAction(UIAction(handler: { _ in
-			self.shareSecretPhrase()
+			self.copySecretPhrase()
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
