@@ -6022,7 +6022,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 5GVCMNN555;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Pino;
@@ -6086,7 +6086,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Pino-iOS/Pino-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 5GVCMNN555;
 				INFOPLIST_FILE = "Pino-iOS/App/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Pino;

@@ -113,6 +113,9 @@ class ActivityHelper {
 //		     .disable_collateral:
 //			let cdCollateralActivity = coreDataActivity as! CDCollateralActivity
 //			return ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity)
+		case .create_collateral:
+			let cdCollateralActivity = coreDataActivity as! CDCollateralActivity
+			return ActivityCollateralModel(cdCollateralActivityModel: cdCollateralActivity)
 		case .wrap_eth, .swap_wrap:
 			let cdWrapETHActivity = coreDataActivity as! CDWrapETHActivity
 			return ActivityWrapETHModel(cdWrapActivityModel: cdWrapETHActivity)
