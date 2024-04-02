@@ -37,14 +37,18 @@ class InvestmentRiskPerformanceView: UIView {
 
 	private let investmentRiskVM: InvestmentRiskPerformanceViewModel
 	private let viewDidDismiss: () -> Void
-    private let dismissView: () -> Void
+	private let dismissView: () -> Void
 
 	// MARK: - Initializers
 
-    init(investmentRiskVM: InvestmentRiskPerformanceViewModel, viewDidDismiss: @escaping () -> Void, dismissView: @escaping () -> Void) {
+	init(
+		investmentRiskVM: InvestmentRiskPerformanceViewModel,
+		viewDidDismiss: @escaping () -> Void,
+		dismissView: @escaping () -> Void
+	) {
 		self.investmentRiskVM = investmentRiskVM
 		self.viewDidDismiss = viewDidDismiss
-        self.dismissView = dismissView
+		self.dismissView = dismissView
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()

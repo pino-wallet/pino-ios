@@ -62,8 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			let navigationController = CustomNavigationController(rootViewController: IntroViewController())
 			window?.rootViewController = navigationController
 		}
-        
-        
+
 		window?.makeKeyAndVisible()
 		checkForNewForcedUpdate()
 

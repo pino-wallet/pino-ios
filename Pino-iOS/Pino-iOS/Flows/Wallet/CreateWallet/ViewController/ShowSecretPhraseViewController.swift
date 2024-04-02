@@ -92,10 +92,10 @@ class ShowSecretPhraseViewController: UIViewController {
 	private func copySecretPhrase() {
 		let userWords = secretPhraseVM.secretPhraseList
 		let copyText = userWords.joined(separator: " ")
-        let pasteBoard = UIPasteboard.general
-        pasteBoard.string = copyText
-        
-        Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
+		let pasteBoard = UIPasteboard.general
+		pasteBoard.string = copyText
+
+		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 	}
 
 	private func goToVerifyPage() {

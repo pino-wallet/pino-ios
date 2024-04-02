@@ -65,8 +65,8 @@ class BorrowComingSoonView: UICollectionReusableView {
 	}
 
 	private func setupConstraint() {
-        emptyPageTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
-        
+		emptyPageTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
+
 		contentStackview.pin(
 			.horizontalEdges(padding: 16)
 		)
