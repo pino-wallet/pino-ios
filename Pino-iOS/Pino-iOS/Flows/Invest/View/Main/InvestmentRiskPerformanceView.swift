@@ -36,18 +36,18 @@ class InvestmentRiskPerformanceView: UIView {
 	private let closeButton = UIButton()
 
 	private let investmentRiskVM: InvestmentRiskPerformanceViewModel
-	private let viewDidDismiss: () -> Void
+	private let dismissAndContinue: () -> Void
 	private let dismissView: () -> Void
 
 	// MARK: - Initializers
 
 	init(
 		investmentRiskVM: InvestmentRiskPerformanceViewModel,
-		viewDidDismiss: @escaping () -> Void,
+        dismissAndContinue: @escaping () -> Void,
 		dismissView: @escaping () -> Void
 	) {
 		self.investmentRiskVM = investmentRiskVM
-		self.viewDidDismiss = viewDidDismiss
+		self.dismissAndContinue = dismissAndContinue
 		self.dismissView = dismissView
 		super.init(frame: .zero)
 		setupView()
@@ -97,7 +97,7 @@ class InvestmentRiskPerformanceView: UIView {
 		}), for: .touchUpInside)
 
 		confirmButton.addAction(UIAction(handler: { _ in
-			self.viewDidDismiss()
+			self.dismissAndContinue()
 		}), for: .touchUpInside)
 	}
 
