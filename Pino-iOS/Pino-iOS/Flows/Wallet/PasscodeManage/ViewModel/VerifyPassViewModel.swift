@@ -34,13 +34,7 @@ struct VerifyPassViewModel: PasscodeManagerPages {
 		if let firstAccount = selectedAccounts.first, firstAccount.isNewWallet {
 			return false
 		}
-		guard let syncFinishTime = UserDefaultsManager.syncFinishTime.getValue() else { return false }
-
-		if syncFinishTime > Date.now {
-			return true
-		} else {
-			return false
-		}
+		return true
 	}
 
 	// MARK: - Private Methods
