@@ -41,8 +41,8 @@ class BorrowComingSoonView: UICollectionReusableView {
 
 	private func setupStyle() {
 		emptyPageImageView.image = UIImage(named: "borrow_coming_soon")
-		emptyPageTitle.text = "Coming Soon!"
-		emptyPageDescription.text = #"The "Borrow" section is currently under development. We expect to release soon."#
+		emptyPageTitle.text = "Nearly here!"
+		emptyPageDescription.text = #"The “Borrow” section is on its way. It should arrive sometime soon."#
 
 		backgroundColor = .Pino.background
 		emptyPageTitle.textColor = .Pino.label
@@ -60,11 +60,13 @@ class BorrowComingSoonView: UICollectionReusableView {
 		contentStackview.alignment = .center
 		titleStackView.alignment = .center
 
-		contentStackview.spacing = 56
-		titleStackView.spacing = 16
+		contentStackview.spacing = 48
+		titleStackView.spacing = 8
 	}
 
 	private func setupConstraint() {
+		emptyPageTitle.heightAnchor.constraint(greaterThanOrEqualToConstant: 28).isActive = true
+
 		contentStackview.pin(
 			.horizontalEdges(padding: 16)
 		)
