@@ -58,11 +58,11 @@ class SendTransactionStatusViewModel {
 
 	@objc
 	private func getPendingTransactionActivity() {
-		var getActivityPromiss: [Promise<SendTransactionStatus>] = []
+		var getActivityPromiss: [Promise<Void>] = []
 		transactions.forEach { transaction in
 			getActivityPromiss.append(transaction.getPendingTransactionActivity())
 		}
-		when(fulfilled: getActivityPromiss).done { transactionStatus in
+		when(fulfilled: getActivityPromiss).done {
 			self.sendTransactionStatus = .success
 		}.catch { _ in
 			self.sendTransactionStatus = .failed
