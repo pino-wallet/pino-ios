@@ -172,7 +172,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Public Methods
 
 	public func getTransactionInfo() {
-		withdrawManager.getWithdrawInfo().done { withdrawTrx, gasInfo in
+		withdrawManager.getWithdrawInfo(withdrawType: withdrawType).done { withdrawTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(
 				of: self.selectedToken.assetType,

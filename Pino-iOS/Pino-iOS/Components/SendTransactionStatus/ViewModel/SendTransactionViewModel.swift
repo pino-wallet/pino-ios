@@ -44,9 +44,7 @@ class SendTransactionViewModel {
 
 	public func getPendingTransactionActivity() -> Promise<SendTransactionStatus> {
 		Promise<SendTransactionStatus> { seal in
-			guard let txHash else {
-				return
-			}
+			guard let txHash else { return }
 			requestTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [self] timer in
 				activityAPIClient.singleActivity(txHash: txHash).sink { completed in
 					switch completed {
@@ -54,6 +52,7 @@ class SendTransactionViewModel {
 						print("Transaction activity received sucsessfully")
 					case let .failure(error):
 						print(error)
+						seal.reject(error)
 					}
 				} receiveValue: { activity in
 					guard !ActivityHelper().iterateActivityModel(activity: activity)

@@ -64,7 +64,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func getWithdrawInfo() -> TrxWithGasInfo {
+	public func getWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
 		switch selectedProtocol {
 		case .maker:
 			return getMakerWithdrawInfo()
@@ -73,7 +73,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		case .lido:
 			return getLidoWithdrawInfo()
 		case .aave:
-			return getAaveWithdrawInfo()
+			return getAaveWithdrawInfo(withdrawType: withdrawType)
 		}
 	}
 
@@ -158,7 +158,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	private func getAaveWithdrawInfo() -> TrxWithGasInfo {
+	private func getAaveWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
 		firstly {
 			getTokenPositionID()
 		}.then { [self] tokenPositionId in
@@ -170,7 +170,12 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				assetAmount: withdrawAmount,
 				positionAsset: tokenPosition
 			)
-			return aaveManager.getWithdrawInfo()
+			switch withdrawType {
+			case .decrease:
+				return aaveManager.getWithdrawInfo()
+			case .withdrawMax:
+				return aaveManager.getWithdrawMaxInfo()
+			}
 		}
 	}
 
