@@ -132,6 +132,14 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 		}
 	}
 
+	public func getWithdrawMaxInfo() -> TrxWithGasInfo {
+		if asset.isEth {
+			return getETHWithdrawData()
+		} else {
+			return getERC20WithdrawMaxData()
+		}
+	}
+
 	public func getERC20WithdrawData() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
@@ -141,7 +149,7 @@ class AaveWithdrawManager: Web3ManagerProtocol {
 			}.then { signiture -> Promise<(String, String?)> in
 				self.checkAllowanceOfProvider(
 					approvingToken: self.positionAsset,
-					approvingAmount: self.assetAmountBigNumber.sevenDigitFormat,
+					approvingAmount: self.assetAmountBigNumber.decimalString,
 					spenderAddress: Web3Core.Constants.aavePoolERCContractAddress
 				).map {
 					(signiture, $0)
