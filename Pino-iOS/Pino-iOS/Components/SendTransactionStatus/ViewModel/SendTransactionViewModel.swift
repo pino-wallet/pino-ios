@@ -45,7 +45,7 @@ class SendTransactionViewModel {
 	public func getPendingTransactionActivity() -> Promise<Void> {
 		Promise<Void> { seal in
 			guard let txHash else { return }
-			requestTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [self] timer in
+			requestTimer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [self] timer in
 				activityAPIClient.singleActivity(txHash: txHash).sink { completed in
 					switch completed {
 					case .finished:
