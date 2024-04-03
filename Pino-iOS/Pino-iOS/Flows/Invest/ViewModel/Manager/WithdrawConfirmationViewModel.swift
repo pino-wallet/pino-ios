@@ -49,6 +49,10 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Confirm withdraw"
+	public var transactionsDescription: String {
+		let withdrawAmount = BigNumber(numberWithDecimal: transactionAmount)!.sevenDigitFormat
+		return "You withdrew \(withdrawAmount) \(selectedToken.symbol) from \(selectedProtocol.name) \(selectedProtocol.version)"
+	}
 
 	@Published
 	public var formattedFeeInETH: String?
@@ -101,11 +105,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Private Methods
 
 	private func showError() {
-		Toast.default(
-			title: "Failed to fetch withdraw Info",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		).show()
+		Toast.default(title: "Failed to fetch withdraw Info", style: .error).show()
 	}
 
 	private func getWithdrawTransaction() -> [SendTransactionViewModel]? {
