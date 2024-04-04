@@ -35,9 +35,10 @@ class InvestmentPerformanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lineChart = AssetLineChart(chartVM: investmentPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.investmentPerformanceVM.getChartData(dateFilter: dateFilter)
-		})
+		lineChart = AssetLineChart(
+			chartVM: investmentPerformanceVM.chartVM,
+			dateFilterDelegate: investmentPerformanceVM.chartDateFilterDelegate
+		)
 		chartStackView.addArrangedSubview(chartTitle)
 		chartStackView.addArrangedSubview(chartCardView)
 		contentStackview.addArrangedSubview(chartStackView)

@@ -42,13 +42,13 @@ public struct ActiveAccountViewModel: Equatable {
 
 	public var isSelected: Bool
 	public var isNewWallet: Bool
-	public var balance: String
+	public var balance: BigNumber
 
 	// MARK: - Initializers
 
-	init(account: Account, balance: String?, isNewWallet: Bool = false, avatar: Avatar) {
+	init(account: Account, balance: BigNumber?, isNewWallet: Bool = false, avatar: Avatar) {
 		self.account = account
-		self.balance = balance ?? GlobalZeroAmounts.tokenAmount.zeroAmount.ethFormatting
+		self.balance = balance ?? 0.bigNumber
 		self.isNewWallet = isNewWallet
 		self.avatar = avatar
 		if isNewWallet {

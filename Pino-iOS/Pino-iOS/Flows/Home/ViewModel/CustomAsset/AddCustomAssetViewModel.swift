@@ -19,32 +19,6 @@ class AddCustomAssetViewModel {
 		case success
 	}
 
-	public enum CustomAssetValidationError: Error {
-		case notValid
-		case networkError
-		case notValidFromServer
-		case unavailableNode
-		case unknownError
-		case alreadyAdded
-
-		public var description: String {
-			switch self {
-			case .notValid:
-				return "Invalid address"
-			case .networkError:
-				return "No connection"
-			case .notValidFromServer:
-				return "Invalid asset"
-			case .unavailableNode:
-				return "Unavailable node"
-			case .unknownError:
-				return "Unknown error"
-			case .alreadyAdded:
-				return "Already added"
-			}
-		}
-	}
-
 	// MARK: - Closures
 
 	public var changeViewStatusClosure: ((ContractValidationStatus) -> Void)!
@@ -153,8 +127,8 @@ class AddCustomAssetViewModel {
 							self?.currentValidationStatus = .success
 						}
 					}.catch { error in
-						self.changeViewStatusClosure(.error(.networkError))
-						self.currentValidationStatus = .error(.networkError)
+						self.changeViewStatusClosure(.error(.networkConnection))
+						self.currentValidationStatus = .error(.networkConnection)
 					}
 			}
 		} else {

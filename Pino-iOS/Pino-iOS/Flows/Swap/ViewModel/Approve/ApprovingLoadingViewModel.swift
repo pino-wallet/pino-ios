@@ -86,7 +86,7 @@ class ApprovingLoadingViewModel {
 			self.startTimer()
 			self.showSpeedUpAfterSomeTime()
 		}.catch { error in
-			print("Failed to give permission")
+			print("Error: approving contract: \(error)")
 			self.approveLoadingStatus = .error
 		}
 	}
@@ -150,7 +150,8 @@ class ApprovingLoadingViewModel {
 				case .notFound:
 					print("Approve is in pending")
 				default:
-					print("Failed request")
+					print("Error: getting approve activity: \(error.description)")
+					self.approveLoadingStatus = .error
 				}
 			}
 		} receiveValue: { _ in

@@ -40,8 +40,8 @@ class SwapConfirmationViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		swapConfirmationVM.fetchSwapInfo { error in
-			self.showFeeError(error)
+		swapConfirmationVM.fetchSwapInfo().catch { error in
+			self.showFeeError(EtheriumNetworkError.estimationFailed)
 		}
 
 		if isBeingPresented || isMovingToParent {
@@ -68,8 +68,8 @@ class SwapConfirmationViewController: UIViewController {
 	private func getFee() {
 		swapConfirmationView.hideFeeError()
 		swapConfirmationView.showSkeletonView()
-		swapConfirmationVM.fetchSwapInfo { error in
-			self.showFeeError(error)
+		swapConfirmationVM.fetchSwapInfo().catch { error in
+			self.showFeeError(EtheriumNetworkError.estimationFailed)
 		}
 	}
 
@@ -122,7 +122,7 @@ class SwapConfirmationViewController: UIViewController {
 			swapConfirmationVM.destoryRateTimer()
 			present(sendTransactionStatuVC, animated: true)
 		} onFailure: {
-			#warning("Error should be handled")
+			print("Error: Authorization failed")
 		}
 	}
 
@@ -132,13 +132,8 @@ class SwapConfirmationViewController: UIViewController {
 		dismiss(animated: true)
 	}
 
-	private func showFeeError(_ error: Error) {
+	private func showFeeError(_ error: EtheriumNetworkError) {
 		swapConfirmationView.showfeeCalculationError()
-		Toast.default(
-			title: "\(error.localizedDescription)",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		)
-		.show(haptic: .warning)
+		Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 	}
 }

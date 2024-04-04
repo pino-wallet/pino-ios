@@ -24,15 +24,17 @@ class InvestCoinPerformanceView: UIView {
 	private let coinImage = InvestAssetImageView()
 	private let coinInfoView: CoinPerformanceInfoView
 	private var lineChart: AssetLineChart!
+	private let chartDateFilterDelegate: LineChartDateFilterDelegate
 
 	private let coinPerformanceVM: InvestCoinPerformanceViewModel
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Initializers
 
-	init(coinPerformanceVM: InvestCoinPerformanceViewModel) {
+	init(coinPerformanceVM: InvestCoinPerformanceViewModel, chartDateFilterDelegate: LineChartDateFilterDelegate) {
 		self.coinPerformanceVM = coinPerformanceVM
 		self.coinInfoView = CoinPerformanceInfoView(coinPerformanceVM: coinPerformanceVM.coinInfoVM)
+		self.chartDateFilterDelegate = chartDateFilterDelegate
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -47,9 +49,7 @@ class InvestCoinPerformanceView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lineChart = AssetLineChart(chartVM: coinPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.coinPerformanceVM.getChartData(dateFilter: dateFilter)
-		})
+		lineChart = AssetLineChart(chartVM: coinPerformanceVM.chartVM, dateFilterDelegate: chartDateFilterDelegate)
 
 		contentStackview.addArrangedSubview(chartCardView)
 		contentStackview.addArrangedSubview(moreInfoStackView)

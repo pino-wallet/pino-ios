@@ -159,6 +159,7 @@ class SwapViewModel {
 			}
 		}.catch { error in
 			print(error)
+			Toast.default(title: ApproveError.failedRequest.toastMessage, style: .error).show(haptic: .warning)
 		}
 	}
 
@@ -278,7 +279,7 @@ class SwapViewModel {
 			destToken: toToken,
 			swapSide: swapSide,
 			amount: amount.bigIntFormat
-		) { providersInfo in
+		).done { providersInfo in
 			if providersInfo.isEmpty {
 				completion(nil)
 			} else {
@@ -290,6 +291,9 @@ class SwapViewModel {
 				completion(bestProvider.swapAmount)
 				self.getFeeInfo(swapProvider: bestProvider)
 			}
+		}.catch { error in
+			print("Error: getting swap best price: \(error)")
+			// No need to show toast here
 		}
 	}
 

@@ -10,13 +10,13 @@ import UIKit
 class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let portfolioPerformaneVM: PortfolioPerformanceViewModel
+	private var portfolioPerformaneVM: PortfolioPerformanceViewModel!
 
 	// MARK: Initializers
 
 	init(assets: [AssetViewModel]) {
-		self.portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets)
 		super.init(nibName: nil, bundle: nil)
+		self.portfolioPerformaneVM = PortfolioPerformanceViewModel(assets: assets, chartDateFilterDelegate: self)
 	}
 
 	required init?(coder: NSCoder) {
@@ -28,7 +28,7 @@ class PortfolioPerformanceViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if SyncWalletViewModel.isSyncFinished {
-			portfolioPerformaneVM.getPortfolioPerformanceData()
+			getPortfolioPerformance()
 		} else {
 			showSkeletonLoading()
 		}
@@ -89,5 +89,24 @@ class PortfolioPerformanceViewController: UIViewController {
 
 	private func showSkeletonLoading() {
 		view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
+	}
+
+	private func getPortfolioPerformance() {
+		portfolioPerformaneVM.getPortfolioPerformanceData().catch { error in
+			self.showErrorToast(error)
+		}
+	}
+
+	private func showErrorToast(_ error: Error) {
+		guard let error = error as? APIError else { return }
+		Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
+	}
+}
+
+extension PortfolioPerformanceViewController: LineChartDateFilterDelegate {
+	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
+		portfolioPerformaneVM.getChartData(dateFilter: dateFilter).catch { error in
+			self.showErrorToast(error)
+		}
 	}
 }

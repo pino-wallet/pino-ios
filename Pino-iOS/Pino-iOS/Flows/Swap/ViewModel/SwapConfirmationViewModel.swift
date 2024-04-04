@@ -105,40 +105,12 @@ class SwapConfirmationViewModel {
 
 	// MARK: - Public Methods
 
-	public func fetchSwapInfo(completion: @escaping (Error) -> Void) {
-		#warning("Waiting for amir to say is we should use this or not")
-//		if let selectedProvider, let dolalarAmountBigNum = fromToken.decimalDollarAmount {
-//			swapManager.getGasLimits().done { [weak self] gasLimits in
-//				guard let self = self else { return }
-//				let gasManager = SwapGasLimitsManager(
-//					swapAmount: dolalarAmountBigNum,
-//					gasLimitsModel: gasLimits,
-//					isEth: fromToken.selectedToken.isEth,
-//					provider: selectedProvider.provider
-//				)
-//				self.pendingSwapGasInfo = gasManager.gasInfo
-//				self.formattedFeeInDollar = gasManager.gasInfo.feeInDollar!.priceFormat
-//				self.formattedFeeInETH = gasManager.gasInfo.fee!.sevenDigitFormat
-//			}.catch { error in
-//				completion(error)
-//			}
-//		}
-
+	public func fetchSwapInfo() -> Promise<Void> {
 		swapManager.getSwapInfo().done { swapTrx, gasInfo in
 			self.pendingSwapTrx = swapTrx
 			self.pendingSwapGasInfo = gasInfo
 			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(of: .coin, withRule: .standard)
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat.ethFormatting
-		}.catch { error in
-			completion(error)
-		}
-	}
-
-	public func confirmSwap(completion: @escaping () -> Void) {
-		guard let pendingSwapTrx else { return }
-		swapManager.confirmSwap(swapTrx: pendingSwapTrx) { trxHash in
-			print("SWAP TRX HASH: \(trxHash)")
-			completion()
 		}
 	}
 
@@ -193,7 +165,7 @@ class SwapConfirmationViewModel {
 				destToken: toToken.selectedToken,
 				swapSide: swapSide,
 				amount: srcTokenAmount.description
-			) { [self] providersInfo in
+			).done { [self] providersInfo in
 
 				let recalculatedSwapInfo = providersInfo.compactMap {
 					SwapProviderViewModel(
@@ -214,6 +186,8 @@ class SwapConfirmationViewModel {
 					swapAmount: self.fromToken.tokenAmount!,
 					destinationAmount: self.toToken.tokenAmount!
 				)
+			}.catch { error in
+				#warning("View code must be refactored later")
 			}
 		}
 	}

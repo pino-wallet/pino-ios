@@ -190,10 +190,10 @@ class ImportAccountsViewModel {
 			getWallet()
 		}.then { wallet in
 			self.createAccounts(of: wallet, from: firstIndex, to: lastIndex)
-		}.then { createdAccounts in
+		}.then { createdAccounts -> Promise<([Account], [String])> in
 			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
 			return self.getActiveAddresses(accountAddresses: accountAddresses).map { (createdAccounts, $0) }
-		}.then { createdAccounts, activeAddresses in
+		}.then { createdAccounts, activeAddresses -> Promise<[ActiveAccountViewModel]> in
 			let activeAccounts = createdAccounts.filter {
 				activeAddresses.contains($0.eip55Address.lowercased())
 			}
@@ -201,7 +201,9 @@ class ImportAccountsViewModel {
 				self.lastAccountIndex = nil
 			}
 			return self.getAccountsBalance(of: activeAccounts)
-		}.then { activeAccounts in
+		}.map { activatedAccounts in
+			activatedAccounts.filter { !$0.balance.isZero }
+		}.then { activeAccounts -> Promise<[ActiveAccountViewModel]> in
 			self.setupActiveAccounts(activeAccounts)
 		}
 	}

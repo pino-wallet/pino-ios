@@ -11,11 +11,10 @@ import Web3_Utility
 class ApproveSpeedUpViewModel {
 	// MARK: - TypeAliases
 
-	typealias DidSpeedUpTransactionType = (_ error: speedUpTransactionErrors?) -> Void
+	typealias DidSpeedUpTransactionType = (_ error: ApproveSpeedupError?) -> Void
 
 	// MARK: - Private Properties
 
-	private let networkErrorToastMessage = "No internet connection"
 	private let ethToken = GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })
 	private let coreDataManager = CoreDataManager()
 	private var newBigNumberGasPrice: BigNumber!
@@ -36,22 +35,13 @@ class ApproveSpeedUpViewModel {
 	public let speedUpFeeTitle = "Speed up fee"
 	public let confirmTitle = "Confirm"
 	public let waitTitle = "Please wait"
-	public let insufficientBalanceTitle = "Insufficient balance"
 	public let errorTitle = "Error"
 	public let errorImageName = "info"
-	public let errorTransactionExist = "Your transaction has already been confirmed"
-	public let errorSomethingWentWrong = "Something went wrong, please try again"
 	public let speedUpArrow = "speed_up_arrow"
 	public let gotItTitle = "Got it"
 
 	@Published
 	public var speedUpFeeInDollars = ""
-
-	public enum speedUpTransactionErrors: Error {
-		case somethingWentWrong
-		case transactionExistError
-		case insufficientBalanceError
-	}
 
 	// MARK: - Initializers
 
@@ -85,9 +75,9 @@ class ApproveSpeedUpViewModel {
 			self.didSpeedUpTransaction(nil)
 		}.catch { error in
 			if self.activityCurrentStatus == .complete {
-				self.didSpeedUpTransaction(.transactionExistError)
+				self.didSpeedUpTransaction(.transactionExist)
 			} else {
-				self.didSpeedUpTransaction(.somethingWentWrong)
+				self.didSpeedUpTransaction(.somethingWrong)
 			}
 		}
 	}
@@ -111,15 +101,15 @@ class ApproveSpeedUpViewModel {
 						.priceFormat(of: .coin, withRule: .standard)
 
 					if self.ethToken!.holdAmount.isZero || self.ethToken!.holdAmount < speedUpFee {
-						self.didSpeedUpTransaction(.insufficientBalanceError)
+						self.didSpeedUpTransaction(.insufficientBalance)
 					}
 				}.catch { error in
-					Toast.default(title: self.networkErrorToastMessage, style: .error)
-						.show(haptic: .warning)
+					print("Error: getting gas price: \(error)")
+					Toast.default(title: ApproveError.failedRequest.toastMessage, style: .error).show(haptic: .warning)
 				}
 			}.catch { error in
-				Toast.default(title: self.networkErrorToastMessage, style: .error)
-					.show(haptic: .warning)
+				print("Error: getting ethereum transaction object: \(error)")
+				Toast.default(title: ApproveError.failedRequest.toastMessage, style: .error).show(haptic: .warning)
 			}
 	}
 

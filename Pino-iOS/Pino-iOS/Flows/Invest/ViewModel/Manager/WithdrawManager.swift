@@ -64,7 +64,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func getWithdrawInfo() -> TrxWithGasInfo {
+	public func getWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
 		switch selectedProtocol {
 		case .maker:
 			return getMakerWithdrawInfo()
@@ -73,7 +73,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		case .lido:
 			return getLidoWithdrawInfo()
 		case .aave:
-			return getAaveWithdrawInfo()
+			return getAaveWithdrawInfo(withdrawType: withdrawType)
 		}
 	}
 
@@ -132,7 +132,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				destToken: selectedToken,
 				swapSide: .sell,
 				amount: tokenUIntNumber.description
-			) { [weak self] priceResponce in
+			).done { [weak self] priceResponce in
 				guard let self else { return }
 				let swapAmountBig = BigNumber(unSignedNumber: tokenUIntNumber, decimal: stethToken.decimal)
 				let destAmountBig = BigNumber(number: priceResponce.first!.destAmount, decimal: selectedToken.decimal)
@@ -154,11 +154,13 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				}.catch { error in
 					seal.reject(error)
 				}
+			}.catch { error in
+				seal.reject(error)
 			}
 		}
 	}
 
-	private func getAaveWithdrawInfo() -> TrxWithGasInfo {
+	private func getAaveWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
 		firstly {
 			getTokenPositionID()
 		}.then { [self] tokenPositionId in
@@ -170,7 +172,12 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				assetAmount: withdrawAmount,
 				positionAsset: tokenPosition
 			)
-			return aaveManager.getWithdrawInfo()
+			switch withdrawType {
+			case .decrease:
+				return aaveManager.getWithdrawInfo()
+			case .withdrawMax:
+				return aaveManager.getWithdrawMaxInfo()
+			}
 		}
 	}
 

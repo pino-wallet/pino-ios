@@ -52,9 +52,9 @@ class HomepageViewModel {
 		web3Client.getGasLimits().sink { completed in
 			switch completed {
 			case .finished:
-				print("Info received successfully")
+				print("Gas limits received successfully")
 			case let .failure(error):
-				print(error)
+				print("Error: getting gas limits: \(error.description)")
 			}
 		} receiveValue: { gasLimitsResponse in
 			UserDefaultsManager.gasLimits.setValue(value: gasLimitsResponse)
