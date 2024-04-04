@@ -350,14 +350,14 @@ public class Web3Core {
 		}
 	}
 
-	public func getETHBalance(of accountAddress: String) -> Promise<String> {
-		Promise<String>() { seal in
+	public func getETHBalance(of accountAddress: String) -> Promise<BigNumber> {
+		Promise<BigNumber>() { seal in
 			firstly {
 				rWeb3.eth.getBalance(address: accountAddress.eip55Address!, block: .latest)
 			}.map { balanceValue in
 				BigNumber(unSignedNumber: balanceValue.quantity, decimal: 18)
 			}.done { balance in
-				seal.fulfill(balance.sevenDigitFormat.ethFormatting)
+				seal.fulfill(balance)
 			}.catch(policy: .allErrors) { error in
 				seal.reject(error)
 			}
