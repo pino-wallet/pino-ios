@@ -187,6 +187,7 @@ class SwapConfirmationViewModel {
 					destinationAmount: self.toToken.tokenAmount!
 				)
 			}.catch { error in
+				#warning("View code must be refactored later")
 			}
 		}
 	}

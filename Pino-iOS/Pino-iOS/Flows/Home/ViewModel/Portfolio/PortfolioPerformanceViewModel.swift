@@ -46,6 +46,7 @@ class PortfolioPerformanceViewModel {
 				} receiveValue: { portfolio in
 					let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
 					self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
+					seal.fulfill(())
 				}.store(in: &cancellables)
 		}
 	}

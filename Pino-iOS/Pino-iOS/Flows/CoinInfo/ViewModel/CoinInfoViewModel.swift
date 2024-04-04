@@ -281,6 +281,7 @@ class CoinInfoViewModel {
 				print("Token activities received successfully")
 			case let .failure(error):
 				print("Error: getting token activities: \(error.description)")
+				#warning("This function gets called multiple times so showing toast should be handled properly")
 			}
 		} receiveValue: { [weak self] fetchedActivities in
 			guard let self else {

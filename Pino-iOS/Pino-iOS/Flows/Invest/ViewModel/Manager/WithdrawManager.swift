@@ -155,6 +155,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 					seal.reject(error)
 				}
 			}.catch { error in
+				seal.reject(error)
 			}
 		}
 	}
