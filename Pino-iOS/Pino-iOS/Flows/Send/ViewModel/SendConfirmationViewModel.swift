@@ -50,7 +50,7 @@ class SendConfirmationViewModel {
 		} else {
 			formattedRecipientAddress = recipientAddress.address.addressFormating()
 		}
-		return "You sent \(formattedSendAmount) to \(formattedRecipientAddress)"
+		return "You sent \(formattedSendAmount) to \(formattedRecipientAddress)."
 	}
 
 	public var isTokenVerified: Bool {

@@ -48,6 +48,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
+    public let uiType: InvestUIType = .deposit
 	public let pageTitle = "Confirm investment"
 
 	@Published
