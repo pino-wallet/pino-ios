@@ -9,7 +9,6 @@ import Foundation
 import Web3ContractABI
 
 protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
-	var uiType: InvestUIType { get }
 	var selectedToken: AssetViewModel { get }
 	var selectedProtocol: InvestProtocolViewModel { get }
 	var transactionAmount: String { get }
@@ -96,7 +95,3 @@ extension InvestConfirmationProtocol {
 	}
 }
 
-public enum InvestUIType {
-	case withdraw
-	case deposit
-}

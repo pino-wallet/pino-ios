@@ -48,11 +48,10 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
-	public let uiType: InvestUIType = .withdraw
 	public let pageTitle = "Confirm withdraw"
 	public var transactionsDescription: String {
 		let withdrawAmount = BigNumber(numberWithDecimal: transactionAmount)!.sevenDigitFormat
-		return "You withdrew \(withdrawAmount) \(selectedToken.symbol) from \(selectedProtocol.name) \(selectedProtocol.version)"
+		return "You withdrew \(withdrawAmount) \(selectedToken.symbol) from \(selectedProtocol.name) \(selectedProtocol.version)."
 	}
 
 	@Published

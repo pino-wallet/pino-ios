@@ -80,7 +80,6 @@ class InvestConfirmationViewController: UIViewController {
 	private func confirmInvestment() {
 		authManager.unlockApp { [self] in
 			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
-			let investAmountBigNumber = BigNumber(numberWithDecimal: investConfirmationVM.transactionAmount)
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
 				transactionSentInfoText: investConfirmationVM.transactionsDescription

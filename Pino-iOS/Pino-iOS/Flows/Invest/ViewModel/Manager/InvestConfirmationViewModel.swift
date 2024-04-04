@@ -48,11 +48,10 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
-	public let uiType: InvestUIType = .deposit
 	public let pageTitle = "Confirm investment"
 	public var transactionsDescription: String {
 		let investAmount = BigNumber(numberWithDecimal: transactionAmount)!.sevenDigitFormat
-		return "You invested \(investAmount) \(selectedToken.symbol) in \(selectedProtocol.name) \(selectedProtocol.version)"
+		return "You invested \(investAmount) \(selectedToken.symbol) in \(selectedProtocol.name) \(selectedProtocol.version)."
 	}
 
 	@Published
