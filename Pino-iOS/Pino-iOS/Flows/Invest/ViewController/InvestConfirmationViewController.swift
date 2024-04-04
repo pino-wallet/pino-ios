@@ -83,7 +83,6 @@ class InvestConfirmationViewController: UIViewController {
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
 				transactionSentInfoText: investConfirmationVM.transactionsDescription
-
 			)
 			let sendTransactionStatusVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTransactionStatusVM,

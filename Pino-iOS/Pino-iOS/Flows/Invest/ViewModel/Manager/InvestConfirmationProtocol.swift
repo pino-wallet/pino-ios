@@ -94,4 +94,3 @@ extension InvestConfirmationProtocol {
 		transactionAmountInDollar
 	}
 }
-
