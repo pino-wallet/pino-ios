@@ -19,6 +19,7 @@ class ImportAccountsViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private let internetConnectivity = InternetConnectivity()
 	private var createdWallet: HDWallet?
+	private var randAvatarGen = RandGenerator()
 	private let accountActivationVM = AccountActivationViewModel()
 
 	// MARK: Public Properties
@@ -121,7 +122,7 @@ class ImportAccountsViewModel {
 		Promise<[ActiveAccountViewModel]> { seal in
 			let promises = accounts.compactMap { account in
 				Web3Core.shared.getETHBalance(of: account.eip55Address).map {
-					ActiveAccountViewModel(account: account, balance: $0)
+					ActiveAccountViewModel(account: account, balance: $0, avatar: self.randAvatarGen.randAvatar())
 				}
 			}
 			when(fulfilled: promises).done { accountsVM in
@@ -155,7 +156,13 @@ class ImportAccountsViewModel {
 			}.then { account in
 				self.accountActivationVM.activateNewAccountAddress(account).map { (account, $0) }
 			}.done { account, _ in
-				seal.fulfill(ActiveAccountViewModel(account: account, balance: nil, isNewWallet: true))
+				let activatedAccount = ActiveAccountViewModel(
+					account: account,
+					balance: nil,
+					isNewWallet: true,
+					avatar: self.randAvatarGen.randAvatar()
+				)
+				seal.fulfill(activatedAccount)
 			}.catch { error in
 				seal.reject(error)
 			}

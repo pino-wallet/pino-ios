@@ -5,7 +5,7 @@
 //  Created by Mohi Raoufi on 3/28/23.
 //
 
-enum Avatar: String, CaseIterable {
+public enum Avatar: String, CaseIterable {
 	case grape
 	case tangerine
 	case coconut
@@ -86,5 +86,19 @@ enum Avatar: String, CaseIterable {
 
 	public static func randAvatar() -> Self {
 		allCases.randomElement() ?? .green_apple
+	}
+}
+
+public class RandGenerator {
+	private var randAvatars = Avatar.allCases
+
+	public func randAvatar() -> Avatar {
+		if let randAvatar = randAvatars.randomElement() {
+			randAvatars.remove(at: randAvatars.firstIndex(of: randAvatar)!)
+			return randAvatar
+		} else {
+			randAvatars = Avatar.allCases
+			return randAvatar()
+		}
 	}
 }
