@@ -122,7 +122,9 @@ extension TutorialStepperContainerView: UICollectionViewDelegateFlowLayout {
 		layout collectionViewLayout: UICollectionViewLayout,
 		sizeForItemAt indexPath: IndexPath
 	) -> CGSize {
-		CGSize(width: (Int(collectionView.frame.width) / (tutorialVM.tutorials.count + 1)) + 12, height: 3)
+		let tutorialsCount = tutorialVM.tutorials.count
+		let spacingPixels = ((tutorialsCount - 1) * 12) / tutorialsCount
+		return CGSize(width: (Int(collectionView.frame.width) / tutorialsCount) - spacingPixels, height: 3)
 	}
 
 	func collectionView(
