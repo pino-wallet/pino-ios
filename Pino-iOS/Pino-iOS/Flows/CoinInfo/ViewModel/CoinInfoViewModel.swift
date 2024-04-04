@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import Network
+import PromiseKit
 
 class CoinInfoViewModel {
 	// MARK: - Public Properties
@@ -104,11 +105,9 @@ class CoinInfoViewModel {
 
 	// MARK: - public Methods
 
-	public func refreshCoinInfoData(completion: @escaping (APIError?) -> Void) {
+	public func refreshCoinInfoData() -> Promise<Void> {
 		requestTimer?.fire()
-		GlobalVariables.shared.fetchSharedInfo().catch { error in
-			completion(APIError.unreachable)
-		}
+		return GlobalVariables.shared.fetchSharedInfo()
 	}
 
 	public func getUserActivitiesFromVC() {
@@ -281,7 +280,8 @@ class CoinInfoViewModel {
 			case .finished:
 				print("Token activities received successfully")
 			case let .failure(error):
-				print(error)
+				print("Error: getting token activities: \(error.description)")
+				#warning("This function gets called multiple times so showing toast should be handled properly")
 			}
 		} receiveValue: { [weak self] fetchedActivities in
 			guard let self else {

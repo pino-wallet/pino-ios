@@ -36,9 +36,10 @@ class PortfolioPerformanceHeaderView: UICollectionReusableView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		lineChart = AssetLineChart(chartVM: portfolioPerformanceVM.chartVM, dateFilterChanged: { dateFilter in
-			self.portfolioPerformanceVM.getChartData(dateFilter: dateFilter)
-		})
+		lineChart = AssetLineChart(
+			chartVM: portfolioPerformanceVM.chartVM,
+			dateFilterDelegate: portfolioPerformanceVM.chartDateFilterDelegate
+		)
 		// To prevent chart duplication in reloads, the previous chart must be removed
 		chartCardView.subviews.first(where: { $0 is AssetLineChart })?.removeFromSuperview()
 		chartCardView.addSubview(lineChart)

@@ -8,6 +8,7 @@
 import Foundation
 
 public enum APIError: Error {
+	case networkConnection
 	case failedRequest
 	case invalidRequest
 	case unreachable
@@ -23,6 +24,8 @@ public enum APIError: Error {
 
 	public var description: String {
 		switch self {
+		case .networkConnection:
+			return "No internet connection"
 		case .failedRequest:
 			return "Sent request is failed."
 		case let .failedWith(statusCode):
@@ -43,6 +46,16 @@ public enum APIError: Error {
 			return "URL is nil."
 		case .notFound:
 			return "Not found"
+		}
+	}
+
+	public var toastMessage: String {
+		switch self {
+		case .networkConnection:
+			return "No internet connection"
+		case .failedRequest, .invalidRequest, .unreachable, .unknown, .unauthorized, .parametersNil, .encodingFailed,
+		     .missingURL, .notFound, .failedWith:
+			return "Failed to fetch data"
 		}
 	}
 }

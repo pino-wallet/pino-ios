@@ -70,17 +70,13 @@ class GlobalVariables {
 		internetConnectivity.$isConnected.tryCompactMap { $0 }.eraseToAnyPublisher()
 	}
 
-	private func fetchSharedInfoPeriodically(completion: @escaping () -> Void) {
+	private func checkInternetConnectivity(completion: @escaping (Bool) -> Void) {
 		Timer.publish(every: 11, on: .main, in: .common)
 			.autoconnect()
 			.sink { [self] seconds in
 				isNetConnected().sink { _ in
 				} receiveValue: { isConnected in
-					if isConnected {
-						completion()
-					} else {
-						#warning("Toast view is temporarily removed")
-					}
+					completion(isConnected)
 				}.store(in: &cancellables)
 			}
 			.store(in: &cancellables)
@@ -88,7 +84,7 @@ class GlobalVariables {
 
 	private func fetchBalances() {
 		fetchSharedInfo().catch { error in
-			#warning("Toast view is temporarily removed")
+			self.showError(error)
 		}
 	}
 
@@ -120,7 +116,7 @@ class GlobalVariables {
 				case .finished:
 					print("Received Fee")
 				case let .failure(error):
-					print(error)
+					print(error.description)
 					seal.reject(error)
 				}
 			} receiveValue: { gasInfo in
@@ -145,8 +141,12 @@ class GlobalVariables {
 	}
 
 	private func setupBindings() {
-		fetchSharedInfoPeriodically { [self] in
-			fetchBalances()
+		checkInternetConnectivity { isConnected in
+			if isConnected {
+				self.fetchBalances()
+			} else {
+				self.showError(APIError.networkConnection)
+			}
 		}
 
 		$manageAssetsList.sink { assets in
@@ -160,22 +160,10 @@ class GlobalVariables {
 			self.selectedManageAssetsList = selectedAssets + selectedPositions
 		}.store(in: &cancellables)
 	}
-}
 
-// MARK: - GlobalVariales + Error
-
-extension GlobalVariables {
-	private enum GlobalErrors: LocalizedError {
-		case connectionFailed
-		case failedToFetchInfo
-
-		var message: String {
-			switch self {
-			case .connectionFailed:
-				return "No Internet Connection!"
-			case .failedToFetchInfo:
-				return "Failed to fetch info!"
-			}
+	private func showError(_ error: Error) {
+		if let error = error as? APIError {
+			#warning("Toast view is temporarily removed")
 		}
 	}
 }

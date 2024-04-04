@@ -31,7 +31,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private let lineChartView = PinoLineChart(chartDataEntries: [])
 	private var chartDataSet: LineChartDataSet!
 	private var cancellables = Set<AnyCancellable>()
-	private var dateFilterChanged: (ChartDateFilter) -> Void
+	private var dateFilterDelegate: LineChartDateFilterDelegate
 
 	// MARK: - Public Properties
 
@@ -40,9 +40,9 @@ class AssetLineChart: UIView, LineChartDelegate {
 
 	// MARK: Initializers
 
-	init(chartVM: AssetChartViewModel?, dateFilterChanged: @escaping (ChartDateFilter) -> Void) {
+	init(chartVM: AssetChartViewModel?, dateFilterDelegate: LineChartDateFilterDelegate) {
 		self.chartVM = chartVM
-		self.dateFilterChanged = dateFilterChanged
+		self.dateFilterDelegate = dateFilterDelegate
 		self.chartDateFilter = UISegmentedControl(items: dateFilters.map { $0.rawValue })
 		super.init(frame: .zero)
 
@@ -219,7 +219,7 @@ class AssetLineChart: UIView, LineChartDelegate {
 	private func updateChart(sender: UISegmentedControl) {
 		showLoading()
 		let dateFilter = dateFilters[sender.selectedSegmentIndex]
-		dateFilterChanged(dateFilter)
+		dateFilterDelegate.chartDateDidChange(dateFilter)
 	}
 
 	private func updateChartBalance(_ assetData: AssetChartDataViewModel) {

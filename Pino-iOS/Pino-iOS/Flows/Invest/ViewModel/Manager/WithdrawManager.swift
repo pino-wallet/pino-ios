@@ -132,7 +132,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				destToken: selectedToken,
 				swapSide: .sell,
 				amount: tokenUIntNumber.description
-			) { [weak self] priceResponce in
+			).done { [weak self] priceResponce in
 				guard let self else { return }
 				let swapAmountBig = BigNumber(unSignedNumber: tokenUIntNumber, decimal: stethToken.decimal)
 				let destAmountBig = BigNumber(number: priceResponce.first!.destAmount, decimal: selectedToken.decimal)
@@ -154,6 +154,8 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				}.catch { error in
 					seal.reject(error)
 				}
+			}.catch { error in
+				seal.reject(error)
 			}
 		}
 	}
