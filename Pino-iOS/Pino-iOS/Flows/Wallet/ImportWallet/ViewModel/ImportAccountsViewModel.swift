@@ -156,13 +156,13 @@ class ImportAccountsViewModel {
 			}.then { account in
 				self.accountActivationVM.activateNewAccountAddress(account).map { (account, $0) }
 			}.done { account, _ in
-				seal
-					.fulfill(ActiveAccountViewModel(
-						account: account,
-						balance: nil,
-						isNewWallet: true,
-						avatar: self.randAvatarGen.randAvatar()
-					))
+				let activatedAccount = ActiveAccountViewModel(
+					account: account,
+					balance: nil,
+					isNewWallet: true,
+					avatar: self.randAvatarGen.randAvatar()
+				)
+				seal.fulfill(activatedAccount)
 			}.catch { error in
 				seal.reject(error)
 			}
