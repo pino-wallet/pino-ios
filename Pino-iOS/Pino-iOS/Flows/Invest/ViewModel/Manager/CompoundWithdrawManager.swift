@@ -53,7 +53,18 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 
 	// MARK: Public Methods
 
-	public func getWithdrawInfo() -> TrxWithGasInfo {
+	public func getWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
+		switch withdrawType {
+		case .decrease:
+			getCompoundDecreaseInfo()
+		case .withdrawMax:
+			getCompoundWithdrawMaxInfo()
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func getCompoundDecreaseInfo() -> TrxWithGasInfo {
 		if selectedToken.isEth {
 			return getCompoundETHWithdrawInfo()
 		} else if selectedToken.isWEth {
@@ -63,7 +74,15 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	// MARK: - Private Methods
+	private func getCompoundWithdrawMaxInfo() -> TrxWithGasInfo {
+		if selectedToken.isEth {
+			return getCompoundETHWithdrawMaxInfo()
+		} else if selectedToken.isWEth {
+			return getCompoundWETHWithdrawMaxInfo()
+		} else {
+			return getCompoundERCWithdrawMaxInfo()
+		}
+	}
 
 	private func getCompoundERCWithdrawInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
@@ -141,6 +160,103 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 			}.then { [self] exchangeRate in
 				tokenUIntNumber = tokenUIntNumber * BigUInt(10).power(18) / exchangeRate
 				return fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<String> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData -> Promise<(String, String)> in
+				web3.getWithdrawWETHV2CallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { (permitData, $0) }
+			}.then { permitData, protocolCallData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getCompoundERCWithdrawMaxInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				let positionAsset = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == positionID })
+				self.tokenUIntNumber = positionAsset!.holdAmount.bigUInt
+				return self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData in
+				web3.getWithdrawV2CallData(
+					tokenAdd: tokenPositionID,
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData) }
+			}.then { protocolCallData, permitData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getCompoundETHWithdrawMaxInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				let positionAsset = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == positionID })
+				self.tokenUIntNumber = positionAsset!.holdAmount.bigUInt
+				return self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData in
+				web3.getWithdrawETHV2CallData(
+					recipientAdd: walletManager.currentAccount.eip55Address,
+					amount: tokenUIntNumber
+				).map { (permitData, $0) }
+			}.then { permitData, protocolCallData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getCompoundWETHWithdrawMaxInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				let positionAsset = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == positionID })
+				self.tokenUIntNumber = positionAsset!.holdAmount.bigUInt
+				return self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in

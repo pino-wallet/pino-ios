@@ -184,7 +184,7 @@ class WithdrawConfirmViewModel {
 				}
 			}
 		case .compound:
-			compoundWithdrawManager.getWithdrawInfo().done { _, withdrawGasInfo in
+			compoundWithdrawManager.getWithdrawInfo(withdrawType: withdrawMode).done { _, withdrawGasInfo in
 				self.setFeeInfoByDepositGasInfo(withdrawGasinfo: withdrawGasInfo)
 			}.catch { _ in
 				Toast.default(
