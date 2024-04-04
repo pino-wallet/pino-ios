@@ -149,7 +149,7 @@ class SyncWalletView: UIView {
 				exploreButton.style = .secondary
 				exploreTitleLabel.isHidden = false
 				exploreTitleLabel.text = syncWalletVM.exploreTitleText
-                exploreTitleLabel.textAlignment = .center
+				exploreTitleLabel.textAlignment = .center
 				exploreButton.title = syncWalletVM.explorePinoBtnText
 			}
 		}.store(in: &cancellables)

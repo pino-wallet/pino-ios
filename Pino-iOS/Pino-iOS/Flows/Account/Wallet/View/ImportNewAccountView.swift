@@ -13,7 +13,7 @@ class ImportNewAccountView: UIView {
 
 	private let contentStackView = UIStackView()
 	private let accountInfoStackView = UIStackView()
-    private let accountAvatarContainerView = UIView()
+	private let accountAvatarContainerView = UIView()
 	private let accountAvatarStackView = UIStackView()
 	private let avatarBackgroundView = UIView()
 	private let accountAvatarImageView = UIImageView()
@@ -63,7 +63,7 @@ class ImportNewAccountView: UIView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-        accountAvatarContainerView.addSubview(accountAvatarStackView)
+		accountAvatarContainerView.addSubview(accountAvatarStackView)
 		contentStackView.addArrangedSubview(accountInfoStackView)
 		contentStackView.addArrangedSubview(importPrivateKeyStackView)
 		accountInfoStackView.addArrangedSubview(accountAvatarContainerView)
@@ -154,10 +154,10 @@ class ImportNewAccountView: UIView {
 	}
 
 	private func setupContstraint() {
-        accountAvatarStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 176).isActive = true
-        
-        accountAvatarStackView.pin(.verticalEdges, .centerX)
-        
+		accountAvatarStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 176).isActive = true
+
+		accountAvatarStackView.pin(.verticalEdges, .centerX)
+
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 26),
 			.horizontalEdges(padding: 16)

@@ -48,7 +48,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Properties
 
-    public let uiType: InvestUIType = .withdraw
+	public let uiType: InvestUIType = .withdraw
 	public let pageTitle = "Confirm withdraw"
 
 	@Published

@@ -81,17 +81,17 @@ class InvestConfirmationViewController: UIViewController {
 		authManager.unlockApp { [self] in
 			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
 			let investAmountBigNumber = BigNumber(numberWithDecimal: investConfirmationVM.transactionAmount)
-            var transactionText: String {
-                switch investConfirmationVM.uiType {
-                case .withdraw:
-                    "You withdrew \(investAmountBigNumber!.sevenDigitFormat) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)."
-                case .deposit:
-                    "You invested \(investAmountBigNumber!.sevenDigitFormat) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)."
-                }
-            }
+			var transactionText: String {
+				switch investConfirmationVM.uiType {
+				case .withdraw:
+					"You withdrew \(investAmountBigNumber!.sevenDigitFormat) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)."
+				case .deposit:
+					"You invested \(investAmountBigNumber!.sevenDigitFormat) \(investConfirmationVM.selectedToken.symbol) in \(investConfirmationVM.selectedProtocol.name) \(investConfirmationVM.selectedProtocol.version)."
+				}
+			}
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
 				transactions: sendTransactions,
-                transactionSentInfoText: transactionText
+				transactionSentInfoText: transactionText
 			)
 			let sendTransactionStatusVC = SendTransactionStatusViewController(
 				sendStatusVM: sendTransactionStatusVM,
