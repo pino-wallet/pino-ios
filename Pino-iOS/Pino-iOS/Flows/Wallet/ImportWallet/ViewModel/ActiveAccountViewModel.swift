@@ -10,7 +10,7 @@ import Foundation
 public struct ActiveAccountViewModel: Equatable {
 	// MARK: - Private Properties
 
-	private let avatar = Avatar.randAvatar()
+	public var avatar: Avatar!
 
 	// MARK: - Public Properties
 
@@ -42,14 +42,15 @@ public struct ActiveAccountViewModel: Equatable {
 
 	public var isSelected: Bool
 	public var isNewWallet: Bool
-	public var balance: String
+	public var balance: BigNumber
 
 	// MARK: - Initializers
 
-	init(account: Account, balance: String?, isNewWallet: Bool = false) {
+	init(account: Account, balance: BigNumber?, isNewWallet: Bool = false, avatar: Avatar) {
 		self.account = account
-		self.balance = balance ?? GlobalZeroAmounts.tokenAmount.zeroAmount.ethFormatting
+		self.balance = balance ?? 0.bigNumber
 		self.isNewWallet = isNewWallet
+		self.avatar = avatar
 		if isNewWallet {
 			self.isSelected = true
 		} else {

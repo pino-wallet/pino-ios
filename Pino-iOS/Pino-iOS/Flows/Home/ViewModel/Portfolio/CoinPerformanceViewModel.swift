@@ -34,11 +34,22 @@ class CoinPerformanceViewModel {
 
 	// MARK: - Public Methods
 
-	public func getChartData(dateFilter: ChartDateFilter) {
+	public func getCoinPerformance() -> Promise<Void> {
+		firstly {
+			getChartData()
+		}.then { assetChartVM in
+			self.getAllTimePerformance().map { (assetChartVM, $0) }
+		}.done { [weak self] assetChartVM, tokenAllTime in
+			guard let self else { return }
+			chartVM = assetChartVM
+			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
+			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
+		}
+	}
+
+	public func getChartData(dateFilter: ChartDateFilter) -> Promise<Void> {
 		getChartData(dateFilter: dateFilter).done { [weak self] assetChartVM in
 			self?.chartVM = assetChartVM
-		}.catch { [weak self] error in
-			self?.showError(error)
 		}
 	}
 
@@ -50,9 +61,9 @@ class CoinPerformanceViewModel {
 				.sink { completed in
 					switch completed {
 					case .finished:
-						print("Portfolio received successfully")
+						print("Coin performance received successfully")
 					case let .failure(error):
-						print(error)
+						print("Error: getting coin performance: \(error.description)")
 						seal.reject(error)
 					}
 				} receiveValue: { portfolio in
@@ -67,40 +78,14 @@ class CoinPerformanceViewModel {
 			accountingAPIClient.getAllTimePerformanceOf(selectedAsset.id).sink { completed in
 				switch completed {
 				case .finished:
-					print("ATL and ATH recieved successfully")
+					print("Coin all time recieved successfully")
 				case let .failure(error):
-					print(error)
+					print("Error: getting coin all time: \(error.description)")
 					seal.reject(error)
 				}
 			} receiveValue: { tokenAllTime in
 				seal.fulfill(tokenAllTime)
 			}.store(in: &cancellables)
-		}
-	}
-
-	private func showError(_ error: Error) {
-		Toast.default(
-			title: "\(error.localizedDescription)",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		)
-		.show(haptic: .warning)
-	}
-
-	// MARK: - Public Methods
-
-	public func getCoinPerformance() {
-		firstly {
-			getChartData()
-		}.then { assetChartVM in
-			self.getAllTimePerformance().map { (assetChartVM, $0) }
-		}.done { [weak self] assetChartVM, tokenAllTime in
-			guard let self else { return }
-			chartVM = assetChartVM
-			coinInfoVM.updateNetProfit(assetChartVM.chartDataVM, selectedAsset: selectedAsset)
-			coinInfoVM.updateTokenAllTime(tokenAllTime, selectedAsset: selectedAsset)
-		}.catch { [weak self] error in
-			self?.showError(error)
 		}
 	}
 }

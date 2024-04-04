@@ -44,7 +44,7 @@ class InvestCoinPerformanceViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		view = InvestCoinPerformanceView(coinPerformanceVM: coinPerformanceVM)
+		view = InvestCoinPerformanceView(coinPerformanceVM: coinPerformanceVM, chartDateFilterDelegate: self)
 	}
 
 	private func setupNavigationBar() {
@@ -64,5 +64,11 @@ class InvestCoinPerformanceViewController: UIViewController {
 	@objc
 	private func closePage() {
 		dismiss(animated: true)
+	}
+}
+
+extension InvestCoinPerformanceViewController: LineChartDateFilterDelegate {
+	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
+		coinPerformanceVM.getChartData(dateFilter: dateFilter)
 	}
 }

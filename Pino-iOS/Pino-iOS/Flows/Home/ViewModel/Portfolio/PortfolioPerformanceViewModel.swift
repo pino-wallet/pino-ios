@@ -6,6 +6,7 @@
 //
 
 import Combine
+import PromiseKit
 
 class PortfolioPerformanceViewModel {
 	// MARK: - Private Properties
@@ -19,29 +20,40 @@ class PortfolioPerformanceViewModel {
 	@Published
 	public var chartVM: AssetChartViewModel?
 	public var shareOfAssetsVM: [ShareOfAssetsProtocol]?
+	public let chartDateFilterDelegate: LineChartDateFilterDelegate
 
 	// MARK: - Initializers
 
-	init(assets: [AssetViewModel]) {
+	init(assets: [AssetViewModel], chartDateFilterDelegate: LineChartDateFilterDelegate) {
 		self.selectedAssets = assets
+		self.chartDateFilterDelegate = chartDateFilterDelegate
 	}
 
 	// MARK: - Public Methods
 
-	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		let tokensId = selectedAssets.map { $0.id.lowercased() }
-		accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame, tokensId: tokensId)
-			.sink { completed in
-				switch completed {
-				case .finished:
-					print("Portfolio received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { portfolio in
-				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
-				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
-			}.store(in: &cancellables)
+	public func getChartData(dateFilter: ChartDateFilter = .day) -> Promise<Void> {
+		Promise<Void> { seal in
+			let tokensId = selectedAssets.map { $0.id.lowercased() }
+			accountingAPIClient.userPortfolio(timeFrame: dateFilter.timeFrame, tokensId: tokensId)
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Portfolio performance received successfully")
+					case let .failure(error):
+						print("Error: getting portfolio performance: \(error.description)")
+						seal.reject(error)
+					}
+				} receiveValue: { portfolio in
+					let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0) }
+					self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
+					seal.fulfill(())
+				}.store(in: &cancellables)
+		}
+	}
+
+	public func getPortfolioPerformanceData() -> Promise<Void> {
+		getShareOfAssets()
+		return getChartData()
 	}
 
 	// MARK: - Private Methods
@@ -58,12 +70,5 @@ class PortfolioPerformanceViewModel {
 				totalAmount: totalAmount
 			))
 		}
-	}
-
-	// MARK: - Public Methods
-
-	public func getPortfolioPerformanceData() {
-		getChartData()
-		getShareOfAssets()
 	}
 }

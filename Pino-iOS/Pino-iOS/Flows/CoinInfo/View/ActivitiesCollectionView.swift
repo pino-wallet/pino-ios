@@ -120,19 +120,14 @@ class ActivitiesCollectionView: UICollectionView {
 
 	private func refreshData() {
 		isRefreshing = true
-		coinInfoVM.refreshCoinInfoData { error in
+		coinInfoVM.refreshCoinInfoData().done {
 			self.isRefreshing = false
 			self.refreshControl?.endRefreshing()
-			if let error {
-				switch error {
-				case .unreachable:
-					Toast.default(title: self.coinInfoVM.connectionErrorToastMessage, style: .error)
-						.show(haptic: .warning)
-				default:
-					Toast.default(title: self.coinInfoVM.requestFailedErrorToastMessage, style: .error)
-						.show(haptic: .warning)
-				}
-			}
+		}.catch { error in
+			self.isRefreshing = false
+			self.refreshControl?.endRefreshing()
+			guard let error = error as? APIError else { return }
+			Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 		}
 	}
 }

@@ -50,6 +50,10 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	public let uiType: InvestUIType = .deposit
 	public let pageTitle = "Confirm investment"
+	public var transactionsDescription: String {
+		let investAmount = BigNumber(numberWithDecimal: transactionAmount)!.sevenDigitFormat
+		return "You invested \(investAmount) \(selectedToken.symbol) in \(selectedProtocol.name) \(selectedProtocol.version)"
+	}
 
 	@Published
 	public var formattedFeeInETH: String?
@@ -111,11 +115,7 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 	// MARK: - Private Methods
 
 	private func showError() {
-		Toast.default(
-			title: "Failed to fetch deposit Info",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		).show()
+		Toast.default(title: "Failed to fetch deposit Info", style: .error).show()
 	}
 
 	private func addInvestPendingActivity(txHash: String, gasInfo: GasInfo, activityDate: Date = Date()) {

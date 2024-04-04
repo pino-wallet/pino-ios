@@ -19,6 +19,7 @@ class ImportAccountsViewModel {
 	private var cancellables = Set<AnyCancellable>()
 	private let internetConnectivity = InternetConnectivity()
 	private var createdWallet: HDWallet?
+	private var randAvatarGen = RandGenerator()
 	private let accountActivationVM = AccountActivationViewModel()
 
 	// MARK: Public Properties
@@ -121,7 +122,7 @@ class ImportAccountsViewModel {
 		Promise<[ActiveAccountViewModel]> { seal in
 			let promises = accounts.compactMap { account in
 				Web3Core.shared.getETHBalance(of: account.eip55Address).map {
-					ActiveAccountViewModel(account: account, balance: $0)
+					ActiveAccountViewModel(account: account, balance: $0, avatar: self.randAvatarGen.randAvatar())
 				}
 			}
 			when(fulfilled: promises).done { accountsVM in
@@ -155,7 +156,13 @@ class ImportAccountsViewModel {
 			}.then { account in
 				self.accountActivationVM.activateNewAccountAddress(account).map { (account, $0) }
 			}.done { account, _ in
-				seal.fulfill(ActiveAccountViewModel(account: account, balance: nil, isNewWallet: true))
+				let activatedAccount = ActiveAccountViewModel(
+					account: account,
+					balance: nil,
+					isNewWallet: true,
+					avatar: self.randAvatarGen.randAvatar()
+				)
+				seal.fulfill(activatedAccount)
 			}.catch { error in
 				seal.reject(error)
 			}
@@ -183,10 +190,10 @@ class ImportAccountsViewModel {
 			getWallet()
 		}.then { wallet in
 			self.createAccounts(of: wallet, from: firstIndex, to: lastIndex)
-		}.then { createdAccounts in
+		}.then { createdAccounts -> Promise<([Account], [String])> in
 			let accountAddresses = createdAccounts.map { $0.eip55Address.lowercased() }
 			return self.getActiveAddresses(accountAddresses: accountAddresses).map { (createdAccounts, $0) }
-		}.then { createdAccounts, activeAddresses in
+		}.then { createdAccounts, activeAddresses -> Promise<[ActiveAccountViewModel]> in
 			let activeAccounts = createdAccounts.filter {
 				activeAddresses.contains($0.eip55Address.lowercased())
 			}
@@ -194,7 +201,9 @@ class ImportAccountsViewModel {
 				self.lastAccountIndex = nil
 			}
 			return self.getAccountsBalance(of: activeAccounts)
-		}.then { activeAccounts in
+		}.map { activatedAccounts in
+			activatedAccounts.filter { !$0.balance.isZero }
+		}.then { activeAccounts -> Promise<[ActiveAccountViewModel]> in
 			self.setupActiveAccounts(activeAccounts)
 		}
 	}
