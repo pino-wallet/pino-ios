@@ -25,7 +25,7 @@ class ImportNewAccountView: UIView {
 	private let importTextViewDescription = UILabel()
 	private let importButtonStackView = UIStackView()
 	private let importButton = PinoButton(style: .deactive)
-	private let pageDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private let pageDescriptionLabel = UILabel()
 	private let importAccountVM: ImportNewAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
 
@@ -106,7 +106,7 @@ class ImportNewAccountView: UIView {
 		accountNameTextField.text = importAccountVM.accountName
 		accountNameTextField.placeholderText = importAccountVM.accountNamePlaceHolder
 		importTextViewDescription.text = importAccountVM.textViewDescription
-		pageDescriptionLabel.text = importAccountVM.pageDeescription
+        pageDescriptionLabel.setFootnoteText(prefixText: importAccountVM.signDescriptionPrefixText, boldText: importAccountVM.signDescriptionBoldText, suffixText: importAccountVM.signDescriptionSuffixText)
 		importButton.title = importAccountVM.continueButtonTitle
 		privateKeyPasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
 
@@ -120,9 +120,6 @@ class ImportNewAccountView: UIView {
 		setAvatarButton.font = .PinoStyle.mediumBody
 		importTextViewDescription.font = .PinoStyle.mediumCaption1
 		privateKeyPasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
-		pageDescriptionLabel.font = .PinoStyle.mediumFootnote
-
-		pageDescriptionLabel.textAlignment = .center
 
 		contentStackView.axis = .horizontal
 		accountInfoStackView.axis = .vertical

@@ -12,9 +12,9 @@ struct GetInviteCodeViewModel {
 
 	public let titleAnimationName = "InviteCode"
 	public let navbarDismissImageName = "close"
-	public let titleText = "How I get invite code"
+	public let titleText = "How to get an invite code"
 	public let descriptionText =
-		"For get an invitation code, follow us on X and enable notifications to catch the codes as soon as we share them!"
+		"To get an invitation code, follow us on X and enable notifications to get a code as soon as we drop it!"
 	public let getCodeButtonText = "Follow Pino"
 	public let getCodeButtonImageName = "x_social"
 	#warning("pino url must replace here later")

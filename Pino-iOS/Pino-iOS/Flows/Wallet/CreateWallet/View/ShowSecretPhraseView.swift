@@ -23,7 +23,10 @@ class ShowSecretPhraseView: UIView {
 	private let seedPhraseStackView = UIStackView()
 	private let seedPhraseCollectionView = SecretPhraseCollectionView()
 	private let shareButton = UIButton()
+    private let continueStackView = UIStackView()
 	private let continueButton = PinoButton(style: .deactive)
+    private let signDescriptionLabelContainer = UIView()
+    private let signDescriptionLabel = UILabel()
 	private var copySecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
 	private var secretPhraseVM: ShowSecretPhraseViewModel
@@ -67,8 +70,11 @@ extension ShowSecretPhraseView {
 		seedPhraseView.addSubview(revealLabel)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
 		seedPhraseStackView.addArrangedSubview(shareButton)
+        signDescriptionLabelContainer.addSubview(signDescriptionLabel)
+        continueStackView.addArrangedSubview(continueButton)
+        continueStackView.addArrangedSubview(signDescriptionLabelContainer)
 		addSubview(contentStackView)
-		addSubview(continueButton)
+		addSubview(continueStackView)
 
 		let revealTapGesture = UITapGestureRecognizer(target: self, action: #selector(showSeedPhrase))
 		seedPhraseView.addGestureRecognizer(revealTapGesture)
@@ -89,6 +95,9 @@ extension ShowSecretPhraseView {
 		revealLabel.text = secretPhraseVM.revealButtonTitle
 		shareButton.setTitle(secretPhraseVM.shareButtonTitle, for: .normal)
 		continueButton.title = secretPhraseVM.continueButtonTitle
+        
+        continueStackView.axis = .vertical
+        continueStackView.spacing = 12
 
 		let shareButtonImage = UIImage(systemName: secretPhraseVM.shareButtonIcon)
 		shareButton.setImage(shareButtonImage, for: .normal)
@@ -96,6 +105,8 @@ extension ShowSecretPhraseView {
 		backgroundColor = .Pino.secondaryBackground
 		firstDescriptionBox.backgroundColor = .Pino.background
 		secondDescriptionBox.backgroundColor = .Pino.background
+        
+        signDescriptionLabel.setFootnoteText(prefixText: secretPhraseVM.signDescriptionPrefixText, boldText: secretPhraseVM.signDescriptionBoldText, suffixText: secretPhraseVM.signDescriptionSuffixText)
 
 		firstDescriptionLabel.textColor = .Pino.label
 		secondDescriptionLabel.textColor = .Pino.label
@@ -141,10 +152,11 @@ extension ShowSecretPhraseView {
 			.top(to: layoutMarginsGuide, padding: 25),
 			.horizontalEdges
 		)
-		continueButton.pin(
-			.bottom(to: layoutMarginsGuide, padding: 8),
-			.horizontalEdges(padding: 16)
-		)
+        continueStackView.pin(
+            .bottom(to: layoutMarginsGuide, padding: 8),
+            .horizontalEdges(padding: 16)
+        )
+        signDescriptionLabel.pin(.horizontalEdges(padding: 8), .verticalEdges)
 		seedPhraseCollectionView.pin(
 			.horizontalEdges
 		)

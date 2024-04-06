@@ -351,6 +351,7 @@
 		D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */; };
 		D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */; };
 		D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */; };
+		D944F3782BC1524700920377 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944F3772BC1524700920377 /* UILabel+Extension.swift */; };
 		D9451BB62B9E19A7001A80FF /* FindingAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = D9451BB52B9E19A7001A80FF /* FindingAccount.json */; };
 		D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */; };
 		D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */; };
@@ -1297,6 +1298,7 @@
 		D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCell.swift; sourceTree = "<group>"; };
 		D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewModel.swift; sourceTree = "<group>"; };
 		D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionModel.swift; sourceTree = "<group>"; };
+		D944F3772BC1524700920377 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		D9451BB52B9E19A7001A80FF /* FindingAccount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FindingAccount.json; sourceTree = "<group>"; };
 		D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
@@ -2505,6 +2507,7 @@
 				D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */,
 				DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */,
 				E39F59492A99DF9B00023292 /* UITextField+Extension.swift */,
+				D944F3772BC1524700920377 /* UILabel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5565,6 +5568,7 @@
 				E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */,
 				DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */,
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
+				D944F3782BC1524700920377 /* UILabel+Extension.swift in Sources */,
 				D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
 				DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */,

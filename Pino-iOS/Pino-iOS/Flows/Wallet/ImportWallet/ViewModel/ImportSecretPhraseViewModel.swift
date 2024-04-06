@@ -8,8 +8,8 @@
 struct ImportSecretPhraseViewModel {
 	// MARK: - Public Properties
 
-	public var title = "Import secret phrase"
-	public var description = "Typically 12 words separated by single spaces"
+	public var title = "Enter secret phrase"
+	public var description = "Typically 12 words separated by single spaces."
 	public var textViewPlaceholder = "Secret phrase"
 	public var errorTitle = "Invalid Secret Phrase"
 	public let pasteButtonTitle = "Paste"
