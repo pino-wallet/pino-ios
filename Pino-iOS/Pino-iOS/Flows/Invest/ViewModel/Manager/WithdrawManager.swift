@@ -69,7 +69,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		case .maker:
 			return getMakerWithdrawInfo()
 		case .compound:
-			return compoundManager.getWithdrawInfo()
+			return compoundManager.getWithdrawInfo(withdrawType: withdrawType)
 		case .lido:
 			return getLidoWithdrawInfo()
 		case .aave:
