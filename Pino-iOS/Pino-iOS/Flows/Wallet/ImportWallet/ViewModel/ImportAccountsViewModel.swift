@@ -25,9 +25,10 @@ class ImportAccountsViewModel {
 	// MARK: Public Properties
 
 	public let pageTitle = "Import account"
-    public let signDescriptionPrefixText = "By tapping on "
-    public let signDecriptionBoldText = "Continue"
-    public let signDescriptionSuffixText = ", you sign an off-chain message that actives the selected account(s) in Pino."
+	public let signDescriptionPrefixText = "By tapping on "
+	public let signDecriptionBoldText = "Continue"
+	public let signDescriptionSuffixText =
+		", you sign an off-chain message that actives the selected account(s) in Pino."
 	public let continueButtonText = "Continue"
 	public var pageDescription: String {
 		if accounts.first(where: { $0.isNewWallet }) != nil {
