@@ -37,6 +37,10 @@ class SyncWalletViewController: UIViewController {
 		syncWalletView.animateLoading()
 	}
 
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		.darkContent
+	}
+
 	// MARK: - Initializers
 
 	init(selectedAccounts: [ActiveAccountViewModel], mnemonics: String) {
@@ -75,7 +79,7 @@ class SyncWalletViewController: UIViewController {
 		let tutorialPage = TutorialViewController {
 			self.dismiss(animated: true)
 		}
-		tutorialPage.modalPresentationStyle = .overFullScreen
+		tutorialPage.modalPresentationStyle = .fullScreen
 		present(tutorialPage, animated: true)
 	}
 
