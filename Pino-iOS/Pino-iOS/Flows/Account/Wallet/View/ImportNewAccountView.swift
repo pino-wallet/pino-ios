@@ -154,13 +154,14 @@ class ImportNewAccountView: UIView {
 	}
 
 	private func setupContstraint() {
-		accountAvatarStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: 176).isActive = true
-
-		accountAvatarStackView.pin(.verticalEdges, .centerX)
-
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 26),
 			.horizontalEdges(padding: 16)
+		)
+		accountAvatarStackView.pin(
+			.fixedWidth(176),
+			.verticalEdges,
+			.centerX
 		)
 		avatarBackgroundView.pin(
 			.fixedHeight(88),
