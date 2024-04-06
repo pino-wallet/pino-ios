@@ -84,6 +84,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
+			}.then {
 				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)

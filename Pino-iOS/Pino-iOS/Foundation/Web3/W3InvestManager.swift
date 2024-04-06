@@ -83,6 +83,21 @@ public struct W3InvestManager: Web3HelperProtocol {
 		}
 	}
 
+	public func getSDaiToDaiConvertion(amount: BigUInt) -> Promise<BigUInt> {
+		let contract = try getCTokenProxyContract(cTokenID: cTokenID)
+		return Promise<BigUInt>() { seal in
+			firstly {
+				contract[ABIMethodCall.exchangeRateStored.rawValue]!().call()
+			}.map { response in
+				response[.emptyString] as! BigUInt
+			}.done { exchangeRate in
+				seal.fulfill(exchangeRate)
+			}.catch(policy: .allErrors) { error in
+				seal.reject(error)
+			}
+		}
+	}
+
 	public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {
 		Promise<String>() { [self] seal in
 			let contract = try getCompoundProxyContract()

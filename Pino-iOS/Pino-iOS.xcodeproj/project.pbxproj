@@ -709,6 +709,7 @@
 		E3153AF62BA57E17006A72C1 /* AccountNameValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */; };
 		E3153AF82BA5873D006A72C1 /* PrivateKeyValidationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */; };
 		E31C79302BB981DE00CCD3DF /* ApproveError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31C792F2BB981DE00CCD3DF /* ApproveError.swift */; };
+		E31C79362BC16A3900CCD3DF /* MakerABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = E31C79352BC16A3900CCD3DF /* MakerABIJson.json */; };
 		E31D646B2B89DDA400A9FF94 /* SendRecipientAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */; };
 		E333E63A2AA708D3005C977E /* InvestEmptyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */; };
 		E33649A32B53FF0300341466 /* HomepgaeEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */; };
@@ -1631,6 +1632,7 @@
 		E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNameValidationError.swift; sourceTree = "<group>"; };
 		E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyValidationStatus.swift; sourceTree = "<group>"; };
 		E31C792F2BB981DE00CCD3DF /* ApproveError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveError.swift; sourceTree = "<group>"; };
+		E31C79352BC16A3900CCD3DF /* MakerABIJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MakerABIJson.json; sourceTree = "<group>"; };
 		E31D646A2B89DDA400A9FF94 /* SendRecipientAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendRecipientAddress.swift; sourceTree = "<group>"; };
 		E333E6392AA708D3005C977E /* InvestEmptyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestEmptyPageView.swift; sourceTree = "<group>"; };
 		E33649A22B53FF0300341466 /* HomepgaeEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepgaeEmptyState.swift; sourceTree = "<group>"; };
@@ -4084,6 +4086,7 @@
 				D92729402AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json */,
 				D9D754252AD133C8001D4B94 /* ERC20ABIJson.json */,
 				D9D754232AD13248001D4B94 /* BorrowERCAaveABIJson.json */,
+				E31C79352BC16A3900CCD3DF /* MakerABIJson.json */,
 				DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */,
 				D9EF38BB2B32EE23006E326F /* MaxiMillionABIJson.json */,
 			);
@@ -4958,6 +4961,7 @@
 				DFF415F12BA85E1500903EBE /* GoogleService-Info.plist in Resources */,
 				DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */,
 				DFB60DAD2B1B3F9D00464143 /* SwapSaveOnSwaps.json in Resources */,
+				E31C79362BC16A3900CCD3DF /* MakerABIJson.json in Resources */,
 				E3A32FA62B0F385400C771AE /* CmpoundCollateralCheckABI.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
