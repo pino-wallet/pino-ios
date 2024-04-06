@@ -51,7 +51,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 	public let pageTitle = "Confirm withdraw"
 	public var transactionsDescription: String {
 		let withdrawAmount = BigNumber(numberWithDecimal: transactionAmount)!.sevenDigitFormat
-		return "You withdrew \(withdrawAmount) \(selectedToken.symbol) from \(selectedProtocol.name) \(selectedProtocol.version)"
+		return "You withdrew \(withdrawAmount) \(selectedToken.symbol) from \(selectedProtocol.name) \(selectedProtocol.version)."
 	}
 
 	@Published
