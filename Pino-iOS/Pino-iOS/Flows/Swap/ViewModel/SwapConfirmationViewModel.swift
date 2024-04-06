@@ -100,7 +100,6 @@ class SwapConfirmationViewModel {
 		self.swapRate = swapRate
 		self.swapProvidersTimer = swapProvidersTimer
 		setSelectedProtocol()
-		recalculateSwapRate()
 	}
 
 	// MARK: - Public Methods
@@ -146,49 +145,6 @@ class SwapConfirmationViewModel {
 			selectedProtocolTitle = "Protocol"
 			selectedProtocolImage = selectedProtocol.image
 			selectedProtocolName = selectedProtocol.name
-		}
-	}
-
-	private func recalculateSwapRate() {
-		swapTimer = Timer.scheduledTimer(withTimeInterval: 15.0, repeats: true) { [weak self] timer in
-			guard let self = self else { return }
-			guard let selectedProvider = selectedProvider else { return }
-			swapRate = nil
-			guard let srcTokenAmount = Utilities.parseToBigUInt(
-				fromToken.tokenAmount!.decimalString,
-				decimals: fromToken.selectedToken.decimal
-			) else { return }
-
-			swapPriceManager.getSwapResponseFrom(
-				provider: selectedProvider.provider,
-				srcToken: fromToken.selectedToken,
-				destToken: toToken.selectedToken,
-				swapSide: swapSide,
-				amount: srcTokenAmount.description
-			).done { [self] providersInfo in
-
-				let recalculatedSwapInfo = providersInfo.compactMap {
-					SwapProviderViewModel(
-						providerResponseInfo: $0,
-						side: self.swapSide,
-						destToken: self.toToken.selectedToken
-					)
-				}.first
-				self.toToken.calculateDollarAmount(recalculatedSwapInfo?.swapAmount)
-				self.toToken = self.toToken
-				let feeVM = SwapFeeViewModel(swapProviderVM: recalculatedSwapInfo)
-				feeVM.updateQuote(srcToken: self.fromToken, destToken: self.toToken)
-				self.swapRate = feeVM.swapQuote
-				self.swapManager = SwapManager(
-					selectedProvider: recalculatedSwapInfo,
-					srcToken: self.fromToken.selectedToken,
-					destToken: self.toToken.selectedToken,
-					swapAmount: self.fromToken.tokenAmount!,
-					destinationAmount: self.toToken.tokenAmount!
-				)
-			}.catch { error in
-				#warning("View code must be refactored later")
-			}
 		}
 	}
 }
