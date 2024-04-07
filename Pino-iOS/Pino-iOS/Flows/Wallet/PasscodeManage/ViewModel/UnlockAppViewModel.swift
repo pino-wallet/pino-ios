@@ -12,10 +12,10 @@ class UnlockAppViewModel: UnlockPasscodePageManager {
 
 	// MARK: - Public Properties
 
-	public let title = "Enter your passcode"
+	public let title = "Enter your PIN"
 	public let description: String? = nil
 	public let faceIdTitle: String? = "Unlock with face id"
-	public let useFaceIdTitle: String? = "Use face ID"
+	public let useFaceIdTitle: String? = "Use Face ID"
 	public var passcode: String? = ""
 	public let dontMatchErrorText = "Incorrect, try again!"
 	public var lockMethodType: LockMethodType {

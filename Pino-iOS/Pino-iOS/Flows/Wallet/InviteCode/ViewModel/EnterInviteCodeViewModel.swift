@@ -16,9 +16,9 @@ class EnterInviteCodeViewModel {
 	public let titleText = "Enter invite code"
 	public let describtionText = "Please enter your invitation code to access Pino"
 	public let nextButtonText = "Next"
-	public let getCodeText = "How i get one?"
+	public let getCodeText = "How do i get one?"
 	public let codePlaceHolder = "CODE"
-	public let invalidCodeError = "Invalid code!"
+	public let invalidCodeError = "Invalid code"
 
 	@Published
 	public var inviteCodeStatus: InviteCodeStatus?
