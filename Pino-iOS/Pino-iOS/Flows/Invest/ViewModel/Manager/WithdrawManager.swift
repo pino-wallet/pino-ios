@@ -21,9 +21,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private let deadline = BigUInt(Date().timeIntervalSince1970 + 1_800_000) // This is the equal of 30 minutes
 	private var swapManager: SwapManager?
 	private let swapPriceManager = SwapPriceManager()
-	private var tokenUIntNumber: BigUInt {
-		Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
-	}
+	private var tokenUIntNumber: BigUInt
 
 	// MARK: - Public Properties
 
@@ -55,6 +53,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		self.selectedToken = selectedToken
 		self.selectedProtocol = withdrawProtocol
 		self.withdrawAmount = withdrawAmount
+		self.tokenUIntNumber = Utilities.parseToBigUInt(withdrawAmount, decimals: selectedToken.decimal)!
 		self.compoundManager = CompoundWithdrawManager(
 			contract: contract,
 			selectedToken: selectedToken,
@@ -84,8 +83,10 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-			}.then {
-				self.fetchHash()
+				try self.web3.getDaiToSDaiConvertion(amount: self.tokenUIntNumber)
+			}.then { sDaiAmount in
+				self.tokenUIntNumber = sDaiAmount
+				return self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in

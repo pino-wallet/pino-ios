@@ -456,8 +456,8 @@ public class Web3Core {
 		investManager.getSDaiToDaiCallData(amount: amount, recipientAdd: recipientAdd)
 	}
 
-	public func getSDaiToDaiConvertion(amount: BigUInt) -> Promise<String> {
-		investManager.getSDaiToDaiConvertion(amount: amount)
+	public func getDaiToSDaiConvertion(amount: BigUInt) throws -> Promise<BigUInt> {
+		try investManager.getDaiToSDaiConvertion(amount: amount)
 	}
 
 	public func getDepositV2CallData(tokenAdd: String, amount: BigUInt, recipientAdd: String) -> Promise<String> {

@@ -33,6 +33,14 @@ public struct W3InvestManager: Web3HelperProtocol {
 		)
 	}
 
+	public func getMakerProxyContract() throws -> DynamicContract {
+		try Web3Core.getContractOfToken(
+			address: Web3Core.Constants.sDaiContractAddress,
+			abi: .investMaker,
+			web3: readWeb3
+		)
+	}
+
 	public func getCompoundProxyContract() throws -> DynamicContract {
 		try Web3Core.getContractOfToken(
 			address: Web3Core.Constants.compoundContractAddress,
@@ -83,15 +91,15 @@ public struct W3InvestManager: Web3HelperProtocol {
 		}
 	}
 
-	public func getSDaiToDaiConvertion(amount: BigUInt) -> Promise<BigUInt> {
-		let contract = try getCTokenProxyContract(cTokenID: cTokenID)
+	public func getDaiToSDaiConvertion(amount: BigUInt) throws -> Promise<BigUInt> {
+		let contract = try getMakerProxyContract()
 		return Promise<BigUInt>() { seal in
 			firstly {
-				contract[ABIMethodCall.exchangeRateStored.rawValue]!().call()
+				contract[ABIMethodCall.daiToSDaiConvertion.rawValue]!(amount).call()
 			}.map { response in
 				response[.emptyString] as! BigUInt
-			}.done { exchangeRate in
-				seal.fulfill(exchangeRate)
+			}.done { sDaiAmount in
+				seal.fulfill(sDaiAmount)
 			}.catch(policy: .allErrors) { error in
 				seal.reject(error)
 			}
