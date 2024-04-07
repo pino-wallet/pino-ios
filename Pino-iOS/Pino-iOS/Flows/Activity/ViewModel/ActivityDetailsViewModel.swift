@@ -23,7 +23,6 @@ class ActivityDetailsViewModel {
 	// MARK: - Public Properties
 
 	public var activityDetails: ActivityCellViewModel
-	#warning("this is for test")
 	public let unVerifiedAssetIconName = "unverified_asset"
 	public let dismissNavigationIconName = "dissmiss"
 	public let swapDownArrow = "swap_down_arrow"
@@ -34,14 +33,14 @@ class ActivityDetailsViewModel {
 	public let fromTitle = "From"
 	public let toTitle = "To"
 	public let typeTitle = "Type"
-	public let feeTitle = "Network Fee"
+	public let feeTitle = "Network fee"
 	public let viewEthScanTitle = "View on etherscan"
 	public let viewEthScanIconName = "primary_right_arrow"
 	public let otherTokenTransactionMessage =
 		"The history are only available for verified assets!"
 	public let otherTokenTransactionIconName = "gray_error_alert"
+	public let feeActionSheetText = GlobalActionSheetTexts.networkFee.description
 	#warning("tooltips are for test")
-	public let feeActionSheetText = "this is fee"
 	public let statusActionSheetText = "this is status"
 	public let typeActionSheetText = "this is type"
 	public let speedUpText = "Speed up"

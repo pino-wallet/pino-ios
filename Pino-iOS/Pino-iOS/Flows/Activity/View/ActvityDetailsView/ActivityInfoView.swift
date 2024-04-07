@@ -111,7 +111,7 @@ class ActivityInfoView: UIView {
 			actionSheetInfo: (
 				title: activityDetailsVM.statusTitle,
 				description: activityDetailsVM.statusActionSheetText,
-				show: true
+				show: false
 			),
 			infoCustomView: statusLabelContainer
 		)

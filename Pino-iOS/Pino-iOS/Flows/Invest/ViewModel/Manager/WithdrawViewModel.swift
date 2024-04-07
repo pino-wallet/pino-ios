@@ -31,7 +31,7 @@ class WithdrawViewModel: InvestViewModelProtocol {
 	public var dollarAmount: String = .emptyString
 	public var continueButtonTitle = "Withdraw"
 	public var pageTitle: String {
-		"Withdraw \(selectedToken.symbol)"
+		"Withdraw from \(selectedProtocol.name)"
 	}
 
 	public var approveType: ApproveContractViewController.ApproveType = .withdraw

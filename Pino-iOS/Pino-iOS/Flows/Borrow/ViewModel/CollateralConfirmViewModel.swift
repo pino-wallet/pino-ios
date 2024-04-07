@@ -28,8 +28,8 @@ class CollateralConfirmViewModel {
 	public let confirmButtonTitle = "Confirm"
 	public let loadingButtonTitle = "Please wait"
 	public let insufficientAmountButtonTitle = "Insufficient ETH amount"
+	public let feeActionSheetText = GlobalActionSheetTexts.networkFee.description
 	#warning("this actionsheet texts are for test")
-	public let feeActionSheetText = "this is fee"
 	public let protocolActionsheetText = "this is protocol"
 
 	@Published

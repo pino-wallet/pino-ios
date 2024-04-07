@@ -16,7 +16,7 @@ class SecuritySettingsViewModel {
 
 	// MARK: - Public Properties
 
-	public let pageTitle = "Security"
+	public let pageTitle = "Security lock"
 	public let changeLockMethodTitle = "Lock method"
 	public let changeLockMethodDetailIcon = "chevron_right"
 	public let changeLockMethodAlertTitle = "Select the security method"
@@ -37,7 +37,7 @@ class SecuritySettingsViewModel {
 				description: nil
 			),
 			SecurityOptionModel(
-				title: "For every transaction",
+				title: "Make a transaction",
 				type: .on_transactions,
 				isSelected: defaultSecurityModes
 					.first(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) != nil,

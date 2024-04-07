@@ -16,10 +16,10 @@ class SendTransactionStatusViewModel {
 	public let transactionSentText = "Successful"
 	public let closeButtonText = "Close"
 	public let viewStatusText = "View status"
-	public let somethingWentWrongText = "Something went wrong!"
-	public let tryAgainLaterText = "Please try again later"
+	public let somethingWentWrongText = "Transaction failed"
+	public let tryAgainLaterText = "Transaction was failed by the network."
 	public let sentIconName = "sent"
-	public let failedIconName = "failed_warning"
+	public let failedIconName = "transaction_failed"
 	public let viewStatusIconName = "primary_right_arrow"
 	public let navigationDissmissIconName = "close"
 

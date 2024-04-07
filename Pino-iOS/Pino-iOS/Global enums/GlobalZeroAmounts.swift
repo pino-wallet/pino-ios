@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GlobalZeroAmounts {
+public enum GlobalZeroAmounts {
 	case dollars
 	case tokenAmount
 	case percentage

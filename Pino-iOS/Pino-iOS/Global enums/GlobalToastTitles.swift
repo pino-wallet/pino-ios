@@ -5,7 +5,7 @@
 //  Created by Amir hossein kazemi seresht on 7/29/23.
 //
 
-enum GlobalToastTitles {
+public enum GlobalToastTitles {
 	case copy
 	case tryAgainToastTitle
 

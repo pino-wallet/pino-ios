@@ -55,7 +55,7 @@ class CoinPerformanceViewController: UIViewController {
 		navigationController?.navigationBar.backgroundColor = .Pino.primary
 		navigationController?.navigationBar.tintColor = .Pino.white
 		// Setup title view
-		setNavigationTitle("Coin performance")
+		setNavigationTitle(coinPerformanceVM.navigationTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "multiply"),
 			style: .plain,

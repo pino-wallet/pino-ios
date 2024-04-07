@@ -140,12 +140,14 @@ class SyncWalletView: UIView {
 			case .finished:
 				titleLabel.text = syncWalletVM.titleFinishedText
 				descriptionLabel.text = syncWalletVM.descriptionFinishedText
+				descriptionLabel.textAlignment = .center
 				exploreButton.style = .active
 				exploreTitleLabel.isHidden = true
 				exploreButton.title = syncWalletVM.explorePinoFinishedBtnText
 			case .syncing:
 				titleLabel.text = syncWalletVM.titleText
 				descriptionLabel.text = syncWalletVM.descriptionText
+				descriptionLabel.textAlignment = .center
 				exploreButton.style = .secondary
 				exploreTitleLabel.isHidden = false
 				exploreTitleLabel.text = syncWalletVM.exploreTitleText
