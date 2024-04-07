@@ -49,7 +49,7 @@ class InvestViewModel {
 	}
 
 	private func getChartData() {
-		investmentAPIClient.investPortfolio(timeFrame: ChartDateFilter.week.timeFrame)
+		investmentAPIClient.investOverallPortfolio()
 			.sink { completed in
 				switch completed {
 				case .finished:
