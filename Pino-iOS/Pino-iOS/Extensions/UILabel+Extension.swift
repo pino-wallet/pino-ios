@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UILabel {
-	public func setFootnoteText(prefixText: String, boldText: String, suffixText: String) {
+    public func setFootnoteText(wholeString: String, boldString: String, boldRangeIndex: Int = 0) {
 		let normalAttrs = [
 			NSAttributedString.Key.font: UIFont.PinoStyle.mediumFootnote,
 			NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
@@ -18,22 +18,20 @@ extension UILabel {
 			NSAttributedString.Key.font: UIFont.PinoStyle.semiboldFootnote,
 			NSAttributedString.Key.foregroundColor: UIColor.Pino.secondaryLabel,
 		]
-		let prefixAttributedString = NSMutableAttributedString(
-			string: prefixText,
-			attributes: normalAttrs as [NSAttributedString.Key: Any]
-		)
-		let boldAttributedString = NSMutableAttributedString(
-			string: boldText,
-			attributes: boldAttrs as [NSAttributedString.Key: Any]
-		)
-		let suffixAttributedString = NSMutableAttributedString(
-			string: suffixText,
-			attributes: normalAttrs as [NSAttributedString.Key: Any]
-		)
-		let resultAttributedString = NSMutableAttributedString()
-		resultAttributedString.append(prefixAttributedString)
-		resultAttributedString.append(boldAttributedString)
-		resultAttributedString.append(suffixAttributedString)
+        
+        let resultAttributedString = NSMutableAttributedString(string: wholeString, attributes: normalAttrs as [NSAttributedString.Key : Any])
+        
+        let findStringRegexPattern = "\\b\(boldString)\\b"
+
+        guard let findStringRegex = try? NSRegularExpression(pattern: findStringRegexPattern, options: []) else {
+            fatalError("Invalid regular expression pattern")
+        }
+
+        let boldStringsMatches = findStringRegex.matches(in: resultAttributedString.string, options: [], range: NSRange(location: 0, length: resultAttributedString.string.utf16.count))
+
+        let boldStringRanges = boldStringsMatches.map { $0.range }
+        
+        resultAttributedString.addAttributes(boldAttrs as [NSAttributedString.Key : Any], range: boldStringRanges[boldRangeIndex])
 
 		let paragraphStyle = NSMutableParagraphStyle()
 		paragraphStyle.lineSpacing = 6
