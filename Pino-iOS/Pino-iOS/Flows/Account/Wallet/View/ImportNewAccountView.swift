@@ -109,7 +109,7 @@ class ImportNewAccountView: UIView {
 		accountNameTextField.placeholderText = importAccountVM.accountNamePlaceHolder
 		importTextViewDescription.text = importAccountVM.textViewDescription
 		pageDescriptionLabel.setFootnoteText(
-            wholeString: importAccountVM.signDescriptionText, boldString: importAccountVM.signDescriptionBoldText
+			wholeString: importAccountVM.signDescriptionText, boldString: importAccountVM.signDescriptionBoldText
 		)
 		importButton.title = importAccountVM.continueButtonTitle
 		privateKeyPasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)

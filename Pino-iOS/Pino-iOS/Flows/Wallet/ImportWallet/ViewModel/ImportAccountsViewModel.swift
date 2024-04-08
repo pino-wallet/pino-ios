@@ -25,7 +25,8 @@ class ImportAccountsViewModel {
 	// MARK: Public Properties
 
 	public let pageTitle = "Import account"
-	public let signDescriptionText = "By tapping on Continue, you sign an off-chain message that actives the selected account(s) in Pino."
+	public let signDescriptionText =
+		"By tapping on Continue, you sign an off-chain message that actives the selected account(s) in Pino."
 	public let signDecriptionBoldText = "Continue"
 	public let continueButtonText = "Continue"
 	public var pageDescription: String {

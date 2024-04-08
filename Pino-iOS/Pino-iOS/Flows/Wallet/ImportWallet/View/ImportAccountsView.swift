@@ -78,7 +78,7 @@ class ImportAccountsView: UIView {
 		continueStackView.spacing = 12
 
 		signDescriptionTextLabel.setFootnoteText(
-            wholeString: accountsVM.signDescriptionText, boldString: accountsVM.signDecriptionBoldText
+			wholeString: accountsVM.signDescriptionText, boldString: accountsVM.signDecriptionBoldText
 		)
 	}
 

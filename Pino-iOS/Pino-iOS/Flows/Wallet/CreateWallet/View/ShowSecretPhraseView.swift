@@ -107,7 +107,7 @@ extension ShowSecretPhraseView {
 		secondDescriptionBox.backgroundColor = .Pino.background
 
 		signDescriptionLabel.setFootnoteText(
-            wholeString: secretPhraseVM.signDescriptionText, boldString: secretPhraseVM.signDescriptionBoldText
+			wholeString: secretPhraseVM.signDescriptionText, boldString: secretPhraseVM.signDescriptionBoldText
 		)
 
 		firstDescriptionLabel.textColor = .Pino.label

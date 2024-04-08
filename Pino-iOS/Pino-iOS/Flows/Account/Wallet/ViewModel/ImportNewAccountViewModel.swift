@@ -11,7 +11,8 @@ class ImportNewAccountViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Import wallet"
-	public var signDescriptionText = "By tapping on Import, you sign an off-chain message that activates this account in Pino."
+	public var signDescriptionText =
+		"By tapping on Import, you sign an off-chain message that activates this account in Pino."
 	public var signDescriptionBoldText = "Import"
 	public var textViewDescription = "Typically 64 alphanumeric characters"
 	public var textViewPlaceholder = "Private Key"
