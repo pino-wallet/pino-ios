@@ -66,7 +66,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	public func getWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
 		switch selectedProtocol {
 		case .maker:
-			return getMakerWithdrawInfo()
+			return getMakerWithdrawInfo(withdrawType: withdrawType)
 		case .compound:
 			return compoundManager.getWithdrawInfo(withdrawType: withdrawType)
 		case .lido:
@@ -78,7 +78,16 @@ class WithdrawManager: InvestW3ManagerProtocol {
 
 	// MARK: - Private Methods
 
-	private func getMakerWithdrawInfo() -> TrxWithGasInfo {
+	private func getMakerWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
+		switch withdrawType {
+		case .decrease:
+			return getMakerDecreaseInfo()
+		case .withdrawMax:
+			return getMakerWithdrawMaxInfo()
+		}
+	}
+
+	private func getMakerDecreaseInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				getTokenPositionID()
@@ -86,6 +95,38 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				try self.web3.getDaiToSDaiConvertion(amount: self.tokenUIntNumber)
 			}.then { sDaiAmount in
 				self.tokenUIntNumber = sDaiAmount
+				return self.fetchHash()
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash)
+			}.then { signiture -> Promise<String> in
+				// Permit Transform
+				self.getProxyPermitTransferData(signiture: signiture)
+			}.then { [self] permitData -> Promise<(String, String)> in
+				web3.getSDaiToDaiCallData(
+					amount: tokenUIntNumber,
+					recipientAdd: walletManager.currentAccount.eip55Address
+				).map { ($0, permitData) }
+			}.then { protocolCallData, permitData in
+				// MultiCall
+				let callDatas = [permitData, protocolCallData]
+				return self.callProxyMultiCall(data: callDatas, value: nil)
+			}.done { withdrawResult in
+				self.withdrawTrx = withdrawResult.0
+				self.withdrawGasInfo = withdrawResult.1
+				seal.fulfill(withdrawResult)
+			}.catch { error in
+				print(error.localizedDescription)
+			}
+		}
+	}
+
+	private func getMakerWithdrawMaxInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				let positionAsset = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == positionID })
+				self.tokenUIntNumber = positionAsset!.holdAmount.bigUInt
 				return self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
