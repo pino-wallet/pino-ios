@@ -14,8 +14,9 @@ class EditAccountViewController: UIViewController {
 	private let accountsVM: AccountsViewModel
 	private let editAccountVM: EditAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
-
 	private var editAccountView: EditAccountView!
+
+	private let removeAccFailedErrText = "Failed to remove account"
 
 	// MARK: Initializers
 
@@ -108,7 +109,9 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func removeAccount() {
-		accountsVM.removeAccount(editAccountVM.selectedAccount)
+		accountsVM.removeAccount(editAccountVM.selectedAccount).catch { error in
+			Toast.default(title: self.removeAccFailedErrText, style: .error).show(haptic: .warning)
+		}
 		navigationController!.popViewController(animated: true)
 	}
 

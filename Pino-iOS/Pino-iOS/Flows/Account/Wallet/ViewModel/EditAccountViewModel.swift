@@ -19,7 +19,6 @@ class EditAccountViewModel {
 	public let pageTitle = "Edit account"
 	public let changeAvatarTitle = "Set new avatar"
 	public let doneButtonText = "Done"
-	public let removeAccountButtonText = "Remove account"
 	public let removeAccountButtonTitle = "Remove account"
 
 	public let editAccountOptions = [

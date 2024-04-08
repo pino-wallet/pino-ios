@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import PromiseKit
 import Web3
 
 class AccountsViewModel {
@@ -192,11 +193,20 @@ class AccountsViewModel {
 		return AccountInfoViewModel(walletAccountInfoModel: edittedAccount)
 	}
 
-	public func removeAccount(_ walletVM: AccountInfoViewModel) {
-		coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
-		getAccounts()
-		GlobalVariables.shared.updateCurrentAccount(currentAccount.walletAccountInfoModel)
-		resetPendingActivities()
+	public func removeAccount(_ walletVM: AccountInfoViewModel) -> Promise<Void> {
+		Promise<Void> { seal in
+			let deletingAccount = pinoWalletManager.deleteAccount(account: walletVM.walletAccountInfoModel)
+			switch deletingAccount {
+			case let .success(success):
+				coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
+				getAccounts()
+				GlobalVariables.shared.updateCurrentAccount(currentAccount.walletAccountInfoModel)
+				resetPendingActivities()
+			case let .failure(failure):
+				print("Error: failed to remove account: \(failure)")
+				seal.reject(failure)
+			}
+		}
 	}
 
 	public func setAccountLastBalance(account: AccountInfoViewModel, balance: String) {
