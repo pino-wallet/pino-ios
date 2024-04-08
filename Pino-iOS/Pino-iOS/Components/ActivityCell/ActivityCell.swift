@@ -157,7 +157,7 @@ class ActivityCell: UICollectionViewCell {
 		infoLabelHeightConstraint.isActive = true
 
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130).isActive = true
-		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 120).isActive = true
+		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
 		historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
 		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 12).isActive = true
 

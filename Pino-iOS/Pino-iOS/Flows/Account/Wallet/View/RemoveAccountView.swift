@@ -57,7 +57,6 @@ class RemoveAccountView: UIView {
 		titleStackView.addArrangedSubview(titleLabel)
 
 		infoStackview.addArrangedSubview(descriptonLabel)
-		infoStackview.addArrangedSubview(removeButton)
 
 		removeButton.addTarget(self, action: #selector(presentConfirmActionsheet), for: .touchUpInside)
 
@@ -72,13 +71,14 @@ class RemoveAccountView: UIView {
 
 		addSubview(clearNavigationBar)
 		addSubview(mainStackView)
+		addSubview(removeButton)
 	}
 
 	private func setupStyles() {
 		backgroundColor = .Pino.secondaryBackground
 
 		mainStackView.axis = .vertical
-		mainStackView.spacing = 16
+		mainStackView.spacing = 8
 		mainStackView.alignment = .fill
 
 		navigationBarDismissButton.setImage(
@@ -92,7 +92,7 @@ class RemoveAccountView: UIView {
 		titleLabel.numberOfLines = 0
 		titleLabel.text = removeAccountVM.titleText
 
-		descriptonLabel.font = UIFont.PinoStyle.mediumSubheadline
+		descriptonLabel.font = UIFont.PinoStyle.mediumBody
 		descriptonLabel.text = removeAccountVM.describtionText
 
 		titleStackView.axis = .vertical
@@ -110,13 +110,15 @@ class RemoveAccountView: UIView {
 	}
 
 	private func setupConstraints() {
+		titleImageView.pin(.fixedWidth(56), .fixedHeight(56))
 		navigationBarDismissButton.pin(.fixedHeight(30), .fixedHeight(30), .top(padding: 22), .trailing(padding: 0))
 		clearNavigationBar.pin(.horizontalEdges(padding: 0), .top(padding: 0))
 		mainStackView.pin(
-			.relative(.top, 119, to: clearNavigationBar, .bottom),
+			.centerY(padding: -60),
 			.centerX(to: superview),
 			.horizontalEdges(padding: 16)
 		)
+		removeButton.pin(.bottom(to: layoutMarginsGuide, padding: 8), .horizontalEdges(padding: 16))
 	}
 
 	@objc

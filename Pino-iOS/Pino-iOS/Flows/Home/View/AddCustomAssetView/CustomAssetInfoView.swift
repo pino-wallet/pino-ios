@@ -48,6 +48,8 @@ class CustomAssetInfoView: UIView {
 
 	private func setupView() {
 		titleView = TitleWithInfo(actionSheetTitle: titleText, actionSheetDescription: alertText)
+		#warning("for now we should disable showing info actionsheet here")
+		titleView.showInfoActionSheet = false
 		// Setup titleLabel
 		titleView.title = titleText
 

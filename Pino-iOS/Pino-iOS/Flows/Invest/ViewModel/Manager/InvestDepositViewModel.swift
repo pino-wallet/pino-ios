@@ -25,7 +25,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	public var selectedProtocol: InvestProtocolViewModel
 	public var continueButtonTitle = "Deposit"
 	public var pageTitle: String {
-		"Invest in \(selectedToken.symbol)"
+		"Deposit in \(selectedProtocol.name)"
 	}
 
 	public var positionErrorText: String {

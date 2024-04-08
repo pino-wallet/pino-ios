@@ -64,9 +64,8 @@ class SwapConfirmationViewModel {
 
 	public let swapRateTitle = "Rate"
 	public let feeTitle = "Network Fee"
-	public let feeInfoActionSheetTitle = "Network fee"
-	public let feeInfoActionSheetDescription =
-		"This is a network fee charged by Ethereum for processing your transaction. Pino does not receive any part of this fee."
+	public let feeInfoActionSheetTitle = GlobalActionSheetTexts.networkFee.title
+	public let feeInfoActionSheetDescription = GlobalActionSheetTexts.networkFee.description
 	public let feeErrorText = "Error in calculation!"
 	public let feeErrorIcon = "refresh"
 	public var sendStatusText: String {

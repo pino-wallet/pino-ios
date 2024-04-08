@@ -13,22 +13,22 @@ class AddNewAccountViewModel {
 	@Published
 	public var AddNewAccountOptions: [AddNewAccountOptionModel?] = [
 		AddNewAccountOptionModel(
-			title: "Create a new account",
-			descrption: "Generate a new account",
+			title: "Create new wallet",
+			descrption: "Generate a new wallet",
 			iconName: "chevron_right",
 			type: .Create,
 			isLoading: false
 		),
 		AddNewAccountOptionModel(
 			title: "Import wallet",
-			descrption: "Import an existing wallet",
+			descrption: "Import with private key",
 			iconName: "chevron_right",
 			type: .Import,
 			isLoading: false
 		),
 	]
 
-	public let pageTitle = "Create / Import Account"
+	public let pageTitle = "Create / Import wallet"
 
 	// MARK: - Public Methods
 

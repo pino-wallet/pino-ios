@@ -64,7 +64,7 @@ class ReceiveAssetView: UIView {
 
 		accountOwnerName.font = UIFont.PinoStyle.semiboldTitle2
 		accountOwnerName.numberOfLines = 0
-		accountOwnerName.text = "\(receiveVM.accountName)’s \(receiveVM.accountOwnerNameDescriptionText)"
+		accountOwnerName.text = receiveVM.accountName
 
 		addressLabelContainer.layer.borderColor = UIColor.Pino.background.cgColor
 		addressLabelContainer.layer.borderWidth = 1

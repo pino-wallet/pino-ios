@@ -28,22 +28,22 @@ extension SettingsViewModel {
 	)
 	public static let notification = SettingsViewModel(
 		image: "setting_notification",
-		title: "Notification",
+		title: "Notifications",
 		description: nil
 	)
 	public static let securityLock = SettingsViewModel(
 		image: "setting_security",
-		title: "Security",
+		title: "Security lock",
 		description: nil
 	)
 	public static let recoverPhrase = SettingsViewModel(
 		image: "setting_recovery",
-		title: "Recover phrase",
+		title: "Recovery phrase",
 		description: nil
 	)
 	public static let support = SettingsViewModel(
 		image: "setting_support",
-		title: "Support",
+		title: "Send feedback",
 		description: nil
 	)
 	public static let aboutPino = SettingsViewModel(

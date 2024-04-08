@@ -19,6 +19,10 @@ class CoinPerformanceViewModel {
 	// MARK: - Public Properties
 
 	public let assetName: String
+	public var navigationTitle: String {
+		"\(assetName) performance"
+	}
+
 	public let assetImage: URL
 	@Published
 	public var chartVM: AssetChartViewModel?

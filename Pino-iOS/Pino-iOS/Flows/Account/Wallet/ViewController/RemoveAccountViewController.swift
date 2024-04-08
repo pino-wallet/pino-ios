@@ -45,7 +45,7 @@ class RemoveAccountViewController: UIViewController {
 			message: removeAccountVM.confirmActionSheetDescriptionText,
 			actions: [
 				.cancel(),
-				.delete(handler: { _ in
+				.remove(handler: { _ in
 					self.dismiss(animated: true)
 					self.walletIsDeleted()
 				}),

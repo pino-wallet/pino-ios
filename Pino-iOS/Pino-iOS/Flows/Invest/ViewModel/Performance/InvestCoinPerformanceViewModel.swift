@@ -24,6 +24,9 @@ class InvestCoinPerformanceViewModel {
 	@Published
 	public var chartVM: AssetChartViewModel?
 	public var coinInfoVM = CoinPerformanceInfoViewModel()
+	public var pageTitle: String {
+		"\(assetName) performance"
+	}
 
 	// MARK: - Initializers
 

@@ -353,6 +353,7 @@
 		D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */; };
 		D944F3782BC1524700920377 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944F3772BC1524700920377 /* UILabel+Extension.swift */; };
 		D9451BB62B9E19A7001A80FF /* FindingAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = D9451BB52B9E19A7001A80FF /* FindingAccount.json */; };
+		D94A45192BC2C1F00070F0AF /* GlobalActionSheetTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */; };
 		D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */; };
 		D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */; };
@@ -1300,6 +1301,7 @@
 		D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionModel.swift; sourceTree = "<group>"; };
 		D944F3772BC1524700920377 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		D9451BB52B9E19A7001A80FF /* FindingAccount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FindingAccount.json; sourceTree = "<group>"; };
+		D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalActionSheetTexts.swift; sourceTree = "<group>"; };
 		D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
@@ -3295,6 +3297,7 @@
 				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
 				40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */,
+				D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */,
 			);
 			path = "Global enums";
 			sourceTree = "<group>";
@@ -5495,6 +5498,7 @@
 				AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */,
 				D924C3442A94963B007299A4 /* UserBorrowingModel.swift in Sources */,
 				DFA9687B2A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift in Sources */,
+				D94A45192BC2C1F00070F0AF /* GlobalActionSheetTexts.swift in Sources */,
 				975DCAC87FF17EA9C5CC5668 /* ImportSecretPhraseViewController.swift in Sources */,
 				3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */,
 				8F54F4F399FE38DC1B1FDEED /* InfoActionSheet.swift in Sources */,
