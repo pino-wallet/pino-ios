@@ -104,10 +104,6 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Private Methods
 
-	private func showError() {
-		Toast.default(title: "Failed to fetch withdraw Info", style: .error).show()
-	}
-
 	private func getWithdrawTransaction() -> [SendTransactionViewModel]? {
 		guard let withdrawTrx = withdrawManager.withdrawTrx else { return nil }
 		let withdrawTransaction = SendTransactionViewModel(transaction: withdrawTrx) { [self] pendingActivityTXHash in
@@ -171,7 +167,7 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Methods
 
-	public func getTransactionInfo() {
+	public func getTransactionInfo() -> Promise<Void> {
 		withdrawManager.getWithdrawInfo(withdrawType: withdrawType).done { withdrawTrx, gasInfo in
 			self.gasFee = gasInfo.fee
 			self.formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(
@@ -179,8 +175,6 @@ class WithdrawConfirmationViewModel: InvestConfirmationProtocol {
 				withRule: .standard
 			)
 			self.formattedFeeInETH = gasInfo.fee!.sevenDigitFormat
-		}.catch { error in
-			self.showError()
 		}
 	}
 }

@@ -130,6 +130,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				seal.fulfill([depositResult.1])
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -163,6 +164,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				seal.fulfill([depositResult.1])
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -191,6 +193,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				seal.fulfill([depositResult.1])
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}

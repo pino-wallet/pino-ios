@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 import Web3ContractABI
 
 protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
@@ -31,7 +32,7 @@ protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
 	var pageTitle: String { get }
 	var sendTransactions: [SendTransactionViewModel]? { get }
 	var transactionsDescription: String { get }
-	func getTransactionInfo()
+	func getTransactionInfo() -> Promise<Void>
 }
 
 protocol InvestConfirmationViewProtocol {

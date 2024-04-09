@@ -45,6 +45,10 @@ class InvestCoinPerformanceViewController: UIViewController {
 
 	private func setupView() {
 		view = InvestCoinPerformanceView(coinPerformanceVM: coinPerformanceVM, chartDateFilterDelegate: self)
+
+		coinPerformanceVM.getInvestmentPerformanceData().catch { error in
+			self.showErrorToast(error)
+		}
 	}
 
 	private func setupNavigationBar() {
@@ -65,10 +69,18 @@ class InvestCoinPerformanceViewController: UIViewController {
 	private func closePage() {
 		dismiss(animated: true)
 	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
+	}
 }
 
 extension InvestCoinPerformanceViewController: LineChartDateFilterDelegate {
 	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
-		coinPerformanceVM.getChartData(dateFilter: dateFilter)
+		coinPerformanceVM.getChartData(dateFilter: dateFilter).catch { error in
+			self.showErrorToast(error)
+		}
 	}
 }

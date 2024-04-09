@@ -74,10 +74,10 @@ class InvestViewModel {
 	}
 
 	private func getInvestData(userTokens: [AssetViewModel]) -> Promise<Void> {
-		firstly {
-			self.getAssets(userTokens: userTokens)
-		}.then { investments in
-			self.getChartData().map { (investments, $0) }
+		let investmentsPromise = getAssets(userTokens: userTokens)
+		let chartDataPromise = getChartData()
+		return firstly {
+			when(fulfilled: investmentsPromise, chartDataPromise)
 		}.done { investments, chartDataEntries in
 			self.assets = investments
 			self.chartDataEntries = chartDataEntries

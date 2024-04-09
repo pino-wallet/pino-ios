@@ -36,16 +36,14 @@ class InvestCoinPerformanceViewModel {
 		self.assetName = selectedAsset.assetName
 		self.assetImage = selectedAsset.assetImage
 		self.protocolImage = selectedAsset.assetProtocol.image
-		getChartData()
-		getCoinPerformanceInfo()
 	}
 
 	// MARK: - Public Methods
 
 	public func getInvestmentPerformanceData() -> Promise<Void> {
-		firstly {
-			getChartData()
-		}.o {}
+		let chartDataPromise = getChartData()
+		let coinPerformancePromise = getCoinPerformanceInfo()
+		return when(fulfilled: chartDataPromise, coinPerformancePromise)
 	}
 
 	public func getChartData(dateFilter: ChartDateFilter = .day) -> Promise<Void> {

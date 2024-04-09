@@ -118,6 +118,8 @@ class InvestDepositViewController: UIViewController {
 			}
 		}.catch { error in
 			print(error)
+			self.investView.stopLoading()
+			self.showErrorToast(APIError.failedRequest)
 		}
 	}
 

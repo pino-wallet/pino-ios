@@ -37,7 +37,9 @@ class InvestConfirmationViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		investConfirmationVM.getTransactionInfo()
+		investConfirmationVM.getTransactionInfo().catch { error in
+			self.showErrorToast()
+		}
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -97,16 +99,12 @@ class InvestConfirmationViewController: UIViewController {
 	private func getFee() {
 		investConfirmationView.hideFeeCalculationError()
 		investConfirmationView.showSkeletonView()
-		investConfirmationVM.getTransactionInfo()
+		investConfirmationVM.getTransactionInfo().catch { error in
+			self.showErrorToast()
+		}
 	}
 
-	private func showFeeError(_ error: Error) {
-		investConfirmationView.showfeeCalculationError()
-		Toast.default(
-			title: "\(error.localizedDescription)",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		)
-		.show(haptic: .warning)
+	private func showErrorToast() {
+		Toast.default(title: APIError.failedRequest.toastMessage, style: .error).show()
 	}
 }

@@ -123,6 +123,7 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 				}
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -157,6 +158,7 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 				}
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
@@ -195,6 +197,7 @@ class CompoundDepositManager: InvestW3ManagerProtocol {
 				}
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}

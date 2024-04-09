@@ -105,6 +105,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				seal.fulfill(withdrawResult)
 			}.catch { error in
 				print(error.localizedDescription)
+				seal.reject(error)
 			}
 		}
 	}
