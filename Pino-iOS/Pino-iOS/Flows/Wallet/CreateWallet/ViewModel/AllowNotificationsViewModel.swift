@@ -11,9 +11,9 @@ import Foundation
 class AllowNotificationsViewModel {
 	// MARK: - Public Properties
 
-	public let headerIcon = "green_alert"
-	public let titleText = "Turn on notification"
-	public let descriptionText = "Stay updated with immediate alerts on your wallet activity."
+	public let headerIcon = "bordered_green_alert"
+	public let titleText = "Turn on notifications"
+	public let descriptionText = "Stay updated with timely alerts on your wallet's activity."
 	public let enableNotificationsButtonTitleText = "Turn on notifications"
 	public let skipButtonTitleText = "Maybe later"
 	public let sampleNotificationCardImage1 = "sample_notification_1"
