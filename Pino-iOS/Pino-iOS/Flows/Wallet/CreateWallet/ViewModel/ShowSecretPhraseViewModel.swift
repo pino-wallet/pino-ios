@@ -15,9 +15,9 @@ struct ShowSecretPhraseViewModel {
 	public let shareButtonTitle = "Copy"
 	public let shareButtonIcon = "square.on.square"
 	public let continueButtonTitle = "I saved"
-	public let signDescriptionPrefixText = "By tapping on "
+	public let signDescriptionText =
+		"By tapping on I saved, you sign an off-chain message that actives this account in Pino."
 	public let signDescriptionBoldText = "I saved"
-	public let signDescriptionSuffixText = ", you sign an off-chain message that actives this account in Pino."
 	public let screenshotAlertTitle = "Warning"
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of a secret phrase!"
 	public let pageTitle = "Create new wallet"
