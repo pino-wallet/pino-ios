@@ -104,6 +104,15 @@ class AccountsViewModel {
 		}
 	}
 
+	private func accountExistsInCoreData(account: Account) -> Bool {
+		if coreDataManager.getAllWalletAccounts()
+			.contains(where: { $0.eip55Address == account.eip55Address }) {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	// MARK: - Public Methods
 
 	public func getAccounts() {
@@ -112,47 +121,43 @@ class AccountsViewModel {
 		accountsList = accounts.compactMap { AccountInfoViewModel(walletAccountInfoModel: $0) }
 	}
 
-	public func createNewAccount(completion: @escaping (WalletOperationError?) -> Void) {
-		let coreDataManager = CoreDataManager()
-		let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
-		do {
+	public func createNewAccount() -> Promise<Void> {
+		Promise<Void> { seal in
+			let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
 			let createdAccount = try pinoWalletManager
 				.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex))
 			activateNewAccountAddress(
 				createdAccount,
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath
-			) { error in
-				completion(error)
+			).catch { error in
+				seal.reject(error)
 			}
-		} catch {
-			completion(WalletOperationError.unknow(error))
 		}
 	}
 
 	public func importAccount(
 		privateKey: String,
 		accountName: String,
-		accountAvatar: Avatar,
-		completion: @escaping (WalletOperationError?) -> Void
-	) {
-		let importedAccount = pinoWalletManager.importAccount(privateKey: privateKey)
-		switch importedAccount {
-		case let .success(account):
-			if coreDataManager.getAllWalletAccounts().contains(where: { $0.eip55Address == account.eip55Address }) {
-				completion(WalletOperationError.wallet(.accountAlreadyExists))
-			} else {
-				activateNewAccountAddress(
-					account,
-					publicKey: account.publicKey,
+		accountAvatar: Avatar
+	) -> Promise<Void> {
+		Promise<Void> { seal in
+			firstly {
+				pinoWalletManager.importAccount(privateKey: privateKey)
+			}.get { importedAccount in
+				if self.accountExistsInCoreData(account: importedAccount) {
+					seal.reject(WalletOperationError.wallet(.accountAlreadyExists))
+				}
+			}.then { importedAccount in
+				self.activateNewAccountAddress(
+					importedAccount,
+					publicKey: importedAccount.publicKey,
 					accountName: accountName,
 					accountAvatar: accountAvatar
-				) { error in
-					completion(error)
-				}
+				)
+			}.catch { error in
+				seal.reject(error)
 			}
-		case let .failure(error):
-			completion(error)
 		}
 	}
 
@@ -161,23 +166,24 @@ class AccountsViewModel {
 		publicKey: EthereumPublicKey,
 		derivationPath: String? = nil,
 		accountName: String? = nil,
-		accountAvatar: Avatar? = nil,
-		completion: @escaping (WalletOperationError?) -> Void
-	) {
-		accountActivationVM.activateNewAccountAddress(account).done { [self] accountInfo in
-			addNewWalletAccountWithAddress(
-				account.eip55Address,
-				derivationPath: derivationPath,
-				publicKey: publicKey,
-				accountName: accountName,
-				accountAvatar: accountAvatar
-			)
-			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
-			resetPendingActivities()
-			registerUserFCMToken(userAdd: account.eip55Address)
-			completion(nil)
-		}.catch { error in
-			completion(WalletOperationError.wallet(.accountActivationFailed(error)))
+		accountAvatar: Avatar? = nil
+	) -> Promise<Void> {
+		Promise<Void> { seal in
+			accountActivationVM.activateNewAccountAddress(account).done { [self] accountInfo in
+				addNewWalletAccountWithAddress(
+					account.eip55Address,
+					derivationPath: derivationPath,
+					publicKey: publicKey,
+					accountName: accountName,
+					accountAvatar: accountAvatar
+				)
+				SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
+				resetPendingActivities()
+				registerUserFCMToken(userAdd: account.eip55Address)
+				seal.fulfill(())
+			}.catch { error in
+				seal.reject(WalletOperationError.wallet(.accountActivationFailed(error)))
+			}
 		}
 	}
 
@@ -195,16 +201,17 @@ class AccountsViewModel {
 
 	public func removeAccount(_ walletVM: AccountInfoViewModel) -> Promise<Void> {
 		Promise<Void> { seal in
-			let deletingAccount = pinoWalletManager.deleteAccount(account: walletVM.walletAccountInfoModel)
-			switch deletingAccount {
-			case let .success(success):
+			firstly {
+				pinoWalletManager.deleteAccount(account: walletVM.walletAccountInfoModel)
+			}.done { [unowned self] removedAccount in
 				coreDataManager.deleteWalletAccount(walletVM.walletAccountInfoModel)
 				getAccounts()
 				GlobalVariables.shared.updateCurrentAccount(currentAccount.walletAccountInfoModel)
 				resetPendingActivities()
-			case let .failure(failure):
-				print("Error: failed to remove account: \(failure)")
-				seal.reject(failure)
+				seal.fulfill(())
+			}.catch { error in
+				print("Error: failed to remove account: \(error)")
+				seal.reject(error)
 			}
 		}
 	}

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 protocol WalletManagement {
 	// Attributes
@@ -13,13 +14,13 @@ protocol WalletManagement {
 	var currentAccount: WalletAccount { get }
 
 	// Wallet
-	func createHDWallet(mnemonics: String) -> Result<Account, WalletOperationError>
+	func createHDWallet(mnemonics: String) -> Promise<Account>
 	func generateMnemonics() -> String
 	func exportMnemonics() -> (string: String, array: [String])
 
 	// Account
-	func deleteAccount(account: WalletAccount) -> Result<WalletAccount, WalletOperationError>
-	func importAccount(privateKey: String) -> Result<Account, WalletOperationError>
+	func deleteAccount(account: WalletAccount) -> Promise<WalletAccount>
+	func importAccount(privateKey: String) -> Promise<Account>
 	func exportPrivateKeyFor(account: WalletAccount) throws -> (data: Data, string: String)
 	func accountExist(account: WalletAccount) -> Bool
 }

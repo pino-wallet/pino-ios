@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import PromiseKit
 import WalletCore
 
 protocol PinoHDWalletType: PinoWallet {
-	func createInitialHDWallet(mnemonics: String) -> Result<Account, WalletOperationError>
+	func createInitialHDWallet(mnemonics: String) -> Promise<Account>
 	func createAccountIn(wallet: HDWallet, lastIndex: Int) throws -> Account
-	func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError>
+	func createHDWallet(mnemonics: String) -> Promise<HDWallet>
 }
 
 public class PinoHDWallet: PinoHDWalletType {
@@ -21,70 +22,66 @@ public class PinoHDWallet: PinoHDWalletType {
 
 	// MARK: - Public Methods
 
-	public func createInitialHDWallet(mnemonics: String) -> Result<Account, WalletOperationError> {
-		let hdWallet = createHDWallet(mnemonics: mnemonics)
-		switch hdWallet {
-		case let .success(createdWallet):
-			let createdAccount = createInitialAccountIn(wallet: createdWallet)
-			switch createdAccount {
-			case let .success(account):
-
-				let encryptedMnemonicsData = encryptHdWalletMnemonics(
+	public func createInitialHDWallet(mnemonics: String) -> Promise<Account> {
+		Promise<Account> { seal in
+			firstly {
+				createHDWallet(mnemonics: mnemonics)
+			}.then { createdWallet in
+				self.createInitialAccountIn(wallet: createdWallet).map { ($0, createdWallet) }
+			}.done { createdAccount, createdWallet in
+				let encryptedMnemonicsData = self.encryptHdWalletMnemonics(
 					createdWallet.mnemonic,
-					forAccount: account.eip55Address
+					forAccount: createdAccount.eip55Address
 				)
 				if let error = KeychainManager.mnemonics.setValueWithKey(
 					value: encryptedMnemonicsData,
-					accountAddress: account.eip55Address
+					accountAddress: createdAccount.eip55Address
 				) {
-					return .failure(error)
+					seal.reject(error)
 				}
-				return .success(account)
-			case let .failure(error):
-				return .failure(error)
+				seal.fulfill(createdAccount)
+			}.catch { error in
+				seal.reject(error)
 			}
-		case let .failure(error):
-			return .failure(error)
 		}
 	}
 
-	private func createInitialAccountIn(wallet: HDWallet) -> Result<Account, WalletOperationError> {
-		let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
-		do {
+	private func createInitialAccountIn(wallet: HDWallet) -> Promise<Account> {
+		Promise<Account> { seal in
+			let firstAccountPrivateKey = getPrivateKeyOfFirstAccount(wallet: wallet)
 			let account = try Account(privateKeyData: firstAccountPrivateKey)
 			let encryptedPrivateKeyData = encryptPrivateKey(firstAccountPrivateKey, forAccount: account.eip55Address)
 			if let error = KeychainManager.privateKey.setValueWithKey(
 				value: encryptedPrivateKeyData,
 				accountAddress: account.eip55Address
 			) {
-				return .failure(error)
+				seal.reject(error)
 			}
-			return .success(account)
-		} catch let error where error is WalletOperationError {
-			return .failure(error as! WalletOperationError)
-		} catch {
-			return .failure(.wallet(.unknownError))
+			seal.fulfill(account)
 		}
 	}
 
-	public func createHDWallet(mnemonics: String) -> Result<HDWallet, WalletOperationError> {
-		guard WalletValidator.isMnemonicsValid(mnemonic: mnemonics) else {
-			return .failure(.validator(.mnemonicIsInvalid))
+	public func createHDWallet(mnemonics: String) -> Promise<HDWallet> {
+		Promise<HDWallet> { seal in
+			guard WalletValidator.isMnemonicsValid(mnemonic: mnemonics) else {
+				seal.reject(WalletOperationError.validator(.mnemonicIsInvalid))
+				return
+			}
+			guard let wallet = HDWallet(mnemonic: mnemonics, passphrase: .emptyString) else {
+				seal.reject(WalletOperationError.wallet(.walletCreationFailed))
+				return
+			}
+			seal.fulfill(wallet)
 		}
-		guard let wallet = HDWallet(mnemonic: mnemonics, passphrase: .emptyString) else {
-			return .failure(.wallet(.walletCreationFailed))
-		}
-
-		return .success(wallet)
 	}
 
-	public func createHDWallet(with mnemonics: String, for accounts: [Account]) throws {
-		let hdWallet = createHDWallet(mnemonics: mnemonics)
-		switch hdWallet {
-		case let .success(createdWallet):
-			do {
-				try accounts.forEach { account in
-					let encryptedPrivateKeyData = encryptPrivateKey(
+	public func createHDWallet(with mnemonics: String, for accounts: [Account]) -> Promise<Void> {
+		Promise<Void> { seal in
+			firstly {
+				createHDWallet(mnemonics: mnemonics)
+			}.done { createdWallet in
+				accounts.forEach { account in
+					let encryptedPrivateKeyData = self.encryptPrivateKey(
 						account.privateKey,
 						forAccount: account.eip55Address
 					)
@@ -92,10 +89,10 @@ public class PinoHDWallet: PinoHDWalletType {
 						value: encryptedPrivateKeyData,
 						accountAddress: account.eip55Address
 					) {
-						throw error
+						seal.reject(error)
 					}
 
-					let encryptedMnemonicsData = encryptHdWalletMnemonics(
+					let encryptedMnemonicsData = self.encryptHdWalletMnemonics(
 						createdWallet.mnemonic,
 						forAccount: account.eip55Address
 					)
@@ -103,16 +100,13 @@ public class PinoHDWallet: PinoHDWalletType {
 						value: encryptedMnemonicsData,
 						accountAddress: account.eip55Address
 					) {
-						throw error
+						seal.reject(error)
 					}
 				}
-			} catch let error where error is WalletOperationError {
-				throw error
-			} catch {
-				throw error
+				seal.fulfill(())
+			}.catch { error in
+				seal.reject(error)
 			}
-		case let .failure(failure):
-			throw failure
 		}
 	}
 

@@ -16,6 +16,7 @@ class AddNewAccountViewController: UIViewController {
 	private var addNewAccountVM = AddNewAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
 	private var onDismiss: () -> Void
+	private let createAccountFailedErr = "Failed to create account"
 
 	// MARK: - Initializers
 
@@ -71,30 +72,14 @@ class AddNewAccountViewController: UIViewController {
 	private func openImportAccountPage() {
 		let importWalletVC = ImportNewAccountViewController(accounts: accountsVM.accountsList)
 		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
-			self.importAccount(privateKey: privateKey, avatar: avatar, accountName: accountName) { error in
-				if let error {
-					importWalletVC.showValidationError(error)
-				} else {
+			self.accountsVM.importAccount(privateKey: privateKey, accountName: accountName, accountAvatar: avatar)
+				.done {
 					self.openSyncPage()
+				}.catch { error in
+					importWalletVC.showValidationError(error)
 				}
-			}
 		}
 		navigationController?.pushViewController(importWalletVC, animated: true)
-	}
-
-	private func importAccount(
-		privateKey: String,
-		avatar: Avatar,
-		accountName: String,
-		completion: @escaping (WalletOperationError?) -> Void
-	) {
-		accountsVM.importAccount(privateKey: privateKey, accountName: accountName, accountAvatar: avatar) { error in
-			if let error {
-				completion(error)
-			} else {
-				completion(nil)
-			}
-		}
 	}
 
 	private func openSyncPage() {
@@ -110,14 +95,11 @@ class AddNewAccountViewController: UIViewController {
 		// Loading should be shown
 		// Homepage in the new account should be opened
 		addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
-		accountsVM.createNewAccount { [weak self] error in
-			if let error {
-				Toast.default(title: error.description, style: .error).show(haptic: .warning)
-				self?.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
-				return
-			} else {
-				self?.dismiss(animated: true)
-			}
+		accountsVM.createNewAccount().done {
+			self.dismiss(animated: true)
+		}.catch { [self] error in
+			Toast.default(title: createAccountFailedErr, style: .error).show(haptic: .warning)
+			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 		}
 	}
 

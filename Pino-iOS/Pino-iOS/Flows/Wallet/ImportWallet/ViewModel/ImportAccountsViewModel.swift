@@ -73,16 +73,10 @@ class ImportAccountsViewModel {
 	private func createWallet(mnemonics: String) -> Promise<HDWallet> {
 		Promise<HDWallet> { seal in
 			internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
-				if isConnected {
-					let hdWallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-					switch hdWallet {
-					case let .success(hdWallet):
-						seal.fulfill(hdWallet)
-					case let .failure(error):
-						seal.reject(error)
-					}
-				} else {
-					seal.reject(WalletOperationError.wallet(.netwrokError))
+				pinoWalletManager.createHDWallet(mnemonics: mnemonics).done { hdWallet in
+					seal.fulfill(hdWallet)
+				}.catch { error in
+					seal.reject(error)
 				}
 			}.store(in: &cancellables)
 		}

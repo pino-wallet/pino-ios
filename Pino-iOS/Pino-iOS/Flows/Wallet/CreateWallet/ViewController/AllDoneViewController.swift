@@ -51,20 +51,17 @@ class AllDoneViewController: UIViewController {
 
 	private func getStarted() {
 		if let selectedAccounts {
-			allDoneVM.importSelectedAccounts(selectedAccounts: selectedAccounts) { error in
-				if let error {
-					self.showError(error)
-				} else {
-					self.openHomepage()
-				}
+			allDoneVM.importSelectedAccounts(selectedAccounts: selectedAccounts).done {
+				self.openHomepage()
+			}.catch { error in
+				self.showError(error as! WalletOperationError)
 			}
 		} else {
-			allDoneVM.createWallet(mnemonics: mnemonics) { error in
-				if let error {
-					self.showError(error)
-				} else {
-					self.openHomepage()
-				}
+			allDoneVM.createWallet(mnemonics: mnemonics).done {
+				self.openHomepage()
+			}.catch { error in
+				// this is wrong
+				self.showError(error as! WalletOperationError)
 			}
 		}
 	}
