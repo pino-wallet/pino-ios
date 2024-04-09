@@ -129,7 +129,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				self.depositGasInfo = depositResult.1
 				seal.fulfill([depositResult.1])
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Maker deposit info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -163,7 +163,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				self.depositGasInfo = depositResult.1
 				seal.fulfill([depositResult.1])
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Lido deposit info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -192,7 +192,7 @@ class DepositManager: InvestW3ManagerProtocol {
 				self.depositGasInfo = depositResult.1
 				seal.fulfill([depositResult.1])
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Lido deposit info: \(error)")
 				seal.reject(error)
 			}
 		}

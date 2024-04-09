@@ -113,6 +113,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
+				print("W3 Error: getting Compound withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -146,6 +147,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
+				print("W3 Error: getting Compound withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -179,6 +181,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
+				print("W3 Error: getting Compound withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -212,6 +215,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
+				print("W3 Error: getting Compound withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -244,6 +248,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
+				print("W3 Error: getting Compound withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -276,6 +281,7 @@ class CompoundWithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
+				print("W3 Error: getting Compound withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}

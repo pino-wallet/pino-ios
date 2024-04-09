@@ -104,7 +104,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 				self.withdrawGasInfo = withdrawResult.1
 				seal.fulfill(withdrawResult)
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Maker withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -119,6 +119,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			}.done { trx, gasInfo in
 				seal.fulfill((trx, gasInfo))
 			}.catch { error in
+				print("W3 Error: getting Lido withdraw info: \(error)")
 				seal.reject(error)
 			}
 		}

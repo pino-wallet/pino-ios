@@ -112,6 +112,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 				depositGasInfo = depositResults.1
 				seal.fulfill([depositGasInfo!, collateralCheckGas])
 			}.catch { error in
+				print("W3 Error: getting Aave deposit info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -142,6 +143,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 				self.depositGasInfo = depositResults.1
 				seal.fulfill([depositResults.1])
 			}.catch { error in
+				print("W3 Error: getting Aave deposit info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -171,6 +173,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 				self.collateralCheckGasInfo = result.1
 				seal.fulfill(self.collateralCheckGasInfo!)
 			}.catch { error in
+				print("W3 Error: getting Aave disable collateral info: \(error)")
 				seal.reject(error)
 			}
 		}
@@ -183,7 +186,7 @@ class AaveDepositManager: Web3ManagerProtocol {
 			}.done { isCollateral in
 				seal.fulfill(isCollateral)
 			}.catch { error in
-				print(error)
+				print("W3 Error: getting Aave check collateral info: \(error)")
 				seal.reject(error)
 			}
 		}
