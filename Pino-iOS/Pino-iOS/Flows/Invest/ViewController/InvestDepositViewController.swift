@@ -55,6 +55,12 @@ class InvestDepositViewController: UIViewController {
 			}
 		)
 		view = investView
+
+		if let depositVM = investVM as? InvestDepositViewModel {
+			depositVM.checkOpenPosition().catch { error in
+				self.showErrorToast(error)
+			}
+		}
 	}
 
 	private func setupNavigationBar() {
@@ -82,12 +88,14 @@ class InvestDepositViewController: UIViewController {
 	private func proceedInvestFlow() {
 		// First Step of Invest
 		// Check If Permit has access to Token
-		getTokenAddress { tokenAddress in
+		getTokenAddress().done { tokenAddress in
 			if tokenAddress == GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })?.id {
 				self.openConfirmationPage()
 				return
 			}
 			self.checkAllowance(of: tokenAddress)
+		}.catch { error in
+			self.showErrorToast(error)
 		}
 	}
 
@@ -135,12 +143,18 @@ class InvestDepositViewController: UIViewController {
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
 	}
 
-	private func getTokenAddress(completion: @escaping (String) -> Void) {
+	private func getTokenAddress() -> Promise<String> {
 		if let withdrawVM = investVM as? WithdrawViewModel {
-			withdrawVM.getTokenPositionID(completion: completion)
+			return withdrawVM.getTokenPositionID()
 		} else {
 			let tokenAddress = investVM.selectedToken.id.lowercased()
-			completion(tokenAddress)
+			return Promise.value(tokenAddress)
+		}
+	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
 		}
 	}
 }

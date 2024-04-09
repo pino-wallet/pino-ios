@@ -194,9 +194,10 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq.eip712HashReqBody).sink { completed in
 				switch completed {
 				case .finished:
-					print("Info received successfully")
+					print("User hash received successfully")
 				case let .failure(error):
-					print(error)
+					print("Error: getting user hash: \(error)")
+					seal.reject(error)
 				}
 			} receiveValue: { hashResponse in
 				seal.fulfill(hashResponse.hash)

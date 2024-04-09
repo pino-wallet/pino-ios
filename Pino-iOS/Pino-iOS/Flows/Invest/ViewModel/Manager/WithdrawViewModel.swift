@@ -8,6 +8,7 @@
 import BigInt
 import Combine
 import Foundation
+import PromiseKit
 
 class WithdrawViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
@@ -85,22 +86,25 @@ class WithdrawViewModel: InvestViewModelProtocol {
 		}
 	}
 
-	public func getTokenPositionID(completion: @escaping (String) -> Void) {
-		let w3APIClient = Web3APIClient()
-		w3APIClient.getTokenPositionID(
-			tokenAdd: selectedToken.id.lowercased(),
-			positionType: .investment,
-			protocolName: selectedProtocol.rawValue
-		).sink { completed in
-			switch completed {
-			case .finished:
-				print("Position id received successfully")
-			case let .failure(error):
-				print("Error getting position id:\(error)")
-			}
-		} receiveValue: { tokenPositionModel in
-			completion(tokenPositionModel.positionID.lowercased())
-		}.store(in: &cancellables)
+	public func getTokenPositionID() -> Promise<String> {
+		Promise<String> { seal in
+			let w3APIClient = Web3APIClient()
+			w3APIClient.getTokenPositionID(
+				tokenAdd: selectedToken.id.lowercased(),
+				positionType: .investment,
+				protocolName: selectedProtocol.rawValue
+			).sink { completed in
+				switch completed {
+				case .finished:
+					print("Position id received successfully")
+				case let .failure(error):
+					print("Error: getting position id: \(error)")
+					seal.reject(error)
+				}
+			} receiveValue: { tokenPositionModel in
+				seal.fulfill(tokenPositionModel.positionID.lowercased())
+			}.store(in: &cancellables)
+		}
 	}
 
 	// MARK: - Private Methods

@@ -8,6 +8,7 @@
 import Combine
 import DGCharts
 import Foundation
+import PromiseKit
 
 class InvestCoinPerformanceViewModel {
 	// MARK: - Private Properties
@@ -39,41 +40,58 @@ class InvestCoinPerformanceViewModel {
 		getCoinPerformanceInfo()
 	}
 
-	// MARK: - Private Methods
+	// MARK: - Public Methods
 
-	public func getChartData(dateFilter: ChartDateFilter = .day) {
-		investmentAPIClient.investmentPerformance(
-			timeFrame: dateFilter.timeFrame,
-			investmentID: selectedAsset.investmentId
-		)
-		.sink { completed in
-			switch completed {
-			case .finished:
-				print("Coin performance received successfully")
-			case let .failure(error):
-				print(error)
-			}
-		} receiveValue: { portfolio in
-			let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
-			self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
-		}.store(in: &cancellables)
+	public func getInvestmentPerformanceData() -> Promise<Void> {
+		firstly {
+			getChartData()
+		}.o {}
 	}
 
-	private func getCoinPerformanceInfo() {
-		let allTimeFrame = ChartDateFilter.all.timeFrame
-		investmentAPIClient.investmentPerformance(timeFrame: allTimeFrame, investmentID: selectedAsset.investmentId)
+	public func getChartData(dateFilter: ChartDateFilter = .day) -> Promise<Void> {
+		Promise<Void> { seal in
+			investmentAPIClient.investmentPerformance(
+				timeFrame: dateFilter.timeFrame,
+				investmentID: selectedAsset.investmentId
+			)
 			.sink { completed in
 				switch completed {
 				case .finished:
-					print("Coin performance received successfully")
+					print("Investment performance received successfully")
 				case let .failure(error):
-					print(error)
+					print("Error: getting investment performance: \(error)")
+					seal.reject(error)
 				}
 			} receiveValue: { portfolio in
 				let chartDataVM = portfolio.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
-				self.coinInfoVM.updateAllTimeHigh(chartDataVM)
-				self.coinInfoVM.updateAllTimelow(chartDataVM)
-				self.coinInfoVM.updateNetProfit(chartDataVM, selectedAsset: self.selectedAsset.investToken)
+				self.chartVM = AssetChartViewModel(chartDataVM: chartDataVM, dateFilter: dateFilter)
+				seal.fulfill(())
 			}.store(in: &cancellables)
+		}
+	}
+
+	// MARK: - Private Methods
+
+	private func getCoinPerformanceInfo() -> Promise<Void> {
+		Promise<Void> { seal in
+			let allTimeFrame = ChartDateFilter.all.timeFrame
+			investmentAPIClient.investmentPerformance(timeFrame: allTimeFrame, investmentID: selectedAsset.investmentId)
+				.sink { completed in
+					switch completed {
+					case .finished:
+						print("Invest coin performance received successfully")
+					case let .failure(error):
+						print("Error: getting invest coin performance: \(error)")
+						seal.reject(error)
+					}
+				} receiveValue: { portfolio in
+					let chartDataVM = portfolio
+						.compactMap { AssetChartDataViewModel(chartModel: $0, networthDecimal: 2) }
+					self.coinInfoVM.updateAllTimeHigh(chartDataVM)
+					self.coinInfoVM.updateAllTimelow(chartDataVM)
+					self.coinInfoVM.updateNetProfit(chartDataVM, selectedAsset: self.selectedAsset.investToken)
+					seal.fulfill(())
+				}.store(in: &cancellables)
+		}
 	}
 }
