@@ -130,7 +130,9 @@ class AccountsViewModel {
 				createdAccount,
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath
-			).catch { error in
+			).done {
+				seal.fulfill(())
+			}.catch { error in
 				seal.reject(error)
 			}
 		}
@@ -155,6 +157,8 @@ class AccountsViewModel {
 					accountName: accountName,
 					accountAvatar: accountAvatar
 				)
+			}.done {
+				seal.fulfill(())
 			}.catch { error in
 				seal.reject(error)
 			}

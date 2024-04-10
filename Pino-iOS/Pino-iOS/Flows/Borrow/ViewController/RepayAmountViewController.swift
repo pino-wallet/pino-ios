@@ -89,7 +89,13 @@ class RepayAmountViewController: UIViewController {
 				pushToRepayConfirmVC()
 			}
 		}.catch { error in
-			print(error)
+			self.showErrorToast(error)
+		}
+	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
 		}
 	}
 

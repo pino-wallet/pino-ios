@@ -54,20 +54,22 @@ class AllDoneViewController: UIViewController {
 			allDoneVM.importSelectedAccounts(selectedAccounts: selectedAccounts).done {
 				self.openHomepage()
 			}.catch { error in
-				self.showError(error as! WalletOperationError)
+				self.showError(error)
 			}
 		} else {
 			allDoneVM.createWallet(mnemonics: mnemonics).done {
 				self.openHomepage()
 			}.catch { error in
 				// this is wrong
-				self.showError(error as! WalletOperationError)
+				self.showError(error)
 			}
 		}
 	}
 
-	private func showError(_ error: WalletOperationError) {
-		Toast.default(title: error.description, style: .error).show(haptic: .warning)
+	private func showError(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
 		allDoneView.activeGetStartedButton()
 	}
 

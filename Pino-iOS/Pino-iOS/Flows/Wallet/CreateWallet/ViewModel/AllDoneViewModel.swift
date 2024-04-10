@@ -90,6 +90,7 @@ class AllDoneViewModel {
 					seal.fulfill(())
 				}.catch { error in
 					seal.reject(error)
+					self.coreDataManager.deleteAllWalletAccounts()
 				}
 			}.store(in: &cancellables)
 		}

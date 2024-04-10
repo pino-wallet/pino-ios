@@ -52,6 +52,7 @@ class SendTransactionStatusViewModel {
 			self.getPendingTransactionActivity()
 			self.sendTransactionStatus = .pending
 		}.catch { error in
+			print("W3 Error: sending transaction: \(error)")
 			self.sendTransactionStatus = .failed
 		}
 	}
@@ -64,7 +65,8 @@ class SendTransactionStatusViewModel {
 		}
 		when(fulfilled: getActivityPromiss).done {
 			self.sendTransactionStatus = .success
-		}.catch { _ in
+		}.catch { error in
+			print("W3 Error: getting pending activities: \(error)")
 			self.sendTransactionStatus = .failed
 		}
 	}

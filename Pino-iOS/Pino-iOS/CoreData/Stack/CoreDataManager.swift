@@ -112,6 +112,10 @@ class CoreDataManager {
 		accountDataSource.delete(account)
 	}
 
+	public func deleteAllWalletAccounts() {
+		accountDataSource.deleteAllAccounts()
+	}
+
 	public func updateSelectedWalletAccount(_ account: WalletAccount) {
 		accountDataSource.updateSelected(account)
 	}

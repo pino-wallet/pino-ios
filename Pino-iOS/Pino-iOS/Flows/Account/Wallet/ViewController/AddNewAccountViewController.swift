@@ -76,6 +76,7 @@ class AddNewAccountViewController: UIViewController {
 				.done {
 					self.openSyncPage()
 				}.catch { error in
+					self.showErrorToast(error)
 					importWalletVC.showValidationError(error)
 				}
 		}
@@ -98,8 +99,14 @@ class AddNewAccountViewController: UIViewController {
 		accountsVM.createNewAccount().done {
 			self.dismiss(animated: true)
 		}.catch { [self] error in
-			Toast.default(title: createAccountFailedErr, style: .error).show(haptic: .warning)
+			showErrorToast(error)
 			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
+		}
+	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
 		}
 	}
 

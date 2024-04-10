@@ -110,6 +110,12 @@ class AssetsCollectionView: UICollectionView {
 		refreshControl = assetsRefreshControl
 	}
 
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
+	}
+
 	// MARK: - Public Methods
 
 	public func getHomeData() {
@@ -117,9 +123,7 @@ class AssetsCollectionView: UICollectionView {
 			self.refreshControl?.endRefreshing()
 		}.catch { error in
 			self.refreshControl?.endRefreshing()
-			if let error = error as? APIError {
-				Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
-			}
+			showErrorToast(error)
 		}
 	}
 }

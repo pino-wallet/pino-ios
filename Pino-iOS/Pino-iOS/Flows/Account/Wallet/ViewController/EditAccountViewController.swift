@@ -16,7 +16,7 @@ class EditAccountViewController: UIViewController {
 	private var cancellables = Set<AnyCancellable>()
 	private var editAccountView: EditAccountView!
 
-	private let removeAccFailedErrText = "Failed to remove account"
+	private let removeAccFailedErrText = "Failed to remove account. Try again."
 
 	// MARK: Initializers
 

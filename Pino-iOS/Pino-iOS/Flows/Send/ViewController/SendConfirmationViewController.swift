@@ -94,7 +94,7 @@ class SendConfirmationViewController: UIViewController {
 			)
 			present(sendTransactionStatusVC, animated: true)
 		} onFailure: {
-			#warning("Error should be handled")
+			Toast.default(title: self.sendConfirmationVM.failedToAuth, style: .error).show()
 		}
 	}
 
@@ -102,12 +102,9 @@ class SendConfirmationViewController: UIViewController {
 		sendConfirmationVM.getFee()
 	}
 
-	private func showFeeError(_ error: Error) {
-		Toast.default(
-			title: "\(error.localizedDescription)",
-			subtitle: GlobalToastTitles.tryAgainToastTitle.message,
-			style: .error
-		)
-		.show(haptic: .warning)
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
 	}
 }
