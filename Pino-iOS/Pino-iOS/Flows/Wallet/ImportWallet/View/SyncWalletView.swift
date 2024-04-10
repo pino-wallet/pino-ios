@@ -144,6 +144,7 @@ class SyncWalletView: UIView {
 				exploreButton.style = .active
 				exploreTitleLabel.isHidden = true
 				exploreButton.title = syncWalletVM.explorePinoFinishedBtnText
+                titleAnimationView.loopMode = .playOnce
 			case .syncing:
 				titleLabel.text = syncWalletVM.titleText
 				descriptionLabel.text = syncWalletVM.descriptionText
