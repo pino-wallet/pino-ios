@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import PromiseKit
+import Web3_Utility
 
 protocol InvestViewModelProtocol {
 	var pageTitle: String { get }
@@ -25,6 +27,8 @@ protocol InvestViewModelProtocol {
 	func calculateDollarAmount(_ amount: String)
 	func calculateDollarAmount(_ amount: BigNumber)
 	func checkBalanceStatus(amount: String) -> AmountStatus
+	func checkAllowance(of tokenAddress: String) -> Promise<Bool>
+	func getTokenAddress() -> Promise<String>
 }
 
 extension InvestViewModelProtocol {
@@ -34,6 +38,36 @@ extension InvestViewModelProtocol {
 	var estimatedReturnTitle: String { "Yearly estimated return" }
 	var formattedMaxHoldAmount: String {
 		maxAvailableAmount.sevenDigitFormat.tokenFormatting(token: selectedToken.symbol)
+	}
+
+	func checkAllowance(of tokenAddress: String) -> Promise<Bool> {
+		if tokenAddress == GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })?.id {
+			return Promise.value(true)
+		}
+		return Promise { seal in
+			let web3 = Web3Core.shared
+			let walletManager = PinoWalletManager()
+			firstly {
+				try web3.getAllowanceOf(
+					contractAddress: tokenAddress,
+					spenderAddress: Web3Core.Constants.permitAddress,
+					ownerAddress: walletManager.currentAccount.eip55Address
+				)
+			}.done { [self] allowanceAmount in
+				let destTokenDecimal = selectedToken.decimal
+				let destTokenAmount = Utilities.parseToBigUInt(tokenAmount, decimals: destTokenDecimal)
+				if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
+					// NOT ALLOWED
+					seal.fulfill(false)
+				} else {
+					// ALLOWED
+					seal.fulfill(true)
+				}
+			}.catch { error in
+				print("Error: getting token allowance: \(error)")
+				seal.reject(error)
+			}
+		}
 	}
 }
 

@@ -107,6 +107,10 @@ class WithdrawViewModel: InvestViewModelProtocol {
 		}
 	}
 
+	public func getTokenAddress() -> Promise<String> {
+		getTokenPositionID()
+	}
+
 	// MARK: - Private Methods
 
 	private func getToken(investmentAsset: InvestAssetViewModel) {

@@ -14,8 +14,6 @@ class InvestDepositViewController: UIViewController {
 
 	private var investVM: InvestViewModelProtocol!
 	private var investView: InvestDepositView!
-	private var web3 = Web3Core.shared
-	private let walletManager = PinoWalletManager()
 	private var onDepositConfirm: (SendTransactionStatus) -> Void
 
 	// MARK: Initializers
@@ -88,36 +86,17 @@ class InvestDepositViewController: UIViewController {
 	private func proceedInvestFlow() {
 		// First Step of Invest
 		// Check If Permit has access to Token
-		getTokenAddress().done { tokenAddress in
-			if tokenAddress == GlobalVariables.shared.manageAssetsList?.first(where: { $0.isEth })?.id {
-				self.openConfirmationPage()
-				return
-			}
-			self.checkAllowance(of: tokenAddress)
-		}.catch { error in
-			self.showErrorToast(error)
-		}
-	}
-
-	private func checkAllowance(of tokenAddress: String) {
 		firstly {
-			try web3.getAllowanceOf(
-				contractAddress: tokenAddress,
-				spenderAddress: Web3Core.Constants.permitAddress,
-				ownerAddress: walletManager.currentAccount.eip55Address
-			)
-		}.done { [self] allowanceAmount in
-			let destTokenDecimal = investVM.selectedToken.decimal
-			let destTokenAmount = Utilities.parseToBigUInt(investVM.tokenAmount, decimals: destTokenDecimal)
-			if allowanceAmount == 0 || allowanceAmount < destTokenAmount! {
-				// NOT ALLOWED
-				openTokenApprovePage(tokenID: tokenAddress)
+			investVM.getTokenAddress()
+		}.then { tokenAddress in
+			self.investVM.checkAllowance(of: tokenAddress).map { (tokenAddress, $0) }
+		}.done { tokenAddress, isAllowed in
+			if isAllowed {
+				self.openConfirmationPage()
 			} else {
-				// ALLOWED
-				openConfirmationPage()
+				self.openTokenApprovePage(tokenID: tokenAddress)
 			}
 		}.catch { error in
-			print(error)
 			self.investView.stopLoading()
 			self.showErrorToast(APIError.failedRequest)
 		}
@@ -143,15 +122,6 @@ class InvestDepositViewController: UIViewController {
 			onConfirm: onDepositConfirm
 		)
 		navigationController?.pushViewController(investConfirmationVC, animated: true)
-	}
-
-	private func getTokenAddress() -> Promise<String> {
-		if let withdrawVM = investVM as? WithdrawViewModel {
-			return withdrawVM.getTokenPositionID()
-		} else {
-			let tokenAddress = investVM.selectedToken.id.lowercased()
-			return Promise.value(tokenAddress)
-		}
 	}
 
 	private func showErrorToast(_ error: Error) {

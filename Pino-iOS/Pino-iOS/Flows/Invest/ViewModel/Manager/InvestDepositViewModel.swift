@@ -116,6 +116,10 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		}
 	}
 
+	public func getTokenAddress() -> Promise<String> {
+		Promise.value(selectedToken.id.lowercased())
+	}
+
 	// MARK: - Private Methods
 
 	private func getToken(investableAsset: AssetsBoardProtocol) {
