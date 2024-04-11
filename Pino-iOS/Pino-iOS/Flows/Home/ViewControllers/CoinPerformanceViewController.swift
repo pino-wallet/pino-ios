@@ -76,7 +76,7 @@ class CoinPerformanceViewController: UIViewController {
 	}
 
 	private func showErrorToast(_ error: Error) {
-		guard let error = error as? APIError else { return }
+		guard let error = error as? ToastError else { return }
 		Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 	}
 }

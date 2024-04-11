@@ -655,6 +655,7 @@
 		DFC1F6A72A755F55003DB68A /* ParaSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */; };
 		DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */; };
 		DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4D0392A360D8300F03DC4 /* Web3Core.swift */; };
+		DFC83C702BC80D2D00B48766 /* ToastError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC83C6F2BC80D2D00B48766 /* ToastError.swift */; };
 		DFCAAD3A2A62DA8000D8BB8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */; };
 		DFCB13942B09DCB800EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB137E2B09DCB700EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift */; };
 		DFCB13952B09DCB800EEFD0F /* CDRepayActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB137F2B09DCB700EEFD0F /* CDRepayActivity+CoreDataProperties.swift */; };
@@ -1580,6 +1581,7 @@
 		DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapAPIClient.swift; sourceTree = "<group>"; };
 		DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapEndpoint.swift; sourceTree = "<group>"; };
 		DFC4D0392A360D8300F03DC4 /* Web3Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Core.swift; sourceTree = "<group>"; };
+		DFC83C6F2BC80D2D00B48766 /* ToastError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastError.swift; sourceTree = "<group>"; };
 		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DFCB137E2B09DCB700EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDApproveActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB137F2B09DCB700EEFD0F /* CDRepayActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDRepayActivity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -3934,7 +3936,6 @@
 				DF00178429EC37AF001164EA /* PinoWalletCore.swift */,
 				DF00179029F856D5001164EA /* PinoHDWallet.swift */,
 				DF00179229F85727001164EA /* PinoNonHDWallet.swift */,
-				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
 				DF00178C29F855DF001164EA /* WalletValidator.swift */,
 				DF00179429F85774001164EA /* KeychainManager.swift */,
 				DF00178E29F8567C001164EA /* Account.swift */,
@@ -4455,6 +4456,8 @@
 				E3CDFCA32BB196D70018382D /* CustomAssetError.swift */,
 				E3DFED7E2BB7F0B9008A6F0A /* EtheriumNetworkError.swift */,
 				E31C792F2BB981DE00CCD3DF /* ApproveError.swift */,
+				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
+				DFC83C6F2BC80D2D00B48766 /* ToastError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -5326,6 +5329,7 @@
 				D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				DFF8C3842B14703E00C74DAC /* TutorialViewController.swift in Sources */,
+				DFC83C702BC80D2D00B48766 /* ToastError.swift in Sources */,
 				D9A642C62AFA210300FDE11D /* ActivityBorrowModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */,

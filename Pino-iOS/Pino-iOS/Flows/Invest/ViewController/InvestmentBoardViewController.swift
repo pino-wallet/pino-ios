@@ -143,7 +143,7 @@ class InvestmentBoardViewController: UIViewController {
 	}
 
 	private func showErrorToast(_ error: Error) {
-		if let error = error as? APIError {
+		if let error = error as? ToastError {
 			Toast.default(title: error.toastMessage, style: .error).show()
 		}
 	}

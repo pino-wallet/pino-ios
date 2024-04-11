@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum APIError: Error {
+public enum APIError: ToastError {
 	case networkConnection
 	case failedRequest
 	case invalidRequest

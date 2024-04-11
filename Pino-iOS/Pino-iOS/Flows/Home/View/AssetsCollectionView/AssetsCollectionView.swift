@@ -111,7 +111,7 @@ class AssetsCollectionView: UICollectionView {
 	}
 
 	private func showErrorToast(_ error: Error) {
-		if let error = error as? APIError {
+		if let error = error as? ToastError {
 			Toast.default(title: error.toastMessage, style: .error).show()
 		}
 	}
@@ -123,7 +123,7 @@ class AssetsCollectionView: UICollectionView {
 			self.refreshControl?.endRefreshing()
 		}.catch { error in
 			self.refreshControl?.endRefreshing()
-            self.showErrorToast(error)
+			self.showErrorToast(error)
 		}
 	}
 }

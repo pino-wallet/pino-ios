@@ -49,30 +49,25 @@ class AllDoneViewModel {
 	public func importSelectedAccounts(
 		selectedAccounts: [ActiveAccountViewModel]
 	) -> Promise<Void> {
-		Promise<Void> { seal in
-			let coreDataManager = CoreDataManager()
+		let coreDataManager = CoreDataManager()
 
-			firstly {
-				createInitialWalletsInCoreData()
-			}.then { [self] createdWallet in
-				pinoWalletManager.createHDWalletWith(mnemonics: mnemonics, for: selectedAccounts).map { createdWallet }
-			}.done { createdWallet in
-				for account in selectedAccounts {
-					coreDataManager.createWalletAccount(
-						address: account.address,
-						publicKey: account.publicKey,
-						name: account.name,
-						avatarIcon: account.profileImage,
-						avatarColor: account.profileColor,
-						wallet: createdWallet
-					)
-				}
-				let createdAccounts = coreDataManager.getAllWalletAccounts()
-				coreDataManager.updateSelectedWalletAccount(createdAccounts.first!)
-				seal.fulfill(())
-			}.catch { error in
-				seal.reject(error)
+		return firstly {
+			createInitialWalletsInCoreData()
+		}.then { [self] createdWallet in
+			pinoWalletManager.createHDWalletWith(mnemonics: mnemonics, for: selectedAccounts).map { createdWallet }
+		}.done { createdWallet in
+			for account in selectedAccounts {
+				coreDataManager.createWalletAccount(
+					address: account.address,
+					publicKey: account.publicKey,
+					name: account.name,
+					avatarIcon: account.profileImage,
+					avatarColor: account.profileColor,
+					wallet: createdWallet
+				)
 			}
+			let createdAccounts = coreDataManager.getAllWalletAccounts()
+			coreDataManager.updateSelectedWalletAccount(createdAccounts.first!)
 		}
 	}
 

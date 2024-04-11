@@ -8,7 +8,7 @@
 import Foundation
 import WalletCore
 
-public enum WalletError: LocalizedError {
+public enum WalletError: LocalizedError, ToastError {
 	case mnemonicGenerationFailed
 	case walletCreationFailed
 	case importAccountFailed
@@ -41,9 +41,26 @@ public enum WalletError: LocalizedError {
 			return "Please check your internet connection and try again"
 		}
 	}
+
+	public var toastMessage: String {
+		switch self {
+		case .mnemonicGenerationFailed, .walletCreationFailed:
+			"Failed to create wallet"
+		case .importAccountFailed, .accountActivationFailed, .accountNotFound:
+			"Failed to import account"
+		case .unknownError:
+			"Unknown error happened. Please try again"
+		case .netwrokError:
+			"Please check your internet connection and try again"
+		case .accountAlreadyExists:
+			"Account already exists"
+		case .accountDeletionFailed:
+			"Failed to remove account"
+		}
+	}
 }
 
-public enum WalletValidatorError: LocalizedError {
+public enum WalletValidatorError: LocalizedError, ToastError {
 	case privateKeyIsInvalid
 	case publicKeyIsInvalid
 	case addressIsInvalid
@@ -61,9 +78,13 @@ public enum WalletValidatorError: LocalizedError {
 			return "Mnemonics is invalid"
 		}
 	}
+
+	public var toastMessage: String {
+		"Validation Failed"
+	}
 }
 
-public enum KeyManagementError: LocalizedError {
+public enum KeyManagementError: LocalizedError, ToastError {
 	case mnemonicsStorageFailed
 	case privateKeyStorageFailed
 	case publicKeyStorageFailed
@@ -87,9 +108,13 @@ public enum KeyManagementError: LocalizedError {
 			return "Failed to fetch public key"
 		}
 	}
+
+	public var toastMessage: String {
+		"Please check keychain settings"
+	}
 }
 
-public enum WalletOperationError: LocalizedError {
+public enum WalletOperationError: LocalizedError, ToastError {
 	case wallet(WalletError)
 	case validator(WalletValidatorError)
 	case keyManager(KeyManagementError)
@@ -105,6 +130,36 @@ public enum WalletOperationError: LocalizedError {
 			return keyManagementError.description
 		case let .unknow(error):
 			return "Uknown Error:\(error)"
+		}
+	}
+
+	public var toastMessage: String {
+		switch self {
+		case let .wallet(walletError):
+			walletError.toastMessage
+		case let .validator(walletValidatorError):
+			walletValidatorError.toastMessage
+		case let .keyManager(keyManagementError):
+			keyManagementError.toastMessage
+		case let .unknow(error):
+			"Unknown error happened"
+		}
+	}
+}
+
+public enum ImportWalletError: LocalizedError {
+	case invalidPrivateKey
+	case duplicateAccountName
+	case emptyAccountName
+
+	public var btnErrorTxt: String {
+		switch self {
+		case .invalidPrivateKey:
+			"Invalid private key"
+		case .duplicateAccountName:
+			"Dublicate Name"
+		case .emptyAccountName:
+			"Invalid Name"
 		}
 	}
 }
