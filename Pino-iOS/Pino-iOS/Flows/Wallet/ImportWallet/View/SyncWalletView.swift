@@ -163,8 +163,8 @@ class SyncWalletView: UIView {
 	public func animateLoading() {
 		progressView.start()
 	}
-    
-    public func clearAnimationCache() {
-        titleAnimationView.animation = nil
-    }
+
+	public func clearAnimationCache() {
+		titleAnimationView.animation = nil
+	}
 }
