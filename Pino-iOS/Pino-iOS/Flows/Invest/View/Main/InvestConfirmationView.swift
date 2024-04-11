@@ -82,6 +82,8 @@ class InvestConfirmationView: UIView {
 			actionSheetTitle: investConfirmationVM.protocolInfoActionSheetTitle,
 			actionSheetDescription: investConfirmationVM.protocolInfoActionSheetDescription
 		)
+		#warning("for now we should hide this info")
+		selectedProtocolTitleView.showInfoActionSheet = false
 
 		addSubview(contentStackview)
 		addSubview(continueButton)

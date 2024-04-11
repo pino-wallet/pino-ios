@@ -19,9 +19,10 @@ class TutorialView: UIView {
 	private let skipRightView = UIView()
 	private var tutorialVM: TutorialContainerViewModel!
 	private let stepperCollectionView: TutorialStepperContainerView!
+	private var animationContainerView = UIView()
 	private var animationView = LottieAnimationView()
-	private var titleLabel = UILabel()
-	private var bodyLabel = UILabel()
+	private var titleLabel = PinoLabel(style: .info, text: "")
+	private var bodyLabel = PinoLabel(style: .info, text: "")
 	private var contentStackView = UIStackView()
 	private var titleBodyStackView = UIStackView()
 	private var cancellables = Set<AnyCancellable>()
@@ -58,16 +59,16 @@ class TutorialView: UIView {
 		titleLabel.text = tutorialVM.tutorials.first?.title
 		bodyLabel.text = tutorialVM.tutorials.first?.desc
 
-		titleLabel.font = UIFont.PinoStyle.boldBigTitle
+		titleLabel.font = UIFont.PinoStyle.boldXLargeTitle
 		titleLabel.numberOfLines = 0
 		titleLabel.textColor = .Pino.primary
 
-		bodyLabel.font = UIFont.PinoStyle.mediumBody
+		bodyLabel.font = UIFont.PinoStyle.mediumCallout
 		bodyLabel.numberOfLines = 0
 		bodyLabel.textColor = .Pino.primary
 
-		contentStackView.spacing = 40
-		titleBodyStackView.spacing = 24
+		contentStackView.spacing = 32
+		titleBodyStackView.spacing = 16
 
 		contentStackView.axis = .vertical
 		titleBodyStackView.axis = .vertical
@@ -75,7 +76,8 @@ class TutorialView: UIView {
 		titleBodyStackView.addArrangedSubview(titleLabel)
 		titleBodyStackView.addArrangedSubview(bodyLabel)
 
-		contentStackView.addArrangedSubview(animationView)
+		animationContainerView.addSubview(animationView)
+		contentStackView.addArrangedSubview(animationContainerView)
 		contentStackView.addArrangedSubview(titleBodyStackView)
 
 		addSubview(contentStackView)
@@ -102,7 +104,7 @@ class TutorialView: UIView {
 		holdLeftGesture.minimumPressDuration = 0.2
 		holdLeftGesture.delaysTouchesBegan = true
 
-		animationView.contentMode = .scaleAspectFit
+		animationView.contentMode = .scaleToFill
 		animationView.loopMode = .loop
 		animationView.animationSpeed = 1
 		animationView.backgroundColor = .clear
@@ -133,14 +135,16 @@ class TutorialView: UIView {
 		contentStackView.pin(
 			.top(to: stepperCollectionView, padding: 63),
 			.centerX,
-			.horizontalEdges(padding: 24)
+			.horizontalEdges(padding: 42)
 		)
 
-		animationView.pin(
+		animationContainerView.pin(
 			.centerX,
-			.fixedWidth(256),
-			.fixedHeight(256)
+			.fixedWidth(306),
+			.fixedHeight(306)
 		)
+
+		animationView.pin(.centerY, .centerX, .fixedWidth(370), .fixedHeight(370))
 
 		NSLayoutConstraint.activate([
 			skipRightView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),

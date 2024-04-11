@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 import Web3ContractABI
 
 protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
@@ -31,7 +32,7 @@ protocol InvestConfirmationProtocol: InvestConfirmationViewProtocol {
 	var pageTitle: String { get }
 	var sendTransactions: [SendTransactionViewModel]? { get }
 	var transactionsDescription: String { get }
-	func getTransactionInfo()
+	func getTransactionInfo() -> Promise<Void>
 }
 
 protocol InvestConfirmationViewProtocol {
@@ -50,8 +51,9 @@ protocol InvestConfirmationViewProtocol {
 extension InvestConfirmationViewProtocol {
 	var selectedProtocolTitle: String { "Protocol" }
 	var feeTitle: String { "Network Fee" }
-	var feeInfoActionSheetTitle: String { "Network Fee" }
-	var feeInfoActionSheetDescription: String { "Sample Text" }
+	var feeInfoActionSheetTitle: String { GlobalActionSheetTexts.networkFee.title }
+	var feeInfoActionSheetDescription: String { GlobalActionSheetTexts.networkFee.description }
+	#warning("this texts are for test")
 	var protocolInfoActionSheetTitle: String { "Protocol" }
 	var protocolInfoActionSheetDescription: String { "Sample Text" }
 	var feeErrorText: String { "Error in calculation!" }

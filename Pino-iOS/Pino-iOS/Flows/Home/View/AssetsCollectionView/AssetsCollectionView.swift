@@ -123,7 +123,7 @@ class AssetsCollectionView: UICollectionView {
 			self.refreshControl?.endRefreshing()
 		}.catch { error in
 			self.refreshControl?.endRefreshing()
-			showErrorToast(error)
+            self.showErrorToast(error)
 		}
 	}
 }

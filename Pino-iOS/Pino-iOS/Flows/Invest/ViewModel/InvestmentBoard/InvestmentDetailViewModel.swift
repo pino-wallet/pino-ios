@@ -28,7 +28,7 @@ class InvestmentDetailViewModel {
 	public var apyVolatilityType: AssetVolatilityType
 
 	public var pageTitle: String {
-		"\(assetName) investment details"
+		"\(assetName) investment"
 	}
 
 	public var assetName: String {

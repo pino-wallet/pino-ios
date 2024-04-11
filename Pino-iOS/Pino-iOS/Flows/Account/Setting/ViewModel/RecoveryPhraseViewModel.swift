@@ -8,12 +8,11 @@
 struct RecoveryPhraseViewModel {
 	// MARK: Public Properties
 
-	public let title = "Your secret phease"
-	public let description = "A two line description should be here. A two line description should be here"
+	public let title = "Keep it safe"
+	public let description = "Do not share your phrase with anyone, as it gives them full access to your wallet."
 	public let copyButtonTitle = "Copy to clipboard"
 	public let copyButtonIcon = "square.on.square"
-	public let warningTitle = "DO NOT share your phrase with anyone as this gives full access to your wallet!"
-	public let warningDescription = "Pino support will NEVER reach out to ask for it!"
+	public let warningDescription = "The Pino team will NEVER ask for your secret phrase"
 	public let screenshotAlertTitle = "Warning"
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of a secret phrase!"
 	public var revealButtonTitle = "Tap to reveal"

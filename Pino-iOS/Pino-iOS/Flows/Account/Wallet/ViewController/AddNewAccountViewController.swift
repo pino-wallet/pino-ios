@@ -87,7 +87,7 @@ class AddNewAccountViewController: UIViewController {
 		let syncPage = SyncWalletViewController {
 			self.onDismiss()
 		}
-		syncPage.modalPresentationStyle = .overFullScreen
+		syncPage.modalPresentationStyle = .fullScreen
 		present(syncPage, animated: true)
 	}
 

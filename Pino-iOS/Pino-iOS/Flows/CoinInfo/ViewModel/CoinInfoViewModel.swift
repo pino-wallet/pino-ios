@@ -47,6 +47,15 @@ class CoinInfoViewModel {
 		"Your \(selectedAsset.symbol) activity appears here"
 	}
 
+	public var pageTitle: String {
+		switch coinPortfolio.type {
+		case .verified, .unVerified:
+			"\(coinPortfolio.symbol) asset"
+		case .position:
+			"\(coinPortfolio.symbol) position"
+		}
+	}
+
 	public var positionAssetInfoText: String? {
 		guard let positionAssetType, let positionAssetProtocol, let positionUnderlyingAssetSymbol else { return nil }
 		return "This asset represents your \(positionUnderlyingAssetSymbol) \(positionAssetType) position in the \(positionAssetProtocol) Protocol."

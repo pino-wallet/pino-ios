@@ -10,6 +10,11 @@ import UIKit
 extension UIFont.PinoStyle {
 	// MARK: Bold Style Typography
 
+	static let boldXLargeTitle = UIFont(
+		name: FontName.pinoBold.rawValue,
+		size: FontSize.boldXLargeTitle.rawValue
+	)
+
 	static let boldExtraLargeTitle = UIFont(
 		name: FontName.pinoBold.rawValue,
 		size: FontSize.extraLargeTitle.rawValue
