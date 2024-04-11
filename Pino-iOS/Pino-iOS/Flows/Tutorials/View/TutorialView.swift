@@ -144,7 +144,7 @@ class TutorialView: UIView {
 			.fixedHeight(306)
 		)
 
-		animationView.pin(.centerY, .centerX, .fixedWidth(350), .fixedHeight(350))
+		animationView.pin(.centerY, .centerX, .fixedWidth(370), .fixedHeight(370))
 
 		NSLayoutConstraint.activate([
 			skipRightView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),

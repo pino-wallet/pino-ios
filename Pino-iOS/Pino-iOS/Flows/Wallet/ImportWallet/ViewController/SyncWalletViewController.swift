@@ -64,6 +64,7 @@ class SyncWalletViewController: UIViewController {
 		syncWalletView = SyncWalletView(syncWalletVM: syncWalletVM, presentTutorialPage: {
 			self.presentTutorialPage()
 		}, presentAllDonePage: { [self] in
+            syncWalletView.clearAnimationCache()
 			if let okBtnDidTap {
 				okBtnDidTap()
 				dismiss(animated: true)
