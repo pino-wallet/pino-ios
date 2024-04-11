@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 struct PinoProgressBarViewModel {
 	public let progressDuration: Double
+	public var customFillColor: UIColor?
+	public var customContainerColor: UIColor?
 }

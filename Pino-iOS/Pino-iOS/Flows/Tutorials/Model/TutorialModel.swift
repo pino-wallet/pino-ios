@@ -25,16 +25,16 @@ struct TutorialModel {
 			desc: "Get the best rates for your order from leading DEX aggregators.",
 			lottieFile: "SwapSaveOnSwaps"
 		),
-//		.init(
-//			title: "Loans Made Easy",
-//			desc: "Get loans directly through top lending protocols like Compound and Aave.",
-//			lottieFile: "BorrowLoansMadeEasy"
-//		),
-//		.init(
-//			title: "Ensure Loan Safety",
-//			desc: "Effortlessly monitor your loan positions to avoid unexpected liquidations.",
-//			lottieFile: "BorrowEnsureLoanSafety"
-//		),
+		.init(
+			title: "Loans Made Easy",
+			desc: "Get loans directly through top lending protocols like Compound and Aave.",
+			lottieFile: "BorrowLoansMadeEasy"
+		),
+		.init(
+			title: "Ensure Loan Safety",
+			desc: "Effortlessly monitor your loan positions to avoid unexpected liquidations.",
+			lottieFile: "BorrowEnsureLoanSafety"
+		),
 		.init(
 			title: "Simple Yield Earning",
 			desc: "Invest in reliable yield-bearing opportunities and seamlessly manage them.",

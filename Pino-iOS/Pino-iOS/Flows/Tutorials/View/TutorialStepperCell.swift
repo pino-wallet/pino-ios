@@ -11,7 +11,8 @@ import UIKit
 class TutorialStepperCell: UICollectionViewCell {
 	// MARK: Private Properties
 
-	private var stepProgressView = PinoProgressView(progressBarVM: .init(progressDuration: 5))
+	private var stepProgressView =
+		PinoProgressView(progressBarVM: .init(progressDuration: 5, customContainerColor: .Pino.secondaryBackground))
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: Public Properties
