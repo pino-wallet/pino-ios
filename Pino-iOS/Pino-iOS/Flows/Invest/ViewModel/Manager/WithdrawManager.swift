@@ -92,10 +92,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
-				try self.web3.getDaiToSDaiConvertion(amount: self.tokenUIntNumber)
-			}.then { sDaiAmount in
-				self.tokenUIntNumber = sDaiAmount
-				return self.fetchHash()
+				self.fetchHash()
 			}.then { plainHash in
 				self.signHash(plainHash: plainHash)
 			}.then { signiture -> Promise<String> in
