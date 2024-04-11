@@ -33,7 +33,6 @@ protocol Web3ManagerProtocol: CancellableStoring {
 	) -> Promise<CallData?>
 	func sweepToken(tokenAddress: String) -> Promise<CallData?>
 	func signHash(plainHash: String) -> Promise<CallData>
-	mutating func getGasLimits() -> Promise<GasLimitsModel>
 }
 
 extension Web3ManagerProtocol {
@@ -109,22 +108,6 @@ extension Web3ManagerProtocol {
 			signiture[signiture.count - 1] += 27
 
 			seal.fulfill("0x\(signiture.toHexString())")
-		}
-	}
-
-	mutating func getGasLimits() -> Promise<GasLimitsModel> {
-		Promise<GasLimitsModel> { seal in
-			let web3Client = Web3APIClient()
-			web3Client.getGasLimits().sink { completed in
-				switch completed {
-				case .finished:
-					print("Info received successfully")
-				case let .failure(error):
-					print(error)
-				}
-			} receiveValue: { gasLimitsResponse in
-				seal.fulfill(gasLimitsResponse)
-			}.store(in: &cancellables)
 		}
 	}
 }

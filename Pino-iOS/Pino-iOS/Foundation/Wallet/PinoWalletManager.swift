@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 class PinoWalletManager: WalletManagement {
 	// MARK: - Private Properties
@@ -38,36 +39,40 @@ class PinoWalletManager: WalletManagement {
 		HDWallet.generateMnemonic(seedPhraseCount: .word12)
 	}
 
-	public func createHDWallet(mnemonics: String) -> Result<Account, WalletOperationError> {
+	public func createHDWallet(mnemonics: String) -> Promise<Account> {
 		pinoHDWallet.createInitialHDWallet(mnemonics: mnemonics)
 	}
 
-	public func createHDWalletWith(mnemonics: String, for accounts: [ActiveAccountViewModel]) throws {
-		try pinoHDWallet.createHDWallet(with: mnemonics, for: accounts.map { $0.account })
+	public func createHDWalletWith(mnemonics: String, for accounts: [ActiveAccountViewModel]) -> Promise<Void> {
+		pinoHDWallet.createHDWallet(with: mnemonics, for: accounts.map { $0.account })
 	}
 
 	public func exportMnemonics() -> (string: String, array: [String]) {
-		(currentHDWallet!.mnemonic, currentHDWallet!.mnemonic.split(separator: " ").map { String($0) })
+		let currentWallet = getCurrentHDWallet()
+		return (currentWallet.mnemonic, currentWallet.mnemonic.split(separator: " ").map { String($0) })
 	}
 
 	public func createAccount(lastAccountIndex: Int) throws -> Account {
-		let account = try pinoHDWallet.createAccountIn(wallet: currentHDWallet!, lastIndex: lastAccountIndex)
+		let account = try pinoHDWallet.createAccountIn(wallet: getCurrentHDWallet(), lastIndex: lastAccountIndex)
 		return account
 	}
 
-	public func deleteAccount(account: WalletAccount) -> Result<WalletAccount, WalletOperationError> {
-		guard let deletingAccount = accounts.first(where: { $0 == account }) else {
-			return .failure(.wallet(.accountNotFound))
-		}
-		if KeychainManager.privateKey.deleteValueWith(key: deletingAccount.eip55Address) {
-			return .success(deletingAccount)
-		} else {
-			return .failure(.wallet(.accountDeletionFailed))
+	public func deleteAccount(account: WalletAccount) -> Promise<WalletAccount> {
+		Promise<WalletAccount> { seal in
+			guard let deletingAccount = accounts.first(where: { $0 == account }) else {
+				seal.reject(WalletOperationError.wallet(.accountNotFound))
+				return
+			}
+			if KeychainManager.privateKey.deleteValueWith(key: deletingAccount.eip55Address) {
+				seal.fulfill(deletingAccount)
+			} else {
+				seal.reject(WalletOperationError.wallet(.accountDeletionFailed))
+			}
 		}
 	}
 
-	public func importAccount(privateKey: String) -> Result<Account, WalletOperationError> {
-		nonHDWallet.importAccount(wallet: currentHDWallet!, privateKey: privateKey)
+	public func importAccount(privateKey: String) -> Promise<Account> {
+		nonHDWallet.importAccount(wallet: getCurrentHDWallet(), privateKey: privateKey)
 	}
 
 	public func accountExist(account: WalletAccount) -> Bool {
@@ -98,7 +103,7 @@ class PinoWalletManager: WalletManagement {
 
 	// MARK: - Private Methods
 
-	private var currentHDWallet: HDWallet? {
+	private func getCurrentHDWallet() -> HDWallet {
 		let coreDataManager = CoreDataManager()
 		let firstAccount: WalletAccount
 		if let hdwalletAccount = coreDataManager.getWalletAccountsOfType(walletType: .hdWallet).first {
@@ -109,14 +114,9 @@ class PinoWalletManager: WalletManagement {
 		let decryptedMnemonicsData = exportMnemonics(key: firstAccount.eip55Address)
 		let decryptedMnemonics = String(data: decryptedMnemonicsData, encoding: .utf8)
 		guard let decryptedMnemonics else {
-			return nil
+			fatalError("Failed to decrypt")
 		}
-		switch pinoHDWallet.createHDWallet(mnemonics: decryptedMnemonics) {
-		case let .success(wallet):
-			return wallet
-		case .failure:
-			return nil
-		}
+		return pinoHDWallet.createHDWallet(mnemonics: decryptedMnemonics).value!
 	}
 
 	private func exportMnemonics(key: String) -> Data {

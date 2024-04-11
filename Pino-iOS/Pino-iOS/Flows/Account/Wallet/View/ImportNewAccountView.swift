@@ -264,9 +264,11 @@ class ImportNewAccountView: UIView {
 		accountNameValidationStatus: AccountNameValidationStatus
 	) {
 		if privateKeyValidationStatus == .invalidKey {
-			importButton.setTitle(importAccountVM.invalidPrivateKeyTitle, for: .normal)
-		} else if accountNameValidationStatus == .duplicateName || accountNameValidationStatus == .isEmpty {
-			importButton.setTitle(importAccountVM.invalidNameTitle, for: .normal)
+			importButton.setTitle(ImportWalletError.invalidPrivateKey.btnErrorTxt, for: .normal)
+		} else if accountNameValidationStatus == .duplicateName {
+			importButton.setTitle(ImportWalletError.duplicateAccountName.btnErrorTxt, for: .normal)
+		} else if accountNameValidationStatus == .isEmpty {
+			importButton.setTitle(ImportWalletError.emptyAccountName.btnErrorTxt, for: .normal)
 		} else {
 			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
 		}

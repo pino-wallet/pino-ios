@@ -93,7 +93,8 @@ class SecureEnclaveHelper {
 		switch loadKey(name: name, context: context) {
 		case let .success(key):
 			return key
-		case .failure:
+		case let .failure(error):
+			print("Error: loading key from Keychain: \(error)")
 			return nil
 		}
 	}

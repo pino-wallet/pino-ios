@@ -43,6 +43,7 @@ class SendConfirmationViewModel {
 	public var userRecipientAccountInfoVM: UserAccountInfoViewModel?
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
+	public let failedToAuth = "Failed to Authenticate"
 	public var sendStatusText: String {
 		var formattedRecipientAddress: String
 		if let recipientAddressName = recipientAddress.name {

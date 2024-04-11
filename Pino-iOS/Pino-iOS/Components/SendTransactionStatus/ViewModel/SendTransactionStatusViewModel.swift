@@ -52,19 +52,21 @@ class SendTransactionStatusViewModel {
 			self.getPendingTransactionActivity()
 			self.sendTransactionStatus = .pending
 		}.catch { error in
+			print("W3 Error: sending transaction: \(error)")
 			self.sendTransactionStatus = .failed
 		}
 	}
 
 	@objc
 	private func getPendingTransactionActivity() {
-		var getActivityPromiss: [Promise<Void>] = []
+		var getActivityPromises: [Promise<Void>] = []
 		transactions.forEach { transaction in
-			getActivityPromiss.append(transaction.getPendingTransactionActivity())
+			getActivityPromises.append(transaction.getPendingTransactionActivity())
 		}
-		when(fulfilled: getActivityPromiss).done {
+		when(fulfilled: getActivityPromises).done {
 			self.sendTransactionStatus = .success
-		}.catch { _ in
+		}.catch { error in
+			print("W3 Error: getting pending activities: \(error)")
 			self.sendTransactionStatus = .failed
 		}
 	}

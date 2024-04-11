@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import PromiseKit
 import WalletCore
 
 protocol PinoNonHDWalletType: PinoWallet {
-	mutating func importAccount(wallet: HDWallet, privateKey: String) -> Result<Account, WalletOperationError>
+	mutating func importAccount(wallet: HDWallet, privateKey: String) -> Promise<Account>
 }
 
 public struct PinoNonHDWallet: PinoNonHDWalletType {
@@ -19,20 +20,27 @@ public struct PinoNonHDWallet: PinoNonHDWalletType {
 
 	// MARK: - Public Methods
 
-	public mutating func importAccount(wallet: HDWallet, privateKey: String) -> Result<Account, WalletOperationError> {
-		do {
-			guard WalletValidator.isPrivateKeyValid(key: privateKey)
-			else { return .failure(.validator(.privateKeyIsInvalid)) }
-			guard let privateKeyData = Data(hexString: privateKey) else { return .failure(.validator(.privateKeyIsInvalid)) }
-			let account = try Account(privateKeyData: privateKeyData)
-			try saveEncryptedKeys(
-				mnemonic: wallet.mnemonic,
-				privateKey: privateKeyData,
-				accountAddress: account.eip55Address
-			)
-			return .success(account)
-		} catch {
-			return .failure(.wallet(.importAccountFailed))
+	public mutating func importAccount(wallet: HDWallet, privateKey: String) -> Promise<Account> {
+		Promise<Account> { seal in
+			do {
+				guard WalletValidator.isPrivateKeyValid(key: privateKey) else {
+					seal.reject(WalletOperationError.validator(.privateKeyIsInvalid))
+					return
+				}
+				guard let privateKeyData = Data(hexString: privateKey) else {
+					seal.reject(WalletOperationError.validator(.privateKeyIsInvalid))
+					return
+				}
+				let account = try Account(privateKeyData: privateKeyData)
+				try saveEncryptedKeys(
+					mnemonic: wallet.mnemonic,
+					privateKey: privateKeyData,
+					accountAddress: account.eip55Address
+				)
+				seal.fulfill(account)
+			} catch {
+				seal.reject(WalletOperationError.wallet(.importAccountFailed))
+			}
 		}
 	}
 

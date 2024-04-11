@@ -16,8 +16,6 @@ class ImportNewAccountViewModel {
 	public var signDescriptionBoldText = "Import"
 	public var textViewDescription = "Typically 64 alphanumeric characters"
 	public var textViewPlaceholder = "Private Key"
-	public var invalidPrivateKeyTitle = "Invalid private key"
-	public var invalidNameTitle = "Invalid name"
 	public let pasteButtonTitle = "Paste"
 	public let continueButtonTitle = "Import"
 	public let newAvatarButtonTitle = "Set new avatar"

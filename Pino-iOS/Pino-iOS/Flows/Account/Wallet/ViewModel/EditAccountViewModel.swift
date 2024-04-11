@@ -19,7 +19,6 @@ class EditAccountViewModel {
 	public let pageTitle = "Edit wallet"
 	public let changeAvatarTitle = "Set new avatar"
 	public let doneButtonText = "Done"
-	public let removeAccountButtonText = "Remove wallet"
 	public let removeAccountButtonTitle = "Remove wallet"
 
 	public let editAccountOptions = [

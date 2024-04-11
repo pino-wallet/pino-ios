@@ -66,6 +66,14 @@ struct AccountDataSource: DataSourceProtocol {
 		}
 	}
 
+	public mutating func deleteAllAccounts() {
+		accounts.forEach { act in
+			managedContext.delete(act)
+		}
+		accounts.removeAll()
+		coreDataStack.saveContext()
+	}
+
 	public func filter(_ predicate: (WalletAccount) -> Bool) -> [WalletAccount] {
 		accounts.filter(predicate)
 	}
