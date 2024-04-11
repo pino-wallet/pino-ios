@@ -28,7 +28,9 @@ class InvestViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if isWalletSyncFinished {
-			investVM.getInvestData()
+			investVM.getInvestData().catch { error in
+				self.showErrorToast(error)
+			}
 		}
 	}
 
@@ -111,5 +113,11 @@ class InvestViewController: UIViewController {
 
 	private func startInvesting() {
 		openInvestmentBoard()
+	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? APIError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
 	}
 }

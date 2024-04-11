@@ -129,7 +129,8 @@ class DepositManager: InvestW3ManagerProtocol {
 				self.depositGasInfo = depositResult.1
 				seal.fulfill([depositResult.1])
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Maker deposit info: \(error)")
+				seal.reject(error)
 			}
 		}
 	}
@@ -162,7 +163,8 @@ class DepositManager: InvestW3ManagerProtocol {
 				self.depositGasInfo = depositResult.1
 				seal.fulfill([depositResult.1])
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Lido deposit info: \(error)")
+				seal.reject(error)
 			}
 		}
 	}
@@ -190,7 +192,8 @@ class DepositManager: InvestW3ManagerProtocol {
 				self.depositGasInfo = depositResult.1
 				seal.fulfill([depositResult.1])
 			}.catch { error in
-				print(error.localizedDescription)
+				print("W3 Error: getting Lido deposit info: \(error)")
+				seal.reject(error)
 			}
 		}
 	}
@@ -208,9 +211,10 @@ class DepositManager: InvestW3ManagerProtocol {
 			web3Client.getHashTypedData(eip712HashReqInfo: hashREq.eip712HashReqBody).sink { completed in
 				switch completed {
 				case .finished:
-					print("Info received successfully")
+					print("User hash received successfully")
 				case let .failure(error):
-					print(error)
+					print("Error: getting user hash: \(error)")
+					seal.reject(error)
 				}
 			} receiveValue: { hashResponse in
 				seal.fulfill(hashResponse.hash)

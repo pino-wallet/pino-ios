@@ -113,10 +113,6 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Private Methods
 
-	private func showError() {
-		Toast.default(title: "Failed to fetch deposit Info", style: .error).show()
-	}
-
 	private func addInvestPendingActivity(txHash: String, gasInfo: GasInfo, activityDate: Date = Date()) {
 		let coreDataManager = CoreDataManager()
 		var activityType: ActivityType {
@@ -248,19 +244,15 @@ class InvestConfirmationViewModel: InvestConfirmationProtocol {
 
 	// MARK: - Public Methods
 
-	public func getTransactionInfo() {
+	public func getTransactionInfo() -> Promise<Void> {
 		switch investmentType {
 		case .create:
-			investManager.getDepositInfo().done { gasInfos in
+			return investManager.getDepositInfo().done { gasInfos in
 				self.updateFee(gasInfos: gasInfos)
-			}.catch { error in
-				self.showError()
 			}
 		case .increase:
-			investManager.getIncreaseDepositInfo().done { gasInfos in
+			return investManager.getIncreaseDepositInfo().done { gasInfos in
 				self.updateFee(gasInfos: gasInfos)
-			}.catch { error in
-				self.showError()
 			}
 		}
 	}
