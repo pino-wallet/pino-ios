@@ -11,6 +11,7 @@ public enum Web3ABI {
 	case erc
 	case swap
 	case invest
+	case investMaker
 	case investCompound
 	case borrowERCAave
 	case borrowETHAave
@@ -27,6 +28,8 @@ public enum Web3ABI {
 		case .swap:
 			return Web3ABI.swapAbiString.data(using: .utf8)!
 		case .invest:
+			return Web3ABI.investAbiString.data(using: .utf8)!
+		case .investMaker:
 			return Web3ABI.makerAbiString.data(using: .utf8)!
 		case .investCompound:
 			return Web3ABI.compoundAbiString.data(using: .utf8)!
@@ -71,8 +74,12 @@ public enum Web3ABI {
 		ABIReader(fileName: "AaveProxyABIJson")
 	}
 
-	private static var makerAbiString: String {
+	private static var investAbiString: String {
 		ABIReader(fileName: "InvestABIJson")
+	}
+
+	private static var makerAbiString: String {
+		ABIReader(fileName: "MakerABIJson")
 	}
 
 	private static var compoundAbiString: String {
@@ -103,6 +110,7 @@ public enum ABIMethodCall: String {
 	case getUserConfiguration
 	case checkMembership
 	case exchangeRateStored
+	case daiToSDaiConvertion = "convertToShares"
 }
 
 public enum ABIMethodWrite: String {
