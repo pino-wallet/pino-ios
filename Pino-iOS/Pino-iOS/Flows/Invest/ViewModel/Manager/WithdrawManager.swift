@@ -70,7 +70,7 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		case .compound:
 			return compoundManager.getWithdrawInfo(withdrawType: withdrawType)
 		case .lido:
-			return getLidoWithdrawInfo()
+			return getLidoWithdrawInfo(withdrawType: withdrawType)
 		case .aave:
 			return getAaveWithdrawInfo(withdrawType: withdrawType)
 		}
@@ -150,12 +150,38 @@ class WithdrawManager: InvestW3ManagerProtocol {
 		}
 	}
 
-	private func getLidoWithdrawInfo() -> TrxWithGasInfo {
+	private func getLidoWithdrawInfo(withdrawType: WithdrawMode) -> TrxWithGasInfo {
+		switch withdrawType {
+		case .decrease:
+			getLidoDecreaseInfo()
+		case .withdrawMax:
+			getLidoWithdrawMaxInfo()
+		}
+	}
+
+	private func getLidoDecreaseInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			firstly {
 				getTokenPositionID()
 			}.then { positionID in
 				self.getSTETHToETHSwapInfo()
+			}.done { trx, gasInfo in
+				seal.fulfill((trx, gasInfo))
+			}.catch { error in
+				print("W3 Error: getting Lido withdraw info: \(error)")
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getLidoWithdrawMaxInfo() -> TrxWithGasInfo {
+		TrxWithGasInfo { seal in
+			firstly {
+				getTokenPositionID()
+			}.then { positionID in
+				let positionAsset = GlobalVariables.shared.manageAssetsList?.first(where: { $0.id == positionID })
+				self.tokenUIntNumber = positionAsset!.holdAmount.bigUInt
+				return self.getSTETHToETHSwapInfo()
 			}.done { trx, gasInfo in
 				seal.fulfill((trx, gasInfo))
 			}.catch { error in
