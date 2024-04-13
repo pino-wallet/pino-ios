@@ -200,13 +200,14 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 			assetVolatilityLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 40),
 			assetTitleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 170),
 			assetAmountLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 170),
-			assetAmountInDollorLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80),
-			assetVolatilityLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 80),
 			assetAmountInDollorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
 			assetVolatilityLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 18),
 			assetTitleLabelHeightconstraint,
 			assetAmountLabelHeightConstraint,
 		])
+
+		assetAmountInDollorLabel.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
+		assetVolatilityLabel.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
 	}
 
 	private func toggleIsLoadingStyles() {

@@ -58,10 +58,10 @@ class PinoProgressView: UIView {
 
 	private func setupStyles() {
 		progressContainerView.layer.cornerRadius = 2
-		progressContainerView.backgroundColor = .Pino.gray4
+		progressContainerView.backgroundColor = progressBarVM.customContainerColor ?? .Pino.gray4
 
 		progressBarView.layer.cornerRadius = 2
-		progressBarView.backgroundColor = .Pino.primary
+		progressBarView.backgroundColor = progressBarVM.customFillColor ?? .Pino.primary
 	}
 
 	private func setupConstraints() {

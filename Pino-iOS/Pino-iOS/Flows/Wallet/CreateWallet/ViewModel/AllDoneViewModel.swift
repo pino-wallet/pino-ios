@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import PromiseKit
 
 class AllDoneViewModel {
 	// MARK: Public Properties
@@ -46,52 +47,48 @@ class AllDoneViewModel {
 	// MARK: - Public Methods
 
 	public func importSelectedAccounts(
-		selectedAccounts: [ActiveAccountViewModel],
-		completion: @escaping (WalletOperationError?) -> Void
-	) {
-		createInitialWalletsInCoreData { wallet in
-			do {
-				try pinoWalletManager.createHDWalletWith(mnemonics: mnemonics, for: selectedAccounts)
-				for account in selectedAccounts {
-					coreDataManager.createWalletAccount(
-						address: account.address,
-						publicKey: account.publicKey,
-						name: account.name,
-						avatarIcon: account.profileImage,
-						avatarColor: account.profileColor,
-						wallet: wallet
-					)
-				}
-				let createdAccounts = coreDataManager.getAllWalletAccounts()
-				coreDataManager.updateSelectedWalletAccount(createdAccounts.first!)
-				completion(nil)
-			} catch {
-				completion(.wallet(.importAccountFailed))
+		selectedAccounts: [ActiveAccountViewModel]
+	) -> Promise<Void> {
+		let coreDataManager = CoreDataManager()
+
+		return firstly {
+			createInitialWalletsInCoreData()
+		}.then { [self] createdWallet in
+			pinoWalletManager.createHDWalletWith(mnemonics: mnemonics, for: selectedAccounts).map { createdWallet }
+		}.done { createdWallet in
+			for account in selectedAccounts {
+				coreDataManager.createWalletAccount(
+					address: account.address,
+					publicKey: account.publicKey,
+					name: account.name,
+					avatarIcon: account.profileImage,
+					avatarColor: account.profileColor,
+					wallet: createdWallet
+				)
 			}
+			let createdAccounts = coreDataManager.getAllWalletAccounts()
+			coreDataManager.updateSelectedWalletAccount(createdAccounts.first!)
 		}
 	}
 
-	public func createWallet(mnemonics: String, walletCreated: @escaping (WalletOperationError?) -> Void) {
-		isNetConnected().sink { _ in } receiveValue: { [self] isConnected in
-			if isConnected {
-				let initalAccount = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-				switch initalAccount {
-				case let .success(account):
-					accActivationVM.activateNewAccountAddress(account).done { accountId in
-						self.createInitialWalletsInCoreData { createdWallet in
-							self.createInitalAddressInCoreDataIn(wallet: createdWallet, account: account)
-							walletCreated(nil)
-						}
-					}.catch { error in
-						walletCreated(.wallet(.accountActivationFailed(error)))
-					}
-				case let .failure(failure):
-					walletCreated(.wallet(.accountActivationFailed(failure)))
+	public func createWallet(mnemonics: String) -> Promise<Void> {
+		Promise<Void> { seal in
+			isNetConnected().filter { $0 }.sink { _ in } receiveValue: { [self] isConnected in
+				firstly {
+					pinoWalletManager.createHDWallet(mnemonics: mnemonics)
+				}.then { initialAccount in
+					self.accActivationVM.activateNewAccountAddress(initialAccount).map { ($0, initialAccount) }
+				}.then { activatedAccount, initialAccount in
+					self.createInitialWalletsInCoreData().map { ($0, initialAccount) }
+				}.done { createdWallet, initialAccount in
+					self.createInitalAddressInCoreDataIn(wallet: createdWallet, account: initialAccount)
+					seal.fulfill(())
+				}.catch { error in
+					seal.reject(error)
+					self.coreDataManager.deleteAllWalletAccounts()
 				}
-			} else {
-				walletCreated(.wallet(.netwrokError))
-			}
-		}.store(in: &cancellables)
+			}.store(in: &cancellables)
+		}
 	}
 
 	// MARK: - Private Methods
@@ -113,10 +110,12 @@ class AllDoneViewModel {
 		)
 	}
 
-	private func createInitialWalletsInCoreData(completion: (Wallet) -> Void) {
-		let coreDataManager = CoreDataManager()
-		let hdWallet = coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
-		coreDataManager.createWallet(type: .nonHDWallet)
-		completion(hdWallet)
+	private func createInitialWalletsInCoreData() -> Promise<Wallet> {
+		Promise<Wallet> { seal in
+			let coreDataManager = CoreDataManager()
+			let hdWallet = coreDataManager.createWallet(type: .hdWallet, lastDrivedIndex: 0)
+			coreDataManager.createWallet(type: .nonHDWallet)
+			seal.fulfill(hdWallet)
+		}
 	}
 }

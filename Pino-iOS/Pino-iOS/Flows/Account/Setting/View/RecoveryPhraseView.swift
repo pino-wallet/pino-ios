@@ -22,7 +22,6 @@ class RecoveryPhraseView: UIView {
 	private let copySeedPhraseButton = UIButton()
 	private let warningCardView = UIView()
 	private let warningStackView = UIStackView()
-	private let warningTitleLabel = PinoLabel(style: .description, text: nil)
 	private let warningDescriptionLabel = PinoLabel(style: .description, text: nil)
 	private var copySecretPhraseTapped: () -> Void
 	private var secretPhraseVM: RecoveryPhraseViewModel
@@ -62,7 +61,6 @@ class RecoveryPhraseView: UIView {
 		seedPhraseView.addSubview(revealLabel)
 		seedPhraseStackView.addArrangedSubview(seedPhraseCollectionView)
 		seedPhraseStackView.addArrangedSubview(copySeedPhraseButton)
-		warningStackView.addArrangedSubview(warningTitleLabel)
 		warningStackView.addArrangedSubview(warningDescriptionLabel)
 		warningCardView.addSubview(warningStackView)
 		addSubview(contentStackView)
@@ -80,7 +78,6 @@ class RecoveryPhraseView: UIView {
 		titleLabel.text = secretPhraseVM.title
 		descriptionLabel.text = secretPhraseVM.description
 		copySeedPhraseButton.setTitle(secretPhraseVM.copyButtonTitle, for: .normal)
-		warningTitleLabel.text = secretPhraseVM.warningTitle
 		warningDescriptionLabel.text = secretPhraseVM.warningDescription
 		revealLabel.text = secretPhraseVM.revealButtonTitle
 
@@ -94,16 +91,13 @@ class RecoveryPhraseView: UIView {
 
 		copySeedPhraseButton.setTitleColor(.Pino.primary, for: .normal)
 		copySeedPhraseButton.imageView?.tintColor = .Pino.primary
-		warningTitleLabel.textColor = .Pino.red
 		warningDescriptionLabel.textColor = .Pino.red
 
 		titleLabel.font = .PinoStyle.mediumTitle2
-		warningDescriptionLabel.font = .PinoStyle.regularCallout
+		warningDescriptionLabel.font = .PinoStyle.mediumCallout
 
-		warningTitleLabel.numberOfLines = 0
 		warningDescriptionLabel.numberOfLines = 0
 
-		warningTitleLabel.textAlignment = .center
 		warningDescriptionLabel.textAlignment = .center
 
 		contentStackView.axis = .vertical

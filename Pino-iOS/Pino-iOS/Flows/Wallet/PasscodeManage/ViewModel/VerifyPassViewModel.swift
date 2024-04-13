@@ -10,9 +10,9 @@ import Foundation
 struct VerifyPassViewModel: PasscodeManagerPages {
 	// MARK: Public Properties
 
-	public let title = "Retype passcode"
+	public let title = "Confirm PIN"
 	public let description: String? =
-		"This passcode is for maximizing wallet security. It cannot be used to recover it."
+		"Set a PIN to enhance your wallet security."
 	public let errorTitle = "Incorrect, try again!"
 	public var passcode: String? = ""
 	public var finishPassCreation: () -> Void

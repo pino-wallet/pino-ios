@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "bordered_green_alert.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

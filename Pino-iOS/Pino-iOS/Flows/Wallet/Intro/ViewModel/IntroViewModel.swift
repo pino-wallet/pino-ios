@@ -34,12 +34,12 @@ class IntroViewModel {
 			IntroModel(
 				image: "intro-exp",
 				title: "A Gateway to DeFi Efficiency",
-				description: "Interact with top DeFi protocols through app-native, intuitive interfaces."
+				description: "Interact with top DeFi protocols through simple, app-native interfaces."
 			),
 			IntroModel(
 				image: "intro-exp",
 				title: "Unified experience",
-				description: "Interact with top DeFi protocols through app-native, intuitive interfaces."
+				description: "Interact with top DeFi protocols through simple, app-native interfaces."
 			),
 			IntroModel(
 				image: "intro-metrics",

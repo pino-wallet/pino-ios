@@ -58,12 +58,6 @@ class SyncWalletView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View Overrides
-
-	override func removeFromSuperview() {
-		titleAnimationView.animation = nil
-	}
-
 	// MARK: - Private Methods
 
 	private func setupView() {
@@ -140,12 +134,15 @@ class SyncWalletView: UIView {
 			case .finished:
 				titleLabel.text = syncWalletVM.titleFinishedText
 				descriptionLabel.text = syncWalletVM.descriptionFinishedText
+				descriptionLabel.textAlignment = .center
 				exploreButton.style = .active
 				exploreTitleLabel.isHidden = true
 				exploreButton.title = syncWalletVM.explorePinoFinishedBtnText
+				titleAnimationView.loopMode = .playOnce
 			case .syncing:
 				titleLabel.text = syncWalletVM.titleText
 				descriptionLabel.text = syncWalletVM.descriptionText
+				descriptionLabel.textAlignment = .center
 				exploreButton.style = .secondary
 				exploreTitleLabel.isHidden = false
 				exploreTitleLabel.text = syncWalletVM.exploreTitleText
@@ -169,5 +166,9 @@ class SyncWalletView: UIView {
 
 	public func animateLoading() {
 		progressView.start()
+	}
+
+	public func clearAnimationCache() {
+		titleAnimationView.animation = nil
 	}
 }

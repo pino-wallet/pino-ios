@@ -48,10 +48,12 @@ class TitleWithInfo: UIButton {
 				infoActionSheetIcon.isHidden = false
 				customConfiguration.image = UIImage(named: "alert")
 				configuration = customConfiguration
+				isUserInteractionEnabled = true
 			} else {
 				infoActionSheetIcon.isHidden = true
 				customConfiguration.image = nil
 				configuration = customConfiguration
+				isUserInteractionEnabled = false
 			}
 		}
 	}

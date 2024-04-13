@@ -26,7 +26,8 @@ class ImportAccountsViewModel {
 
 	public let pageTitle = "Import account"
 	public let signDescriptionText =
-		"By tapping continue, you sign an off-chain message that activates the selected account in Pino."
+		"By tapping on Continue, you sign an off-chain message that actives the selected account(s) in Pino."
+	public let signDecriptionBoldText = "Continue"
 	public let continueButtonText = "Continue"
 	public var pageDescription: String {
 		if accounts.first(where: { $0.isNewWallet }) != nil {
@@ -72,16 +73,15 @@ class ImportAccountsViewModel {
 		Promise<HDWallet> { seal in
 			internetConnectivity.$isConnected.tryCompactMap { $0 }.sink { _ in } receiveValue: { [self] isConnected in
 				if isConnected {
-					let hdWallet = pinoWalletManager.createHDWallet(mnemonics: mnemonics)
-					switch hdWallet {
-					case let .success(hdWallet):
+					pinoWalletManager.createHDWallet(mnemonics: mnemonics).done { hdWallet in
 						seal.fulfill(hdWallet)
-					case let .failure(error):
+					}.catch { error in
 						seal.reject(error)
 					}
 				} else {
-					seal.reject(WalletOperationError.wallet(.netwrokError))
+					seal.reject(APIError.networkConnection)
 				}
+
 			}.store(in: &cancellables)
 		}
 	}

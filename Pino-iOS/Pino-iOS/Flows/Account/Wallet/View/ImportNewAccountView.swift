@@ -26,7 +26,7 @@ class ImportNewAccountView: UIView {
 	private let importTextViewDescription = UILabel()
 	private let importButtonStackView = UIStackView()
 	private let importButton = PinoButton(style: .deactive)
-	private let pageDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private let pageDescriptionLabel = UILabel()
 	private let importAccountVM: ImportNewAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
 
@@ -108,7 +108,9 @@ class ImportNewAccountView: UIView {
 		accountNameTextField.text = importAccountVM.accountName
 		accountNameTextField.placeholderText = importAccountVM.accountNamePlaceHolder
 		importTextViewDescription.text = importAccountVM.textViewDescription
-		pageDescriptionLabel.text = importAccountVM.pageDeescription
+		pageDescriptionLabel.setFootnoteText(
+			wholeString: importAccountVM.signDescriptionText, boldString: importAccountVM.signDescriptionBoldText
+		)
 		importButton.title = importAccountVM.continueButtonTitle
 		privateKeyPasteButton.setTitle(importAccountVM.pasteButtonTitle, for: .normal)
 
@@ -122,9 +124,6 @@ class ImportNewAccountView: UIView {
 		setAvatarButton.font = .PinoStyle.mediumBody
 		importTextViewDescription.font = .PinoStyle.mediumCaption1
 		privateKeyPasteButton.titleLabel?.font = .PinoStyle.semiboldCallout
-		pageDescriptionLabel.font = .PinoStyle.mediumFootnote
-
-		pageDescriptionLabel.textAlignment = .center
 
 		contentStackView.axis = .horizontal
 		accountInfoStackView.axis = .vertical
@@ -265,9 +264,11 @@ class ImportNewAccountView: UIView {
 		accountNameValidationStatus: AccountNameValidationStatus
 	) {
 		if privateKeyValidationStatus == .invalidKey {
-			importButton.setTitle(importAccountVM.invalidPrivateKeyTitle, for: .normal)
-		} else if accountNameValidationStatus == .duplicateName || accountNameValidationStatus == .isEmpty {
-			importButton.setTitle(importAccountVM.invalidNameTitle, for: .normal)
+			importButton.setTitle(ImportWalletError.invalidPrivateKey.btnErrorTxt, for: .normal)
+		} else if accountNameValidationStatus == .duplicateName {
+			importButton.setTitle(ImportWalletError.duplicateAccountName.btnErrorTxt, for: .normal)
+		} else if accountNameValidationStatus == .isEmpty {
+			importButton.setTitle(ImportWalletError.emptyAccountName.btnErrorTxt, for: .normal)
 		} else {
 			importButton.setTitle(importAccountVM.continueButtonTitle, for: .normal)
 		}

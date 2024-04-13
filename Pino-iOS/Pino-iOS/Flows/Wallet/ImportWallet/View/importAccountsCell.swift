@@ -59,7 +59,7 @@ public class ImportAccountCell: UICollectionViewCell {
 	private func setupStyle() {
 		accountName.text = accountVM.name
 		accountBalance.text = accountVM.balance.sevenDigitFormat.ethFormatting
-		accountAddress.text = accountVM.address.shortenedString(characterCountFromStart: 4, characterCountFromEnd: 4)
+		accountAddress.text = accountVM.address.addressFormating()
 		accountIcon.image = UIImage(named: accountVM.profileImage)
 		newAccountTagLabel.text = "New"
 

@@ -27,6 +27,10 @@ final class InvestmentAPIClient: InvestmentAPIService {
 		networkManager.request(.investment(accountAddress: currentAccountAddress))
 	}
 
+	func investOverallPortfolio() -> AnyPublisher<[ChartDataModel], APIError> {
+		networkManager.request(.investOverallPortfolio(accountAddress: currentAccountAddress))
+	}
+
 	func investPortfolio(timeFrame: String) -> AnyPublisher<[ChartDataModel], APIError> {
 		networkManager.request(.investPortfolio(timeFrame: timeFrame, accountAddress: currentAccountAddress))
 	}

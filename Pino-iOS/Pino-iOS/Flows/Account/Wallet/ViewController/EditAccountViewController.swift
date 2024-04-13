@@ -14,7 +14,6 @@ class EditAccountViewController: UIViewController {
 	private let accountsVM: AccountsViewModel
 	private let editAccountVM: EditAccountViewModel
 	private var cancellables = Set<AnyCancellable>()
-
 	private var editAccountView: EditAccountView!
 
 	// MARK: Initializers
@@ -108,7 +107,9 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func removeAccount() {
-		accountsVM.removeAccount(editAccountVM.selectedAccount)
+		accountsVM.removeAccount(editAccountVM.selectedAccount).catch { error in
+			self.showErrorToast(error)
+		}
 		navigationController!.popViewController(animated: true)
 	}
 
@@ -136,5 +137,11 @@ class EditAccountViewController: UIViewController {
 	private func editAccountAvatar(newAvatar: String) {
 		let edittedAccount = accountsVM.editAccount(account: editAccountVM.selectedAccount, newAvatar: newAvatar)
 		editAccountVM.selectedAccount = edittedAccount
+	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? ToastError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
 	}
 }

@@ -8,6 +8,7 @@
 import BigInt
 import Combine
 import Foundation
+import PromiseKit
 
 class InvestDepositViewModel: InvestViewModelProtocol {
 	// MARK: - Private Properties
@@ -25,7 +26,7 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 	public var selectedProtocol: InvestProtocolViewModel
 	public var continueButtonTitle = "Deposit"
 	public var pageTitle: String {
-		"Invest in \(selectedToken.symbol)"
+		"Deposit in \(selectedProtocol.name)"
 	}
 
 	public var positionErrorText: String {
@@ -103,20 +104,28 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		}
 	}
 
-	// MARK: - Private Methods
-
-	private func getToken(investableAsset: AssetsBoardProtocol) {
-		let tokensList = GlobalVariables.shared.manageAssetsList!
-		selectedToken = tokensList.first(where: { $0.id.lowercased() == investableAsset.assetId.lowercased() })!
-		maxAvailableAmount = selectedToken.holdAmount
-		getTokenPositionID { [self] positionId in
-			let tokenPosition = tokensList.first(where: { $0.id == positionId })!
+	public func checkOpenPosition() -> Promise<Void> {
+		getTokenPositionID().done { [self] positionId in
+			let tokensList = GlobalVariables.shared.manageAssetsList!
+			let tokenPosition = tokensList.first(where: { $0.id.lowercased() == positionId.lowercased() })!
 			if investmentType == .create, tokenPosition.holdAmount > 0.bigNumber {
 				hasOpenPosition = true
 			} else {
 				hasOpenPosition = false
 			}
 		}
+	}
+
+	public func getTokenAddress() -> Promise<String> {
+		Promise.value(selectedToken.id.lowercased())
+	}
+
+	// MARK: - Private Methods
+
+	private func getToken(investableAsset: AssetsBoardProtocol) {
+		let tokensList = GlobalVariables.shared.manageAssetsList!
+		selectedToken = tokensList.first(where: { $0.id.lowercased() == investableAsset.assetId.lowercased() })!
+		maxAvailableAmount = selectedToken.holdAmount
 	}
 
 	private func getYearlyEstimatedReturn(amountInDollar: BigNumber?) {
@@ -128,21 +137,24 @@ class InvestDepositViewModel: InvestViewModelProtocol {
 		}
 	}
 
-	private func getTokenPositionID(completion: @escaping (String) -> Void) {
-		let w3APIClient = Web3APIClient()
-		w3APIClient.getTokenPositionID(
-			tokenAdd: selectedToken.id.lowercased(),
-			positionType: .investment,
-			protocolName: selectedProtocol.rawValue
-		).sink { completed in
-			switch completed {
-			case .finished:
-				print("Position id received successfully")
-			case let .failure(error):
-				print("Error getting position id:\(error)")
-			}
-		} receiveValue: { tokenPositionModel in
-			completion(tokenPositionModel.positionID.lowercased())
-		}.store(in: &cancellables)
+	private func getTokenPositionID() -> Promise<String> {
+		Promise<String> { seal in
+			let w3APIClient = Web3APIClient()
+			w3APIClient.getTokenPositionID(
+				tokenAdd: selectedToken.id.lowercased(),
+				positionType: .investment,
+				protocolName: selectedProtocol.rawValue
+			).sink { completed in
+				switch completed {
+				case .finished:
+					print("Position id received successfully")
+				case let .failure(error):
+					print("Error: getting position id: \(error)")
+					seal.reject(error)
+				}
+			} receiveValue: { tokenPositionModel in
+				seal.fulfill(tokenPositionModel.positionID.lowercased())
+			}.store(in: &cancellables)
+		}
 	}
 }

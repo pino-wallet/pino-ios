@@ -14,9 +14,9 @@ class SyncWalletViewModel {
 	public let titleAnimationName = "SyncWallet"
 	public let titleText = "Synchronizing..."
 	public let titleFinishedText = "Synced successfully!"
-	public let descriptionText = "We are syncing your wallet data. This may take a few minutes."
+	public let descriptionText = "We are syncing your wallet data. This may take a while."
 	public let descriptionFinishedText = "Your wallet is now set up and ready to use in the DeFi world."
-	public let exploreTitleText = "Do you want to explore Pino in the meantime?"
+	public let exploreTitleText = "Wanna see Pino’s features in the meantime?"
 	public let explorePinoBtnText = "OK, let’s go!"
 	public let explorePinoFinishedBtnText = "OK, let’s go!"
 	public var loadingTime: TimeInterval = 15

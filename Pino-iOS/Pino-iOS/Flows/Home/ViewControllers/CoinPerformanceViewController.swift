@@ -55,7 +55,7 @@ class CoinPerformanceViewController: UIViewController {
 		navigationController?.navigationBar.backgroundColor = .Pino.primary
 		navigationController?.navigationBar.tintColor = .Pino.white
 		// Setup title view
-		setNavigationTitle("Coin performance")
+		setNavigationTitle(coinPerformanceVM.navigationTitle)
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "multiply"),
 			style: .plain,
@@ -76,7 +76,7 @@ class CoinPerformanceViewController: UIViewController {
 	}
 
 	private func showErrorToast(_ error: Error) {
-		guard let error = error as? APIError else { return }
+		guard let error = error as? ToastError else { return }
 		Toast.default(title: error.toastMessage, style: .error).show(haptic: .warning)
 	}
 }

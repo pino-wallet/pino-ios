@@ -35,8 +35,8 @@ extension UIAlertAction {
 		UIAlertAction(title: "Cancel", style: .cancel, handler: handler)
 	}
 
-	static func delete(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
-		UIAlertAction(title: "Delete", style: .destructive, handler: handler)
+	static func remove(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+		UIAlertAction(title: "Remove", style: .destructive, handler: handler)
 	}
 
 	static func allow(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {

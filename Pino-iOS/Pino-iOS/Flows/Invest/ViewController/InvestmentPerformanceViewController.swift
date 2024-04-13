@@ -33,7 +33,9 @@ class InvestmentPerformanceViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if SyncWalletViewModel.isSyncFinished {
-			investmentPerformaneVM.getInvestPerformanceData()
+			investmentPerformaneVM.getInvestPerformanceData().catch { error in
+				self.showErrorToast(error)
+			}
 		} else {
 			showSkeletonLoading()
 		}
@@ -89,10 +91,18 @@ class InvestmentPerformanceViewController: UIViewController {
 	private func showSkeletonLoading() {
 		view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
 	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? ToastError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
+	}
 }
 
 extension InvestmentPerformanceViewController: LineChartDateFilterDelegate {
 	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
-		investmentPerformaneVM.getChartData(dateFilter: dateFilter)
+		investmentPerformaneVM.getChartData(dateFilter: dateFilter).catch { error in
+			self.showErrorToast(error)
+		}
 	}
 }

@@ -16,11 +16,10 @@ class EditAccountViewModel {
 	@Published
 	public var isLastAccount = false
 
-	public let pageTitle = "Edit account"
+	public let pageTitle = "Edit wallet"
 	public let changeAvatarTitle = "Set new avatar"
 	public let doneButtonText = "Done"
-	public let removeAccountButtonText = "Remove account"
-	public let removeAccountButtonTitle = "Remove account"
+	public let removeAccountButtonTitle = "Remove wallet"
 
 	public let editAccountOptions = [
 		EditAccountOptionModel(title: "Wallet name", type: .name, rightIconName: "chevron_right"),

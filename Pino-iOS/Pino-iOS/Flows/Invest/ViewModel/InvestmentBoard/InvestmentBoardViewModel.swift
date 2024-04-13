@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import PromiseKit
 
 class InvestmentBoardViewModel: InvestFilterDelegate {
 	// MARK: - Private Properties
@@ -66,25 +67,29 @@ class InvestmentBoardViewModel: InvestFilterDelegate {
 
 	// MARK: - Public Methods
 
-	public func getInvestableAssets() {
-		investmentAPIClient.investableAssets().sink { completed in
-			switch completed {
-			case .finished:
-				print("Investable assets received successfully")
-			case let .failure(error):
-				print("Error getting investable assets:\(error)")
-			}
-		} receiveValue: { investableAssetsModel in
-			let investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
-			self.investableAssets = investableAssets
-			self.filteredAssets = investableAssets.filter { asset in
-				if self.userInvestments.contains(where: { $0.listId.lowercased() == asset.id.lowercased() }) {
-					return false
-				} else {
-					return true
+	public func getInvestableAssets() -> Promise<Void> {
+		Promise<Void> { seal in
+			investmentAPIClient.investableAssets().sink { completed in
+				switch completed {
+				case .finished:
+					print("Investable assets received successfully")
+				case let .failure(error):
+					print("Error: getting investable assets: \(error)")
+					seal.reject(error)
 				}
-			}
-		}.store(in: &cancellables)
+			} receiveValue: { investableAssetsModel in
+				let investableAssets = investableAssetsModel.compactMap { InvestableAssetViewModel(assetModel: $0) }
+				self.investableAssets = investableAssets
+				self.filteredAssets = investableAssets.filter { asset in
+					if self.userInvestments.contains(where: { $0.listId.lowercased() == asset.id.lowercased() }) {
+						return false
+					} else {
+						return true
+					}
+				}
+				seal.fulfill(())
+			}.store(in: &cancellables)
+		}
 	}
 
 	public func getApy(of selectedAsset: InvestAssetViewModel) -> BigNumber {

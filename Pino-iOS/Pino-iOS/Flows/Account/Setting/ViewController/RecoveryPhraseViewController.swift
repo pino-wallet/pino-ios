@@ -51,7 +51,7 @@ class RecoveryPhraseViewController: UIViewController {
 
 	private func setupNavigationBar() {
 		// Setup title view
-		setNavigationTitle("Recovery phrase")
+		setNavigationTitle("Your secret phrase")
 	}
 
 	private func setupNotifications() {

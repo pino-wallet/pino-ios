@@ -63,7 +63,9 @@ public class PinoButton: UIButton {
 	// MARK: - Private methods
 
 	private func setupConstraints() {
-		pin(.fixedHeight(56))
+		let constraint = heightAnchor.constraint(equalToConstant: 56)
+		constraint.priority = UILayoutPriority(999)
+		constraint.isActive = true
 	}
 
 	private func updateStyle() {

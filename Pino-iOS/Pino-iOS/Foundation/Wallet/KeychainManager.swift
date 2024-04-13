@@ -42,19 +42,14 @@ enum KeychainManager: String {
 
 	private func setValue(value: Data, key: String) -> WalletOperationError? {
 		let keychainHelper = KeychainSwift()
-		if getValueWith(key: key) != nil {
-			// Value already exists
+		if keychainHelper.set(value, forKey: key) {
 			return nil
 		} else {
-			if keychainHelper.set(value, forKey: key) {
-				return nil
-			} else {
-				switch self {
-				case .mnemonics:
-					return .keyManager(.mnemonicsStorageFailed)
-				case .privateKey:
-					return .keyManager(.privateKeyStorageFailed)
-				}
+			switch self {
+			case .mnemonics:
+				return .keyManager(.mnemonicsStorageFailed)
+			case .privateKey:
+				return .keyManager(.privateKeyStorageFailed)
 			}
 		}
 	}

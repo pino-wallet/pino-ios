@@ -351,7 +351,9 @@
 		D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */; };
 		D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */; };
 		D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */; };
+		D944F3782BC1524700920377 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944F3772BC1524700920377 /* UILabel+Extension.swift */; };
 		D9451BB62B9E19A7001A80FF /* FindingAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = D9451BB52B9E19A7001A80FF /* FindingAccount.json */; };
+		D94A45192BC2C1F00070F0AF /* GlobalActionSheetTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */; };
 		D94A9A1D29FE4C6700DCA28D /* EditAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */; };
 		D94A9A2029FE6C4E00DCA28D /* EditAccountNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */; };
 		D94A9A2229FE6CDA00DCA28D /* EditAccountNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */; };
@@ -465,6 +467,12 @@
 		D9A642CA2AFA235E00FDE11D /* ActivityInvestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */; };
 		D9A642CC2AFA254200FDE11D /* ActivityWithdrawModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */; };
 		D9A66C0B2B5BCAC200875A88 /* PositionAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A66C0A2B5BCAC200875A88 /* PositionAssetModel.swift */; };
+		D9A7C1F32BC7DC490002D74A /* BorrowEnsureLoanSafety.json in Resources */ = {isa = PBXBuildFile; fileRef = D9A7C1ED2BC7DC480002D74A /* BorrowEnsureLoanSafety.json */; };
+		D9A7C1F42BC7DC490002D74A /* InvestSimpleYieldEarning.json in Resources */ = {isa = PBXBuildFile; fileRef = D9A7C1EE2BC7DC480002D74A /* InvestSimpleYieldEarning.json */; };
+		D9A7C1F52BC7DC490002D74A /* SwapEasyAssetConversion.json in Resources */ = {isa = PBXBuildFile; fileRef = D9A7C1EF2BC7DC480002D74A /* SwapEasyAssetConversion.json */; };
+		D9A7C1F62BC7DC490002D74A /* InvestEasyProfitTracking.json in Resources */ = {isa = PBXBuildFile; fileRef = D9A7C1F02BC7DC480002D74A /* InvestEasyProfitTracking.json */; };
+		D9A7C1F72BC7DC490002D74A /* BorrowLoansMadeEasy.json in Resources */ = {isa = PBXBuildFile; fileRef = D9A7C1F12BC7DC490002D74A /* BorrowLoansMadeEasy.json */; };
+		D9A7C1F82BC7DC490002D74A /* SwapSaveOnSwaps.json in Resources */ = {isa = PBXBuildFile; fileRef = D9A7C1F22BC7DC490002D74A /* SwapSaveOnSwaps.json */; };
 		D9A8E1CA2B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */; };
 		D9A936C92ACD60CD00C3449E /* ApprovingLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */; };
 		D9AABE112A7D6B410025463E /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AABE102A7D6B410025463E /* ActivityDataSource.swift */; };
@@ -642,17 +650,12 @@
 		DFB2A6552B2049D300635F78 /* SwapFeeInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB2A6542B2049D300635F78 /* SwapFeeInfoSheet.swift */; };
 		DFB566272A1926C600F9D6A0 /* ImportTextViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */; };
 		DFB566292A192CD600F9D6A0 /* WalletManagementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */; };
-		DFB60DA92B1B3F9D00464143 /* BorrowEnsureLoanSafety.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */; };
-		DFB60DAA2B1B3F9D00464143 /* SwapEasyAssetConversion.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */; };
-		DFB60DAB2B1B3F9D00464143 /* InvestEasyProfitTracking.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */; };
-		DFB60DAC2B1B3F9D00464143 /* BorrowLoansMadeEasy.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */; };
-		DFB60DAD2B1B3F9D00464143 /* SwapSaveOnSwaps.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA72B1B3F9D00464143 /* SwapSaveOnSwaps.json */; };
-		DFB60DAE2B1B3F9D00464143 /* InvestSimpleYieldEarning.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB60DA82B1B3F9D00464143 /* InvestSimpleYieldEarning.json */; };
 		DFBDA00B2AB0CDA700ED42D6 /* SwapABIJson.json in Resources */ = {isa = PBXBuildFile; fileRef = DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */; };
 		DFC1F6A12A755620003DB68A /* SwapProvidersAPIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */; };
 		DFC1F6A72A755F55003DB68A /* ParaSwapPriceResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */; };
 		DFC1F6A92A755F7B003DB68A /* SwapPriceRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC1F6A82A755F7B003DB68A /* SwapPriceRequestModel.swift */; };
 		DFC4D03A2A360D8300F03DC4 /* Web3Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC4D0392A360D8300F03DC4 /* Web3Core.swift */; };
+		DFC83C702BC80D2D00B48766 /* ToastError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC83C6F2BC80D2D00B48766 /* ToastError.swift */; };
 		DFCAAD3A2A62DA8000D8BB8D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */; };
 		DFCB13942B09DCB800EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB137E2B09DCB700EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift */; };
 		DFCB13952B09DCB800EEFD0F /* CDRepayActivity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCB137F2B09DCB700EEFD0F /* CDRepayActivity+CoreDataProperties.swift */; };
@@ -1298,7 +1301,9 @@
 		D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCell.swift; sourceTree = "<group>"; };
 		D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewModel.swift; sourceTree = "<group>"; };
 		D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionModel.swift; sourceTree = "<group>"; };
+		D944F3772BC1524700920377 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		D9451BB52B9E19A7001A80FF /* FindingAccount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FindingAccount.json; sourceTree = "<group>"; };
+		D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalActionSheetTexts.swift; sourceTree = "<group>"; };
 		D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountView.swift; sourceTree = "<group>"; };
 		D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameViewController.swift; sourceTree = "<group>"; };
 		D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountNameView.swift; sourceTree = "<group>"; };
@@ -1410,6 +1415,12 @@
 		D9A642C92AFA235E00FDE11D /* ActivityInvestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityInvestModel.swift; sourceTree = "<group>"; };
 		D9A642CB2AFA254200FDE11D /* ActivityWithdrawModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityWithdrawModel.swift; sourceTree = "<group>"; };
 		D9A66C0A2B5BCAC200875A88 /* PositionAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionAssetModel.swift; sourceTree = "<group>"; };
+		D9A7C1ED2BC7DC480002D74A /* BorrowEnsureLoanSafety.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowEnsureLoanSafety.json; sourceTree = "<group>"; };
+		D9A7C1EE2BC7DC480002D74A /* InvestSimpleYieldEarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestSimpleYieldEarning.json; sourceTree = "<group>"; };
+		D9A7C1EF2BC7DC480002D74A /* SwapEasyAssetConversion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SwapEasyAssetConversion.json; sourceTree = "<group>"; };
+		D9A7C1F02BC7DC480002D74A /* InvestEasyProfitTracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestEasyProfitTracking.json; sourceTree = "<group>"; };
+		D9A7C1F12BC7DC490002D74A /* BorrowLoansMadeEasy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowLoansMadeEasy.json; sourceTree = "<group>"; };
+		D9A7C1F22BC7DC490002D74A /* SwapSaveOnSwaps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SwapSaveOnSwaps.json; sourceTree = "<group>"; };
 		D9A8E1C92B440CCA00B78252 /* ActivateAccountWithInviteCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivateAccountWithInviteCodeModel.swift; sourceTree = "<group>"; };
 		D9A936C82ACD60CD00C3449E /* ApprovingLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewModel.swift; sourceTree = "<group>"; };
 		D9AABE102A7D6B410025463E /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
@@ -1564,12 +1575,6 @@
 		DFB2C343099A9B87E6C231F0 /* StubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubManager.swift; sourceTree = "<group>"; };
 		DFB566262A1926C600F9D6A0 /* ImportTextViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTextViewType.swift; sourceTree = "<group>"; };
 		DFB566282A192CD600F9D6A0 /* WalletManagementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManagementType.swift; sourceTree = "<group>"; };
-		DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowEnsureLoanSafety.json; sourceTree = "<group>"; };
-		DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SwapEasyAssetConversion.json; sourceTree = "<group>"; };
-		DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestEasyProfitTracking.json; sourceTree = "<group>"; };
-		DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BorrowLoansMadeEasy.json; sourceTree = "<group>"; };
-		DFB60DA72B1B3F9D00464143 /* SwapSaveOnSwaps.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SwapSaveOnSwaps.json; sourceTree = "<group>"; };
-		DFB60DA82B1B3F9D00464143 /* InvestSimpleYieldEarning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = InvestSimpleYieldEarning.json; sourceTree = "<group>"; };
 		DFBDA00A2AB0CDA700ED42D6 /* SwapABIJson.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SwapABIJson.json; sourceTree = "<group>"; };
 		DFC1F6A02A75561F003DB68A /* SwapProvidersAPIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwapProvidersAPIServices.swift; sourceTree = "<group>"; };
 		DFC1F6A62A755F55003DB68A /* ParaSwapPriceResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapPriceResponseModel.swift; sourceTree = "<group>"; };
@@ -1577,6 +1582,7 @@
 		DFC1F6AD2A756123003DB68A /* ParaSwapAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapAPIClient.swift; sourceTree = "<group>"; };
 		DFC1F6AE2A75615D003DB68A /* ParaSwapEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaSwapEndpoint.swift; sourceTree = "<group>"; };
 		DFC4D0392A360D8300F03DC4 /* Web3Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Core.swift; sourceTree = "<group>"; };
+		DFC83C6F2BC80D2D00B48766 /* ToastError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastError.swift; sourceTree = "<group>"; };
 		DFCAAD392A62DA8000D8BB8D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DFCB137E2B09DCB700EEFD0F /* CDApproveActivityDetails+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDApproveActivityDetails+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DFCB137F2B09DCB700EEFD0F /* CDRepayActivity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDRepayActivity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -2507,6 +2513,7 @@
 				D9771DE22A80DE380047605E /* UITabBarController+Extension.swift */,
 				DF14FCA22A910B78005221A8 /* PromiseKit+Extension.swift */,
 				E39F59492A99DF9B00023292 /* UITextField+Extension.swift */,
+				D944F3772BC1524700920377 /* UILabel+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3294,6 +3301,7 @@
 				D970C0DF2A74EA80005A7FAC /* GlobalToastTitles.swift */,
 				D96833F62B52BA2900521772 /* GlobalZeroAmounts.swift */,
 				40B1BCBF2BB4390B00F89CCA /* GlobalUserDefaultsKeys.swift */,
+				D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */,
 			);
 			path = "Global enums";
 			sourceTree = "<group>";
@@ -3930,7 +3938,6 @@
 				DF00178429EC37AF001164EA /* PinoWalletCore.swift */,
 				DF00179029F856D5001164EA /* PinoHDWallet.swift */,
 				DF00179229F85727001164EA /* PinoNonHDWallet.swift */,
-				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
 				DF00178C29F855DF001164EA /* WalletValidator.swift */,
 				DF00179429F85774001164EA /* KeychainManager.swift */,
 				DF00178E29F8567C001164EA /* Account.swift */,
@@ -4060,15 +4067,15 @@
 			isa = PBXGroup;
 			children = (
 				D95B5BBE2BA8642D00DA416B /* AllDoneAnimation.json */,
+				D9A7C1ED2BC7DC480002D74A /* BorrowEnsureLoanSafety.json */,
+				D9A7C1F12BC7DC490002D74A /* BorrowLoansMadeEasy.json */,
+				D9A7C1F02BC7DC480002D74A /* InvestEasyProfitTracking.json */,
+				D9A7C1EE2BC7DC480002D74A /* InvestSimpleYieldEarning.json */,
+				D9A7C1EF2BC7DC480002D74A /* SwapEasyAssetConversion.json */,
+				D9A7C1F22BC7DC490002D74A /* SwapSaveOnSwaps.json */,
 				DF62CEC42B282BB000AA6D41 /* IntroAnimation.json */,
-				DFB60DA62B1B3F9D00464143 /* BorrowLoansMadeEasy.json */,
-				DFB60DA32B1B3F9D00464143 /* BorrowEnsureLoanSafety.json */,
-				DFB60DA52B1B3F9D00464143 /* InvestEasyProfitTracking.json */,
 				D9CF62142B45713500562BA2 /* InviteCode.json */,
 				D9CF62122B45713000562BA2 /* SyncWallet.json */,
-				DFB60DA82B1B3F9D00464143 /* InvestSimpleYieldEarning.json */,
-				DFB60DA42B1B3F9D00464143 /* SwapEasyAssetConversion.json */,
-				DFB60DA72B1B3F9D00464143 /* SwapSaveOnSwaps.json */,
 				D9451BB52B9E19A7001A80FF /* FindingAccount.json */,
 			);
 			path = LottieFiles;
@@ -4452,6 +4459,8 @@
 				E3CDFCA32BB196D70018382D /* CustomAssetError.swift */,
 				E3DFED7E2BB7F0B9008A6F0A /* EtheriumNetworkError.swift */,
 				E31C792F2BB981DE00CCD3DF /* ApproveError.swift */,
+				DF00178A29F85579001164EA /* WalletErrorTypes.swift */,
+				DFC83C6F2BC80D2D00B48766 /* ToastError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -4904,7 +4913,6 @@
 				1F73812756988538BC594057 /* LaunchScreen.storyboard in Resources */,
 				D92729412AD3EDBC0043D9B1 /* BorrowETHAaveABIJson.json in Resources */,
 				879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */,
-				DFB60DAA2B1B3F9D00464143 /* SwapEasyAssetConversion.json in Resources */,
 				A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */,
 				D9F252CA2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */,
 				84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */,
@@ -4914,9 +4922,9 @@
 				D9CF62152B45713500562BA2 /* InviteCode.json in Resources */,
 				BB737A7216F658EFFE43401C /* PPPangramSans-ExtraboldReclined.ttf in Resources */,
 				D9714C8B2AE4FE5D00FF3AAA /* AaveProxyABIJson.json in Resources */,
+				D9A7C1F42BC7DC490002D74A /* InvestSimpleYieldEarning.json in Resources */,
 				62227423FCF2309039BB6FAC /* PPPangramSans-Extralight.ttf in Resources */,
 				D9D754242AD13248001D4B94 /* BorrowERCAaveABIJson.json in Resources */,
-				DFB60DAC2B1B3F9D00464143 /* BorrowLoansMadeEasy.json in Resources */,
 				D9EF38BC2B336C56006E326F /* MaxiMillionABIJson.json in Resources */,
 				710BFFE4625F76FC84268937 /* PPPangramSans-ExtralightItalic.ttf in Resources */,
 				79073EE50BEA80FAE0356625 /* PPPangramSans-ExtralightReclined.ttf in Resources */,
@@ -4926,16 +4934,15 @@
 				3D47F14ECA2A8CAE61061F57 /* PPPangramSans-LightItalic.ttf in Resources */,
 				02DF93FE57661E220F5EFAAA /* PPPangramSans-LightReclined.ttf in Resources */,
 				822D161496971BD8810457B7 /* PPPangramSans-Medium.ttf in Resources */,
-				DFB60DAB2B1B3F9D00464143 /* InvestEasyProfitTracking.json in Resources */,
 				DF62CEC52B282BB000AA6D41 /* IntroAnimation.json in Resources */,
 				D5E4DDD52AD9295E000AA235 /* CompoundABIJson.json in Resources */,
 				DF0F65F929E1B29C00DB7290 /* wallet-balance-stub.json in Resources */,
+				D9A7C1F52BC7DC490002D74A /* SwapEasyAssetConversion.json in Resources */,
 				9AD896368BEA2DF5FD408FDF /* PPPangramSans-MediumItalic.ttf in Resources */,
 				C7947A17B0833FA7A202FA92 /* PPPangramSans-MediumReclined.ttf in Resources */,
 				D9CF62132B45713000562BA2 /* SyncWallet.json in Resources */,
 				D9451BB62B9E19A7001A80FF /* FindingAccount.json in Resources */,
 				DFBDA00B2AB0CDA700ED42D6 /* SwapABIJson.json in Resources */,
-				DFB60DAE2B1B3F9D00464143 /* InvestSimpleYieldEarning.json in Resources */,
 				25BF49CF523EA1322C6FC4EB /* PPPangramSans-Regular.ttf in Resources */,
 				DF0F65F329E1B29C00DB7290 /* coin-performance-info-stub.json in Resources */,
 				DF0F65F129E1B29C00DB7290 /* about-coin-stub.json in Resources */,
@@ -4947,8 +4954,9 @@
 				D95B5BBF2BA8642D00DA416B /* AllDoneAnimation.json in Resources */,
 				AE47F248DD308C61B717B086 /* PPPangramSans-Semibold.ttf in Resources */,
 				6493F198BF5B402E4D922A79 /* PPPangramSans-SemiboldItalic.ttf in Resources */,
-				DFB60DA92B1B3F9D00464143 /* BorrowEnsureLoanSafety.json in Resources */,
+				D9A7C1F62BC7DC490002D74A /* InvestEasyProfitTracking.json in Resources */,
 				E33F7CBC2AD442AC007FC04D /* InvestABIJson.json in Resources */,
+				D9A7C1F82BC7DC490002D74A /* SwapSaveOnSwaps.json in Resources */,
 				BA45498BC5E24EE8ACDA819E /* PPPangramSans-SemiboldReclined.ttf in Resources */,
 				EFC5F586A70E988F98620A79 /* PPPangramSans-Thin.ttf in Resources */,
 				D50E904CB4FBD07E10DE3E9B /* PPPangramSans-ThinItalic.ttf in Resources */,
@@ -4962,6 +4970,8 @@
 				DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */,
 				DFB60DAD2B1B3F9D00464143 /* SwapSaveOnSwaps.json in Resources */,
 				E31C79362BC16A3900CCD3DF /* MakerABIJson.json in Resources */,
+				D9A7C1F72BC7DC490002D74A /* BorrowLoansMadeEasy.json in Resources */,
+				D9A7C1F32BC7DC490002D74A /* BorrowEnsureLoanSafety.json in Resources */,
 				E3A32FA62B0F385400C771AE /* CmpoundCollateralCheckABI.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5324,6 +5334,7 @@
 				D93C41F729F7C1F9003F2297 /* EditAccountCollectionView.swift in Sources */,
 				C18F61B7AEF94EEC4A102666 /* ChartDataModel.swift in Sources */,
 				DFF8C3842B14703E00C74DAC /* TutorialViewController.swift in Sources */,
+				DFC83C702BC80D2D00B48766 /* ToastError.swift in Sources */,
 				D9A642C62AFA210300FDE11D /* ActivityBorrowModel.swift in Sources */,
 				86AE4E895C42E9E1302295FD /* ChartDateFilter.swift in Sources */,
 				D9703F6A29ED547000D09277 /* CoinInfoFooterview.swift in Sources */,
@@ -5496,6 +5507,7 @@
 				AAA1EE9680DD6A62A7F88602 /* ImportSecretPhraseView.swift in Sources */,
 				D924C3442A94963B007299A4 /* UserBorrowingModel.swift in Sources */,
 				DFA9687B2A0FABB9007D4513 /* WalletAccount+CoreDataClass.swift in Sources */,
+				D94A45192BC2C1F00070F0AF /* GlobalActionSheetTexts.swift in Sources */,
 				975DCAC87FF17EA9C5CC5668 /* ImportSecretPhraseViewController.swift in Sources */,
 				3B5C5C7C3020F2A2CDBE5CA5 /* ImportWalletError.swift in Sources */,
 				8F54F4F399FE38DC1B1FDEED /* InfoActionSheet.swift in Sources */,
@@ -5569,6 +5581,7 @@
 				E3D204CA2A3992EB0027FEBC /* TokenView.swift in Sources */,
 				DFFDEDB22A77934600D710D7 /* ZeroXAPIClient.swift in Sources */,
 				66F6B5B9FA886D1F48A4F627 /* ManageAssetsViewController.swift in Sources */,
+				D944F3782BC1524700920377 /* UILabel+Extension.swift in Sources */,
 				D96A40D62A7E83A200C020BC /* PendingActivitiesManager.swift in Sources */,
 				7B6CE232F6C074F30AFAF23D /* ManagePasscodeView.swift in Sources */,
 				DF14FCAB2A93B4AC005221A8 /* ParaswapSwapResponseModel.swift in Sources */,

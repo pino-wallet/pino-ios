@@ -91,7 +91,7 @@ class AboutPinoView: UIView {
 	private func setupStyle() {
 		pinoName.text = aboutPinoVM.name
 		pinoAppVersion.text = aboutPinoVM.version
-		termsOfServiceTitle.text = "Terms of service"
+		termsOfServiceTitle.text = "Terms of use"
 		privacyPolicyTitle.text = "Privacy policy"
 		websiteTitle.text = "Visit website"
 		pinoLogo.image = UIImage(named: aboutPinoVM.logo)

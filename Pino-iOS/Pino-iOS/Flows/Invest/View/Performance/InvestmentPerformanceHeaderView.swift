@@ -50,8 +50,8 @@ class InvestmentPerformanceHeaderView: UICollectionReusableView {
 	private func setupStyle() {
 		chartCardView.backgroundColor = .Pino.secondaryBackground
 
-		chartTitle.text = "Total value"
-		assetsTitle.text = "The share of assets"
+		chartTitle.text = "Total investment value"
+		assetsTitle.text = "Asset shares"
 
 		chartTitle.textColor = .Pino.label
 		assetsTitle.textColor = .Pino.label

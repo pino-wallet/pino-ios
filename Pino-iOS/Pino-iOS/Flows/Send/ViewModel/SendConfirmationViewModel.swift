@@ -43,6 +43,7 @@ class SendConfirmationViewModel {
 	public var userRecipientAccountInfoVM: UserAccountInfoViewModel?
 	public let confirmBtnText = "Confirm"
 	public let insuffientText = "Insufficient ETH Amount"
+	public let failedToAuth = "Failed to Authenticate"
 	public var sendStatusText: String {
 		var formattedRecipientAddress: String
 		if let recipientAddressName = recipientAddress.name {
@@ -100,13 +101,13 @@ class SendConfirmationViewModel {
 
 	public let selectedWalletTitle = "From"
 	public let recipientAddressTitle = "To"
-	public let feeTitle = "Network Fee"
+	public let feeTitle = "Network fee"
 	public let confirmButtonTitle = "Confirm"
 	public let scamConfirmButtonTitle = "Confirm Anyway"
 	public let scamErrorTitle =
 		"This address maybe be a scam! This address maybe be a scam! This address maybe be a scam!"
-	public let feeInfoActionSheetTitle = "Network Fee"
-	public let feeInfoActionSheetDescription = "Sample Text"
+	public let feeInfoActionSheetTitle = GlobalActionSheetTexts.networkFee.title
+	public let feeInfoActionSheetDescription = GlobalActionSheetTexts.networkFee.description
 	public let feeErrorText = "Error in calculation!"
 	public let insufficientFundsErrorText = "Insufficient Funds!"
 	public let feeErrorIcon = "refresh"

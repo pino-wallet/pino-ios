@@ -38,6 +38,10 @@ class TutorialViewController: UIViewController {
 		super.viewDidAppear(animated)
 	}
 
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		.darkContent
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

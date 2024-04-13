@@ -35,7 +35,7 @@ extension InvestW3ManagerProtocol {
 				case .finished:
 					print("Position id received successfully")
 				case let .failure(error):
-					print("Error getting position id:\(error)")
+					print("Error: getting position id: \(error)")
 					seal.reject(error)
 				}
 			} receiveValue: { tokenPositionModel in

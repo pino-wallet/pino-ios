@@ -10,11 +10,14 @@ struct ShowSecretPhraseViewModel {
 
 	public let title = "Backup secret phrase"
 	public let firstDescription = "Write down your Secret Phrase and store it in a safe place."
-	public let secondDescription = "It allows you to recover your wallet if you lose your device or password"
+	public let secondDescription = "It allows you to recover your wallet if you lose your device or PIN."
 	public let revealButtonTitle = "Tap to reveal"
 	public let shareButtonTitle = "Copy"
 	public let shareButtonIcon = "square.on.square"
 	public let continueButtonTitle = "I saved"
+	public let signDescriptionText =
+		"By tapping on I saved, you sign an off-chain message that actives this account in Pino."
+	public let signDescriptionBoldText = "I saved"
 	public let screenshotAlertTitle = "Warning"
 	public let screenshotAlertMessage = "It isn't safe to take a screenshot of a secret phrase!"
 	public let pageTitle = "Create new wallet"

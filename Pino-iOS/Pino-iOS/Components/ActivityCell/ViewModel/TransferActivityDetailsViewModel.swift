@@ -31,11 +31,11 @@ struct TransferActivityDetailsViewModel: ActivityCellDetailsProtocol {
 	}
 
 	public var transferFromAddress: String {
-		activityModel.fromAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+		activityModel.fromAddress.addressFormating()
 	}
 
 	public var transferToAddress: String {
-		activityModel.toAddress.shortenedString(characterCountFromStart: 6, characterCountFromEnd: 4)
+		activityModel.toAddress.addressFormating()
 	}
 
 	public var userFromAccountInfo: UserAccountInfoType? {

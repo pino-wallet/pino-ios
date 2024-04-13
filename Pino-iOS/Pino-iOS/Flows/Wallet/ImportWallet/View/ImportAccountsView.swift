@@ -17,7 +17,7 @@ class ImportAccountsView: UIView {
 	private let importButton = PinoButton(style: .deactive)
 	private let importButtonDidTap: () -> Void
 	private let signDescriptionTextContainerView = UIView()
-	private let signDescriptionTextLabel = PinoLabel(style: .description, text: "")
+	private let signDescriptionTextLabel = UILabel()
 	private var accountsVM: ImportAccountsViewModel
 	private var cancellables = Set<AnyCancellable>()
 
@@ -77,9 +77,9 @@ class ImportAccountsView: UIView {
 		continueStackView.axis = .vertical
 		continueStackView.spacing = 12
 
-		signDescriptionTextLabel.font = .PinoStyle.mediumFootnote
-		signDescriptionTextLabel.text = accountsVM.signDescriptionText
-		signDescriptionTextLabel.textAlignment = .center
+		signDescriptionTextLabel.setFootnoteText(
+			wholeString: accountsVM.signDescriptionText, boldString: accountsVM.signDecriptionBoldText
+		)
 	}
 
 	private func setupContstraint() {

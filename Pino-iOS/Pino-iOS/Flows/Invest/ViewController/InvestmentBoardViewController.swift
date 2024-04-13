@@ -33,7 +33,9 @@ class InvestmentBoardViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if SyncWalletViewModel.isSyncFinished {
-			investmentBoardVM.getInvestableAssets()
+			investmentBoardVM.getInvestableAssets().catch { error in
+				self.showErrorToast(error)
+			}
 		}
 		setupLoading()
 	}
@@ -138,5 +140,11 @@ class InvestmentBoardViewController: UIViewController {
 		let investmentBoardFilterVC = InvestmentBoardFilterViewController(filterVM: investmentFilterVM)
 		let investmentBoardFilterNavigationVC = UINavigationController(rootViewController: investmentBoardFilterVC)
 		present(investmentBoardFilterNavigationVC, animated: true)
+	}
+
+	private func showErrorToast(_ error: Error) {
+		if let error = error as? ToastError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
 	}
 }

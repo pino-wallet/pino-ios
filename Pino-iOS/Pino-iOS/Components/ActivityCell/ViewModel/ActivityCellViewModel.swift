@@ -286,7 +286,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				"\(baseTitle) \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo =
-				"To: \(transferDetailsVM!.userToAccountInfo?.name ?? activityModel.toAddress.addressFromStartFormatting())"
+				"To: \(transferDetailsVM!.userToAccountInfo?.name ?? activityModel.toAddress.addressFormating())"
 			// set cell icon
 			icon = sendIcon
 		case .receive:
@@ -295,7 +295,7 @@ struct ActivityCellViewModel: ActivityCellViewModelProtocol {
 				"\(baseTitle) \(transferDetailsVM!.transferTokenAmount.sevenDigitFormat) \(transferDetailsVM!.tokenSymbol)"
 			// set cell moreInfo
 			activityMoreInfo =
-				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFromStartFormatting())"
+				"From: \(transferDetailsVM!.userFromAccountInfo?.name ?? activityModel.fromAddress.addressFormating())"
 			// set cell icon
 			icon = receiveIcon
 //		case .borrow:

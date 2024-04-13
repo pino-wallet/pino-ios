@@ -62,7 +62,7 @@ class CoinInfoViewController: UIViewController {
 		// Setup appreance for navigation bar
 		setupPrimaryColorNavigationBar()
 		// Setup title view
-		setNavigationTitle("\(coinInfoVM.coinPortfolio.symbol)")
+		setNavigationTitle("\(coinInfoVM.pageTitle)")
 		// Setup close button
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: UIImage(systemName: "multiply"),
