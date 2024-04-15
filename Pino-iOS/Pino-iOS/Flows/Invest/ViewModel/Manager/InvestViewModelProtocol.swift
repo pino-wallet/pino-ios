@@ -32,7 +32,7 @@ protocol InvestViewModelProtocol {
 }
 
 extension InvestViewModelProtocol {
-	var maxTitle: String { "Available: " }
+	var maxTitle: String { "Max: " }
 	var insufficientAmountButtonTitle: String { "Insufficient amount" }
 	var textFieldPlaceHolder: String { "0" }
 	var estimatedReturnTitle: String { "Yearly estimated return" }

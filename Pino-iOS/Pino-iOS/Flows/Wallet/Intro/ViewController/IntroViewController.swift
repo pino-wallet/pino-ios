@@ -49,10 +49,9 @@ class IntroViewController: UIViewController {
 		introVM.checkBetaAvailibity { isValid in
 			self.introView.resetButtonsStatus()
 			if isValid {
-				let showSecretPhrasePage = ShowSecretPhraseViewController()
-				self.navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+				self.presentCreateWalletPage()
 			} else {
-				self.openInviteCodePage()
+				self.openInviteCodeFromCreateWalletPage()
 			}
 		}
 	}
@@ -62,16 +61,34 @@ class IntroViewController: UIViewController {
 		introVM.checkBetaAvailibity { isValid in
 			self.introView.resetButtonsStatus()
 			if isValid {
-				let importSecretPhrasePage = ImportSecretPhraseViewController()
-				self.navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+				self.presentImportWalletPage()
 			} else {
-				self.openInviteCodePage()
+				self.openInviteCodeFromImportWalletPage()
 			}
 		}
 	}
 
-	private func openInviteCodePage() {
-		let inviteCodePage = EnterInviteCodeViewController()
+	private func presentCreateWalletPage() {
+		let showSecretPhrasePage = ShowSecretPhraseViewController()
+		navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+	}
+
+	private func presentImportWalletPage() {
+		let importSecretPhrasePage = ImportSecretPhraseViewController()
+		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+	}
+
+	private func openInviteCodeFromCreateWalletPage() {
+		let inviteCodePage = EnterInviteCodeViewController(presentNextPageClosure: {
+			self.presentCreateWalletPage()
+		})
+		present(inviteCodePage, animated: true)
+	}
+
+	private func openInviteCodeFromImportWalletPage() {
+		let inviteCodePage = EnterInviteCodeViewController(presentNextPageClosure: {
+			self.presentImportWalletPage()
+		})
 		present(inviteCodePage, animated: true)
 	}
 }
