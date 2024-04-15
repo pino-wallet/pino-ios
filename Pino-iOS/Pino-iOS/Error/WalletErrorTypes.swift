@@ -155,9 +155,9 @@ public enum ImportWalletError: LocalizedError {
 	public var btnErrorTxt: String {
 		switch self {
 		case .invalidPrivateKey:
-			"Invalid private key"
+			"Invalid Private Key"
 		case .duplicateAccountName:
-			"Dublicate Name"
+			"Duplicate Name"
 		case .emptyAccountName:
 			"Invalid Name"
 		}
