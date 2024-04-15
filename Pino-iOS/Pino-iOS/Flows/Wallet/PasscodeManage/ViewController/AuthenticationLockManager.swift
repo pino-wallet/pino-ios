@@ -47,6 +47,17 @@ class AuthenticationLockManager {
 		return lockMethod
 	}
 
+	private func openAppSettings() {
+		guard let url = URL(string: UIApplication.openSettingsURLString),
+		      UIApplication.shared.canOpenURL(url)
+		else {
+			return
+		}
+		DispatchQueue.main.async {
+			UIApplication.shared.open(url)
+		}
+	}
+
 	private func unlockWithBiometric(onSuccess: @escaping () -> Void, onFailure: @escaping () -> Void) {
 		biometricAuthentication.evaluate(
 			onSuccess: {
@@ -61,9 +72,12 @@ class AuthenticationLockManager {
 				case LAError.userCancel.rawValue:
 					print("User cancel authentication")
 					onFailure()
+				case LAError.biometryNotAvailable.rawValue:
+					print("Biometeric authentication is not available on this device")
+					onFailure()
 				default:
 					print("Error in AUTH \(errorCode)")
-					onFailure()
+					self.openAppSettings()
 				}
 			}
 		)
