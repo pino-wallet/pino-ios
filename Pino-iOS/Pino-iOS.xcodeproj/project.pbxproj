@@ -607,6 +607,7 @@
 		DF1D90E32A9733E300435D85 /* W3ApproveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */; };
 		DF1D90E52A973ACC00435D85 /* ApprovingLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */; };
 		DF1D90E72A973AFA00435D85 /* ApprovingLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */; };
+		DF2D6C512BCA8CF300BA8675 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DF2D6C502BCA8CF300BA8675 /* PrivacyInfo.xcprivacy */; };
 		DF3E0E0B2B6E18A700937955 /* Web3-Utility in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E0A2B6E18A700937955 /* Web3-Utility */; };
 		DF3E0E0E2B6E199800937955 /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E0D2B6E199800937955 /* BigInt */; };
 		DF3E0E112B6E19AA00937955 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = DF3E0E102B6E19AA00937955 /* DGCharts */; };
@@ -1542,6 +1543,7 @@
 		DF1D90E22A9733E300435D85 /* W3ApproveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3ApproveManager.swift; sourceTree = "<group>"; };
 		DF1D90E42A973ACC00435D85 /* ApprovingLoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingViewController.swift; sourceTree = "<group>"; };
 		DF1D90E62A973AFA00435D85 /* ApprovingLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovingLoadingView.swift; sourceTree = "<group>"; };
+		DF2D6C502BCA8CF300BA8675 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DF4C23132AC33D000014DC89 /* W3CallDataGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = W3CallDataGenerator.swift; sourceTree = "<group>"; };
 		DF56F3852B94766100442BB2 /* ValidateDeviceForBetaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateDeviceForBetaModel.swift; sourceTree = "<group>"; };
 		DF56F3872B949A9500442BB2 /* Pino-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pino-iOS.entitlements"; sourceTree = "<group>"; };
@@ -4006,6 +4008,7 @@
 			children = (
 				DF8AB4182BB29E0F0084B2ED /* NotificationService.swift */,
 				DF8AB41A2BB29E0F0084B2ED /* Info.plist */,
+				DF2D6C502BCA8CF300BA8675 /* PrivacyInfo.xcprivacy */,
 			);
 			path = "Pino-Notif-Service";
 			sourceTree = "<group>";
@@ -4968,7 +4971,6 @@
 				DF0F65F529E1B29C00DB7290 /* positions-stub.json in Resources */,
 				DFF415F12BA85E1500903EBE /* GoogleService-Info.plist in Resources */,
 				DF0F65FB29E1B29C00DB7290 /* wallets-stub.json in Resources */,
-				DFB60DAD2B1B3F9D00464143 /* SwapSaveOnSwaps.json in Resources */,
 				E31C79362BC16A3900CCD3DF /* MakerABIJson.json in Resources */,
 				D9A7C1F72BC7DC490002D74A /* BorrowLoansMadeEasy.json in Resources */,
 				D9A7C1F32BC7DC490002D74A /* BorrowEnsureLoanSafety.json in Resources */,
@@ -5002,6 +5004,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF2D6C512BCA8CF300BA8675 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
