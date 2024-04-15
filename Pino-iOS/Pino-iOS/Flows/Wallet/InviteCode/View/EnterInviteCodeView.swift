@@ -14,7 +14,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 
 	private let dismissViewClosure: () -> Void
 	private let presentGetInviteCodeClosure: () -> Void
-    private let presentNextPageClosure: () -> Void
+	private let presentNextPageClosure: () -> Void
 
 	// MARK: - Private Properties
 
@@ -41,12 +41,12 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 		enterInviteCodeVM: EnterInviteCodeViewModel,
 		dismissViewClosure: @escaping () -> Void,
 		presentGetInviteCodeClosure: @escaping () -> Void,
-        presentNextPageClosure: @escaping () -> Void
+		presentNextPageClosure: @escaping () -> Void
 	) {
 		self.enterInviteCodeVM = enterInviteCodeVM
 		self.dismissViewClosure = dismissViewClosure
 		self.presentGetInviteCodeClosure = presentGetInviteCodeClosure
-        self.presentNextPageClosure = presentNextPageClosure
+		self.presentNextPageClosure = presentNextPageClosure
 
 		super.init(frame: .zero)
 
@@ -168,11 +168,12 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	private func onDismissSelf() {
 		dismissViewClosure()
 	}
-    
-    @objc private func dismissSelfAndPresentNextPage() {
-        dismissViewClosure()
-        presentNextPageClosure()
-    }
+
+	@objc
+	private func dismissSelfAndPresentNextPage() {
+		dismissViewClosure()
+		presentNextPageClosure()
+	}
 
 	@objc
 	private func onGetInviteCode() {

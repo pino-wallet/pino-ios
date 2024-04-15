@@ -32,7 +32,6 @@ final class AccountingAPIClient: AccountingAPIService {
 			return currentDeviceID
 		}
 	}
-    
 
 	// MARK: - Public Methods
 

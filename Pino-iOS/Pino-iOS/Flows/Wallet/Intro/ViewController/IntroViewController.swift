@@ -49,7 +49,7 @@ class IntroViewController: UIViewController {
 		introVM.checkBetaAvailibity { isValid in
 			self.introView.resetButtonsStatus()
 			if isValid {
-                self.presentCreateWalletPage()
+				self.presentCreateWalletPage()
 			} else {
 				self.openInviteCodeFromCreateWalletPage()
 			}
@@ -61,34 +61,34 @@ class IntroViewController: UIViewController {
 		introVM.checkBetaAvailibity { isValid in
 			self.introView.resetButtonsStatus()
 			if isValid {
-                self.presentImportWalletPage()
+				self.presentImportWalletPage()
 			} else {
 				self.openInviteCodeFromImportWalletPage()
 			}
 		}
 	}
-    
-    private func presentCreateWalletPage() {
-        let showSecretPhrasePage = ShowSecretPhraseViewController()
-        self.navigationController?.pushViewController(showSecretPhrasePage, animated: true)
-    }
-    
-    private func presentImportWalletPage() {
-        let importSecretPhrasePage = ImportSecretPhraseViewController()
-        self.navigationController?.pushViewController(importSecretPhrasePage, animated: true)
-    }
+
+	private func presentCreateWalletPage() {
+		let showSecretPhrasePage = ShowSecretPhraseViewController()
+		navigationController?.pushViewController(showSecretPhrasePage, animated: true)
+	}
+
+	private func presentImportWalletPage() {
+		let importSecretPhrasePage = ImportSecretPhraseViewController()
+		navigationController?.pushViewController(importSecretPhrasePage, animated: true)
+	}
 
 	private func openInviteCodeFromCreateWalletPage() {
-        let inviteCodePage = EnterInviteCodeViewController(presentNextPageClosure: {
-            self.presentCreateWalletPage()
-        })
+		let inviteCodePage = EnterInviteCodeViewController(presentNextPageClosure: {
+			self.presentCreateWalletPage()
+		})
 		present(inviteCodePage, animated: true)
 	}
-    
-    private func openInviteCodeFromImportWalletPage() {
-        let inviteCodePage = EnterInviteCodeViewController(presentNextPageClosure: {
-            self.presentImportWalletPage()
-        })
-        present(inviteCodePage, animated: true)
-    }
+
+	private func openInviteCodeFromImportWalletPage() {
+		let inviteCodePage = EnterInviteCodeViewController(presentNextPageClosure: {
+			self.presentImportWalletPage()
+		})
+		present(inviteCodePage, animated: true)
+	}
 }

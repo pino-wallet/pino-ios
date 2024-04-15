@@ -84,7 +84,7 @@ extension AllDoneView {
 	private func setupStyle() {
 		allDoneAnimationView.animation = LottieAnimation.named(allDoneVM.allDoneAnimationName)
 		allDoneAnimationView.loopMode = .playOnce
-        allDoneAnimationView.currentProgress = 0.35
+		allDoneAnimationView.currentProgress = 0.35
 		allDoneAnimationView.contentMode = .scaleAspectFill
 		allDoneAnimationView.play()
 
