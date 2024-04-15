@@ -8,6 +8,8 @@
 import UIKit
 
 class EnterInviteCodeViewController: UIViewController {
+    // MARK: - Closures
+    private var presentNextPageClosure: () -> Void
 	// MARK: - Private Properties
 
 	private let enterInviteCodeVM = EnterInviteCodeViewModel()
@@ -15,7 +17,9 @@ class EnterInviteCodeViewController: UIViewController {
 
 	// MARK: - Initializers
 
-	init() {
+    init(presentNextPageClosure: @escaping () -> Void) {
+        self.presentNextPageClosure = presentNextPageClosure
+        
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -54,7 +58,9 @@ class EnterInviteCodeViewController: UIViewController {
 			self.dismissSelf()
 		}, presentGetInviteCodeClosure: {
 			self.presentGetInviteCodePage()
-		})
+        }, presentNextPageClosure: {
+            self.presentNextPageClosure()
+        })
 
 		view = enterInviteCodeView
 	}
