@@ -80,6 +80,8 @@ class ImportNewAccountViewController: UIViewController {
 
 	public func showValidationError(_ error: Error) {
 		importAccountVM.privateKeyValidationStatus = .invalidAccount
-		Toast.default(title: error.localizedDescription, style: .error).show(haptic: .warning)
+		if let error = error as? ToastError {
+			Toast.default(title: error.toastMessage, style: .error).show()
+		}
 	}
 }

@@ -75,7 +75,6 @@ class AddNewAccountViewController: UIViewController {
 				.done {
 					self.openSyncPage()
 				}.catch { error in
-					self.showErrorToast(error)
 					importWalletVC.showValidationError(error)
 				}
 		}
