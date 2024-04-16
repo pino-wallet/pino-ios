@@ -21,6 +21,7 @@ class ImportAccountsViewModel {
 	private var createdWallet: HDWallet?
 	private var randAvatarGen = RandGenerator()
 	private let accountActivationVM = AccountActivationViewModel()
+	private var lastAccountIndex: Int?
 
 	// MARK: Public Properties
 
@@ -40,9 +41,16 @@ class ImportAccountsViewModel {
 		}
 	}
 
-	public var footerTitle = "Find more accounts"
 	public var walletMnemonics: String
-	public var lastAccountIndex: Int?
+	public var findMoreAccountTitle = "Find more accounts"
+	public var noMoreAccountTitle = "No more active accounts found"
+	public var isMoreAccountExist: Bool {
+		if lastAccountIndex == nil {
+			return false
+		} else {
+			return true
+		}
+	}
 
 	@Published
 	public var accounts: [ActiveAccountViewModel] = []
