@@ -92,6 +92,7 @@ class PortfolioPerformanceViewController: UIViewController {
 	}
 
 	private func getPortfolioPerformance() {
+		if portfolioPerformaneVM.chartVM != nil { return }
 		portfolioPerformaneVM.getPortfolioPerformanceData().catch { error in
 			self.showErrorToast(error)
 		}

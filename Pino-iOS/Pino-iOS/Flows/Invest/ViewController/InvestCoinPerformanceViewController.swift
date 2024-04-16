@@ -46,9 +46,7 @@ class InvestCoinPerformanceViewController: UIViewController {
 	private func setupView() {
 		view = InvestCoinPerformanceView(coinPerformanceVM: coinPerformanceVM, chartDateFilterDelegate: self)
 
-		coinPerformanceVM.getInvestmentPerformanceData().catch { error in
-			self.showErrorToast(error)
-		}
+		getInvestmentPerformance()
 	}
 
 	private func setupNavigationBar() {
@@ -68,6 +66,13 @@ class InvestCoinPerformanceViewController: UIViewController {
 	@objc
 	private func closePage() {
 		dismiss(animated: true)
+	}
+
+	private func getInvestmentPerformance() {
+		if coinPerformanceVM.chartVM != nil { return }
+		coinPerformanceVM.getInvestmentPerformanceData().catch { error in
+			self.showErrorToast(error)
+		}
 	}
 
 	private func showErrorToast(_ error: Error) {

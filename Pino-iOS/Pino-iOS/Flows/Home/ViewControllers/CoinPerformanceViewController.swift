@@ -70,6 +70,7 @@ class CoinPerformanceViewController: UIViewController {
 	}
 
 	private func getCoinPerformance() {
+		if coinPerformanceVM.chartVM != nil { return }
 		coinPerformanceVM.getCoinPerformance().catch { error in
 			self.showErrorToast(error)
 		}

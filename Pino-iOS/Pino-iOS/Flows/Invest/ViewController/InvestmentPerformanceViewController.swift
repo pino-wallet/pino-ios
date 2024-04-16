@@ -33,9 +33,7 @@ class InvestmentPerformanceViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		if SyncWalletViewModel.isSyncFinished {
-			investmentPerformaneVM.getInvestPerformanceData().catch { error in
-				self.showErrorToast(error)
-			}
+			getInvestmentPerformance()
 		} else {
 			showSkeletonLoading()
 		}
@@ -90,6 +88,13 @@ class InvestmentPerformanceViewController: UIViewController {
 
 	private func showSkeletonLoading() {
 		view.showGradientSkeletonView(startLocation: 0.3, endLocation: 0.8)
+	}
+
+	private func getInvestmentPerformance() {
+		if investmentPerformaneVM.chartVM != nil { return }
+		investmentPerformaneVM.getInvestPerformanceData().catch { error in
+			self.showErrorToast(error)
+		}
 	}
 
 	private func showErrorToast(_ error: Error) {
