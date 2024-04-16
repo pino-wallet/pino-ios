@@ -43,7 +43,7 @@ class ImportAccountsViewModel {
 
 	public var walletMnemonics: String
 	public var findMoreAccountTitle = "Find more accounts"
-	public var noMoreAccountTitle = "No more active accounts found"
+	public var noMoreAccountTitle = "No active accounts found"
 	public var isMoreAccountExist: Bool {
 		if lastAccountIndex == nil {
 			return false
