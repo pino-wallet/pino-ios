@@ -97,8 +97,25 @@ class AddNewAccountViewController: UIViewController {
 		accountsVM.createNewAccount().done {
 			self.dismiss(animated: true)
 		}.catch { [self] error in
-			showErrorToast(error)
-			addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
+			if let error = error as? WalletError {
+				switch error {
+				case .accountAlreadyExists:
+					createNewAccountWithNextIndex()
+					return
+				default: break
+				}
+			}
+			self.showErrorToast(error)
+			self.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
+		}
+	}
+
+	private func createNewAccountWithNextIndex() {
+		accountsVM.createNewAccountWithNextIndex().done {
+			self.dismiss(animated: true)
+		}.catch { error in
+			self.showErrorToast(error)
+			self.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 		}
 	}
 

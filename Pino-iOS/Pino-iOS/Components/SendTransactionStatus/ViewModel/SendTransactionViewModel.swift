@@ -52,7 +52,6 @@ class SendTransactionViewModel {
 						print("Transaction activity received sucsessfully")
 					case let .failure(error):
 						print("Error: getting transaction activity: \(error.description)")
-						seal.reject(error)
 					}
 				} receiveValue: { activity in
 					self.destroyRequestTimer()
