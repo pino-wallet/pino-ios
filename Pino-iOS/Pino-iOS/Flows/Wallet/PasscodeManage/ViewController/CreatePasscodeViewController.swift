@@ -66,7 +66,7 @@ class CreatePasscodeViewController: UIViewController {
 			)
 			verifyPassVC.selectedPasscode = passcode
 			verifyPassVC.pageSteps = pageSteps
-			verifyPassVC.currentStep = currentStep + 1
+			verifyPassVC.currentStep = currentStep
 			navigationController?.pushViewController(verifyPassVC, animated: true)
 		}, onErrorHandling: { error in
 			switch error {

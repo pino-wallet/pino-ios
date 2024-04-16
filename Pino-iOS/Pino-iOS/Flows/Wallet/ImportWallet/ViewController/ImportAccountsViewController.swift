@@ -35,7 +35,7 @@ class ImportAccountsViewController: UIViewController {
 
 	override func loadView() {
 		setupView()
-		setSteperView(stepsCount: 4, curreuntStep: 2)
+		setSteperView(stepsCount: 3, curreuntStep: 2)
 	}
 
 	// MARK: - Private Methods
@@ -71,7 +71,7 @@ class ImportAccountsViewController: UIViewController {
 					selectedAccounts: selectedAccounts,
 					mnemonics: importAccountsVM.walletMnemonics
 				)
-				createPasscodeViewController.pageSteps = 4
+				createPasscodeViewController.pageSteps = 3
 				createPasscodeViewController.currentStep = 3
 				navigationController?.pushViewController(createPasscodeViewController, animated: true)
 			}

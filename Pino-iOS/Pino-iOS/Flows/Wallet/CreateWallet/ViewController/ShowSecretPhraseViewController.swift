@@ -29,7 +29,7 @@ class ShowSecretPhraseViewController: UIViewController {
 			setupPrimaryColorNavigationBar()
 			setNavigationTitle(secretPhraseVM.pageTitle)
 		} else {
-			setSteperView(stepsCount: 3, curreuntStep: 1)
+			setSteperView(stepsCount: 2, curreuntStep: 1)
 		}
 	}
 
@@ -108,7 +108,7 @@ class ShowSecretPhraseViewController: UIViewController {
 			selectedAccounts: nil, mnemonics: secretPhraseVM.secretPhraseList
 				.joined(separator: " ")
 		)
-		createPasscodeViewController.pageSteps = 3
+		createPasscodeViewController.pageSteps = 2
 		createPasscodeViewController.currentStep = 2
 		navigationController?.pushViewController(createPasscodeViewController, animated: true)
 	}
