@@ -141,7 +141,7 @@ public enum WalletOperationError: LocalizedError, ToastError {
 			walletValidatorError.toastMessage
 		case let .keyManager(keyManagementError):
 			keyManagementError.toastMessage
-		case let .unknow(error):
+		case .unknow:
 			"Unknown error happened"
 		}
 	}
@@ -160,6 +160,20 @@ public enum ImportWalletError: LocalizedError {
 			"Duplicate Name"
 		case .emptyAccountName:
 			"Invalid Name"
+		}
+	}
+}
+
+public enum ImportAccountsError: ToastError {
+	case fetchActiveAccount
+	case importAccount
+
+	var toastMessage: String {
+		switch self {
+		case .fetchActiveAccount:
+			"Failed to fetch accounts"
+		case .importAccount:
+			"Failed to import accounts"
 		}
 	}
 }

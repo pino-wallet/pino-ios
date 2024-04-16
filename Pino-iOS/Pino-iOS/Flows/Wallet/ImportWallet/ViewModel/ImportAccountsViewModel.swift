@@ -224,18 +224,20 @@ class ImportAccountsViewModel {
 
 	// MARK: - Public Methods
 
-	public func startSync(syncFinished: @escaping () -> Void) {
-		let selectedAccounts = accounts.filter { $0.isSelected }
+	public func startSync() -> Promise<Void> {
+		Promise<Void> { seal in
+			let selectedAccounts = accounts.filter { $0.isSelected }
 
-		let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
-			accountActivationVM.activateNewAccountAddress(selectedAccount.account)
-		}
+			let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
+				accountActivationVM.activateNewAccountAddress(selectedAccount.account)
+			}
 
-		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
-			saveSyncFinishTime(accountsResponse: activateAccountsResp)
-			syncFinished()
-		}.catch { error in
-			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
+			when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
+				saveSyncFinishTime(accountsResponse: activateAccountsResp)
+				seal.fulfill(())
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 
