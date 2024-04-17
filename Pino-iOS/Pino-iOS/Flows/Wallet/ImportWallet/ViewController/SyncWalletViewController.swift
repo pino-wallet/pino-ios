@@ -34,9 +34,9 @@ class SyncWalletViewController: UIViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-        if isBeingPresented || isMovingToParent {
-            syncWalletView.animateLoading()
-        }
+		if isBeingPresented || isMovingToParent {
+			syncWalletView.animateLoading()
+		}
 	}
 
 	override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -81,7 +81,7 @@ class SyncWalletViewController: UIViewController {
 	private func presentTutorialPage() {
 		let tutorialPage = TutorialViewController {
 			self.dismiss(animated: true)
-            self.syncWalletView.resumeAnimation()
+			self.syncWalletView.resumeAnimation()
 		}
 		tutorialPage.modalPresentationStyle = .fullScreen
 		present(tutorialPage, animated: true)
