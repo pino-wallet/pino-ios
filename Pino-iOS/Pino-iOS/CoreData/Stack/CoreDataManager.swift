@@ -35,6 +35,10 @@ class CoreDataManager {
 		return newWallet
 	}
 
+	public func updateWalletLastDrivedIndex(wallet: Wallet, lastDrivedIndex: Int32) {
+		walletDataSource.updateLastdrivedIndex(wallet: wallet, lastDrivedIndex: lastDrivedIndex)
+	}
+
 	public func getAllWalletAccounts() -> [WalletAccount] {
 		accountDataSource.getAll()
 	}

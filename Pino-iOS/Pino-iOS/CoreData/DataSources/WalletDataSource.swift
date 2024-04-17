@@ -60,6 +60,13 @@ struct WalletDataSource: DataSourceProtocol {
 		coreDataStack.saveContext()
 	}
 
+	public func updateLastdrivedIndex(wallet: Wallet, lastDrivedIndex: Int32) {
+		if let selectedWallet = wallets.first(where: { $0.objectID == wallet.objectID }) {
+			selectedWallet.lastDrivedIndex = lastDrivedIndex
+		}
+		coreDataStack.saveContext()
+	}
+
 	public func filter(_ predicate: (Wallet) -> Bool) -> [Wallet] {
 		wallets.filter(predicate)
 	}

@@ -59,7 +59,7 @@ class AccountsViewModel {
 		publicKey: EthereumPublicKey,
 		accountName: String?,
 		accountAvatar: Avatar?
-	) {
+	) -> Promise<Void> {
 		var walletType: Wallet.WalletType = .nonHDWallet
 		if derivationPath != nil {
 			walletType = .hdWallet
@@ -75,17 +75,23 @@ class AccountsViewModel {
 			newAccountName = newAvatar.name
 		}
 
-		guard let newAccount = coreDataManager.createWalletAccount(
-			address: address,
-			derivationPath: derivationPath,
-			publicKey: publicKey.hex(),
-			name: newAccountName,
-			avatarIcon: newAvatar.rawValue,
-			avatarColor: newAvatar.rawValue,
-			wallet: wallet!
-		) else { return }
-		getAccounts()
-		GlobalVariables.shared.updateCurrentAccount(newAccount)
+		return Promise<Void> { seal in
+			if let newAccount = coreDataManager.createWalletAccount(
+				address: address,
+				derivationPath: derivationPath,
+				publicKey: publicKey.hex(),
+				name: newAccountName,
+				avatarIcon: newAvatar.rawValue,
+				avatarColor: newAvatar.rawValue,
+				wallet: wallet!
+			) {
+				getAccounts()
+				GlobalVariables.shared.updateCurrentAccount(newAccount)
+				seal.fulfill(())
+			} else {
+				seal.reject(WalletError.accountAlreadyExists)
+			}
+		}
 	}
 
 	private func generateRandomAvatar() -> Avatar {
@@ -172,22 +178,20 @@ class AccountsViewModel {
 		accountName: String? = nil,
 		accountAvatar: Avatar? = nil
 	) -> Promise<Void> {
-		Promise<Void> { seal in
-			accountActivationVM.activateNewAccountAddress(account).done { [self] accountInfo in
-				addNewWalletAccountWithAddress(
-					account.eip55Address,
-					derivationPath: derivationPath,
-					publicKey: publicKey,
-					accountName: accountName,
-					accountAvatar: accountAvatar
-				)
-				SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
-				resetPendingActivities()
-				registerUserFCMToken(userAdd: account.eip55Address)
-				seal.fulfill(())
-			}.catch { error in
-				seal.reject(WalletOperationError.wallet(.accountActivationFailed(error)))
-			}
+		firstly {
+			accountActivationVM.activateNewAccountAddress(account)
+		}.then { accountInfo in
+			self.addNewWalletAccountWithAddress(
+				account.eip55Address,
+				derivationPath: derivationPath,
+				publicKey: publicKey,
+				accountName: accountName,
+				accountAvatar: accountAvatar
+			).map { accountInfo }
+		}.done { [self] accountInfo in
+			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
+			resetPendingActivities()
+			registerUserFCMToken(userAdd: account.eip55Address)
 		}
 	}
 
@@ -233,5 +237,22 @@ class AccountsViewModel {
 		getAccounts()
 		GlobalVariables.shared.updateCurrentAccount(selectedAccount.walletAccountInfoModel)
 		resetPendingActivities()
+	}
+
+	public func createNewAccountWithNextIndex() -> Promise<Void> {
+		Promise<Void> { seal in
+			let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
+			let createdAccount = try pinoWalletManager
+				.createAccount(lastAccountIndex: Int(currentWallet.lastDrivedIndex + 1))
+			activateNewAccountAddress(
+				createdAccount,
+				publicKey: createdAccount.publicKey,
+				derivationPath: createdAccount.derivationPath
+			).done {
+				seal.fulfill(())
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
 	}
 }

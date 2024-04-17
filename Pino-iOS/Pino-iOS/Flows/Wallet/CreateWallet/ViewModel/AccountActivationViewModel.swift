@@ -20,17 +20,23 @@ class AccountActivationViewModel {
 	// MARK: - Public Methods
 
 	public func activateNewAccountAddress(_ account: Account) -> Promise<AccountActivationModel> {
-		let activateTime = Date().timeIntervalSince1970
-		return firstly {
-			fetchHash(address: account.eip55Address.lowercased(), activateTime: Int(activateTime))
-		}.then { plainHash in
-			self.signHash(plainHash: plainHash, userKey: account.privateKey.hexString)
-		}.then { signiture in
-			self.activateAccountWithHash(
-				address: account.eip55Address.lowercased(),
-				userHash: signiture,
-				activateTime: Int(activateTime)
-			)
+		Promise<AccountActivationModel> { seal in
+			let activateTime = Date().timeIntervalSince1970
+			firstly {
+				fetchHash(address: account.eip55Address.lowercased(), activateTime: Int(activateTime))
+			}.then { plainHash in
+				self.signHash(plainHash: plainHash, userKey: account.privateKey.hexString)
+			}.then { signiture in
+				self.activateAccountWithHash(
+					address: account.eip55Address.lowercased(),
+					userHash: signiture,
+					activateTime: Int(activateTime)
+				)
+			}.done { activatedAccount in
+				seal.fulfill(activatedAccount)
+			}.catch { error in
+				seal.reject(WalletOperationError.wallet(.accountActivationFailed(error)))
+			}
 		}
 	}
 
