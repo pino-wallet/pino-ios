@@ -25,7 +25,7 @@ class ImportAccountsFooterView: UICollectionReusableView {
 		}
 	}
 
-	public var findAccountDidTap: (() -> Void)!
+	public var findAccountDidTap: (() -> Void)?
 
 	// MARK: - Private Methods
 
@@ -68,6 +68,7 @@ class ImportAccountsFooterView: UICollectionReusableView {
 
 	@objc
 	private func findMoreAccounts() {
+		guard let findAccountDidTap else { return }
 		startLoading()
 		findAccountDidTap()
 	}

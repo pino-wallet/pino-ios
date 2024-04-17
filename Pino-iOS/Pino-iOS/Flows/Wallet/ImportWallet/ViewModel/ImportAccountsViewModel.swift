@@ -21,6 +21,7 @@ class ImportAccountsViewModel {
 	private var createdWallet: HDWallet?
 	private var randAvatarGen = RandGenerator()
 	private let accountActivationVM = AccountActivationViewModel()
+	private var lastAccountIndex: Int?
 
 	// MARK: Public Properties
 
@@ -40,9 +41,16 @@ class ImportAccountsViewModel {
 		}
 	}
 
-	public var footerTitle = "Find more accounts"
 	public var walletMnemonics: String
-	public var lastAccountIndex: Int?
+	public var findMoreAccountTitle = "Find more accounts"
+	public var noMoreAccountTitle = "No active accounts found"
+	public var isMoreAccountExist: Bool {
+		if lastAccountIndex == nil {
+			return false
+		} else {
+			return true
+		}
+	}
 
 	@Published
 	public var accounts: [ActiveAccountViewModel] = []
@@ -216,18 +224,20 @@ class ImportAccountsViewModel {
 
 	// MARK: - Public Methods
 
-	public func startSync(syncFinished: @escaping () -> Void) {
-		let selectedAccounts = accounts.filter { $0.isSelected }
+	public func startSync() -> Promise<Void> {
+		Promise<Void> { seal in
+			let selectedAccounts = accounts.filter { $0.isSelected }
 
-		let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
-			accountActivationVM.activateNewAccountAddress(selectedAccount.account)
-		}
+			let activateAccountsReqs: [Promise<AccountActivationModel>] = selectedAccounts.map { selectedAccount in
+				accountActivationVM.activateNewAccountAddress(selectedAccount.account)
+			}
 
-		when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
-			saveSyncFinishTime(accountsResponse: activateAccountsResp)
-			syncFinished()
-		}.catch { error in
-			Toast.default(title: "Failed to import accounts", style: .error).show(haptic: .warning)
+			when(fulfilled: activateAccountsReqs).done { [unowned self] activateAccountsResp in
+				saveSyncFinishTime(accountsResponse: activateAccountsResp)
+				seal.fulfill(())
+			}.catch { error in
+				seal.reject(error)
+			}
 		}
 	}
 

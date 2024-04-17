@@ -146,10 +146,12 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 				withReuseIdentifier: ImportAccountsFooterView.footerReuseID,
 				for: indexPath
 			) as! ImportAccountsFooterView
-			footerView.title = accountsVM.footerTitle
-			footerView.findAccountDidTap = findAccountsDidTap
-			if accountsVM.lastAccountIndex == nil {
-				footerView.hideFindAccountButton()
+			if accountsVM.isMoreAccountExist {
+				footerView.title = accountsVM.findMoreAccountTitle
+				footerView.findAccountDidTap = findAccountsDidTap
+			} else {
+				footerView.title = accountsVM.noMoreAccountTitle
+				footerView.findAccountDidTap = nil
 			}
 			return footerView
 		default:
