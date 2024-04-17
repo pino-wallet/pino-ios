@@ -249,6 +249,10 @@ class AccountsViewModel {
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath
 			).done {
+				self.coreDataManager.updateWalletLastDrivedIndex(
+					wallet: currentWallet,
+					lastDrivedIndex: currentWallet.lastDrivedIndex + 1
+				)
 				seal.fulfill(())
 			}.catch { error in
 				seal.reject(error)
