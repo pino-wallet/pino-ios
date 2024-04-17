@@ -34,6 +34,7 @@ class SyncWalletView: UIView {
 	private var titleAnimationView = LottieAnimationView()
 	private var progressView: PinoProgressView!
 	private var cancellables = Set<AnyCancellable>()
+    private var startSyncingDate: Date = Date()
 
 	// MARK: - Initializers
 
@@ -64,7 +65,7 @@ class SyncWalletView: UIView {
 		progressView = PinoProgressView(progressBarVM: .init(progressDuration: syncWalletVM.loadingTime))
 		progressView.completion = { [weak self] in
 			guard let self = self else { return }
-			syncWalletVM.syncStatus = .finished
+                syncWalletVM.syncStatus = .finished
 		}
 
 		exploreButton.addTarget(self, action: #selector(onExpolePinoTap), for: .touchUpInside)
@@ -151,6 +152,19 @@ class SyncWalletView: UIView {
 			}
 		}.store(in: &cancellables)
 	}
+    
+    private func getCurrentPercentageOfSyncing() -> Double {
+        let calendar = Calendar.current
+        guard let passedSeconds = calendar.dateComponents([.second], from: startSyncingDate, to: Date()).second else {
+            fatalError("Failed to calculate passed seconds from syncing")
+        }
+        let onePercentOfTotalSyncingTime = syncWalletVM.loadingTime / 100
+        let currentPercentageOfSyncing = Double(passedSeconds + 1) / onePercentOfTotalSyncingTime
+        if currentPercentageOfSyncing > 100 {
+            return 100
+        }
+        return currentPercentageOfSyncing
+    }
 
 	@objc
 	private func onExpolePinoTap() {
@@ -165,8 +179,18 @@ class SyncWalletView: UIView {
 	// MARK: - Public Properties
 
 	public func animateLoading() {
+        startSyncingDate = Date()
 		progressView.start()
 	}
+    
+    public func resumeAnimation() {
+       let currentPercentageOfAnimation = getCurrentPercentageOfSyncing()
+        if currentPercentageOfAnimation == 100 {
+            progressView.fill()
+        } else {
+            progressView.startFrom(currentPercentage: currentPercentageOfAnimation)
+        }
+    }
 
 	public func clearAnimationCache() {
 		titleAnimationView.animation = nil

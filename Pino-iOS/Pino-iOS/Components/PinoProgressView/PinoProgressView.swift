@@ -21,6 +21,7 @@ class PinoProgressView: UIView {
 	private var progressFullConstraint: NSLayoutConstraint!
 	private var currentProgressViewWidth: CGFloat = 0
 	private var containerProgressBarWidth: CGFloat = 0
+    private var completionTimer: Timer?
 
 	// MARK: - Initializers
 
@@ -76,17 +77,27 @@ class PinoProgressView: UIView {
 			self?.progressFullConstraint.constant = 0
 			self?.progressFullConstraint.isActive = true
 			self?.layoutIfNeeded()
-		} completion: { _ in
-			self.completion()
 		}
+        destroyTimer()
+        completionTimer = Timer.scheduledTimer(timeInterval: duration, target: self, selector: #selector(runCompletion), userInfo: nil, repeats: false)
 	}
+    
+    private func destroyTimer() {
+        completionTimer?.invalidate()
+        completionTimer = nil
+    }
+    
+    @objc private func runCompletion() {
+        completion()
+        destroyTimer()
+    }
 
 	// MARK: - Public Methods
 
 	public func start() {
 		animateProgress(duration: progressBarVM.progressDuration)
 	}
-
+    
 	public func startFrom(currentPercentage: Double) {
 		guard currentPercentage < 100 else {
 			return
@@ -95,8 +106,9 @@ class PinoProgressView: UIView {
 		containerProgressBarWidth = progressContainerView.frame.width
 		let onePercentOfViewWidth = containerProgressBarWidth / 100
 		let onePercentOfProgressTime = progressBarVM.progressDuration / 100
-		let remainingProgressTime = currentPercentage * onePercentOfProgressTime
-		progressFullConstraint.constant = -(onePercentOfViewWidth * currentPercentage)
+        let remainingPercentage = 100 - currentPercentage
+		let remainingProgressTime = remainingPercentage * onePercentOfProgressTime
+		progressFullConstraint.constant = -(onePercentOfViewWidth * remainingPercentage)
 		progressFullConstraint.isActive = true
 		animateProgress(duration: remainingProgressTime)
 	}
@@ -106,6 +118,7 @@ class PinoProgressView: UIView {
 		currentProgressViewWidth = presentView!.frame.width
 		progressBarView.layer.removeAllAnimations()
 		progressFullConstraint.constant = -(containerProgressBarWidth - currentProgressViewWidth)
+        destroyTimer()
 	}
 
 	public func resume() {
@@ -125,6 +138,7 @@ class PinoProgressView: UIView {
 	public func reset() {
 		progressBarView.layer.removeAllAnimations()
 		progressFullConstraint.constant = -containerProgressBarWidth
+        destroyTimer()
 	}
 
 	public func fill() {
