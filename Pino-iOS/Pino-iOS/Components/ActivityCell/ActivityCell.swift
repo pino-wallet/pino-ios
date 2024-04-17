@@ -158,16 +158,17 @@ class ActivityCell: UICollectionViewCell {
 
 		historyTitleLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 130).isActive = true
 		historyMoreInfoLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 150).isActive = true
-		historyMoreInfoLoadingContainer.widthAnchor.constraint(equalToConstant: 56).isActive = true
-		historyMoreInfoLoadingContainer.heightAnchor.constraint(equalToConstant: 12).isActive = true
 
-		historyCardView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64).isActive = true
-		contentStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 46).isActive = true
-
-		historyTitleStackView.pin(.allEdges(padding: 0))
-
+		historyMoreInfoLoadingContainer.pin(
+			.fixedWidth(56),
+			.fixedHeight(12)
+		)
+		historyTitleStackView.pin(
+			.allEdges(padding: 0)
+		)
 		historyCardView.pin(
-			.allEdges(padding: 0),
+			.centerX,
+			.centerY,
 			.fixedWidth(contentView.frame.width)
 		)
 		contentStackView.pin(
