@@ -127,7 +127,7 @@ class AccountsViewModel {
 		accountsList = accounts.compactMap { AccountInfoViewModel(walletAccountInfoModel: $0) }
 	}
 
-	public func createNewAccount() -> Promise<Void> {
+	public func createNewAccount(accountName: String, accountAvatar: Avatar) -> Promise<Void> {
 		Promise<Void> { seal in
 			let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
 			let createdAccount = try pinoWalletManager
@@ -135,7 +135,9 @@ class AccountsViewModel {
 			activateNewAccountAddress(
 				createdAccount,
 				publicKey: createdAccount.publicKey,
-				derivationPath: createdAccount.derivationPath
+				derivationPath: createdAccount.derivationPath,
+				accountName: accountName,
+				accountAvatar: accountAvatar
 			).done {
 				seal.fulfill(())
 			}.catch { error in
@@ -239,7 +241,7 @@ class AccountsViewModel {
 		resetPendingActivities()
 	}
 
-	public func createNewAccountWithNextIndex() -> Promise<Void> {
+	public func createNewAccountWithNextIndex(accountName: String, accountAvatar: Avatar) -> Promise<Void> {
 		Promise<Void> { seal in
 			let currentWallet = coreDataManager.getSelectedWalletOf(type: .hdWallet)!
 			let createdAccount = try pinoWalletManager
@@ -247,7 +249,9 @@ class AccountsViewModel {
 			activateNewAccountAddress(
 				createdAccount,
 				publicKey: createdAccount.publicKey,
-				derivationPath: createdAccount.derivationPath
+				derivationPath: createdAccount.derivationPath,
+				accountName: accountName,
+				accountAvatar: accountAvatar
 			).done {
 				self.coreDataManager.updateWalletLastDrivedIndex(
 					wallet: currentWallet,

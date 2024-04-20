@@ -85,7 +85,7 @@ class AddNewAccountViewController: UIViewController {
 	private func openCreateAccountPage() {
 		let createWalletVC = CreateNewAccountViewController(accounts: accountsVM.accountsList)
 		createWalletVC.newAccountDidCreate = { avatar, accountName in
-			self.createNewAccount().done {
+			self.createNewAccount(accountName: accountName, accountAvatar: avatar).done {
 				self.onDismiss()
 			}.catch { error in
 				createWalletVC.showValidationError(error)
@@ -102,15 +102,18 @@ class AddNewAccountViewController: UIViewController {
 		present(syncPage, animated: true)
 	}
 
-	private func createNewAccount() -> Promise<Void> {
+	private func createNewAccount(accountName: String, accountAvatar: Avatar) -> Promise<Void> {
 		Promise<Void> { seal in
-			accountsVM.createNewAccount().done {
+			accountsVM.createNewAccount(accountName: accountName, accountAvatar: accountAvatar).done {
 				seal.fulfill(())
 			}.catch { [self] error in
 				if let error = error as? WalletError {
 					switch error {
 					case .accountAlreadyExists:
-						accountsVM.createNewAccountWithNextIndex().done {
+						accountsVM.createNewAccountWithNextIndex(
+							accountName: accountName,
+							accountAvatar: accountAvatar
+						).done {
 							seal.fulfill(())
 						}.catch { error in
 							seal.reject(error)
