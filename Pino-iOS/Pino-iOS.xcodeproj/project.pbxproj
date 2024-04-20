@@ -709,6 +709,9 @@
 		E1EB332298633C02B55EA8BD /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBF9CC6A3C63CAA0DB0AA7 /* ActivityViewController.swift */; };
 		E25F4C14C3273F63F22E983C /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA3FFE35308EBEC961CD7BF /* UIView+Extension.swift */; };
 		E3099FEC2B00B901004474F0 /* CompoundDepositManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */; };
+		E31016262BD3ABCB0081E611 /* CreateNewAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31016252BD3ABCB0081E611 /* CreateNewAccountViewController.swift */; };
+		E31016282BD3ACA00081E611 /* CreateNewAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31016272BD3ACA00081E611 /* CreateNewAccountView.swift */; };
+		E310162A2BD3AE7B0081E611 /* CreateNewAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31016292BD3AE7B0081E611 /* CreateNewAccountViewModel.swift */; };
 		E31106FE2AC17040005723EB /* InvestableAssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */; };
 		E3153AF62BA57E17006A72C1 /* AccountNameValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */; };
 		E3153AF82BA5873D006A72C1 /* PrivateKeyValidationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */; };
@@ -1636,6 +1639,9 @@
 		E1575DB9D22AE8EBFE86A7D9 /* SeedPhrase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhrase.swift; sourceTree = "<group>"; };
 		E19FF7EA659493C72C4B0AD9 /* PinoTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinoTextFieldView.swift; sourceTree = "<group>"; };
 		E3099FEB2B00B901004474F0 /* CompoundDepositManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundDepositManager.swift; sourceTree = "<group>"; };
+		E31016252BD3ABCB0081E611 /* CreateNewAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountViewController.swift; sourceTree = "<group>"; };
+		E31016272BD3ACA00081E611 /* CreateNewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountView.swift; sourceTree = "<group>"; };
+		E31016292BD3AE7B0081E611 /* CreateNewAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountViewModel.swift; sourceTree = "<group>"; };
 		E31106FD2AC17040005723EB /* InvestableAssetsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestableAssetsModel.swift; sourceTree = "<group>"; };
 		E3153AF52BA57E17006A72C1 /* AccountNameValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountNameValidationError.swift; sourceTree = "<group>"; };
 		E3153AF72BA5873D006A72C1 /* PrivateKeyValidationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKeyValidationStatus.swift; sourceTree = "<group>"; };
@@ -2667,6 +2673,7 @@
 				D919E7532A18FE31003C73D7 /* AccountHeaderViewModel.swift */,
 				D94A9A2329FE75FC00DCA28D /* EditAccountNameViewModel.swift */,
 				E341EBA92B9458BF00A738AF /* ImportNewAccountViewModel.swift */,
+				E31016292BD3AE7B0081E611 /* CreateNewAccountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3143,6 +3150,7 @@
 				662126D2932FB4BDCEAAB8DB /* AccountsViewController.swift */,
 				D94A9A1F29FE6C4E00DCA28D /* EditAccountNameViewController.swift */,
 				E341EBA72B9456F100A738AF /* ImportNewAccountViewController.swift */,
+				E31016252BD3ABCB0081E611 /* CreateNewAccountViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4753,6 +4761,7 @@
 				D94A9A1C29FE4C6700DCA28D /* EditAccountView.swift */,
 				D94A9A2129FE6CDA00DCA28D /* EditAccountNameView.swift */,
 				E341EBAB2B945E9600A738AF /* ImportNewAccountView.swift */,
+				E31016272BD3ACA00081E611 /* CreateNewAccountView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5143,6 +5152,7 @@
 				DFCB139D2B09DCB800EEFD0F /* CDInvestActivityDetails+CoreDataClass.swift in Sources */,
 				DFCB139E2B09DCB800EEFD0F /* CDCollateralActivity+CoreDataClass.swift in Sources */,
 				DFCB139F2B09DCB800EEFD0F /* CDInvestActivity+CoreDataClass.swift in Sources */,
+				E310162A2BD3AE7B0081E611 /* CreateNewAccountViewModel.swift in Sources */,
 				29B332492B8612E8001E34B7 /* ActivityUnwrapETHModel.swift in Sources */,
 				DFCB13A02B09DCB800EEFD0F /* CDInvestActivityDetails+CoreDataProperties.swift in Sources */,
 				DFCB13A12B09DCB800EEFD0F /* CDCollateralActivityDetails+CoreDataClass.swift in Sources */,
@@ -5691,6 +5701,7 @@
 				D9C4CF032A408CA500475F01 /* UserAddressCell.swift in Sources */,
 				E3FC69E72A9213FE009B3341 /* InvestmentBoardFilterHeader.swift in Sources */,
 				DFB1E9D62A08F21C00041B26 /* SelectedAssetsDataSource.swift in Sources */,
+				E31016262BD3ABCB0081E611 /* CreateNewAccountViewController.swift in Sources */,
 				0D3E98673CD274381A698BBA /* ProfileViewController.swift in Sources */,
 				0613EF4F55B5F6FA90BA65C0 /* ProfileViewModel.swift in Sources */,
 				DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */,
@@ -5855,6 +5866,7 @@
 				D9A3280D2A345313005A8393 /* SelectAssetCollectionView.swift in Sources */,
 				E341EBA42B8DE35E00A738AF /* BorrowComingSoonViewController.swift in Sources */,
 				E351A72729F5247000635715 /* ChartDateBuilder.swift in Sources */,
+				E31016282BD3ACA00081E611 /* CreateNewAccountView.swift in Sources */,
 				E3F482EC2A3485A500EEC9CF /* EnterSendAmountViewController.swift in Sources */,
 				E35BB6592A62F1A8003987F5 /* SwapConfirmationInfoView.swift in Sources */,
 				E356F7DA2B64F81B009A90AE /* EnsAddress.swift in Sources */,
