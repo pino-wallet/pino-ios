@@ -13,6 +13,10 @@ class CreateNewAccountViewController: UIViewController {
 	private let createAccountVM: CreateNewAccountViewModel
 	private var createAccountView: CreateNewAccountView!
 
+	// MARK: Public Properties
+
+	public var newAccountDidCreate: ((_ avatar: Avatar, _ accountName: String) -> Void)!
+
 	// MARK: Initializers
 
 	init(accounts: [AccountInfoViewModel]) {
@@ -39,10 +43,13 @@ class CreateNewAccountViewController: UIViewController {
 
 	private func setupView() {
 		createAccountView = CreateNewAccountView(
+			createAccountVM: createAccountVM,
 			avatarButtonDidTap: {
 				self.openAvatarPage()
 			},
-			createButtonDidTap: {}
+			createButtonDidTap: {
+				self.createWalletAccount()
+			}
 		)
 		view = createAccountView
 	}
@@ -60,7 +67,15 @@ class CreateNewAccountViewController: UIViewController {
 		navigationController?.pushViewController(changeAvatarVC, animated: true)
 	}
 
-	private func showErrorToast(_ error: Error) {
+	private func createWalletAccount() {
+		guard createAccountVM.isAccountNameValid() else { return }
+		createAccountView.showLoading()
+		newAccountDidCreate(createAccountVM.accountAvatar, createAccountVM.accountName)
+	}
+
+	// MARK: - Public Methods
+
+	public func showValidationError(_ error: Error) {
 		if let error = error as? ToastError {
 			Toast.default(title: error.toastMessage, style: .error).show()
 		}

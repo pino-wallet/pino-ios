@@ -6,6 +6,7 @@
 //
 
 import Combine
+import PromiseKit
 import UIKit
 
 class AddNewAccountViewController: UIViewController {
@@ -62,7 +63,7 @@ class AddNewAccountViewController: UIViewController {
 	private func openAddNewAccountPage(option: AddNewAccountOptionModel) {
 		switch option.type {
 		case .Create:
-			createNewAccount()
+			openCreateAccountPage()
 		case .Import:
 			openImportAccountPage()
 		}
@@ -81,6 +82,18 @@ class AddNewAccountViewController: UIViewController {
 		navigationController?.pushViewController(importWalletVC, animated: true)
 	}
 
+	private func openCreateAccountPage() {
+		let createWalletVC = CreateNewAccountViewController(accounts: accountsVM.accountsList)
+		createWalletVC.newAccountDidCreate = { avatar, accountName in
+			self.createNewAccount().done {
+				self.onDismiss()
+			}.catch { error in
+				createWalletVC.showValidationError(error)
+			}
+		}
+		navigationController?.pushViewController(createWalletVC, animated: true)
+	}
+
 	private func openSyncPage() {
 		let syncPage = SyncWalletViewController {
 			self.onDismiss()
@@ -89,33 +102,26 @@ class AddNewAccountViewController: UIViewController {
 		present(syncPage, animated: true)
 	}
 
-	private func createNewAccount() {
-		// New Wallet should be created
-		// Loading should be shown
-		// Homepage in the new account should be opened
-		addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: true)
-		accountsVM.createNewAccount().done {
-			self.dismiss(animated: true)
-		}.catch { [self] error in
-			if let error = error as? WalletError {
-				switch error {
-				case .accountAlreadyExists:
-					createNewAccountWithNextIndex()
-					return
-				default: break
+	private func createNewAccount() -> Promise<Void> {
+		Promise<Void> { seal in
+			accountsVM.createNewAccount().done {
+				seal.fulfill(())
+			}.catch { [self] error in
+				if let error = error as? WalletError {
+					switch error {
+					case .accountAlreadyExists:
+						accountsVM.createNewAccountWithNextIndex().done {
+							seal.fulfill(())
+						}.catch { error in
+							seal.reject(error)
+						}
+					default:
+						seal.reject(error)
+					}
+				} else {
+					seal.reject(error)
 				}
 			}
-			self.showErrorToast(error)
-			self.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
-		}
-	}
-
-	private func createNewAccountWithNextIndex() {
-		accountsVM.createNewAccountWithNextIndex().done {
-			self.dismiss(animated: true)
-		}.catch { error in
-			self.showErrorToast(error)
-			self.addNewAccountVM.setLoadingStatusFor(optionType: .Create, loadingStatus: false)
 		}
 	}
 
