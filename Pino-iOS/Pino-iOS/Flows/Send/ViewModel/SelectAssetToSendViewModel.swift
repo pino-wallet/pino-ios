@@ -9,13 +9,20 @@ import Combine
 
 class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 	// MARK: - Public Properties
+    
+    public enum PageStatus {
+        case searchEmptyAssets
+        case emptyAssets
+        case normal
+    }
 
 	public let pageTitle = "Select asset"
 	public let dissmissIocnName = "dissmiss"
 
+    @Published public var pageStatus: PageStatus = .normal
 	@Published
-	var filteredAssetList: [AssetViewModel]
-	var filteredAssetListByAmount: [AssetViewModel]
+	public var filteredAssetList: [AssetViewModel]
+	public var filteredAssetListByAmount: [AssetViewModel]
 
 	// MARK: - initializers
 
@@ -24,7 +31,26 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 			!asset.isPosition
 		}
 		self.filteredAssetList = filteredAssetListByAmount
+        
+        updatePageStatusWithDefaultAssets()
 	}
+    
+    // MARK: - Private Properties
+    private func updatePageStatusWithDefaultAssets() {
+        if filteredAssetListByAmount.isEmpty {
+            pageStatus = .emptyAssets
+        } else {
+            pageStatus = .normal
+        }
+    }
+    
+    private func updatePageStatusWithSearchResult() {
+        if filteredAssetList.isEmpty {
+            pageStatus = .searchEmptyAssets
+        } else {
+            pageStatus = .normal
+        }
+    }
 
 	// MARK: - Public Methods
 
@@ -36,8 +62,10 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 					asset.name.lowercased().contains(searchValueLowerCased) ||
 						asset.symbol.lowercased().contains(searchValueLowerCased)
 				}
+            updatePageStatusWithSearchResult()
 		} else {
 			filteredAssetList = filteredAssetListByAmount
+            updatePageStatusWithDefaultAssets()
 		}
 	}
 }

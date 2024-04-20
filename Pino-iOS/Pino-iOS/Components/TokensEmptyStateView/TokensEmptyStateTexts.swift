@@ -28,7 +28,7 @@ extension TokensEmptyStateView.TokensEmptyStateTexts {
 	public static let noResults = TokensEmptyStateView.TokensEmptyStateTexts(
 		titleImageName: "no_results",
 		titleText: "No results",
-		descriptionText: "No assets found with that name",
-		buttonTitle: nil
+		descriptionText: "No assets found with that name"
 	)
+    public static let noAssetsSend = TokensEmptyStateView.TokensEmptyStateTexts(titleImageName: "home_empty_page", titleText: "No assets", descriptionText: "No assets found")
 }
