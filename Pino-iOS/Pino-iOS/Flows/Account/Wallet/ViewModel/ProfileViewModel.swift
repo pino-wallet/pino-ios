@@ -34,6 +34,7 @@ class ProfileViewModel {
 			.notification,
 			.securityLock,
 			.recoverPhrase,
+            .sendFeedback,
 			.aboutPino,
 		]
 	}

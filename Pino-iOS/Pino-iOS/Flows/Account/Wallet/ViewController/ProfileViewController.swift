@@ -101,6 +101,12 @@ class ProfileViewController: UIViewController {
 		case .aboutPino:
 			let aboutPino = AboutPinoViewController()
 			navigationController?.pushViewController(aboutPino, animated: true)
+        case .sendFeedback:
+            guard let customURLString = settingVM.customURL else {
+                return
+            }
+            let url = URL(string: customURLString)
+            UIApplication.shared.open(url!)
 		default: break
 		}
 	}
