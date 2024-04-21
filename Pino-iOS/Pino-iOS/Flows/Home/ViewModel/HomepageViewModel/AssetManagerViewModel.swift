@@ -152,6 +152,12 @@ class AssetManagerViewModel {
 		selectedAssets = []
 		let userAssets = assets.compactMap { AssetViewModel(assetModel: $0, isSelected: false) }
 			.filter { !$0.isPosition && !$0.holdAmount.isZero }
+		if userAssets.isEmpty {
+			for tokenID in ctsAPIclient.defaultTokensID {
+				addSelectedAssetToCoreData(id: tokenID)
+			}
+			return
+		}
 		for asset in userAssets {
 			addSelectedAssetToCoreData(id: asset.id)
 		}
