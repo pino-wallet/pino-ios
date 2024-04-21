@@ -80,7 +80,7 @@ class SyncWalletViewController: UIViewController {
 		let tutorialPage = TutorialViewController {
 			self.dismiss(animated: true)
 		}
-		tutorialPage.modalPresentationStyle = .fullScreen
+		tutorialPage.modalPresentationStyle = .overFullScreen
 		present(tutorialPage, animated: true)
 	}
 
