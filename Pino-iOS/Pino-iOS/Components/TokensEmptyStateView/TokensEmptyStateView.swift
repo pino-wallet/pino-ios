@@ -26,7 +26,10 @@ class TokensEmptyStateView: UIView {
 	private var mainStackViewCenterConstraint: NSLayoutConstraint!
 	private var mainStackViewBottomConstraint: NSLayoutConstraint!
 	private var onDismissKeyboard: () -> Void
-	private var tokensEmptyStateTexts: TokensEmptyStateTexts {
+
+	// MARK: - Public Properties
+
+	public var tokensEmptyStateTexts: TokensEmptyStateTexts {
 		didSet {
 			updateUI()
 		}

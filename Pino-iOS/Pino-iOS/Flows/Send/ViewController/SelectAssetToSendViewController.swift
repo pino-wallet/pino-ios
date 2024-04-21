@@ -75,13 +75,19 @@ class SelectAssetToSendViewController: UIViewController {
 		emptyStateView = TokensEmptyStateView(tokensEmptyStateTexts: .noResults, onDismissKeyboard: {
 			self.navigationItem.searchController?.searchBar.resignFirstResponder()
 		})
+
 		view = selectAssetcollectionView
 	}
 
-	private func toggleView(assetsList: [AssetViewModel]) {
-		if assetsList.isEmpty {
+	private func updateViewWithStatus(pageStatus: SelectAssetToSendViewModel.PageStatus) {
+		switch pageStatus {
+		case .searchEmptyAssets:
+			emptyStateView.tokensEmptyStateTexts = .noResults
 			view = emptyStateView
-		} else {
+		case .emptyAssets:
+			emptyStateView.tokensEmptyStateTexts = .noAssetsSend
+			view = emptyStateView
+		case .normal:
 			view = selectAssetcollectionView
 		}
 	}
@@ -89,7 +95,9 @@ class SelectAssetToSendViewController: UIViewController {
 	private func setupBindings() {
 		selectAssetToSendVM.$filteredAssetList.sink { [weak self] filteredAssetsList in
 			self?.selectAssetcollectionView.reloadData()
-			self?.toggleView(assetsList: filteredAssetsList)
+		}.store(in: &cancellables)
+		selectAssetToSendVM.$pageStatus.sink { [weak self] pageStatus in
+			self?.updateViewWithStatus(pageStatus: pageStatus)
 		}.store(in: &cancellables)
 	}
 
