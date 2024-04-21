@@ -72,7 +72,7 @@ public enum Avatar: String, CaseIterable {
 		case .peach:
 			return "Peach"
 		case .strawberry:
-			return "Strewberry"
+			return "Strawberry"
 		case .chilli_pepper:
 			return "Chilli Pepper"
 		case .ear_of_corn:
