@@ -12,6 +12,8 @@ class ProfileViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Settings"
+	#warning("this url is for test and we should change it")
+	public let feedbackURL = "https://www.google.com"
 	public let dismissIconName = "dissmiss"
 	@Published
 	public var walletInfo: AccountInfoViewModel!
@@ -34,6 +36,7 @@ class ProfileViewModel {
 			.notification,
 			.securityLock,
 			.recoverPhrase,
+			.sendFeedback,
 			.aboutPino,
 		]
 	}

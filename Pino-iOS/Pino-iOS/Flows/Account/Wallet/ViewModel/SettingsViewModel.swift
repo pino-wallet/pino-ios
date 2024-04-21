@@ -41,14 +41,14 @@ extension SettingsViewModel {
 		title: "Recovery phrase",
 		description: nil
 	)
-	public static let support = SettingsViewModel(
-		image: "setting_support",
-		title: "Send feedback",
-		description: nil
-	)
 	public static let aboutPino = SettingsViewModel(
 		image: "setting_about",
 		title: "About pino",
+		description: nil
+	)
+	public static let sendFeedback = SettingsViewModel(
+		image: "feedback_settings",
+		title: "Send feedback",
 		description: nil
 	)
 }
