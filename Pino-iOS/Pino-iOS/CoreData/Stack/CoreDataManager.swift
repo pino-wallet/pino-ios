@@ -61,6 +61,7 @@ class CoreDataManager {
 		avatarColor: String,
 		isSelected: Bool = true,
 		hasDefaultAssets: Bool = false,
+		isImported: Bool,
 		wallet: Wallet
 	) -> WalletAccount? {
 		guard accountDataSource.getBy(id: publicKey) == nil else { return nil }
@@ -76,6 +77,7 @@ class CoreDataManager {
 		newAccount.selectedAssets = []
 		newAccount.hasDefaultAssets = hasDefaultAssets
 		newAccount.isPositionEnabled = false
+		newAccount.isImported = isImported
 		newAccount.createdAt = Date()
 		if newAccount.wallet.walletType == .hdWallet {
 			newAccount.wallet.lastDrivedIndex += 1

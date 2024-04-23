@@ -58,7 +58,8 @@ class AccountsViewModel {
 		derivationPath: String?,
 		publicKey: EthereumPublicKey,
 		accountName: String?,
-		accountAvatar: Avatar?
+		accountAvatar: Avatar?,
+		isImported: Bool
 	) -> Promise<Void> {
 		var walletType: Wallet.WalletType = .nonHDWallet
 		if derivationPath != nil {
@@ -83,6 +84,7 @@ class AccountsViewModel {
 				name: newAccountName,
 				avatarIcon: newAvatar.rawValue,
 				avatarColor: newAvatar.rawValue,
+				isImported: isImported,
 				wallet: wallet!
 			) {
 				getAccounts()
@@ -137,7 +139,8 @@ class AccountsViewModel {
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath,
 				accountName: accountName,
-				accountAvatar: accountAvatar
+				accountAvatar: accountAvatar,
+				isImported: false
 			).done {
 				seal.fulfill(())
 			}.catch { error in
@@ -163,7 +166,8 @@ class AccountsViewModel {
 					importedAccount,
 					publicKey: importedAccount.publicKey,
 					accountName: accountName,
-					accountAvatar: accountAvatar
+					accountAvatar: accountAvatar,
+					isImported: true
 				)
 			}.done {
 				seal.fulfill(())
@@ -178,7 +182,8 @@ class AccountsViewModel {
 		publicKey: EthereumPublicKey,
 		derivationPath: String? = nil,
 		accountName: String? = nil,
-		accountAvatar: Avatar? = nil
+		accountAvatar: Avatar? = nil,
+		isImported: Bool
 	) -> Promise<Void> {
 		firstly {
 			accountActivationVM.activateNewAccountAddress(account)
@@ -188,7 +193,8 @@ class AccountsViewModel {
 				derivationPath: derivationPath,
 				publicKey: publicKey,
 				accountName: accountName,
-				accountAvatar: accountAvatar
+				accountAvatar: accountAvatar,
+				isImported: isImported
 			).map { accountInfo }
 		}.done { [self] accountInfo in
 			SyncWalletViewModel.saveSyncTime(accountInfo: accountInfo)
@@ -251,7 +257,8 @@ class AccountsViewModel {
 				publicKey: createdAccount.publicKey,
 				derivationPath: createdAccount.derivationPath,
 				accountName: accountName,
-				accountAvatar: accountAvatar
+				accountAvatar: accountAvatar,
+				isImported: false
 			).done {
 				self.coreDataManager.updateWalletLastDrivedIndex(
 					wallet: currentWallet,
