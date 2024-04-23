@@ -63,6 +63,7 @@ class AllDoneViewModel {
 					name: account.name,
 					avatarIcon: account.profileImage,
 					avatarColor: account.profileColor,
+					hasDefaultAssets: account.isNewWallet,
 					wallet: createdWallet
 				)
 			}
