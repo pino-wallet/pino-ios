@@ -64,7 +64,7 @@ class AllDoneViewModel {
 					avatarIcon: account.profileImage,
 					avatarColor: account.profileColor,
 					hasDefaultAssets: account.isNewWallet,
-					isImported: true,
+					isImported: false,
 					wallet: createdWallet
 				)
 			}
