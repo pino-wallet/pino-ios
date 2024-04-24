@@ -11,7 +11,7 @@ import Foundation
 class BorrowLoanDetailsViewModel {
 	// MARK: - Public Properties
 
-	public let dismissIconName = "dissmiss"
+	public let dismissIconName = "dismiss"
 	public let apyTitle = "APY"
 	public let borrowedAmountTitle = "Borrowed amount"
 	public let accuredFeeTitle = "Accured fee"

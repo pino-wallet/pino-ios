@@ -12,5 +12,5 @@ struct BorrowSelectDexViewModel: SelectDexSystemVMProtocol {
 
 	public let dexSystemList: [DexSystemModel] = [.aave, .compound]
 	public let pageTitle = "Select dex"
-	public let dissmissButtonImageName = "dissmiss"
+	public let dissmissButtonImageName = "dismiss"
 }

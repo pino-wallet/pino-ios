@@ -11,7 +11,7 @@ class SelectSwapProtocolViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Select DEX"
-	public let dissmissIocn = "dissmiss"
+	public let dissmissIocn = "dismiss"
 
 	public var swapProtocols: [SwapProtocolModel]
 

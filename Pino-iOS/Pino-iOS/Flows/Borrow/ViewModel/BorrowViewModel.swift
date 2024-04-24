@@ -72,7 +72,7 @@ class BorrowViewModel {
 	public var collateralizableTokens: CollateralizableTokensModel?
 	public var calculatedHealthScore: Double = 0
 	public let alertIconName = "alert"
-	public let dismissIconName = "dissmiss"
+	public let dismissIconName = "dismiss"
 	public let pageTitle = "Borrow"
 	public let collateralTitle = "Collateral"
 	public let collateralDescription = "Deposit assets as collateral to get started"

@@ -24,7 +24,7 @@ class ActivityDetailsViewModel {
 
 	public var activityDetails: ActivityCellViewModel
 	public let unVerifiedAssetIconName = "unverified_asset"
-	public let dismissNavigationIconName = "dissmiss"
+	public let dismissNavigationIconName = "dismiss"
 	public let swapDownArrow = "swap_down_arrow"
 	public let dateTitle = "Date"
 	public let statusTitle = "Status"

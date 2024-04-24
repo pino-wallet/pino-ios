@@ -15,7 +15,7 @@ struct CollateralDetailsViewModel {
 	public let totalCollateralTitle = "Total collateral"
 	public let increaseLoanTitle = "Increase collateral"
 	public let withdrawTitle = "Withdraw"
-	public let dismissIconName = "dissmiss"
+	public let dismissIconName = "dismiss"
 	public let collateralledTokenID: String
 	public let borrowVM: BorrowViewModel
 	public var collateralledTokenModel: UserBorrowingToken!
