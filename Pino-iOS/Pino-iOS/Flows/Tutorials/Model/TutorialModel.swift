@@ -16,34 +16,34 @@ struct TutorialModel {
 
 	public static let tutorials: [TutorialModel] = [
 		.init(
-			title: "Easy asset conversion",
-			desc: "Easily convert your assets through a minimal swap interface.",
+			title: "Easy Asset Conversion",
+			desc: "Convert your assets through a minimal swap interface.",
 			lottieFile: "SwapEasyAssetConversion"
 		),
 		.init(
 			title: "Save on Swaps",
-			desc: "Get the best rates for your order from leading DEX aggregators.",
+			desc: "Get the best rates from leading DEX aggregators.",
 			lottieFile: "SwapSaveOnSwaps"
 		),
 		.init(
-			title: "Loans Made Easy",
-			desc: "Get loans directly through top lending protocols like Compound and Aave.",
-			lottieFile: "BorrowLoansMadeEasy"
-		),
-		.init(
-			title: "Ensure Loan Safety",
-			desc: "Effortlessly monitor your loan positions to avoid unexpected liquidations.",
-			lottieFile: "BorrowEnsureLoanSafety"
-		),
-		.init(
-			title: "Simple Yield Earning",
-			desc: "Invest in reliable yield-bearing opportunities and seamlessly manage them.",
+			title: "Maximize Your Earns",
+			desc: "Invest in top yield-bearing DeFi opportunities easily.",
 			lottieFile: "InvestSimpleYieldEarning"
 		),
 		.init(
 			title: "Easy Profit Tracking",
-			desc: "Track your USD-based investment value and true profit over time.",
+			desc: "Track the performance of your investments effortlessly.",
 			lottieFile: "InvestEasyProfitTracking"
+		),
+		.init(
+			title: "Get Loan Easily",
+			desc: "Get loans directly through top lending protocols.",
+			lottieFile: "BorrowLoansMadeEasy"
+		),
+		.init(
+			title: "Ensure Loan Safety",
+			desc: "Monitor and manage your loan positions easily.",
+			lottieFile: "BorrowEnsureLoanSafety"
 		),
 	]
 }
