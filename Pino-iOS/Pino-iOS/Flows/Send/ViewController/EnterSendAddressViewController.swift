@@ -22,15 +22,15 @@ class EnterSendAddressViewController: UIViewController {
 			enterSendAddressView.showSuggestedAddresses()
 		}
 	}
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
 
-        if isMovingFromParent, transitionCoordinator?.isInteractive == false {
-            // code here
-            hapticManager.run(type: .lightImpact)
-        }
-    }
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+			// code here
+			hapticManager.run(type: .lightImpact)
+		}
+	}
 
 	// MARK: - Initializers
 

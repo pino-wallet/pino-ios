@@ -38,13 +38,13 @@ class ShowSecretPhraseViewController: UIViewController {
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+		super.viewWillDisappear(animated)
 		removeNotifications()
 
-            if isMovingFromParent, transitionCoordinator?.isInteractive == false {
-                // code here
-                HapticManager().run(type: .lightImpact)
-            }
+		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+			// code here
+			HapticManager().run(type: .lightImpact)
+		}
 	}
 
 	// MARK: - Initializers
