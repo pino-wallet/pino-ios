@@ -66,6 +66,16 @@ class CoinPerformanceInfoView: UIView {
 		allTimeLowItem.value = allTimeLow
 	}
 
+	private func setNetProfitLabelColor() {
+		if coinPerformanceVM.netProfitBigNum.isZero {
+			netProfitItem.setValueLabelColor(.Pino.label)
+		} else if coinPerformanceVM.netProfitBigNum > 0.bigNumber {
+			netProfitItem.setValueLabelColor(.Pino.green)
+		} else if coinPerformanceVM.netProfitBigNum < 0.bigNumber {
+			netProfitItem.setValueLabelColor(.Pino.red)
+		}
+	}
+
 	private func setupBindings() {
 		Publishers.Zip3(coinPerformanceVM.$allTimeHigh, coinPerformanceVM.$allTimeLow, coinPerformanceVM.$netProfit)
 			.sink { allTimeHigh, allTimeLow, netProfit in
@@ -75,6 +85,7 @@ class CoinPerformanceInfoView: UIView {
 					return
 				}
 				self.updateItems(allTimeHigh: allTimeHigh, allTimeLow: allTimeLow, netProfit: netProfit)
+				self.setNetProfitLabelColor()
 				self.hideSkeletonView()
 			}.store(in: &cancellables)
 	}

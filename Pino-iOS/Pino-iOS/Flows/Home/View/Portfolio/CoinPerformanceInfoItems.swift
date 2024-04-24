@@ -93,4 +93,10 @@ class CoinPerformanceInfoItem: UIView {
 	private func setupSkeletonLoading() {
 		itemValueLabel.isSkeletonable = true
 	}
+
+	// MARK: - Public Methods
+
+	public func setValueLabelColor(_ color: UIColor) {
+		itemValueLabel.textColor = color
+	}
 }

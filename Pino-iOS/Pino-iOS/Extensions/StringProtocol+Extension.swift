@@ -85,6 +85,10 @@ extension String {
 		""
 	}
 
+	public var isNegative: Bool {
+		contains("-")
+	}
+
 	public var trimmCurrency: Self {
 		if contains("$") {
 			var trimmedStr = self

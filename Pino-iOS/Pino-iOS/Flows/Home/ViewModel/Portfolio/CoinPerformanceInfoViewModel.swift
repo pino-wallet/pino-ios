@@ -19,6 +19,7 @@ class CoinPerformanceInfoViewModel {
 	public var allTimeHigh: String?
 	@Published
 	public var allTimeLow: String?
+	public var netProfitBigNum: BigNumber = 0.bigNumber
 
 	public func updateNetProfit(_ chartData: [AssetChartDataViewModel], selectedAsset: AssetViewModel) {
 		guard let currentWorth = chartData.last?.networth else {
@@ -35,6 +36,7 @@ class CoinPerformanceInfoViewModel {
 		} else {
 			netProfit = userNetProfit.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
+		netProfitBigNum = userNetProfit
 	}
 
 	public func updateAllTimeHigh(_ chartData: [AssetChartDataViewModel]) {
