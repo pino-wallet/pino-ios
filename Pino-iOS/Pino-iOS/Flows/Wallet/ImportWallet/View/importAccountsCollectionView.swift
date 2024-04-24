@@ -10,6 +10,7 @@ import UIKit
 class ImportAccountsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
+	private let hapticManager = HapticManager()
 	private var accountsVM: ImportAccountsViewModel
 	private var findAccountsDidTap: () -> Void
 
@@ -98,6 +99,7 @@ extension ImportAccountsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension ImportAccountsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		hapticManager.run(type: .selectionChanged)
 		accountsVM.accounts[indexPath.item].toggleIsSelected()
 	}
 }
@@ -148,7 +150,10 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 			) as! ImportAccountsFooterView
 			if accountsVM.isMoreAccountExist {
 				footerView.title = accountsVM.findMoreAccountTitle
-				footerView.findAccountDidTap = findAccountsDidTap
+				footerView.findAccountDidTap = {
+					self.hapticManager.run(type: .selectionChanged)
+					self.findAccountsDidTap()
+				}
 			} else {
 				footerView.title = accountsVM.noMoreAccountTitle
 				footerView.findAccountDidTap = nil

@@ -11,6 +11,7 @@ class PortfolioPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var portfolioPerformaneVM: PortfolioPerformanceViewModel!
+	private let hapticManager = HapticManager()
 
 	// MARK: Initializers
 
@@ -77,6 +78,7 @@ class PortfolioPerformanceViewController: UIViewController {
 
 	@objc
 	private func closePage() {
+		hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
@@ -106,6 +108,7 @@ class PortfolioPerformanceViewController: UIViewController {
 
 extension PortfolioPerformanceViewController: LineChartDateFilterDelegate {
 	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
+		hapticManager.run(type: .selectionChanged)
 		portfolioPerformaneVM.getChartData(dateFilter: dateFilter).catch { error in
 			self.showErrorToast(error)
 		}

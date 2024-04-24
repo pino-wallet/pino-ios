@@ -29,6 +29,7 @@ class RemoveAccountView: UIView {
 	private let infoStackview = UIStackView()
 	private let navigationBarRightSideView = UIView()
 	private let navigationBarDismissButton = UIButton()
+	private let hapticManager = HapticManager()
 
 	// MARK: - Initializers
 
@@ -123,11 +124,13 @@ class RemoveAccountView: UIView {
 
 	@objc
 	private func presentConfirmActionsheet() {
+		hapticManager.run(type: .heavyImpact)
 		presentConfirmActionsheetClosure()
 	}
 
 	@objc
 	private func onDismissTap() {
+		hapticManager.run(type: .lightImpact)
 		dismissPage()
 	}
 }

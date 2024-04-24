@@ -32,6 +32,7 @@ class AllowNotificationsView: UIView {
 	private let animationTime = 0.8
 	private let navigationBarRightSideView = UIView()
 	private let navigationBarDismissButton = UIButton()
+	private let hapticManager = HapticManager()
 	private var paddingFromButtom: CGFloat!
 	private var sampleNotificationGradientLayer: GradientLayer!
 
@@ -185,18 +186,21 @@ class AllowNotificationsView: UIView {
 
 	@objc
 	private func onSkip() {
+		hapticManager.run(type: .mediumImpact)
 		allowNotificationsVM.skipActivatingNotif()
 		dismissPage()
 	}
 
 	@objc
 	private func enableNotififcations() {
+		hapticManager.run(type: .mediumImpact)
 		allowNotificationsVM.enableNotifications()
 		dismissPage()
 	}
 
 	@objc
 	private func onDismissTap() {
+		hapticManager.run(type: .lightImpact)
 		dismissPage()
 	}
 

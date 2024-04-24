@@ -16,6 +16,7 @@ class SwapProvidersViewcontroller: UIAlertController {
 	private let titleStackView = UIStackView()
 	private let titleLabel = PinoLabel(style: .title, text: nil)
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
+	private let hapticManager = HapticManager()
 	private var providersCollectionView: SwapProvidersCollectionView!
 
 	private var providerDidSelect: ((SwapProviderViewModel) -> Void)!
@@ -56,6 +57,7 @@ class SwapProvidersViewcontroller: UIAlertController {
 
 	private func setupView() {
 		providersCollectionView = SwapProvidersCollectionView(providerDidSelect: { provider in
+			self.hapticManager.run(type: .selectionChanged)
 			self.providerDidSelect(provider)
 			self.dismiss(animated: true)
 		})

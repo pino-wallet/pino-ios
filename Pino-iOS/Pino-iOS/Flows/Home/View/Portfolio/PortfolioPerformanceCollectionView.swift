@@ -11,6 +11,7 @@ class PortfolioPerformanceCollectionView: UICollectionView {
 	// MARK: Private Properties
 
 	private let portfolioPerformanceVM: PortfolioPerformanceViewModel
+	private let hapticManager = HapticManager()
 
 	// MARK: Public Properties
 
@@ -83,6 +84,7 @@ extension PortfolioPerformanceCollectionView: UICollectionViewDelegateFlowLayout
 
 extension PortfolioPerformanceCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		hapticManager.run(type: .mediumImpact)
 		guard let assetsList = portfolioPerformanceVM.shareOfAssetsVM else { return }
 		assetSelected(assetsList[indexPath.item])
 	}

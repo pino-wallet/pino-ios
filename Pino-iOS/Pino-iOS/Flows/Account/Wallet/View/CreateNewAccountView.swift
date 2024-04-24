@@ -22,6 +22,7 @@ class CreateNewAccountView: UIView {
 	private let createButtonStackView = UIStackView()
 	private let createButton = PinoButton(style: .deactive)
 	private let pageDescriptionLabel = UILabel()
+	private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	private let avatarButtonDidTap: () -> Void
@@ -70,6 +71,7 @@ class CreateNewAccountView: UIView {
 		accountAvatarStackView.addGestureRecognizer(setAccountAvatarTapGesture)
 
 		createButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .mediumImpact)
 			self.createButtonDidTap()
 		}), for: .touchUpInside)
 
@@ -175,6 +177,7 @@ class CreateNewAccountView: UIView {
 
 	@objc
 	private func setNewAvatar() {
+		hapticManager.run(type: .mediumImpact)
 		avatarButtonDidTap()
 	}
 

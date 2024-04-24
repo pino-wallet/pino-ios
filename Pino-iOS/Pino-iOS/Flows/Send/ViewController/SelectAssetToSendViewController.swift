@@ -15,6 +15,7 @@ class SelectAssetToSendViewController: UIViewController {
 	private var selectAssetcollectionView: SelectAssetCollectionView!
 	private var cancellables = Set<AnyCancellable>()
 	private let assets: [AssetViewModel]
+	private let hapticManager = HapticManager()
 	private var onDismiss: ((SendTransactionStatus) -> Void)?
 	private var emptyStateView: TokensEmptyStateView!
 
@@ -64,6 +65,7 @@ class SelectAssetToSendViewController: UIViewController {
 	private func setupView() {
 		selectAssetcollectionView = SelectAssetCollectionView(selectAssetVM: selectAssetToSendVM)
 		selectAssetcollectionView.didSelectAsset = { selectedAsset in
+			self.hapticManager.run(type: .selectionChanged)
 			if let selectedAssetChanged = self.changeAssetFromEnterAmountPage {
 				selectedAssetChanged(selectedAsset)
 				self.navigationController?.dismiss(animated: true)
@@ -103,6 +105,7 @@ class SelectAssetToSendViewController: UIViewController {
 
 	@objc
 	private func dismissSelf() {
+		hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 

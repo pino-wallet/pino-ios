@@ -25,6 +25,7 @@ class ApproveSpeedUpViewController: UIAlertController {
 	private let speedUpArrowImageView = UIImageView()
 	private let speedUpArrowImageContainerView = UIView()
 	private let actionButton = PinoButton(style: .active)
+	private let hapticManager = HapticManager()
 	private var currentFeeView: GradientShowFeeView!
 	private var speedUpFeeView: GradientShowFeeView!
 	private var approveLoadingVM: ApprovingLoadingViewModel!
@@ -211,6 +212,7 @@ class ApproveSpeedUpViewController: UIAlertController {
 
 	@objc
 	private func confirmSpeedUpTransaction() {
+		hapticManager.run(type: .mediumImpact)
 		switch pageStatus {
 		case .normal:
 			pageStatus = .speedUpLoading

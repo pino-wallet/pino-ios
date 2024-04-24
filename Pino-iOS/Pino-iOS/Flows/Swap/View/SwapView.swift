@@ -29,6 +29,7 @@ class SwapView: UIView {
 	private var fromTokenSectionView: SwapTokenSectionView!
 	private var toTokenSectionView: SwapTokenSectionView!
 	private let swapFeeView: SwapFeeView
+	private let hapticManager = HapticManager()
 
 	private var fromTokenChange: () -> Void
 	private var toTokeChange: () -> Void
@@ -109,11 +110,13 @@ class SwapView: UIView {
 		feeCardView.addSubview(swapFeeView)
 
 		continueButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .mediumImpact)
 			self.continueButton.style = .loading
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
 		switchTokenButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .lightImpact)
 			self.switchTokens()
 		}), for: .touchUpInside)
 

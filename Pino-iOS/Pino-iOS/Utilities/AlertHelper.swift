@@ -24,7 +24,10 @@ class AlertHelper {
 
 extension UIAlertAction {
 	static func gotIt(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
-		UIAlertAction(title: "Got it", style: .default, handler: handler)
+		UIAlertAction(title: "Got it", style: .default, handler: { alertAction in
+			HapticManager().run(type: .selectionChanged)
+			handler?(alertAction)
+		})
 	}
 
 	static func ok(handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {

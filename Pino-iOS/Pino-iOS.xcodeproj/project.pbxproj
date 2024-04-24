@@ -351,6 +351,7 @@
 		D93C41FB29F7CC67003F2297 /* EditAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */; };
 		D93C41FD29F7D298003F2297 /* EditAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */; };
 		D93C41FF29F7D3DF003F2297 /* EditAccountOptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */; };
+		D93FBA902BD670D200657B4A /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93FBA8F2BD670D200657B4A /* HapticManager.swift */; };
 		D944F3782BC1524700920377 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D944F3772BC1524700920377 /* UILabel+Extension.swift */; };
 		D9451BB62B9E19A7001A80FF /* FindingAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = D9451BB52B9E19A7001A80FF /* FindingAccount.json */; };
 		D94A45192BC2C1F00070F0AF /* GlobalActionSheetTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */; };
@@ -1305,6 +1306,7 @@
 		D93C41FA29F7CC67003F2297 /* EditAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountCell.swift; sourceTree = "<group>"; };
 		D93C41FC29F7D298003F2297 /* EditAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountViewModel.swift; sourceTree = "<group>"; };
 		D93C41FE29F7D3DF003F2297 /* EditAccountOptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAccountOptionModel.swift; sourceTree = "<group>"; };
+		D93FBA8F2BD670D200657B4A /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		D944F3772BC1524700920377 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		D9451BB52B9E19A7001A80FF /* FindingAccount.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FindingAccount.json; sourceTree = "<group>"; };
 		D94A45182BC2C1F00070F0AF /* GlobalActionSheetTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalActionSheetTexts.swift; sourceTree = "<group>"; };
@@ -2954,6 +2956,7 @@
 		9644A21ECD0A37919E016265 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				D93FBA8E2BD670BB00657B4A /* Haptic */,
 				D9BBEEEB2B6A569F00DE6C84 /* UserDefaults */,
 				DF6DEDD92AAB05F90080B47B /* Encryption */,
 				DFC4D0382A360D7300F03DC4 /* Web3 */,
@@ -3260,6 +3263,14 @@
 				D933C3382A99F6A600C2BD5A /* CollateralizableAssetCell.swift */,
 			);
 			path = CollateralizingBoard;
+			sourceTree = "<group>";
+		};
+		D93FBA8E2BD670BB00657B4A /* Haptic */ = {
+			isa = PBXGroup;
+			children = (
+				D93FBA8F2BD670D200657B4A /* HapticManager.swift */,
+			);
+			path = Haptic;
 			sourceTree = "<group>";
 		};
 		D94F90682BB2A57E003BDEBC /* BuildNumberInfo */ = {
@@ -5685,6 +5696,7 @@
 				D9F1BD042A71143300F5303F /* CoinInfoEmptyStateFooterViewModel.swift in Sources */,
 				D924C33F2A9495C9007299A4 /* BorrowingDetailsViewModel.swift in Sources */,
 				D9E34BC92C3AE69B3D5EC4F2 /* PortfolioPerformanceViewModel.swift in Sources */,
+				D93FBA902BD670D200657B4A /* HapticManager.swift in Sources */,
 				D5E4DDCF2A960367000AA235 /* InvestDepositViewModel.swift in Sources */,
 				DFFDEDB02A77931200D710D7 /* ZeroXEndpoint.swift in Sources */,
 				D990197E2A935383008CF9EC /* CollateralDetailsViewController.swift in Sources */,

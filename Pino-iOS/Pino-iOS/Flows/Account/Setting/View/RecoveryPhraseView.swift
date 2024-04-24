@@ -23,6 +23,7 @@ class RecoveryPhraseView: UIView {
 	private let warningCardView = UIView()
 	private let warningStackView = UIStackView()
 	private let warningDescriptionLabel = PinoLabel(style: .description, text: nil)
+	private let hapticManager = HapticManager()
 	private var copySecretPhraseTapped: () -> Void
 	private var secretPhraseVM: RecoveryPhraseViewModel
 	private let revealTapped: () -> Void
@@ -158,6 +159,9 @@ class RecoveryPhraseView: UIView {
 	// MARK: - Public Methods
 
 	public func showSeedPhrase() {
+		if revealLabel.alpha != 0 {
+			hapticManager.run(type: .selectionChanged)
+		}
 		UIView.animate(withDuration: 0.5) {
 			self.seedPhraseBlurView.alpha = 0
 			self.revealLabel.alpha = 0

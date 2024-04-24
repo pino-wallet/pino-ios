@@ -27,6 +27,7 @@ class PaymentMethodOptionView: UIView {
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let rightIconInfoView = UIImageView()
 	private let iconImageView = UIImageView()
+	private let hapticManager = HapticManager()
 
 	// MARK: - Initializers
 
@@ -99,6 +100,7 @@ class PaymentMethodOptionView: UIView {
 
 	@objc
 	private func onTap() {
+		hapticManager.run(type: .mediumImpact)
 		let url = URL(string: paymentMethodOptionVM!.url)
 		UIApplication.shared.open(url!)
 	}

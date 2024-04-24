@@ -32,6 +32,15 @@ class EnterSendAmountViewController: UIViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+			// code here
+			HapticManager().run(type: .lightImpact)
+		}
+	}
+
 	// MARK: - View Overrides
 
 	override func viewDidLoad() {

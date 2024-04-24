@@ -17,6 +17,7 @@ class InfoActionSheet: UIAlertController {
 	private let titleIcon = UIImageView()
 	private let descriptionLabel = PinoLabel(style: .description, text: nil)
 	private let actionButton = PinoButton(style: .active)
+	private let hapticManager = HapticManager()
 
 	// MARK: - Public Properties
 
@@ -61,6 +62,7 @@ class InfoActionSheet: UIAlertController {
 		titleStackView.spacing = 6
 
 		actionButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .mediumImpact)
 			if let onButtonTap = self.onActionButtonTap {
 				onButtonTap()
 			} else {

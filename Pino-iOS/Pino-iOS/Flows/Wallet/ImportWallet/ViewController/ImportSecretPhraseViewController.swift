@@ -24,6 +24,15 @@ class ImportSecretPhraseViewController: UIViewController {
 		setSteperView(stepsCount: 3, curreuntStep: 1)
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+			// code here
+			HapticManager().run(type: .lightImpact)
+		}
+	}
+
 	// MARK: - Private Methods
 
 	private func setupView() {

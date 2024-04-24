@@ -28,6 +28,7 @@ class ImportNewAccountView: UIView {
 	private let importButton = PinoButton(style: .deactive)
 	private let pageDescriptionLabel = UILabel()
 	private let importAccountVM: ImportNewAccountViewModel
+	private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	private let importButtonDidTap: () -> Void
@@ -85,6 +86,7 @@ class ImportNewAccountView: UIView {
 		accountAvatarStackView.addGestureRecognizer(setAccountAvatarTapGesture)
 
 		privateKeyPasteButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .selectionChanged)
 			self.importTextView.pasteText()
 		}), for: .touchUpInside)
 
@@ -93,6 +95,7 @@ class ImportNewAccountView: UIView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .mediumImpact)
 			self.importButtonDidTap()
 		}), for: .touchUpInside)
 
@@ -241,6 +244,7 @@ class ImportNewAccountView: UIView {
 
 	@objc
 	private func setNewAvatar() {
+		hapticManager.run(type: .mediumImpact)
 		changeAvatarDidTap()
 	}
 

@@ -27,6 +27,7 @@ class SwapTokenSectionView: UIView {
 	private let changeSelectedToken: () -> Void
 	private let swapVM: SwapTokenViewModel
 	private let hasMaxAmount: Bool
+	private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Public Properties
@@ -74,10 +75,12 @@ class SwapTokenSectionView: UIView {
 		maxAmountStackView.addArrangedSubview(maxAmountLabel)
 
 		changeTokenView.tokenViewDidSelect = {
+			self.hapticManager.run(type: .selectionChanged)
 			self.changeSelectedToken()
 		}
 
 		selectAssetButton.addAction(UIAction(handler: { _ in
+			self.hapticManager.run(type: .selectionChanged)
 			self.changeSelectedToken()
 		}), for: .touchUpInside)
 
@@ -190,6 +193,7 @@ class SwapTokenSectionView: UIView {
 
 	@objc
 	private func enterMaxAmount() {
+		hapticManager.run(type: .selectionChanged)
 		openKeyboard()
 		updateEstimatedAmount(enteredAmount: swapVM.selectedTokenMaxAmount)
 		updateAmountView()

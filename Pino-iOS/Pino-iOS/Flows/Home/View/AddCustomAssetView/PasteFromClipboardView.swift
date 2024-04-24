@@ -24,6 +24,7 @@ class PasteFromClipboardView: UIView {
 	private let pasteButton = UIButton()
 	private var contractAddressLabel: PinoLabel?
 	private let pasteButtonIcon = UIImage(named: "copy")
+	private let hapticManager = HapticManager()
 
 	// MARK: - Initializers
 
@@ -94,6 +95,7 @@ class PasteFromClipboardView: UIView {
 
 	@objc
 	private func onPasteTap() {
+		hapticManager.run(type: .selectionChanged)
 		onPaste()
 	}
 }

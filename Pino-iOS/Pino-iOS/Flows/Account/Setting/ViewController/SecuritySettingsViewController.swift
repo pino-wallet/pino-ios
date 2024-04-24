@@ -11,6 +11,7 @@ class SecuritySettingsViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let securityVM = SecuritySettingsViewModel()
+	private let hapticManager = HapticManager()
 
 	// MARK: - View Overrides
 
@@ -21,6 +22,15 @@ class SecuritySettingsViewController: UIViewController {
 	override func loadView() {
 		setupNavigationBar()
 		setupView()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+			// code here
+			hapticManager.run(type: .lightImpact)
+		}
 	}
 
 	// MARK: - Private Methods
@@ -40,6 +50,7 @@ class SecuritySettingsViewController: UIViewController {
 	}
 
 	private func openLockSelectMethodAlert() {
+		hapticManager.run(type: .mediumImpact)
 		let lockSelectMethodAlert = UIAlertController(
 			title: securityVM.changeLockMethodAlertTitle,
 			message: "",
@@ -51,6 +62,7 @@ class SecuritySettingsViewController: UIViewController {
 
 		for lockMethod in securityVM.lockMethods {
 			let alertAction = UIAlertAction(title: lockMethod.title, style: .default, handler: { [weak self] _ in
+				self?.hapticManager.run(type: .mediumImpact)
 				self?.securityVM.changeLockMethod(to: lockMethod)
 			})
 			lockSelectMethodAlert.addAction(alertAction)

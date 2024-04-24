@@ -41,6 +41,7 @@ class PinoNumberPadView: UIView {
 	private let num9 = PinoButton(style: .numpad)
 	private let clearBtn = PinoButton(style: .numpad)
 	private let emptyBtn = PinoButton(style: .numpad)
+	private let hapticManager = HapticManager()
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -197,9 +198,8 @@ class PinoNumberPadView: UIView {
 	}
 
 	private func tapped(number: String) {
+		hapticManager.run(type: .lightImpact)
 		insertText(number)
-		let hapticFeedback = UIImpactFeedbackGenerator(style: .medium)
-		hapticFeedback.impactOccurred()
 	}
 }
 

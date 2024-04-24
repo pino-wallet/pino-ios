@@ -15,6 +15,7 @@ class EditAccountNameViewController: UIViewController {
 
 	// MARK: - Private Properties
 
+	private let hapticManager = HapticManager()
 	private var editAccountNameView: EditAccountNameView!
 	private var editAccountNameVM: EditAccountNameViewModel!
 	private var nameChanged: (String) -> Void
@@ -46,6 +47,15 @@ class EditAccountNameViewController: UIViewController {
 		setupEditAccountNameVM()
 		setupNotificationBar()
 		setupView()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+
+		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+			// code here
+			hapticManager.run(type: .lightImpact)
+		}
 	}
 
 	// MARK: - Private Methods
@@ -90,6 +100,7 @@ class EditAccountNameViewController: UIViewController {
 
 	@objc
 	private func saveAccountName() {
+		hapticManager.run(type: .mediumImpact)
 		nameChanged(editAccountNameView.walletNameTextFieldView.getText()!)
 		navigationController?.popViewController(animated: true)
 	}
