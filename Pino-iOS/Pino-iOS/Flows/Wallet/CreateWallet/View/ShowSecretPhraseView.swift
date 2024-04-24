@@ -27,6 +27,7 @@ class ShowSecretPhraseView: UIView {
 	private let continueButton = PinoButton(style: .deactive)
 	private let signDescriptionLabelContainer = UIView()
 	private let signDescriptionLabel = UILabel()
+    private let hapticManager = HapticManager()
 	private var copySecretPhrase: () -> Void
 	private var savedSecretPhrase: () -> Void
 	private var secretPhraseVM: ShowSecretPhraseViewModel
@@ -80,10 +81,12 @@ extension ShowSecretPhraseView {
 		seedPhraseView.addGestureRecognizer(revealTapGesture)
 
 		shareButton.addAction(UIAction(handler: { _ in
+            self.hapticManager.run(type: .selectionChanged)
 			self.copySecretPhrase()
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
+            self.hapticManager.run(type: .mediumImpact)
 			self.savedSecretPhrase()
 		}), for: .touchUpInside)
 	}
@@ -176,6 +179,9 @@ extension ShowSecretPhraseView {
 
 	@objc
 	private func showSeedPhrase() {
+        if continueButton.style != .active {
+            hapticManager.run(type: .selectionChanged)
+        }
 		UIView.animate(withDuration: 0.5) {
 			self.seedPhraseBlurView.alpha = 0
 			self.revealLabel.alpha = 0

@@ -13,6 +13,7 @@ class EditAccountViewController: UIViewController {
 
 	private let accountsVM: AccountsViewModel
 	private let editAccountVM: EditAccountViewModel
+    private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 	private var editAccountView: EditAccountView!
 
@@ -87,10 +88,12 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
+        hapticManager.run(type: .mediumImpact)
 		dismiss(animated: true)
 	}
 
 	private func openAvatarPage() {
+        hapticManager.run(type: .mediumImpact)
 		let avatarVM = AvatarViewModel(selectedAvatar: editAccountVM.selectedAccount.profileImage)
 		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
 			self?.editAccountAvatar(newAvatar: avatarName)
@@ -99,6 +102,7 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openRemoveAccountPage() {
+        hapticManager.run(type: .heavyImpact)
 		let removeAccountVC = RemoveAccountViewController()
 		present(removeAccountVC, animated: true)
 		removeAccountVC.walletIsDeleted = {
@@ -114,12 +118,14 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openRevealPrivateKey() {
+        hapticManager.run(type: .selectionChanged)
 		let revealVM = RevealPrivateKeyViewModel(selectedAccount: editAccountVM.selectedAccount)
 		let revaelPrivateKeyVC = RevealPrivateKeyViewController(revealPrivateKeyVM: revealVM)
 		navigationController?.pushViewController(revaelPrivateKeyVC, animated: true)
 	}
 
 	private func openEditAccountName() {
+        hapticManager.run(type: .selectionChanged)
 		let editWalletNameVC = EditAccountNameViewController(
 			selectedAccountVM: editAccountVM.selectedAccount,
 			accountsVM: accountsVM

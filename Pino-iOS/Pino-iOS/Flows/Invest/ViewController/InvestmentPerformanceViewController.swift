@@ -11,6 +11,7 @@ class InvestmentPerformanceViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private var investmentPerformaneVM: InvestmentPerformanceViewModel!
+    private let hapticManager = HapticManager()
 
 	// MARK: Initializers
 
@@ -77,10 +78,12 @@ class InvestmentPerformanceViewController: UIViewController {
 
 	@objc
 	private func closePage() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
 	private func openCoinPerformancePage(selectedAsset: InvestAssetViewModel) {
+        hapticManager.run(type: .mediumImpact)
 		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
 		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(coinPerformanceNavigationVC, animated: true)
@@ -106,6 +109,7 @@ class InvestmentPerformanceViewController: UIViewController {
 
 extension InvestmentPerformanceViewController: LineChartDateFilterDelegate {
 	func chartDateDidChange(_ dateFilter: ChartDateFilter) {
+        hapticManager.run(type: .selectionChanged)
 		investmentPerformaneVM.getChartData(dateFilter: dateFilter).catch { error in
 			self.showErrorToast(error)
 		}

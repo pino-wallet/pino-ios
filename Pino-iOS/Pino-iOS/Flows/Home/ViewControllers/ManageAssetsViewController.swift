@@ -10,6 +10,7 @@ import UIKit
 class ManageAssetsViewController: UIViewController {
 	// MARK: Private Properties
 
+    private let hapticManager = HapticManager()
 	private var manageAssetCollectionview: ManageAssetsCollectionView!
 	private var manageAssetEmptyStateView: TokensEmptyStateView!
 	private var positionsVM: ManageAssetPositionsViewModel
@@ -105,11 +106,13 @@ class ManageAssetsViewController: UIViewController {
 
 	@objc
 	private func dismissManageAsset() {
+        hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
 	@objc
 	private func addCustomAssets() {
+        hapticManager.run(type: .mediumImpact)
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: usersAddress
 		) { customAsset in

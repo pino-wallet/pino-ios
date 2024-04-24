@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIViewController {
-	// MARK: Public Methods
+	// MARK: - Public Methods
 
 	public func setSteperView(stepsCount: Int, curreuntStep: Int) {
 		// Show steper view in the navigation bar

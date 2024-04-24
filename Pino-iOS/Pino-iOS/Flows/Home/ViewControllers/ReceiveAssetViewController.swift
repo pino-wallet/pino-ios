@@ -10,6 +10,7 @@ import UIKit
 class ReceiveAssetViewController: UIViewController {
 	// MARK: - Private Properties
 
+    private let hapticManager = HapticManager()
 	private var receiveAssetView: ReceiveAssetView!
 	private var receiveVM: ReceiveViewModel
 
@@ -74,6 +75,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	@objc
 	private func presentShareActivityViewController() {
+        hapticManager.run(type: .mediumImpact)
 		let sharedText = receiveVM.accountAddress
 		let shareItems = [sharedText]
 		let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
@@ -82,6 +84,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	@objc
 	private func dismissVC() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 }

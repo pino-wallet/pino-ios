@@ -12,6 +12,7 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 
 	private let investableAsset: InvestableAssetViewModel
 	private let dismissAndContinue: () -> Void
+    private let hapticManager = HapticManager()
 
 	// MARK: - Initializers
 
@@ -38,9 +39,11 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 		view = InvestmentRiskPerformanceView(
 			investmentRiskVM: investmentRiskVM,
 			dismissAndContinue: {
+                self.hapticManager.run(type: .mediumImpact)
 				self.closePage()
 				self.dismissAndContinue()
 			}, dismissView: {
+                self.hapticManager.run(type: .lightImpact)
 				self.closePage()
 			}
 		)

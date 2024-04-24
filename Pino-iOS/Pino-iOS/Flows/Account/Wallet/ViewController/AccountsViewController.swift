@@ -13,6 +13,7 @@ class AccountsViewController: UIViewController {
 	private let accountsVM: AccountsViewModel
 	private let profileVM: ProfileViewModel
 	private let hasDismiss: Bool
+    private let hapticManager = HapticManager()
 	private var onDismiss: () -> Void
 
 	// MARK: Initializers
@@ -82,6 +83,7 @@ class AccountsViewController: UIViewController {
 	}
 
 	private func openEditAccountPage(selectedAccount: AccountInfoViewModel) {
+        hapticManager.run(type: .mediumImpact)
 		let editAccountVM = EditAccountViewModel(selectedAccount: selectedAccount)
 		let editAccountVC = EditAccountViewController(accountsVM: accountsVM, editAccountVM: editAccountVM)
 		if navigationController?.viewControllers.last is AccountsViewController {
@@ -91,12 +93,14 @@ class AccountsViewController: UIViewController {
 
 	@objc
 	private func openCreateImportWalletPage() {
+        hapticManager.run(type: .mediumImpact)
 		let createImportWalletVC = AddNewAccountViewController(accountsVM: accountsVM, onDismiss: onDismiss)
 		navigationController?.pushViewController(createImportWalletVC, animated: true)
 	}
 
 	@objc
 	private func dismissSelf() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 }

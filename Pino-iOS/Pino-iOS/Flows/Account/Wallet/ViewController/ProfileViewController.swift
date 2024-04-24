@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController {
 
 	private let profileVM: ProfileViewModel
 	private let accountsVM: AccountsViewModel
+    private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 	private var onDismiss: () -> Void
 
@@ -81,10 +82,12 @@ class ProfileViewController: UIViewController {
 
 	@objc
 	private func dismissProfile() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
 	private func openSettingDetail(settingVM: SettingsViewModel) {
+        hapticManager.run(type: .mediumImpact)
 		switch settingVM {
 		case .wallets:
 			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, onDismiss: onDismiss)

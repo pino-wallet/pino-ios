@@ -16,6 +16,7 @@ class SuggestedAddressesCollectionView: UICollectionView {
 
 	private var recentAddressDidSelect: (RecentAddressViewModel) -> Void
 	private var userWalletDidSelect: (AccountInfoViewModel) -> Void
+    private let hapticManager = HapticManager()
 
 	// MARK: - Initializers
 
@@ -56,6 +57,7 @@ class SuggestedAddressesCollectionView: UICollectionView {
 
 extension SuggestedAddressesCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        hapticManager.run(type: .selectionChanged)
 		switch indexPath.section {
 		case 0:
 			recentAddressDidSelect(suggestedAddressesVM.recentAddresses[indexPath.item])

@@ -15,6 +15,7 @@ class EditAccountNameViewController: UIViewController {
 
 	// MARK: - Private Properties
 
+    private let hapticManager = HapticManager()
 	private var editAccountNameView: EditAccountNameView!
 	private var editAccountNameVM: EditAccountNameViewModel!
 	private var nameChanged: (String) -> Void
@@ -90,6 +91,7 @@ class EditAccountNameViewController: UIViewController {
 
 	@objc
 	private func saveAccountName() {
+        hapticManager.run(type: .mediumImpact)
 		nameChanged(editAccountNameView.walletNameTextFieldView.getText()!)
 		navigationController?.popViewController(animated: true)
 	}

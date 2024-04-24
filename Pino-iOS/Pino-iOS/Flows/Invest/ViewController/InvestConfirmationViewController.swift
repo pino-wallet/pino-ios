@@ -11,6 +11,7 @@ class InvestConfirmationViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let investConfirmationVM: InvestConfirmationProtocol
+    private let hapticManager = HapticManager()
 	private var investConfirmationView: InvestConfirmationView!
 	private var onConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
@@ -76,10 +77,12 @@ class InvestConfirmationViewController: UIViewController {
 	}
 
 	private func showInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+        hapticManager.run(type: .selectionChanged)
 		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmInvestment() {
+        hapticManager.run(type: .mediumImpact)
 		authManager.unlockApp { [self] in
 			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
 			let sendTransactionStatusVM = SendTransactionStatusViewModel(
@@ -97,6 +100,7 @@ class InvestConfirmationViewController: UIViewController {
 	}
 
 	private func getFee() {
+        hapticManager.run(type: .selectionChanged)
 		investConfirmationView.hideFeeCalculationError()
 		investConfirmationView.showSkeletonView()
 		investConfirmationVM.getTransactionInfo().catch { error in

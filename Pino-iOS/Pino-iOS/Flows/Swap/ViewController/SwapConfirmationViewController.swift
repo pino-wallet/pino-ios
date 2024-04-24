@@ -13,6 +13,7 @@ class SwapConfirmationViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let swapConfirmationVM: SwapConfirmationViewModel
+    private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 	private var swapConfirmationView: SwapConfirmationView!
 	private var onSwapConfirm: (SendTransactionStatus) -> Void
@@ -66,6 +67,7 @@ class SwapConfirmationViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func getFee() {
+        hapticManager.run(type: .selectionChanged)
 		swapConfirmationView.hideFeeError()
 		swapConfirmationView.showSkeletonView()
 		swapConfirmationVM.fetchSwapInfo().catch { error in
@@ -103,10 +105,12 @@ class SwapConfirmationViewController: UIViewController {
 	}
 
 	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
+        hapticManager.run(type: .selectionChanged)
 		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmSwap() {
+        hapticManager.run(type: .mediumImpact)
 		guard let sendTransactions = swapConfirmationVM.sendTransactions else { return }
 		authManager.unlockApp { [self] in
 			let sendTrxStatusVM = SendTransactionStatusViewModel(
@@ -128,6 +132,7 @@ class SwapConfirmationViewController: UIViewController {
 
 	@objc
 	private func dismissPage() {
+        hapticManager.run(type: .lightImpact)
 		swapConfirmationVM.destoryRateTimer()
 		dismiss(animated: true)
 	}

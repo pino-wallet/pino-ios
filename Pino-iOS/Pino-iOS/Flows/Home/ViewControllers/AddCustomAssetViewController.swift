@@ -15,6 +15,7 @@ class AddCustomAssetViewController: UIViewController {
 
 	// MARK: - Private Properties
 
+    private let hapticManager = HapticManager()
 	private var addCustomAssetVM: AddCustomAssetViewModel!
 	private var customAssetAdded: (CustomAsset) -> Void
 
@@ -119,6 +120,7 @@ class AddCustomAssetViewController: UIViewController {
 	// Setup dismiss button handler
 	@objc
 	private func dismissAddCustomAssetVC() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
@@ -127,6 +129,7 @@ class AddCustomAssetViewController: UIViewController {
 	private func addCustomAssetHandler() {
 		let customAsset = addCustomAssetVM.saveCustomTokenToCoredata()
 		if let customAsset {
+            hapticManager.run(type: .mediumImpact)
 			dismiss(animated: true)
 			customAssetAdded(customAsset)
 		}
@@ -139,6 +142,7 @@ class AddCustomAssetViewController: UIViewController {
 
 	@objc
 	func openScannerQRCodeVC(scannerVC: QRScannerViewController) {
+        hapticManager.run(type: .selectionChanged)
 		present(scannerVC, animated: true)
 	}
 }

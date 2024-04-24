@@ -27,6 +27,7 @@ class ActivityDetailsView: UIScrollView {
 	private let footerTextLabelContainer = UIView()
 	private let activityDetailRefreshControl = UIRefreshControl()
 	private let speedUpButton = PinoButton(style: .active, title: "")
+    private let hapticManager = HapticManager()
 	private var speedUpActionSheet: SpeedUpAlertViewController!
 	private var viewEthScanButton: PinoRightSideImageButton!
 	private var activityDetailsVM: ActivityDetailsViewModel
@@ -162,11 +163,13 @@ class ActivityDetailsView: UIScrollView {
 
 	@objc
 	private func openEthScan() {
+        hapticManager.run(type: .mediumImpact)
 		UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
 	}
 
 	@objc
 	private func openSpeedUpActionSheet() {
+        hapticManager.run(type: .mediumImpact)
 		speedUpActionSheet = SpeedUpAlertViewController(activityDetailsVM: activityDetailsVM)
 		presentActionSheet(speedUpActionSheet) {
 			let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(

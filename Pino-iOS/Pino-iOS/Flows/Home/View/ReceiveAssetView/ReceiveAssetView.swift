@@ -10,6 +10,7 @@ import UIKit
 class ReceiveAssetView: UIView {
 	// MARK: - Public Properties
 
+    private let hapticManager = HapticManager()
 	public var receiveVM: ReceiveViewModel
 	public var addressQrCodeImage: UIImage? {
 		didSet {
@@ -85,6 +86,7 @@ class ReceiveAssetView: UIView {
 		copyAddressButton.iconName = receiveVM.copyAddressButtonIconName
 		copyAddressButton.titleText = receiveVM.copyAddressButtonText
 		copyAddressButton.onTap = { [self] in
+            hapticManager.run(type: .selectionChanged)
 			UIPasteboard.general.string = receiveVM.accountAddress
 			Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)
 		}

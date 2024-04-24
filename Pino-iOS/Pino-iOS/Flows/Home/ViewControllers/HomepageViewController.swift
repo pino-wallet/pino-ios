@@ -11,6 +11,7 @@ import UIKit
 class HomepageViewController: UIViewController {
 	// MARK: - Private Properties
 
+    private let hapticManager = HapticManager()
 	private var homeVM: HomepageViewModel!
 	private var profileVM: ProfileViewModel!
 	private var cancellables = Set<AnyCancellable>()
@@ -117,6 +118,7 @@ class HomepageViewController: UIViewController {
 	@objc
 	private func copyWalletAddress(gestureRecognizer: UILongPressGestureRecognizer) {
 		if gestureRecognizer.state == .began {
+            hapticManager.run(type: .selectionChanged)
 			let pasteboard = UIPasteboard.general
 			pasteboard.string = homeVM.walletInfo.address
 
@@ -126,6 +128,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openAccountsPage() {
+        hapticManager.run(type: .mediumImpact)
 		let navigationVC = UINavigationController()
 		let accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
 		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true) {
@@ -138,6 +141,7 @@ class HomepageViewController: UIViewController {
 	@objc
 	private func openManageAssetsPage() {
 		if GlobalVariables.shared.manageAssetsList != nil {
+            hapticManager.run(type: .selectionChanged)
 			let manageAssetsVC = ManageAssetsViewController(userAddress: homeVM.walletInfo.address)
 			let navigationVC = UINavigationController()
 			navigationVC.viewControllers = [manageAssetsVC]
@@ -148,6 +152,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openProfilePage() {
+        hapticManager.run(type: .selectionChanged)
 		let profileVC = ProfileViewController(profileVM: profileVM) {
 			self.dismiss(animated: true)
 		}
@@ -158,6 +163,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openCoinInfo(assetVM: AssetViewModel) {
+        hapticManager.run(type: .mediumImpact)
 		let coinInfoVC = CoinInfoViewController(selectedAsset: assetVM, homeVM: homeVM)
 		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
 		navigationVC.modalPresentationStyle = .formSheet
@@ -165,6 +171,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openPortfolioPage() {
+        hapticManager.run(type: .mediumImpact)
 		guard let assets = GlobalVariables.shared.selectedManageAssetsList else { return }
 		let filteredAsset = assets.filter { !$0.isPosition && $0.isVerified }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: filteredAsset)
@@ -174,6 +181,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openReceiveAssetPage() {
+        hapticManager.run(type: .heavyImpact)
 		let navigationVC = UINavigationController()
 		let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
 		navigationVC.viewControllers = [receiveAssetVC]
@@ -183,6 +191,7 @@ class HomepageViewController: UIViewController {
 
 	private func openSendAssetPage() {
 		if let assetsList = GlobalVariables.shared.selectedManageAssetsList {
+            hapticManager.run(type: .heavyImpact)
 			let navigationVC = UINavigationController()
 			let selectAssetToSendVC = SelectAssetToSendViewController(assets: assetsList, onDismiss: { pageStatus in
 				if pageStatus == .pending {

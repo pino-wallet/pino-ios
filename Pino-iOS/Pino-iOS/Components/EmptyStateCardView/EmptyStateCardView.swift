@@ -22,6 +22,7 @@ public class EmptyStateCardView: UIView {
 	private let titleLabel = PinoLabel(style: .title, text: "")
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let actionButton = PinoButton(style: .active)
+    private let hapticManager = HapticManager()
 
 	private var emptyStateCardViewproperties: EmptyStateCardViewProperties
 
@@ -90,6 +91,7 @@ public class EmptyStateCardView: UIView {
 
 	@objc
 	private func actionButtonTapped() {
+        hapticManager.run(type: .mediumImpact)
 		onActionButtonTap()
 	}
 }

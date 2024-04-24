@@ -23,6 +23,7 @@ class AllDoneView: UIView {
 	private let getStartedStackView = UIStackView()
 	private let agreementLabel = UITextView()
 	private let getStartedButton = PinoButton(style: .deactive)
+    private let hapticManager = HapticManager()
 	private var getStarted: () -> Void
 	private var allDoneVM: AllDoneViewModel
 
@@ -72,11 +73,13 @@ extension AllDoneView {
 		addSubview(getStartedStackView)
 
 		getStartedButton.addAction(UIAction(handler: { _ in
+            self.hapticManager.run(type: .mediumImpact)
 			self.getStartedButton.style = .loading
 			self.getStarted()
 		}), for: .touchUpInside)
 
 		agreementCheckBox.addAction(UIAction(handler: { _ in
+            self.hapticManager.run(type: .selectionChanged)
 			self.activateContinueButton(self.agreementCheckBox.isChecked)
 		}), for: .touchUpInside)
 	}

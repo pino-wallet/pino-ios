@@ -10,6 +10,7 @@ import UIKit
 class EnterSendAddressViewController: UIViewController {
 	// MARK: - Private Properties
 
+    private let hapticManager = HapticManager()
 	private var enterSendAddressView: EnterSendAddressView!
 	private var enterSendAddressVM: EnterSendAddressViewModel
 	private var onSendConfirm: (SendTransactionStatus) -> Void
@@ -41,9 +42,11 @@ class EnterSendAddressViewController: UIViewController {
 	private func setupView() {
 		enterSendAddressView = EnterSendAddressView(enterSendAddressVM: enterSendAddressVM)
 		enterSendAddressView.tapNextButton = {
+            self.hapticManager.run(type: .mediumImpact)
 			self.openConfiramtionPage()
 		}
 		enterSendAddressView.scanAddressQRCode = {
+            self.hapticManager.run(type: .selectionChanged)
 			let qrScanner = QRScannerViewController(
 				scannerTitle: self.enterSendAddressVM.sendAddressQrCodeScannerTitle,
 				foundAddress: { address in

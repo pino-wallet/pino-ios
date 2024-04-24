@@ -34,6 +34,7 @@ class InvestDepositView: UIView {
 	private let openPositionErrorCard = UIView()
 	private let openPositionErrorLabel = PinoLabel(style: .title, text: "")
 	private let continueButton = PinoButton(style: .deactive)
+    private let hapticManager = HapticManager()
 	private var nextButtonTapped: () -> Void
 	private var investVM: InvestViewModelProtocol
 
@@ -307,6 +308,7 @@ class InvestDepositView: UIView {
 
 	@objc
 	private func enterMaxAmount() {
+        hapticManager.run(type: .selectionChanged)
 		investVM.calculateDollarAmount(investVM.maxAvailableAmount)
 		amountTextfield.text = investVM.maxAvailableAmount.formattedDecimalString
 		updateAmount(enteredAmount: investVM.maxAvailableAmount.formattedDecimalString)

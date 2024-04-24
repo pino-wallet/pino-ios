@@ -12,6 +12,7 @@ class RecoveryPhraseViewController: UIViewController {
 
 	private let secretPhraseVM = RecoveryPhraseViewModel()
 	private var recoverPhraseView: RecoveryPhraseView!
+    private let hapticManager = HapticManager()
 	private lazy var authManager: AuthenticationLockManager = {
 		.init(parentController: self)
 	}()
@@ -74,6 +75,7 @@ class RecoveryPhraseViewController: UIViewController {
 	}
 
 	private func copySecretPhrase() {
+        hapticManager.run(type: .selectionChanged)
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = secretPhraseVM.secretPhraseList.joined(separator: " ")
 		Toast.default(title: GlobalToastTitles.copy.message, style: .copy).show(haptic: .success)

@@ -11,6 +11,7 @@ import UIKit
 class InvestmentBoardFilterViewController: UIViewController {
 	// MARK: Private Properties
 
+    private let hapticManager = HapticManager()
 	private var filterVM: InvestmentBoardFilterViewModel
 
 	// MARK: Initializers
@@ -70,10 +71,12 @@ class InvestmentBoardFilterViewController: UIViewController {
 
 	@objc
 	private func closePage() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
 	private func openFilterItem(_ investFilter: InvestmentFilterItemViewModel) {
+        hapticManager.run(type: .selectionChanged)
 		switch investFilter.filterItem {
 		case .assets:
 			openSelectAssetPage()
@@ -113,6 +116,7 @@ class InvestmentBoardFilterViewController: UIViewController {
 	}
 
 	private func clearFilters() {
+        hapticManager.run(type: .selectionChanged)
 		filterVM.clearFilters()
 	}
 }

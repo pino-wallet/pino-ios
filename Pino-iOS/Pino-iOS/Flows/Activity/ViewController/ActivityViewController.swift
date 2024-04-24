@@ -12,6 +12,7 @@ class ActivityViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let activityVM = ActivityViewModel()
+    private let hapticManager = HapticManager()
 	private var activityEmptyStateView: ActivityEmptyStateView!
 	private var activityColectionView: ActivityCollectionView!
 	private var cancellables = Set<AnyCancellable>()
@@ -64,6 +65,7 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
+        hapticManager.run(type: .mediumImpact)
 		let navigationVC = UINavigationController()
 		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
 		navigationVC.viewControllers = [activityDetailsVC]

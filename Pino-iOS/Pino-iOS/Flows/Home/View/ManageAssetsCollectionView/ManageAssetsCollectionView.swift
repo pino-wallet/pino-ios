@@ -14,6 +14,7 @@ class ManageAssetsCollectionView: UICollectionView {
 	private var cancellables = Set<AnyCancellable>()
 	private let positionsIsSelected: (Bool) -> Void
 	private let asssetIsSelected: ((selectedAsset: AssetViewModel, isSelected: Bool)) -> Void
+    private let hapticManager = HapticManager()
 
 	// MARK: - Public Properties
 
@@ -111,6 +112,7 @@ extension ManageAssetsCollectionView: UICollectionViewDataSource {
 
 extension ManageAssetsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        hapticManager.run(type: .selectionChanged)
 		if indexPath.section == 0 {
 			let positionsCell = cellForItem(at: indexPath) as! ManageAssetPositionsCell
 			positionsCell.toggleAssetSwitch()

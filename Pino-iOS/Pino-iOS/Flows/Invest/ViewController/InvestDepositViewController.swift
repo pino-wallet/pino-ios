@@ -12,6 +12,7 @@ import Web3_Utility
 class InvestDepositViewController: UIViewController {
 	// MARK: Private Properties
 
+    private let hapticManager = HapticManager()
 	private var investVM: InvestViewModelProtocol!
 	private var investView: InvestDepositView!
 	private var onDepositConfirm: (SendTransactionStatus) -> Void
@@ -80,10 +81,12 @@ class InvestDepositViewController: UIViewController {
 
 	@objc
 	private func closePage() {
+        hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
 	private func proceedInvestFlow() {
+        hapticManager.run(type: .mediumImpact)
 		// First Step of Invest
 		// Check If Permit has access to Token
 		firstly {

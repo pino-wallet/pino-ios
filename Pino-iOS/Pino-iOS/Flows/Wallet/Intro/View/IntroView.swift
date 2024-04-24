@@ -15,6 +15,7 @@ class IntroView: UIView {
 	private let createWalletButton = PinoButton(style: .active)
 	private let importWalletButton = PinoButton(style: .clear)
 	private let pageControl = UIPageControl()
+    private let hapticManager = HapticManager()
 	private var createWallet: () -> Void
 	private var importWallet: () -> Void
 	private var introVM: IntroViewModel
@@ -63,10 +64,12 @@ extension IntroView {
 		}
 
 		createWalletButton.addAction(UIAction(handler: { _ in
+            self.hapticManager.run(type: .mediumImpact)
 			self.createWallet()
 		}), for: .touchUpInside)
 
 		importWalletButton.addAction(UIAction(handler: { _ in
+            self.hapticManager.run(type: .mediumImpact)
 			self.importWallet()
 		}), for: .touchUpInside)
 	}
