@@ -43,6 +43,17 @@ class InvestDepositViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		investView.amountTextfield.becomeFirstResponder()
 	}
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if navigationController!.viewControllers.count > 1 {
+            if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+                // code here
+                hapticManager.run(type: .lightImpact)
+            }
+        }
+    }
 
 	// MARK: - Private Methods
 

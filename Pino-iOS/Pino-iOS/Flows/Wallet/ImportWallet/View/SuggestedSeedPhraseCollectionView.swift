@@ -9,7 +9,9 @@
 import UIKit
 
 class SuggestedSeedPhraseCollectionView: UICollectionView {
-	// MARK: Public Properties
+    // MARK: - Private Properties
+    private let hapticManager = HapticManager()
+	// MARK: - Public Properties
 
 	public var suggestedSeedPhrase: [String] = [] {
 		didSet {
@@ -80,6 +82,7 @@ extension SuggestedSeedPhraseCollectionView: UICollectionViewDataSource {
 extension SuggestedSeedPhraseCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		if let seedPhraseDidSelect {
+            hapticManager.run(type: .selectionChanged)
 			let suggestedSeedPhraseCell = collectionView.cellForItem(at: indexPath) as! SuggestedSeedPhraseCell
 			seedPhraseDidSelect(suggestedSeedPhraseCell.suggestedWord)
 		}

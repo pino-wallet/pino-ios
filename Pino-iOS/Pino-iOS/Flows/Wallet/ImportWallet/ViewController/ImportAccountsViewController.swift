@@ -30,13 +30,20 @@ class ImportAccountsViewController: UIViewController {
 	// MARK: - View Overrides
 
 	override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
 		importLoadingView.findingAccountLottieAnimationView.animation = nil
+
+            if isMovingFromParent, transitionCoordinator?.isInteractive == false {
+                // code here
+                HapticManager().run(type: .lightImpact)
+            }
 	}
 
 	override func loadView() {
 		setupView()
 		setSteperView(stepsCount: 3, curreuntStep: 2)
 	}
+    
 
 	// MARK: - Private Methods
 
