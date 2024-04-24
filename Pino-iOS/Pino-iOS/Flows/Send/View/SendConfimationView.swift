@@ -47,7 +47,7 @@ class SendConfirmationView: UIView {
 	private let feeErrorLabel = UILabel()
 	private let feeErrorStackView = UIStackView()
 	private let feeLabel = UILabel()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var userAccountInfoView: UserAccountInfoView!
 
 	private let continueButton = PinoButton(style: .active)
@@ -377,7 +377,7 @@ class SendConfirmationView: UIView {
 
 	@objc
 	private func getFee() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		retryFeeCalculation()
 	}
 

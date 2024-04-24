@@ -48,7 +48,7 @@ class SwapFeeView: UIView {
 	private let noQuoteErrorStackView = UIStackView()
 	private let noQuoteErrorImageView = UIImageView()
 	private let noQuoteErrorLabel = UILabel()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 
 	private let openFeeInfoIcon = UIImage(named: "chevron_down")
 	private let closeFeeInfoIcon = UIImage(named: "chevron_up")
@@ -387,7 +387,7 @@ class SwapFeeView: UIView {
 
 	@objc
 	private func changeProvider() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		providerChange()
 	}
 

@@ -22,7 +22,7 @@ class TokensEmptyStateView: UIView {
 	private let descriptionStackView = UIStackView()
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let actionLabel = UILabel()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var keyboardHeight: CGFloat = 320
 	private var mainStackViewCenterConstraint: NSLayoutConstraint!
 	private var mainStackViewBottomConstraint: NSLayoutConstraint!
@@ -135,7 +135,7 @@ class TokensEmptyStateView: UIView {
 
 	@objc
 	private func onActionTap() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		onActionButton()
 	}
 

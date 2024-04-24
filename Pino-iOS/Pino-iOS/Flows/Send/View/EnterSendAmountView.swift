@@ -28,7 +28,7 @@ class EnterSendAmountView: UIView {
 	private let amountSpacerView = UIView()
 	private let maxAmountSpacerView = UIView()
 	private let continueButton = PinoButton(style: .deactive)
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var changeSelectedToken: () -> Void
 	private var nextButtonTapped: () -> Void
 	private var enterAmountVM: EnterSendAmountViewModel
@@ -87,12 +87,12 @@ class EnterSendAmountView: UIView {
 		amountTextFieldStackView.addArrangedSubview(amountTextfield)
 
 		continueButton.addAction(UIAction(handler: { _ in
-            self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .mediumImpact)
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 
 		dollarFormatButton.addAction(UIAction(handler: { _ in
-            self.hapticManager.run(type: .selectionChanged)
+			self.hapticManager.run(type: .selectionChanged)
 			self.toggleDollarFormat()
 		}), for: .touchUpInside)
 
@@ -318,7 +318,7 @@ class EnterSendAmountView: UIView {
 
 	@objc
 	private func enterMaxAmount() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		if enterAmountVM.isDollarEnabled {
 			amountTextfield.text = enterAmountVM.maxAmountInDollar.priceFormat(
 				of: enterAmountVM.selectedToken.assetType,

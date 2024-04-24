@@ -26,7 +26,7 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 	private let descriptionLabel = PinoLabel(style: .description, text: "")
 	private let getCodeButton = PinoButton(style: .active)
 	private let titleAnimationContainerView = UIView()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var titleAnimationView = LottieAnimationView()
 
 	// MARK: - Initializers
@@ -125,14 +125,14 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 
 	@objc
 	private func openPinoSocialPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let url = URL(string: getInviteCodeVM.pinoXURL)!
 		UIApplication.shared.open(url)
 	}
 
 	@objc
 	private func onDismissSelf() {
-        hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .lightImpact)
 		dismissViewClosure()
 	}
 }

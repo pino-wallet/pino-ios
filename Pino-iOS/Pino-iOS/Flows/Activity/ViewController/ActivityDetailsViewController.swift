@@ -10,7 +10,7 @@ import UIKit
 class ActivityDetailsViewController: UIViewController {
 	// MARK: - Private Properties
 
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var activityDetailsView: ActivityDetailsView!
 	private var activityDetailsVM: ActivityDetailsViewModel!
 
@@ -61,7 +61,7 @@ class ActivityDetailsViewController: UIViewController {
 		activityDetailsView = ActivityDetailsView(
 			activityDetailsVM: activityDetailsVM,
 			presentActionSheet: { [weak self] actionSheet, completion in
-                self?.hapticManager.run(type: .selectionChanged)
+				self?.hapticManager.run(type: .selectionChanged)
 				self?.present(actionSheet, animated: true, completion: completion)
 			},
 			activityDetailsHeader: activityDetailsHeaderView
@@ -83,7 +83,7 @@ class ActivityDetailsViewController: UIViewController {
 
 	@objc
 	private func dismissPage() {
-        hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 }

@@ -28,7 +28,7 @@ class RevealPrivateKeyView: UIView {
 	private let copyPrivateKeyTapped: () -> Void
 	private let doneButtonTapped: () -> Void
 	private let revealTapped: () -> Void
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 
 	// MARK: Initializers
 
@@ -74,12 +74,12 @@ class RevealPrivateKeyView: UIView {
 		revealBlurView.addGestureRecognizer(revealTapGesture)
 
 		copyPrivateKeyButton.addAction(UIAction(handler: { _ in
-            self.hapticManager.run(type: .selectionChanged)
+			self.hapticManager.run(type: .selectionChanged)
 			self.copyPrivateKeyTapped()
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
-            self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .mediumImpact)
 			self.doneButtonTapped()
 		}), for: .touchUpInside)
 	}
@@ -173,9 +173,9 @@ class RevealPrivateKeyView: UIView {
 	}
 
 	public func showPrivateKey() {
-        if copyPrivateKeyButton.alpha != 1 {
-            hapticManager.run(type: .selectionChanged)
-        }
+		if copyPrivateKeyButton.alpha != 1 {
+			hapticManager.run(type: .selectionChanged)
+		}
 		UIView.animate(withDuration: 0.5) {
 			do {
 				self.privateKeyLabel.text = try self.revealPrivateKeyVM.privateKey()

@@ -11,7 +11,7 @@ import UIKit
 class InvestmentBoardViewController: UIViewController {
 	// MARK: - Private Properties
 
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var investmentBoardView: InvestmentBoardView!
 	private var investmentBoardVM: InvestmentBoardViewModel
 	private var onDepositConfirm: (SendTransactionStatus) -> Void
@@ -93,12 +93,12 @@ class InvestmentBoardViewController: UIViewController {
 
 	@objc
 	private func closePage() {
-        hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 
 	private func openInvestPage(selectedAsset: AssetsBoardProtocol) {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		if let investableAsset = selectedAsset as? InvestableAssetViewModel {
 			openInvestabelAssetPage(investableAsset)
 		} else if let userInvestment = selectedAsset as? InvestAssetViewModel {
@@ -134,7 +134,7 @@ class InvestmentBoardViewController: UIViewController {
 	}
 
 	private func openFilterPage() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		let investmentFilterVM = InvestmentBoardFilterViewModel(
 			selectedAsset: investmentBoardVM.assetFilter,
 			selectedProtocol: investmentBoardVM.protocolFilter,

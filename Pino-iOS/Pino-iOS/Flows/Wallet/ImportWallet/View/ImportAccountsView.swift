@@ -64,7 +64,7 @@ class ImportAccountsView: UIView {
 		addSubview(contentStackView)
 
 		importButton.addAction(UIAction(handler: { _ in
-            HapticManager().run(type: .mediumImpact)
+			HapticManager().run(type: .mediumImpact)
 			self.importButton.style = .loading
 			self.importButtonDidTap()
 		}), for: .touchUpInside)

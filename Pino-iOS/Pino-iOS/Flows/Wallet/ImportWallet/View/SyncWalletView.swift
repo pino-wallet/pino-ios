@@ -31,7 +31,7 @@ class SyncWalletView: UIView {
 	private let exploreButton = PinoButton(style: .secondary)
 	private let syncWalletVM: SyncWalletViewModel
 	private let titleAnimationViewContainer = UIView()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var titleAnimationView = LottieAnimationView()
 	private var progressView: PinoProgressView!
 	private var cancellables = Set<AnyCancellable>()
@@ -155,7 +155,7 @@ class SyncWalletView: UIView {
 
 	@objc
 	private func onExpolePinoTap() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		switch syncWalletVM.syncStatus {
 		case .syncing:
 			presentTutorialPage()

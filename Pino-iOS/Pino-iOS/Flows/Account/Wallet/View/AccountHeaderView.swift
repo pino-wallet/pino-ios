@@ -21,7 +21,7 @@ class AccountHeaderView: UICollectionReusableView {
 	private let accountAddress = UILabel()
 	private let accountSettingsTitle = UILabel()
 	private let accountHeaderVM = AccountHeaderViewModel()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 
 	// MARK: - Public Properties
 
@@ -120,7 +120,7 @@ class AccountHeaderView: UICollectionReusableView {
 
 	@objc
 	private func copyAddress() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		let pasteboard = UIPasteboard.general
 		pasteboard.string = accountInfoVM.address
 

@@ -12,7 +12,7 @@ class PassDotsView: UIView {
 	// MARK: Private Properties
 
 	private let passDotsContainerView = UIStackView()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var passcodeManagerVM: PasscodeManagerPages
 
 	// MARK: Initializers
@@ -89,7 +89,7 @@ extension PassDotsView {
 		passDotsContainerView.subviews.forEach { dotView in
 			setStyle(of: dotView, withState: .error)
 		}
-        hapticManager.run(type: .errorNotification)
+		hapticManager.run(type: .errorNotification)
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 			self.resetDotsView()
 		}

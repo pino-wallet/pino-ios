@@ -13,7 +13,7 @@ class InvestmentDetailViewController: UIViewController {
 	private let selectedAsset: InvestAssetViewModel
 	private let investmentDetailsVM: InvestmentDetailViewModel
 	private let onDepositConfirm: (SendTransactionStatus) -> Void
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 
 	// MARK: - Initializers
 
@@ -74,14 +74,14 @@ class InvestmentDetailViewController: UIViewController {
 
 	@objc
 	private func openChartPage() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
 		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(coinPerformanceNavigationVC, animated: true)
 	}
 
 	private func openInvestPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let depositVM = InvestDepositViewModel(
 			selectedAsset: selectedAsset,
 			selectedProtocol: selectedAsset.assetProtocol,
@@ -95,7 +95,7 @@ class InvestmentDetailViewController: UIViewController {
 	}
 
 	private func openWithdrawPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let withdrawVM = WithdrawViewModel(
 			selectedAsset: selectedAsset,
 			selectedProtocol: selectedAsset.assetProtocol

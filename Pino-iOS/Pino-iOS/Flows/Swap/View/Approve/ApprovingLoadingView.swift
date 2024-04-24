@@ -33,7 +33,7 @@ class ApprovingLoadingView: UIView {
 	private var speedUpButton: PinoRightSideImageButton!
 	private var speedUpActionSheet: ApproveSpeedUpViewController!
 	private let loadingStackView = UIStackView()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 
 	// MARK: - Initializers
@@ -223,19 +223,19 @@ class ApprovingLoadingView: UIView {
 
 	@objc
 	private func onDismissTap() {
-        hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .lightImpact)
 		dismissPage()
 	}
 
 	@objc
 	private func onTryAgainTap() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		approvngContractLoadingVM.approveToken()
 	}
 
 	@objc
 	private func openSpeedUpActionSheet() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		speedUpActionSheet = ApproveSpeedUpViewController(approveLoadingVM: approvngContractLoadingVM)
 		presentActionSheet(speedUpActionSheet) {
 			let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(

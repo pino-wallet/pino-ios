@@ -30,7 +30,7 @@ class SendTransactionStatusView: UIView {
 	private let closeButton = PinoButton(style: .secondary)
 	private let statusInfoStackView = UIStackView()
 	private let statusTextsStackView = UIStackView()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var sendStatusVM: SendTransactionStatusViewModel
 	private var cancellables = Set<AnyCancellable>()
 	private var pageStatus: SendTransactionStatus = .pending
@@ -183,14 +183,15 @@ class SendTransactionStatusView: UIView {
 
 	@objc
 	private func onDissmissTap() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		onDissmiss(pageStatus)
 	}
-    @objc
-    private func onDissmissNavigationTap() {
-        hapticManager.run(type: .lightImpact)
-        onDissmiss(pageStatus)
-    }
+
+	@objc
+	private func onDissmissNavigationTap() {
+		hapticManager.run(type: .lightImpact)
+		onDissmiss(pageStatus)
+	}
 
 	@objc
 	private func openViewStatusURL() {

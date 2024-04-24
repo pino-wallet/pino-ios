@@ -10,7 +10,7 @@ import UIKit
 class ChangeAvatarViewController: UIViewController {
 	// MARK: Private Properties
 
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var avatarVM: AvatarViewModel
 	private var avatarChanged: (String) -> Void
 
@@ -57,7 +57,7 @@ class ChangeAvatarViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		avatarChanged(avatarVM.selectedAvatar)
 		navigationController?.popViewController(animated: true)
 	}

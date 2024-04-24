@@ -11,7 +11,7 @@ class SendConfirmationViewController: UIViewController {
 	// MARK: Private Properties
 
 	private let sendConfirmationVM: SendConfirmationViewModel
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var sendConfirmationView: SendConfirmationView!
 	private var onSendConfirm: (SendTransactionStatus) -> Void
 	private lazy var authManager: AuthenticationLockManager = {
@@ -76,12 +76,12 @@ class SendConfirmationViewController: UIViewController {
 	}
 
 	private func showFeeInfoActionSheet(_ feeInfoActionSheet: InfoActionSheet, completion: @escaping () -> Void) {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		present(feeInfoActionSheet, animated: true, completion: completion)
 	}
 
 	private func confirmSend() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		authManager.unlockApp { [self] in
 			guard let sendTransactions = sendConfirmationVM.sendTransactions else { return }
 			sendConfirmationVM.setRecentAddress()

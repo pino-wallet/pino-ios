@@ -16,7 +16,7 @@ class ApproveContractViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let approveContractVM: ApproveContractViewModel!
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var approveContractView: ApproveContractView!
 	private var approveContractID: String!
 	private var approveType: ApproveType
@@ -78,7 +78,7 @@ class ApproveContractViewController: UIViewController {
 	}
 
 	private func showApproveLoadingPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		approveContractVM.goToApproveLoading { approveContractDetails in
 			let approveLoadingVM = ApprovingLoadingViewModel(
 				approveContractDetails: approveContractDetails,
@@ -103,7 +103,7 @@ class ApproveContractViewController: UIViewController {
 
 	@objc
 	private func dismissSelf() {
-        hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .lightImpact)
 		dismiss(animated: true)
 	}
 }

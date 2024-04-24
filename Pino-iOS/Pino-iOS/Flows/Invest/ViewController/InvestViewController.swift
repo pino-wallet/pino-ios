@@ -14,7 +14,7 @@ class InvestViewController: UIViewController {
 	private var investView: InvestView!
 	private var investEmptyPageView: InvestEmptyPageView!
 	private let investVM = InvestViewModel()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var cancellables = Set<AnyCancellable>()
 	private var isWalletSyncFinished: Bool {
 		SyncWalletViewModel.isSyncFinished
@@ -90,7 +90,7 @@ class InvestViewController: UIViewController {
 		if isWalletSyncFinished && investVM.assets == nil {
 			return
 		}
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let investmentBoardVC = InvestmentBoardViewController(
 			assets: investVM.assets,
 			onDepositConfirm: { pageStatus in
@@ -108,7 +108,7 @@ class InvestViewController: UIViewController {
 		if isWalletSyncFinished && investVM.assets == nil {
 			return
 		}
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: investVM.assets)
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)

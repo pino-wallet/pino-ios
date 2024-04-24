@@ -21,7 +21,7 @@ class ImportSecretPhraseView: UIView {
 	private let errorIcon = UIImageView()
 	private var importAccountVM: ImportSecretPhraseViewModel
 	private let importButton = PinoButton(style: .deactive)
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 
 	// MARK: - Public Properties
 
@@ -74,7 +74,7 @@ extension ImportSecretPhraseView {
 		addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dissmisskeyBoard)))
 
 		seedPhrasePasteButton.addAction(UIAction(handler: { _ in
-            self.hapticManager.run(type: .selectionChanged)
+			self.hapticManager.run(type: .selectionChanged)
 			self.importTextView.pasteText()
 		}), for: .touchUpInside)
 
@@ -87,7 +87,7 @@ extension ImportSecretPhraseView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
-            self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .mediumImpact)
 			self.importBtnTapped()
 		}), for: .touchUpInside)
 	}

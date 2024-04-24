@@ -13,7 +13,7 @@ class RemoveAccountViewController: UIViewController {
 	private let removeAccountVM = RemoveAccountViewModel()
 	private let dismissButton = UIButton()
 	private let dismissButtonContainerView = UIView()
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 
 	// MARK: - Public Properties
 
@@ -47,7 +47,7 @@ class RemoveAccountViewController: UIViewController {
 			actions: [
 				.cancel(),
 				.remove(handler: { _ in
-                    self.hapticManager.run(type: .heavyImpact)
+					self.hapticManager.run(type: .heavyImpact)
 					self.dismiss(animated: true)
 					self.walletIsDeleted()
 				}),

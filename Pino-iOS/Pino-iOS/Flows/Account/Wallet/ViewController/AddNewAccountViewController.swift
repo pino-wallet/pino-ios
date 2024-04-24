@@ -13,7 +13,7 @@ class AddNewAccountViewController: UIViewController {
 	// MARK: - Private Properties
 
 	private let accountsVM: AccountsViewModel
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var addNewAccountCollectionView: AddNewAccountCollectionView!
 	private var addNewAccountVM = AddNewAccountViewModel()
 	private var cancellables = Set<AnyCancellable>()
@@ -71,7 +71,7 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func openImportAccountPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let importWalletVC = ImportNewAccountViewController(accounts: accountsVM.accountsList)
 		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
 			self.accountsVM.importAccount(privateKey: privateKey, accountName: accountName, accountAvatar: avatar)
@@ -85,7 +85,7 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func openCreateAccountPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		let createWalletVC = CreateNewAccountViewController(accounts: accountsVM.accountsList)
 		createWalletVC.newAccountDidCreate = { avatar, accountName in
 			self.createNewAccount(accountName: accountName, accountAvatar: avatar).done {

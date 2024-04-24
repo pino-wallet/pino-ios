@@ -11,7 +11,7 @@ import UIKit
 class AccountsCollectionView: UICollectionView {
 	// MARK: - Private Properties
 
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private var accountsVM: AccountsViewModel
 	private var profileVM: ProfileViewModel
 	private var cancellables = Set<AnyCancellable>()
@@ -88,7 +88,7 @@ extension AccountsCollectionView: UICollectionViewDelegateFlowLayout {
 
 extension AccountsCollectionView: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        hapticManager.run(type: .selectionChanged)
+		hapticManager.run(type: .selectionChanged)
 		accountsVM.updateSelectedAccount(with: accountsVM.accountsList[indexPath.item])
 		dismissPage()
 	}

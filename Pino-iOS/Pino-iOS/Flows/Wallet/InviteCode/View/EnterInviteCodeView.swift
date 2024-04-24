@@ -19,7 +19,7 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 	// MARK: - Private Properties
 
 	private var enterInviteCodeVM: EnterInviteCodeViewModel
-    private let hapticManager = HapticManager()
+	private let hapticManager = HapticManager()
 	private let clearNavigationBar = ClearNavigationBar()
 	private let navigationDismissButton = UIButton()
 	private let navigationBarRightSideView = UIView()
@@ -167,20 +167,20 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 
 	@objc
 	private func onDismissSelf() {
-        hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .lightImpact)
 		dismissViewClosure()
 	}
 
 	@objc
 	private func dismissSelfAndPresentNextPage() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		dismissViewClosure()
 		presentNextPageClosure()
 	}
 
 	@objc
 	private func onGetInviteCode() {
-        hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .mediumImpact)
 		presentGetInviteCodeClosure()
 	}
 
