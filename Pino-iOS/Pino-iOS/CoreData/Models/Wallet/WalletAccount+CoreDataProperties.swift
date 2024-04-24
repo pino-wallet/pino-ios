@@ -43,4 +43,6 @@ extension WalletAccount {
 	public var hasDefaultAssets: Bool
 	@NSManaged
 	public var createdAt: Date
+	@NSManaged
+	public var isImported: Bool
 }

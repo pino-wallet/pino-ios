@@ -149,10 +149,11 @@ class AssetManagerViewModel {
 	}
 
 	private func addDefaultAssetsToCoreData(assets: [BalanceAssetModel]) {
+		let currentAccount = PinoWalletManager().currentAccount
 		selectedAssets = []
 		let userAssets = assets.compactMap { AssetViewModel(assetModel: $0, isSelected: false) }
 			.filter { !$0.isPosition && !$0.holdAmount.isZero }
-		if userAssets.isEmpty {
+		if userAssets.isEmpty, !currentAccount.isImported {
 			for tokenID in ctsAPIclient.defaultTokensID {
 				addSelectedAssetToCoreData(id: tokenID)
 			}

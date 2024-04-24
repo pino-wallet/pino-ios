@@ -63,6 +63,8 @@ class AllDoneViewModel {
 					name: account.name,
 					avatarIcon: account.profileImage,
 					avatarColor: account.profileColor,
+					hasDefaultAssets: account.isNewWallet,
+					isImported: false,
 					wallet: createdWallet
 				)
 			}
@@ -106,6 +108,7 @@ class AllDoneViewModel {
 			name: newAvatar.name,
 			avatarIcon: newAvatar.rawValue,
 			avatarColor: newAvatar.rawValue,
+			isImported: false,
 			wallet: wallet
 		)
 	}
