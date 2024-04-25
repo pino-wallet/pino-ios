@@ -14,7 +14,7 @@ class ProfileViewModel {
 	public let pageTitle = "Settings"
 	#warning("this url is for test and we should change it")
 	public let feedbackURL = "https://www.google.com"
-	public let dismissIconName = "dissmiss"
+	public let dismissIconName = "dismiss"
 	@Published
 	public var walletInfo: AccountInfoViewModel!
 	public var accountSettings: [SettingsViewModel]!

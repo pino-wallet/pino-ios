@@ -17,7 +17,7 @@ class SelectAssetToSendViewModel: SelectAssetVMProtocol {
 	}
 
 	public let pageTitle = "Select asset"
-	public let dissmissIocnName = "dissmiss"
+	public let dissmissIocnName = "dismiss"
 
 	@Published
 	public var pageStatus: PageStatus = .normal

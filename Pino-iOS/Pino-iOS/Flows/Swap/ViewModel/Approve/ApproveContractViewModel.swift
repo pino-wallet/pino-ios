@@ -20,7 +20,7 @@ class ApproveContractViewModel {
 	public let approveDescriptionText = "You will only do it once."
 	public let approveButtonTitle = "Approve"
 	public let rightArrowImageName = "primary_right_arrow"
-	public let dismissButtonName = "dissmiss"
+	public let dismissButtonName = "dismiss"
 	#warning("this is mock url")
 	public let learnMoreURL = "https://www.google.com"
 	public let pleaseWaitTitleText = "Please wait"

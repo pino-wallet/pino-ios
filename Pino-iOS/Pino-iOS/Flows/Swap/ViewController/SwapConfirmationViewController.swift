@@ -97,7 +97,7 @@ class SwapConfirmationViewController: UIViewController {
 		// Setup title view
 		setNavigationTitle("Confirm swap")
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			image: UIImage(named: "dissmiss"),
+			image: UIImage(named: "dismiss"),
 			style: .plain,
 			target: self,
 			action: #selector(dismissPage)

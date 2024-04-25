@@ -30,7 +30,7 @@ class AddCustomAssetViewModel {
 	public let addCustomAssetButtonTitle = "Add"
 	public let addCustomAssetLoadingButtonTitle = "Please wait"
 	public let addcustomAssetPageTitle = "Add custom asset"
-	public let addCustomAssetPageBackButtonIcon = "dissmiss"
+	public let addCustomAssetPageBackButtonIcon = "dismiss"
 	public let addCustomAssetTextfieldPlaceholder = "Enter contract address"
 	public let addCustomAssetTextfieldError = "This is an error!"
 	public let addCustomAssetTextfieldIcon = "qr_code_scanner"

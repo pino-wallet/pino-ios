@@ -12,7 +12,7 @@ class ReceiveViewModel {
 	public let copyAddressButtonText = "Copy"
 	public let copyAddressButtonIconName = "copy"
 	public let shareAddressButtonIconName = "share"
-	public let navigationDismissButtonIconName = "arrow_left"
+	public let navigationDismissButtonIconName = "dismiss"
 	public let navigationTitleText = "Receive"
 	public let accountOwnerNameDescriptionText = "account"
 
