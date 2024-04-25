@@ -5,7 +5,6 @@
 //  Created by Amir hossein kazemi seresht on 4/25/23.
 //
 
-#warning("this is for testing and should be refactored")
 
 struct EditAccountOptionModel {
 	public let title: String

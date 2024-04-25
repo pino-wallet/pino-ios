@@ -35,7 +35,7 @@ enum Environment {
 	// MARK: - Environments
 
 	public static var current: Environment {
-		var devMode: Bool = UserDefaultsManager.isDevModeUser.getValue()!
+        let devMode: Bool = UserDefaultsManager.isDevModeUser.getValue()!
 
 		if devMode {
 			return .devNet

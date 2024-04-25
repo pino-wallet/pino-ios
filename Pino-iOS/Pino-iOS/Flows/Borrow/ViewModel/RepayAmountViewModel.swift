@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("this values are static and mock")
 class RepayAmountViewModel {
 	// MARK: - Public Properties
 

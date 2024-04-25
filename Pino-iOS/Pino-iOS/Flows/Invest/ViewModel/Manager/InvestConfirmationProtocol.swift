@@ -53,7 +53,6 @@ extension InvestConfirmationViewProtocol {
 	var feeTitle: String { "Network Fee" }
 	var feeInfoActionSheetTitle: String { GlobalActionSheetTexts.networkFee.title }
 	var feeInfoActionSheetDescription: String { GlobalActionSheetTexts.networkFee.description }
-	#warning("this texts are for test")
 	var protocolInfoActionSheetTitle: String { "Protocol" }
 	var protocolInfoActionSheetDescription: String { "Sample Text" }
 	var feeErrorText: String { "Error in calculation!" }

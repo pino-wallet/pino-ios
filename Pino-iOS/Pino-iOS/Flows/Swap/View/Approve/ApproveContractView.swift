@@ -83,7 +83,7 @@ class ApproveContractView: UIView {
 
 		if let tokenImage = approveContractVM.tokenImage {
 			titleImageView.kf.indicatorType = .activity
-			titleImageView.kf.setImage(with: approveContractVM.tokenImage)
+			titleImageView.kf.setImage(with: tokenImage)
 		} else {
 			titleImageView.image = UIImage(named: approveContractVM.unverifiedTAssetImageName)
 		}

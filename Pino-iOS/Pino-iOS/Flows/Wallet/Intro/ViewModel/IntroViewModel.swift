@@ -70,7 +70,7 @@ class IntroViewModel {
 				completion?(false)
 			}
 		} receiveValue: { [weak self] response in
-			guard let self = self else { return }
+            guard self != nil else { return }
 			if response.valid {
 				completion?(true)
 			} else {
