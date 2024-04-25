@@ -5,7 +5,6 @@
 //  Created by Amir hossein kazemi seresht on 4/25/23.
 //
 
-
 struct EditAccountOptionModel {
 	public let title: String
 	public let type: EditAccountOptionType
