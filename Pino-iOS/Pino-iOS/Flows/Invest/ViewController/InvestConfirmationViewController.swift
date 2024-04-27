@@ -92,10 +92,10 @@ class InvestConfirmationViewController: UIViewController {
 
 	private func confirmInvestment() {
 		hapticManager.run(type: .mediumImpact)
-        guard let foundOnTransactionSecurityOption = UserDefaultsManager.securityModesUser.getValue()?
-            .contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) else {
-            fatalError("failed to search in security options list")
-        }
+		guard let foundOnTransactionSecurityOption = UserDefaultsManager.securityModesUser.getValue()?
+			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) else {
+			fatalError("failed to search in security options list")
+		}
 		if foundOnTransactionSecurityOption {
 			authManager.unlockApp { [self] in
 				self.sendTx()
