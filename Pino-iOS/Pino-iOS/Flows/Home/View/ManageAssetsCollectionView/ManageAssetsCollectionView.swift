@@ -76,7 +76,7 @@ extension ManageAssetsCollectionView: UICollectionViewDataSource {
 
 	internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		if section == 0 {
-			if let positionsVM {
+			if positionsVM != nil {
 				return 1
 			} else {
 				return 0

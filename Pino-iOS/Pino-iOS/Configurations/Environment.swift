@@ -7,7 +7,6 @@
 
 import Foundation
 
-#warning("Environment file is temporary for when we add different Environments")
 enum NetworkEnvironment {
 	case qa
 	case production
@@ -35,7 +34,7 @@ enum Environment {
 	// MARK: - Environments
 
 	public static var current: Environment {
-		var devMode: Bool = UserDefaultsManager.isDevModeUser.getValue()!
+		let devMode: Bool = UserDefaultsManager.isDevModeUser.getValue()!
 
 		if devMode {
 			return .devNet

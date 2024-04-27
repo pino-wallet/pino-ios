@@ -50,6 +50,7 @@ class GlobalVariables {
 		setupBindings()
 	}
 
+	@discardableResult
 	public func fetchSharedInfo() -> Promise<Void> {
 		print("== SENDING REQUEST ==")
 		return firstly {

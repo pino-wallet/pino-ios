@@ -71,7 +71,7 @@ class AccountsViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-        setupPrimaryColorNavigationBar()
+		setupPrimaryColorNavigationBar()
 		if hasDismiss {
 			navigationItem.leftBarButtonItem = UIBarButtonItem(
 				image: UIImage(named: "dismiss"),

@@ -26,13 +26,13 @@ class NotificationSettingsViewModel {
 		let isActivityNotifOn = UserDefaultsManager.allowActivityNotif.getValue() ?? false
 		let isPinoNotifOn = UserDefaultsManager.allowPinoUpdateNotif.getValue() ?? false
 
-		var walletActivityNotif = NotificationOptionModel(
+		let walletActivityNotif = NotificationOptionModel(
 			title: "Wallet activity",
 			type: .wallet_activity,
 			isSelected: isActivityNotifOn,
 			description: "Send, swap, borrow, and more."
 		)
-		var pinoUpdateNotif = NotificationOptionModel(
+		let pinoUpdateNotif = NotificationOptionModel(
 			title: "Pino update",
 			type: .pino_update,
 			isSelected: isPinoNotifOn,

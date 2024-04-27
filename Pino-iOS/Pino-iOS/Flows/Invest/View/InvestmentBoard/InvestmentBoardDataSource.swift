@@ -101,7 +101,7 @@ class InvestmentBoardDataSource: NSObject, UICollectionViewDataSource {
 		) as! AssetsBoardHeaderView
 		switch indexPath.section {
 		case 0:
-			if let investableAssets {
+			if investableAssets != nil {
 				headerView.title = "My investments"
 				headerView.hasFilter = false
 			}
