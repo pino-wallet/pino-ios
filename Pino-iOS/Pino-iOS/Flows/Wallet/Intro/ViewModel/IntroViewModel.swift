@@ -69,8 +69,7 @@ class IntroViewModel {
 				print(error)
 				completion?(false)
 			}
-		} receiveValue: { [weak self] response in
-			guard self != nil else { return }
+		} receiveValue: { response in
 			if response.valid {
 				completion?(true)
 			} else {

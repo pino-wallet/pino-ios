@@ -12,7 +12,6 @@ public struct AccountInfoViewModel: Equatable {
 
 	public var walletAccountInfoModel: WalletAccount!
 
-	#warning("this is temporary and static, when we add another network this icon should be dynamic")
 	public let currentNetworkImageName = "ETHNetworkIcon"
 
 	public var id: NSManagedObjectID {

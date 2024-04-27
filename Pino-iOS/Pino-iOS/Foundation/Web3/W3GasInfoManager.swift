@@ -60,8 +60,7 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 		Promise<GasInfo> { seal in
 
 			firstly {
-				let gasInfo = GasInfo()
-				return readWeb3.eth
+				readWeb3.eth
 					.estimateGas(call: .init(
 						from: userPrivateKey.address,
 						to: to,
@@ -84,9 +83,7 @@ public struct W3GasInfoManager: Web3HelperProtocol {
 	}
 
 	public func calculateEthGasFee(enteredAmount: EthereumQuantity, to address: EthereumAddress) -> Promise<GasInfo> {
-		let gasInfo = GasInfo()
-
-		return Promise<GasInfo> { seal in
+		Promise<GasInfo> { seal in
 			firstly {
 				readWeb3.eth.getTransactionCount(address: userPrivateKey.address, block: .latest)
 			}.then { nonce in
