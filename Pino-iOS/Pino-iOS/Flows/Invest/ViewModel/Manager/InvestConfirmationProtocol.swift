@@ -46,7 +46,6 @@ protocol InvestConfirmationViewProtocol {
 	var feeErrorIcon: String { get }
 	var confirmButtonTitle: String { get }
 	var insuffientButtonTitle: String { get }
-	var failedToAuthTitle: String { get }
 }
 
 extension InvestConfirmationViewProtocol {
@@ -60,7 +59,6 @@ extension InvestConfirmationViewProtocol {
 	var feeErrorIcon: String { "refresh" }
 	var confirmButtonTitle: String { "Confirm" }
 	var insuffientButtonTitle: String { "Insufficient amount" }
-	var failedToAuthTitle: String { "Failed to Authenticate" }
 }
 
 extension InvestConfirmationProtocol {

@@ -45,7 +45,6 @@ class SwapConfirmationViewModel {
 	public let fromToken: SwapTokenViewModel
 	public let confirmButtonTitle = "Confirm"
 	public let insufficientTitle = "Insufficient ETH Amount"
-	public let failedToAuthTitle = "Failed to Authenticate"
 
 	public var selectedProtocolTitle: String!
 	public var selectedProtocolImage: String!

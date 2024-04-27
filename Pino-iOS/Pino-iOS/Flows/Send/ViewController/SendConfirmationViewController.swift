@@ -96,7 +96,7 @@ class SendConfirmationViewController: UIViewController {
 			authManager.unlockApp { [self] in
 				self.sendTx()
 			} onFailure: {
-				Toast.default(title: self.sendConfirmationVM.failedToAuth, style: .error).show()
+        #warning("maybe we should handle it later")
 			}
 		} else {
 			sendTx()

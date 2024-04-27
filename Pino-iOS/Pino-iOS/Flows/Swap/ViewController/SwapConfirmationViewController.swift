@@ -116,7 +116,7 @@ class SwapConfirmationViewController: UIViewController {
 			authManager.unlockApp { [self] in
 				self.sendTx()
 			} onFailure: {
-				Toast.default(title: self.swapConfirmationVM.failedToAuthTitle, style: .error).show()
+                #warning("maybe we should handle it later")
 			}
 		} else {
 			sendTx()
