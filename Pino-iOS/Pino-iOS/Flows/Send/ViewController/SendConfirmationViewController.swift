@@ -91,8 +91,11 @@ class SendConfirmationViewController: UIViewController {
 
 	private func confirmSend() {
 		hapticManager.run(type: .mediumImpact)
-		if UserDefaultsManager.securityModesUser.getValue()?
-			.first(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) != nil {
+        guard let foundOnTransactionSecurityOption = UserDefaultsManager.securityModesUser.getValue()?
+            .contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) else {
+            fatalError("failed to search in security options list")
+        }
+		if foundOnTransactionSecurityOption {
 			authManager.unlockApp { [self] in
 				self.sendTx()
 			} onFailure: {
