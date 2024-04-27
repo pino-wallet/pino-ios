@@ -22,7 +22,7 @@ class InvestmentDetailViewModel {
 	public let investmentAmountTitle = "Investment"
 	public let feeTitle = "Earned fee"
 	public let totalAmountTitle = "Total amount"
-	public let increaseInvestmentButtonTitle = "Increase investment"
+	public let increaseInvestmentButtonTitle = "Deposit"
 	public let withdrawButtonTitle = "Withdraw"
 	public var apy: String
 	public var apyVolatilityType: AssetVolatilityType
