@@ -79,7 +79,7 @@ class InvestViewModel {
 		return firstly {
 			when(fulfilled: investmentsPromise, chartDataPromise)
 		}.done { investments, chartDataEntries in
-			self.assets = investments
+			self.assets = investments.sorted { $0.investmentAmount > $1.investmentAmount }
 			self.chartDataEntries = chartDataEntries
 			let investmentsAmount = investments.compactMap { $0.investmentAmount }.reduce(0.bigNumber, +)
 			self.totalInvestments = investmentsAmount.priceFormat(of: .coin, withRule: .standard)
