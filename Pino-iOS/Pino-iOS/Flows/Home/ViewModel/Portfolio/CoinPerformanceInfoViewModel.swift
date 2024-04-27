@@ -79,16 +79,15 @@ class CoinPerformanceInfoViewModel {
 			netProfit = GlobalZeroAmounts.dollars.zeroAmount
 			return
 		}
-		let userNetProfit = currentWorth - capital
-		if userNetProfit.isZero {
+		netProfitBigNum = currentWorth - capital
+		if netProfitBigNum.isZero {
 			netProfit = GlobalZeroAmounts.dollars.zeroAmount
 			return
 		}
-		if userNetProfit < 0.bigNumber {
-			netProfit = "-\(userNetProfit.priceFormat(of: assetType, withRule: .standard))"
+		if netProfitBigNum < 0.bigNumber {
+			netProfit = "-\(netProfitBigNum.priceFormat(of: assetType, withRule: .standard))"
 		} else {
-			netProfit = userNetProfit.priceFormat(of: assetType, withRule: .standard)
+			netProfit = netProfitBigNum.priceFormat(of: assetType, withRule: .standard)
 		}
-		netProfitBigNum = userNetProfit
 	}
 }
