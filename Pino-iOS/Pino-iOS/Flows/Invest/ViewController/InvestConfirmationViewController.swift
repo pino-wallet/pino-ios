@@ -92,21 +92,29 @@ class InvestConfirmationViewController: UIViewController {
 
 	private func confirmInvestment() {
 		hapticManager.run(type: .mediumImpact)
-		authManager.unlockApp { [self] in
-			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
-			let sendTransactionStatusVM = SendTransactionStatusViewModel(
-				transactions: sendTransactions,
-				transactionSentInfoText: investConfirmationVM.transactionsDescription
-			)
-			let sendTransactionStatusVC = SendTransactionStatusViewController(
-				sendStatusVM: sendTransactionStatusVM,
-				onDismiss: onConfirm
-			)
-			present(sendTransactionStatusVC, animated: true)
-		} onFailure: {
-			#warning("Error should be handled")
-		}
+        if UserDefaultsManager.securityModesUser.getValue()?.first(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) != nil {
+            authManager.unlockApp { [self] in
+                self.sendTx()
+            } onFailure: {
+                Toast.default(title: self.investConfirmationVM.failedToAuthTitle, style: .error).show()
+            }
+        } else {
+            sendTx()
+        }
 	}
+    
+    private func sendTx() {
+        guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
+        let sendTransactionStatusVM = SendTransactionStatusViewModel(
+            transactions: sendTransactions,
+            transactionSentInfoText: investConfirmationVM.transactionsDescription
+        )
+        let sendTransactionStatusVC = SendTransactionStatusViewController(
+            sendStatusVM: sendTransactionStatusVM,
+            onDismiss: onConfirm
+        )
+        present(sendTransactionStatusVC, animated: true)
+    }
 
 	private func getFee() {
 		hapticManager.run(type: .selectionChanged)

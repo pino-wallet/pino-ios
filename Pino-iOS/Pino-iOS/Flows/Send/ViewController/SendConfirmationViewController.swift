@@ -91,24 +91,32 @@ class SendConfirmationViewController: UIViewController {
 
 	private func confirmSend() {
 		hapticManager.run(type: .mediumImpact)
-		authManager.unlockApp { [self] in
-			guard let sendTransactions = sendConfirmationVM.sendTransactions else { return }
-			sendConfirmationVM.setRecentAddress()
-			let sendTransactionStatusVM = SendTransactionStatusViewModel(
-				transactions: sendTransactions,
-				transactionSentInfoText: sendConfirmationVM.sendStatusText
-			)
-			let sendTransactionStatusVC = SendTransactionStatusViewController(
-				sendStatusVM: sendTransactionStatusVM,
-				onDismiss: { pageStatus in
-					self.onSendConfirm(pageStatus)
-				}
-			)
-			present(sendTransactionStatusVC, animated: true)
-		} onFailure: {
-			Toast.default(title: self.sendConfirmationVM.failedToAuth, style: .error).show()
-		}
+        if UserDefaultsManager.securityModesUser.getValue()?.first(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) != nil {
+            authManager.unlockApp { [self] in
+                self.sendTx()
+            } onFailure: {
+                Toast.default(title: self.sendConfirmationVM.failedToAuth, style: .error).show()
+            }
+        } else {
+            sendTx()
+        }
 	}
+    
+    private func sendTx() {
+        guard let sendTransactions = sendConfirmationVM.sendTransactions else { return }
+        sendConfirmationVM.setRecentAddress()
+        let sendTransactionStatusVM = SendTransactionStatusViewModel(
+            transactions: sendTransactions,
+            transactionSentInfoText: sendConfirmationVM.sendStatusText
+        )
+        let sendTransactionStatusVC = SendTransactionStatusViewController(
+            sendStatusVM: sendTransactionStatusVM,
+            onDismiss: { pageStatus in
+                self.onSendConfirm(pageStatus)
+            }
+        )
+        present(sendTransactionStatusVC, animated: true)
+    }
 
 	private func getFee() {
 		sendConfirmationVM.getFee()
