@@ -21,24 +21,6 @@ class CoinPerformanceInfoViewModel {
 	public var allTimeLow: String?
 	public var netProfitBigNum: BigNumber = 0.bigNumber
 
-	public func updateNetProfit(_ chartData: [AssetChartDataViewModel], selectedAsset: AssetViewModel) {
-		guard let currentWorth = chartData.last?.networth else {
-			netProfit = GlobalZeroAmounts.dollars.zeroAmount
-			return
-		}
-		let userNetProfit = currentWorth - selectedAsset.assetCapital
-		if userNetProfit.isZero {
-			netProfit = GlobalZeroAmounts.dollars.zeroAmount
-			return
-		}
-		if userNetProfit < 0.bigNumber {
-			netProfit = "-\(userNetProfit.priceFormat(of: selectedAsset.assetType, withRule: .standard))"
-		} else {
-			netProfit = userNetProfit.priceFormat(of: selectedAsset.assetType, withRule: .standard)
-		}
-		netProfitBigNum = userNetProfit
-	}
-
 	public func updateAllTimeHigh(_ chartData: [AssetChartDataViewModel]) {
 		let networthList = chartData.map { $0.networth.doubleValue }
 		let maxNetworth = networthList.max()
@@ -64,6 +46,14 @@ class CoinPerformanceInfoViewModel {
 		updateAllTimelow(tokenAllTime.atl, selectedAsset: selectedAsset)
 	}
 
+	public func updateNetProfit(_ chartData: [AssetChartDataViewModel], selectedAsset: AssetViewModel) {
+		updateNetProfit(chartData, assetType: selectedAsset.assetType, capital: selectedAsset.assetCapital)
+	}
+
+	public func updateNetProfit(_ chartData: [AssetChartDataViewModel], investment: InvestAssetViewModel) {
+		updateNetProfit(chartData, assetType: investment.investToken.assetType, capital: investment.investmentCapital)
+	}
+
 	// MARK: - Private Methods
 
 	private func updateAllTimeHigh(_ ath: String, selectedAsset: AssetViewModel) {
@@ -82,5 +72,23 @@ class CoinPerformanceInfoViewModel {
 		} else {
 			allTimeLow = allTimeLowBigNumber.priceFormat(of: selectedAsset.assetType, withRule: .standard)
 		}
+	}
+
+	private func updateNetProfit(_ chartData: [AssetChartDataViewModel], assetType: AssetType, capital: BigNumber) {
+		guard let currentWorth = chartData.last?.networth else {
+			netProfit = GlobalZeroAmounts.dollars.zeroAmount
+			return
+		}
+		let userNetProfit = currentWorth - capital
+		if userNetProfit.isZero {
+			netProfit = GlobalZeroAmounts.dollars.zeroAmount
+			return
+		}
+		if userNetProfit < 0.bigNumber {
+			netProfit = "-\(userNetProfit.priceFormat(of: assetType, withRule: .standard))"
+		} else {
+			netProfit = userNetProfit.priceFormat(of: assetType, withRule: .standard)
+		}
+		netProfitBigNum = userNetProfit
 	}
 }
