@@ -96,7 +96,7 @@ class SendConfirmationViewController: UIViewController {
 			authManager.unlockApp { [self] in
 				self.sendTx()
 			} onFailure: {
-        #warning("maybe we should handle it later")
+				#warning("maybe we should handle it later")
 			}
 		} else {
 			sendTx()
