@@ -23,8 +23,8 @@ class ImportNewAccountViewModel {
 	public var accounts: [AccountInfoViewModel]
 
 	@Published
-	public var accountAvatar = Avatar.avocado
-	public var accountName = Avatar.avocado.name
+	public var accountAvatar: Avatar!
+	public var accountName: String!
 
 	@Published
 	public var privateKeyValidationStatus: PrivateKeyValidationStatus
@@ -42,6 +42,7 @@ class ImportNewAccountViewModel {
 		self.accounts = accounts
 		self.privateKeyValidationStatus = .isEmpty
 		self.accountNameValidationStatus = .isValid
+		setupDefaultAvatar()
 	}
 
 	// MARK: Public Methods
@@ -90,5 +91,14 @@ class ImportNewAccountViewModel {
 		} else {
 			return false
 		}
+	}
+
+	// MARK: Private Methods
+
+	private func setupDefaultAvatar() {
+		let userAvatars = accounts.map { $0.profileImage }
+		let defaultAvatar = Avatar.randAvatar(userAvatars: userAvatars)
+		accountAvatar = defaultAvatar
+		accountName = defaultAvatar.name
 	}
 }

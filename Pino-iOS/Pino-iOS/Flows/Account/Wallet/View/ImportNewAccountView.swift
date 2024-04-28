@@ -206,7 +206,7 @@ class ImportNewAccountView: UIView {
 			self.updateAccountNameValidationStatus(validationStatus)
 		}.store(in: &cancellables)
 
-		importAccountVM.$accountAvatar.sink { accountAvatar in
+		importAccountVM.$accountAvatar.compactMap { $0 }.sink { accountAvatar in
 			self.accountAvatarImageView.image = UIImage(named: accountAvatar.rawValue)
 			self.avatarBackgroundView.backgroundColor = UIColor(named: accountAvatar.rawValue)
 		}.store(in: &cancellables)
