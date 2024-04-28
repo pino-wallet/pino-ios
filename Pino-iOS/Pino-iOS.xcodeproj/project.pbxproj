@@ -638,6 +638,7 @@
 		DF6DEDDD2AACE00F0080B47B /* Permit2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */; };
 		DF6DEDDF2AACE2F30080B47B /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */; };
 		DF75591E8ABF9E657AB08480 /* AccountingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF705C69E87F6C936F8261B /* AccountingAPIClient.swift */; };
+		DF7F36AA2BDE36B700710998 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = DF7F36A92BDE36B700710998 /* PrivacyInfo.xcprivacy */; };
 		DF8AB4192BB29E0F0084B2ED /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8AB4182BB29E0F0084B2ED /* NotificationService.swift */; };
 		DF8AB41D2BB29E0F0084B2ED /* Pino-Notif-Service.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DF8AB4162BB29E0F0084B2ED /* Pino-Notif-Service.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DFA968732A0F8A77007D4513 /* WalletDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA968722A0F8A77007D4513 /* WalletDataSource.swift */; };
@@ -1566,6 +1567,7 @@
 		DF6DEDDA2AAB06150080B47B /* Sec256k1Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sec256k1Encryption.swift; sourceTree = "<group>"; };
 		DF6DEDDC2AACE00F0080B47B /* Permit2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permit2Model.swift; sourceTree = "<group>"; };
 		DF6DEDDE2AACE2F30080B47B /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		DF7F36A92BDE36B700710998 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		DF8AB4162BB29E0F0084B2ED /* Pino-Notif-Service.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pino-Notif-Service.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF8AB4182BB29E0F0084B2ED /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		DF8AB41A2BB29E0F0084B2ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2061,6 +2063,7 @@
 		2277E1FFDD10A1C98A64D20C = {
 			isa = PBXGroup;
 			children = (
+				DF7F36A92BDE36B700710998 /* PrivacyInfo.xcprivacy */,
 				DFC4D0A02A38A1A200F03DC4 /* Packages */,
 				23F1BD4FAC784DB47F844F5D /* Pino-iOS */,
 				BF60D065B05ED69B89F714A0 /* Pino-iOSTests */,
@@ -4938,6 +4941,7 @@
 				879CCE498D1A04C8EDE64430 /* PPPangramSans-Bold.ttf in Resources */,
 				A895518EB79CEB4B5CD8758A /* PPPangramSans-BoldItalic.ttf in Resources */,
 				D9F252CA2ABEF9CC00ECF293 /* collaterilizable-tokens-stub.json in Resources */,
+				DF7F36AA2BDE36B700710998 /* PrivacyInfo.xcprivacy in Resources */,
 				84D88149949C0D8A0E7C2BF5 /* PPPangramSans-BoldReclined.ttf in Resources */,
 				FF58849FC74FCDF3DB174C34 /* PPPangramSans-Extrabold.ttf in Resources */,
 				2191112109FDB1FDFC11BBEF /* PPPangramSans-ExtraboldItalic.ttf in Resources */,

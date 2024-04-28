@@ -91,6 +91,7 @@ class SwapViewController: UIViewController {
 		guard let selectedToken = assetList.first(where: { $0.id == self.swapVM.fromToken.selectedToken.id })
 		else { return }
 		swapVM.fromToken.selectedToken = selectedToken
+		swapVM.swapState = swapVM.swapState
 	}
 
 	private func setupStyle() {
