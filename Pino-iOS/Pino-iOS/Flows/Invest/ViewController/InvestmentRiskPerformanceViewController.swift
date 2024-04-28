@@ -39,7 +39,7 @@ class InvestmentRiskPerformanceViewController: UIViewController {
 		view = InvestmentRiskPerformanceView(
 			investmentRiskVM: investmentRiskVM,
 			dismissAndContinue: {
-                self.hapticManager.run(type: .selectionChanged)
+				self.hapticManager.run(type: .selectionChanged)
 				self.closePage()
 				self.dismissAndContinue()
 			}, dismissView: {

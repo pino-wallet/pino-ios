@@ -29,7 +29,7 @@ class ImportSecretPhraseViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-            HapticManager().run(type: .selectionChanged)
+			HapticManager().run(type: .selectionChanged)
 		}
 	}
 
