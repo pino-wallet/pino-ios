@@ -27,7 +27,7 @@ enum Environment {
 	public static var apiBaseURL: URL {
 		switch networkEnvironment {
 		case .staging, .production, .qa:
-			return URL(string: "https://demo-api.pino.xyz/v1/")!
+            return URL(string: "https://api.pino.xyz/v1/")!
 		}
 	}
 
