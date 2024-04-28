@@ -111,13 +111,12 @@ class SwapConfirmationViewController: UIViewController {
 
 	private func confirmSwap() {
 		hapticManager.run(type: .mediumImpact)
-		guard let foundOnTransactionSecurityOption = UserDefaultsManager.securityModesUser.getValue()?
-			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue }) else {
-			fatalError("failed to search in security options list")
-		}
-		if foundOnTransactionSecurityOption {
+		let userSecurityMode = UserDefaultsManager.securityModesUser.getValue()
+		let isAuthOnTrxEnabled = userSecurityMode?
+			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue })
+		if let authEnabled = isAuthOnTrxEnabled, authEnabled {
 			authManager.unlockApp { [self] in
-				self.sendTx()
+				sendTx()
 			} onFailure: {
 				#warning("maybe we should handle it later")
 			}
