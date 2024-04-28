@@ -13,7 +13,7 @@ class AllDoneView: UIView {
 	// MARK: - Private Properties
 
 	private let allDoneStackView = UIStackView()
-	private let allDoneAnimationContainerView = UIView()
+	private let allDoneTitleImageView = UIImageView()
 	private let allDoneAnimationView = LottieAnimationView()
 	private let titleStackView = UIStackView()
 	private let allDoneTitle = PinoLabel(style: .title, text: nil)
@@ -59,9 +59,7 @@ extension AllDoneView {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		allDoneAnimationContainerView.addSubview(allDoneAnimationView)
-
-		allDoneStackView.addArrangedSubview(allDoneAnimationContainerView)
+		allDoneStackView.addArrangedSubview(allDoneTitleImageView)
 		allDoneStackView.addArrangedSubview(titleStackView)
 		titleStackView.addArrangedSubview(allDoneTitle)
 		titleStackView.addArrangedSubview(allDoneDescription)
@@ -69,6 +67,7 @@ extension AllDoneView {
 		agreementStackView.addArrangedSubview(agreementLabel)
 		getStartedStackView.addArrangedSubview(agreementStackView)
 		getStartedStackView.addArrangedSubview(getStartedButton)
+        addSubview(allDoneAnimationView)
 		addSubview(allDoneStackView)
 		addSubview(getStartedStackView)
 
@@ -87,9 +86,10 @@ extension AllDoneView {
 	private func setupStyle() {
 		allDoneAnimationView.animation = LottieAnimation.named(allDoneVM.allDoneAnimationName)
 		allDoneAnimationView.loopMode = .playOnce
-		allDoneAnimationView.currentProgress = 0.35
 		allDoneAnimationView.contentMode = .scaleAspectFill
 		allDoneAnimationView.play()
+        
+        allDoneTitleImageView.image = UIImage(named: allDoneVM.image)
 
 		allDoneTitle.text = allDoneVM.title
 		allDoneDescription.text = allDoneVM.description
@@ -116,7 +116,7 @@ extension AllDoneView {
 
 	private func setupContstraint() {
 		allDoneStackView.pin(
-			.centerY(padding: -200),
+			.centerY(padding: -40),
 			.centerX
 		)
 		getStartedStackView.pin(
@@ -124,12 +124,9 @@ extension AllDoneView {
 			.horizontalEdges
 		)
 		allDoneAnimationView.pin(
-			.fixedWidth(400),
-			.fixedHeight(400),
-			.relative(.bottom, 45, to: allDoneAnimationContainerView, .bottom),
-			.centerX
+			.allEdges(to: layoutMarginsGuide, padding: -16)
 		)
-		allDoneAnimationContainerView.pin(.horizontalEdges(to: layoutMarginsGuide, padding: 0), .fixedHeight(400))
+		allDoneTitleImageView.pin(.fixedWidth(80), .fixedHeight(80))
 		getStartedButton.pin(
 			.horizontalEdges(padding: 16)
 		)
