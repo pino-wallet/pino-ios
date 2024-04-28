@@ -310,8 +310,8 @@ class InvestDepositView: UIView {
 	private func enterMaxAmount() {
 		hapticManager.run(type: .selectionChanged)
 		investVM.calculateDollarAmount(investVM.maxAvailableAmount)
-		amountTextfield.text = investVM.maxAvailableAmount.formattedDecimalString
-		updateAmount(enteredAmount: investVM.maxAvailableAmount.formattedDecimalString)
+		amountTextfield.text = investVM.maxAvailableAmount.decimalString
+		updateAmount(enteredAmount: investVM.maxAvailableAmount.decimalString)
 		amountTextfield
 			.moveCursorToBeginning(textfieldWidth: amountTextfield.bounds.width + amountSpacerView.bounds.width)
 	}
