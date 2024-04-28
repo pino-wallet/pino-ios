@@ -67,7 +67,7 @@ extension AllDoneView {
 		agreementStackView.addArrangedSubview(agreementLabel)
 		getStartedStackView.addArrangedSubview(agreementStackView)
 		getStartedStackView.addArrangedSubview(getStartedButton)
-        addSubview(allDoneAnimationView)
+		addSubview(allDoneAnimationView)
 		addSubview(allDoneStackView)
 		addSubview(getStartedStackView)
 
@@ -88,8 +88,8 @@ extension AllDoneView {
 		allDoneAnimationView.loopMode = .playOnce
 		allDoneAnimationView.contentMode = .scaleAspectFill
 		allDoneAnimationView.play()
-        
-        allDoneTitleImageView.image = UIImage(named: allDoneVM.image)
+
+		allDoneTitleImageView.image = UIImage(named: allDoneVM.image)
 
 		allDoneTitle.text = allDoneVM.title
 		allDoneDescription.text = allDoneVM.description
