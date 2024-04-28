@@ -111,23 +111,34 @@ class SwapConfirmationViewController: UIViewController {
 
 	private func confirmSwap() {
 		hapticManager.run(type: .mediumImpact)
-		guard let sendTransactions = swapConfirmationVM.sendTransactions else { return }
-		authManager.unlockApp { [self] in
-			let sendTrxStatusVM = SendTransactionStatusViewModel(
-				transactions: sendTransactions,
-				transactionSentInfoText: swapConfirmationVM.sendStatusText
-			)
-			let sendTransactionStatuVC = SendTransactionStatusViewController(
-				sendStatusVM: sendTrxStatusVM,
-				onDismiss: { [unowned self] pageStatus in
-					onSwapConfirm(pageStatus)
-				}
-			)
-			swapConfirmationVM.destoryRateTimer()
-			present(sendTransactionStatuVC, animated: true)
-		} onFailure: {
-			print("Error: Authorization failed")
+		let userSecurityMode = UserDefaultsManager.securityModesUser.getValue()
+		let isAuthOnTrxEnabled = userSecurityMode?
+			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue })
+		if let authEnabled = isAuthOnTrxEnabled, authEnabled {
+			authManager.unlockApp { [self] in
+				sendTx()
+			} onFailure: {
+				#warning("maybe we should handle it later")
+			}
+		} else {
+			sendTx()
 		}
+	}
+
+	private func sendTx() {
+		guard let sendTransactions = swapConfirmationVM.sendTransactions else { return }
+		let sendTrxStatusVM = SendTransactionStatusViewModel(
+			transactions: sendTransactions,
+			transactionSentInfoText: swapConfirmationVM.sendStatusText
+		)
+		let sendTransactionStatuVC = SendTransactionStatusViewController(
+			sendStatusVM: sendTrxStatusVM,
+			onDismiss: { [unowned self] pageStatus in
+				onSwapConfirm(pageStatus)
+			}
+		)
+		swapConfirmationVM.destoryRateTimer()
+		present(sendTransactionStatuVC, animated: true)
 	}
 
 	@objc

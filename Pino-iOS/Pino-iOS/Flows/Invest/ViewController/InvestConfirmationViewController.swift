@@ -92,20 +92,31 @@ class InvestConfirmationViewController: UIViewController {
 
 	private func confirmInvestment() {
 		hapticManager.run(type: .mediumImpact)
-		authManager.unlockApp { [self] in
-			guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
-			let sendTransactionStatusVM = SendTransactionStatusViewModel(
-				transactions: sendTransactions,
-				transactionSentInfoText: investConfirmationVM.transactionsDescription
-			)
-			let sendTransactionStatusVC = SendTransactionStatusViewController(
-				sendStatusVM: sendTransactionStatusVM,
-				onDismiss: onConfirm
-			)
-			present(sendTransactionStatusVC, animated: true)
-		} onFailure: {
-			#warning("Error should be handled")
+		let userSecurityMode = UserDefaultsManager.securityModesUser.getValue()
+		let isAuthOnTrxEnabled = userSecurityMode?
+			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue })
+		if let authEnabled = isAuthOnTrxEnabled, authEnabled {
+			authManager.unlockApp { [self] in
+				sendTx()
+			} onFailure: {
+				#warning("maybe we should handle it later")
+			}
+		} else {
+			sendTx()
 		}
+	}
+
+	private func sendTx() {
+		guard let sendTransactions = investConfirmationVM.sendTransactions else { return }
+		let sendTransactionStatusVM = SendTransactionStatusViewModel(
+			transactions: sendTransactions,
+			transactionSentInfoText: investConfirmationVM.transactionsDescription
+		)
+		let sendTransactionStatusVC = SendTransactionStatusViewController(
+			sendStatusVM: sendTransactionStatusVM,
+			onDismiss: onConfirm
+		)
+		present(sendTransactionStatusVC, animated: true)
 	}
 
 	private func getFee() {
