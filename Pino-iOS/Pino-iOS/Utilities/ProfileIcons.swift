@@ -85,7 +85,16 @@ public enum Avatar: String, CaseIterable {
 	}
 
 	public static func randAvatar() -> Self {
-		allCases.randomElement() ?? .green_apple
+		allCases.randomElement()!
+	}
+
+	public static func randAvatar(userAvatars: [String]) -> Self {
+		let filteredAvatars = allCases.filter { !userAvatars.contains($0.rawValue) }
+		if filteredAvatars.isEmpty {
+			return randAvatar()
+		} else {
+			return filteredAvatars.randomElement()!
+		}
 	}
 }
 
