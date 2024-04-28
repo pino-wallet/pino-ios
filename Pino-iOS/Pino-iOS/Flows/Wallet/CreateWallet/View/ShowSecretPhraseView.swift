@@ -86,7 +86,7 @@ extension ShowSecretPhraseView {
 		}), for: .touchUpInside)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.savedSecretPhrase()
 		}), for: .touchUpInside)
 	}

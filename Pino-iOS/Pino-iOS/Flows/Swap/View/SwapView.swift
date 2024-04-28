@@ -110,7 +110,7 @@ class SwapView: UIView {
 		feeCardView.addSubview(swapFeeView)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.continueButton.style = .loading
 			self.nextButtonTapped()
 		}), for: .touchUpInside)

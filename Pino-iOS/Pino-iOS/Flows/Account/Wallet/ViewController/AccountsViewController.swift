@@ -51,7 +51,7 @@ class AccountsViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -92,7 +92,7 @@ class AccountsViewController: UIViewController {
 	}
 
 	private func openEditAccountPage(selectedAccount: AccountInfoViewModel) {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let editAccountVM = EditAccountViewModel(selectedAccount: selectedAccount)
 		let editAccountVC = EditAccountViewController(accountsVM: accountsVM, editAccountVM: editAccountVM)
 		if navigationController?.viewControllers.last is AccountsViewController {
@@ -102,14 +102,14 @@ class AccountsViewController: UIViewController {
 
 	@objc
 	private func openCreateImportWalletPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .selectionChanged)
 		let createImportWalletVC = AddNewAccountViewController(accountsVM: accountsVM, onDismiss: onDismiss)
 		navigationController?.pushViewController(createImportWalletVC, animated: true)
 	}
 
 	@objc
 	private func dismissSelf() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 }

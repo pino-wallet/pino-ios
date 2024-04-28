@@ -28,7 +28,7 @@ class EnterSendAddressViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -51,7 +51,7 @@ class EnterSendAddressViewController: UIViewController {
 	private func setupView() {
 		enterSendAddressView = EnterSendAddressView(enterSendAddressVM: enterSendAddressVM)
 		enterSendAddressView.tapNextButton = {
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.openConfiramtionPage()
 		}
 		enterSendAddressView.scanAddressQRCode = {

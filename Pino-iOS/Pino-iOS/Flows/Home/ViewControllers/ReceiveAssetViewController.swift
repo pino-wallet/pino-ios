@@ -75,7 +75,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	@objc
 	private func presentShareActivityViewController() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .selectionChanged)
 		let sharedText = receiveVM.accountAddress
 		let shareItems = [sharedText]
 		let activityVC = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
@@ -84,7 +84,7 @@ class ReceiveAssetViewController: UIViewController {
 
 	@objc
 	private func dismissVC() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 }

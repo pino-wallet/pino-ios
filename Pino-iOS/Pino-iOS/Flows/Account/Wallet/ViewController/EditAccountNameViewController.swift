@@ -54,7 +54,7 @@ class EditAccountNameViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -100,7 +100,7 @@ class EditAccountNameViewController: UIViewController {
 
 	@objc
 	private func saveAccountName() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .selectionChanged)
 		nameChanged(editAccountNameView.walletNameTextFieldView.getText()!)
 		navigationController?.popViewController(animated: true)
 	}

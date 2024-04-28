@@ -29,7 +29,7 @@ class SecuritySettingsViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -50,7 +50,7 @@ class SecuritySettingsViewController: UIViewController {
 	}
 
 	private func openLockSelectMethodAlert() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let lockSelectMethodAlert = UIAlertController(
 			title: securityVM.changeLockMethodAlertTitle,
 			message: "",
@@ -62,7 +62,7 @@ class SecuritySettingsViewController: UIViewController {
 
 		for lockMethod in securityVM.lockMethods {
 			let alertAction = UIAlertAction(title: lockMethod.title, style: .default, handler: { [weak self] _ in
-				self?.hapticManager.run(type: .mediumImpact)
+				self?.hapticManager.run(type: .lightImpact)
 				self?.securityVM.changeLockMethod(to: lockMethod)
 			})
 			lockSelectMethodAlert.addAction(alertAction)

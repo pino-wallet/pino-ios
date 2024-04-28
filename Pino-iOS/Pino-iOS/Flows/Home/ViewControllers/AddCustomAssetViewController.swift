@@ -120,7 +120,7 @@ class AddCustomAssetViewController: UIViewController {
 	// Setup dismiss button handler
 	@objc
 	private func dismissAddCustomAssetVC() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
@@ -129,7 +129,7 @@ class AddCustomAssetViewController: UIViewController {
 	private func addCustomAssetHandler() {
 		let customAsset = addCustomAssetVM.saveCustomTokenToCoredata()
 		if let customAsset {
-			hapticManager.run(type: .mediumImpact)
+			hapticManager.run(type: .selectionChanged)
 			dismiss(animated: true)
 			customAssetAdded(customAsset)
 		}

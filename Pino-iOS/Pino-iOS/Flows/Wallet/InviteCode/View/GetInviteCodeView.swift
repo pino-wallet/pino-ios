@@ -125,14 +125,14 @@ class GetInviteCodeView: UIView, UITextFieldDelegate {
 
 	@objc
 	private func openPinoSocialPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let url = URL(string: getInviteCodeVM.pinoXURL)!
 		UIApplication.shared.open(url)
 	}
 
 	@objc
 	private func onDismissSelf() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismissViewClosure()
 	}
 }

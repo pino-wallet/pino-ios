@@ -82,12 +82,12 @@ class ProfileViewController: UIViewController {
 
 	@objc
 	private func dismissProfile() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
 	private func openSettingDetail(settingVM: SettingsViewModel) {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		switch settingVM {
 		case .wallets:
 			let walletsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, onDismiss: onDismiss)

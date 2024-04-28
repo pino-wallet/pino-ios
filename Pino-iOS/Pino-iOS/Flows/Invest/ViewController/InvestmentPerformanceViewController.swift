@@ -78,12 +78,12 @@ class InvestmentPerformanceViewController: UIViewController {
 
 	@objc
 	private func closePage() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
 	private func openCoinPerformancePage(selectedAsset: InvestAssetViewModel) {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let coinPerformanceVC = InvestCoinPerformanceViewController(selectedAsset: selectedAsset)
 		let coinPerformanceNavigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		present(coinPerformanceNavigationVC, animated: true)

@@ -62,7 +62,7 @@ class InfoActionSheet: UIAlertController {
 		titleStackView.spacing = 6
 
 		actionButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			if let onButtonTap = self.onActionButtonTap {
 				onButtonTap()
 			} else {

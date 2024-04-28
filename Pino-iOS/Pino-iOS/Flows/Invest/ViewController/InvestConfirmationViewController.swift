@@ -57,7 +57,7 @@ class InvestConfirmationViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -91,7 +91,7 @@ class InvestConfirmationViewController: UIViewController {
 	}
 
 	private func confirmInvestment() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let userSecurityMode = UserDefaultsManager.securityModesUser.getValue()
 		let isAuthOnTrxEnabled = userSecurityMode?
 			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue })

@@ -44,7 +44,7 @@ class CreateNewAccountViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			HapticManager().run(type: .lightImpact)
+			HapticManager().run(type: .selectionChanged)
 		}
 	}
 

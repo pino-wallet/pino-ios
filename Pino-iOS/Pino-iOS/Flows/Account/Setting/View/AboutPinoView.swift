@@ -190,21 +190,21 @@ class AboutPinoView: UIView {
 
 	@objc
 	private func showTermsOfServices() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let url = URL(string: aboutPinoVM.termsOfServiceURL)
 		UIApplication.shared.open(url!)
 	}
 
 	@objc
 	private func showPrivacyPolicy() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let url = URL(string: aboutPinoVM.privacyPolicyURL)
 		UIApplication.shared.open(url!)
 	}
 
 	@objc
 	private func showWebsite() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let url = URL(string: aboutPinoVM.websiteURL)
 		UIApplication.shared.open(url!)
 	}

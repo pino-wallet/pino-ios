@@ -50,7 +50,7 @@ class InvestDepositViewController: UIViewController {
 		if navigationController!.viewControllers.count > 1 {
 			if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 				// code here
-				hapticManager.run(type: .lightImpact)
+				hapticManager.run(type: .selectionChanged)
 			}
 		}
 	}
@@ -92,12 +92,12 @@ class InvestDepositViewController: UIViewController {
 
 	@objc
 	private func closePage() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
 	private func proceedInvestFlow() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		// First Step of Invest
 		// Check If Permit has access to Token
 		firstly {

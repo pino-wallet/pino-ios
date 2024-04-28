@@ -135,7 +135,7 @@ class TokensEmptyStateView: UIView {
 
 	@objc
 	private func onActionTap() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		onActionButton()
 	}
 

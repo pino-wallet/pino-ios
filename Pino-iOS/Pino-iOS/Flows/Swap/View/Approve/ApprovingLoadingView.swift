@@ -223,19 +223,19 @@ class ApprovingLoadingView: UIView {
 
 	@objc
 	private func onDismissTap() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismissPage()
 	}
 
 	@objc
 	private func onTryAgainTap() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		approvngContractLoadingVM.approveToken()
 	}
 
 	@objc
 	private func openSpeedUpActionSheet() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		speedUpActionSheet = ApproveSpeedUpViewController(approveLoadingVM: approvngContractLoadingVM)
 		presentActionSheet(speedUpActionSheet) {
 			let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(

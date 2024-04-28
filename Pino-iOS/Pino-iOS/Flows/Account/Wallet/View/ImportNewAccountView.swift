@@ -95,7 +95,7 @@ class ImportNewAccountView: UIView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.importButtonDidTap()
 		}), for: .touchUpInside)
 
@@ -244,7 +244,7 @@ class ImportNewAccountView: UIView {
 
 	@objc
 	private func setNewAvatar() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		changeAvatarDidTap()
 	}
 

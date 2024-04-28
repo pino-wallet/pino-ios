@@ -105,7 +105,7 @@ class SelectAssetToSendViewController: UIViewController {
 
 	@objc
 	private func dismissSelf() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 

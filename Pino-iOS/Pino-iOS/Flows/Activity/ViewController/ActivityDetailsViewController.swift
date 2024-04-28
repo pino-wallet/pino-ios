@@ -83,7 +83,7 @@ class ActivityDetailsViewController: UIViewController {
 
 	@objc
 	private func dismissPage() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 }
