@@ -152,7 +152,7 @@ class CreateNewAccountView: UIView {
 			self.updateAccountNameValidationStatus(validationStatus)
 		}.store(in: &cancellables)
 
-		createAccountVM.$accountAvatar.sink { accountAvatar in
+		createAccountVM.$accountAvatar.compactMap { $0 }.sink { accountAvatar in
 			self.accountAvatarImageView.image = UIImage(named: accountAvatar.rawValue)
 			self.avatarBackgroundView.backgroundColor = UIColor(named: accountAvatar.rawValue)
 		}.store(in: &cancellables)

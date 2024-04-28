@@ -22,12 +22,13 @@ class CreateNewAccountViewModel {
 	@Published
 	public var accountNameValidationStatus: AccountNameValidationStatus
 	@Published
-	public var accountAvatar = Avatar.avocado
-	public var accountName = Avatar.avocado.name
+	public var accountAvatar: Avatar!
+	public var accountName: String!
 
 	init(accounts: [AccountInfoViewModel]) {
 		self.accounts = accounts
 		self.accountNameValidationStatus = .isValid
+		setupDefaultAvatar()
 	}
 
 	// MARK: - Public Methods
@@ -52,5 +53,14 @@ class CreateNewAccountViewModel {
 		} else {
 			return false
 		}
+	}
+
+	// MARK: Private Methods
+
+	private func setupDefaultAvatar() {
+		let userAvatars = accounts.map { $0.profileImage }
+		let defaultAvatar = Avatar.randAvatar(userAvatars: userAvatars)
+		accountAvatar = defaultAvatar
+		accountName = defaultAvatar.name
 	}
 }
