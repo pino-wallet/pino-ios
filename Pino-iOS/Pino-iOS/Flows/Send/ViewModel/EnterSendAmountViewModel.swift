@@ -105,7 +105,7 @@ class EnterSendAmountViewModel {
 
 	public func updateEthMaxAmount() {
 		let gasInfo = Web3Core.shared.calculateEthGasFee()
-		let estimatedAmount = selectedToken.holdAmount - gasInfo.fee!
+		let estimatedAmount = selectedToken.holdAmount - (gasInfo.fee! * BigNumber(numberWithDecimal: "1.8")!)
 		if estimatedAmount.number.sign == .minus {
 			maxHoldAmount = 0.bigNumber
 		} else {

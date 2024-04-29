@@ -98,9 +98,9 @@ struct NetworkManager<EndPoint: EndpointType>: NetworkRouter {
 				throw APIError.failedWith(statusCode: statusCode)
 			}
 		}
-		print("SUCCESS:------------------")
-		print(String(data: responseData, encoding: String.Encoding.utf8)! as String)
-		print("------------------------")
+//		print("SUCCESS:------------------")
+//		print(String(data: responseData, encoding: String.Encoding.utf8)! as String)
+//		print("------------------------")
 	}
 
 	private func mapError(_ error: Error) -> APIError {

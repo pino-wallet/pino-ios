@@ -148,7 +148,6 @@ class SwapViewModel {
 				ownerAddress: walletManager.currentAccount.eip55Address
 			)
 		}.done { [self] allowanceAmount in
-			let destTokenDecimal = fromToken.selectedToken.decimal
 			let destTokenAmount = fromToken.fullAmount!
 			if allowanceAmount == 0 || allowanceAmount < destTokenAmount.number {
 				// NOT ALLOWED

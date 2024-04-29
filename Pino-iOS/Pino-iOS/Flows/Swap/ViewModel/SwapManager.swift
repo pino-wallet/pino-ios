@@ -37,12 +37,10 @@ class SwapManager: Web3ManagerProtocol {
 	}
 
 	private var destinationAmount: BigNumber
-	private var swapAmountBigNum: BigNumber {
-		let tokenUIntNumber = Utilities.parseToBigUInt(swapAmount.decimalString, decimals: srcToken.decimal)
-		return .init(unSignedNumber: tokenUIntNumber!, decimal: srcToken.decimal)
-	}
-
 	private var swapAmount: BigNumber
+	private var swapAmountBigUInt: BigUInt {
+		Utilities.parseToBigUInt(swapAmount.decimalString, decimals: srcToken.decimal)!
+	}
 
 	private let coreDataManager = CoreDataManager()
 	private let paraSwapAPIClient = ParaSwapAPIClient()
@@ -102,7 +100,7 @@ class SwapManager: Web3ManagerProtocol {
 
 	internal func getProxyPermitTransferData(signiture: String) -> Promise<String> {
 		web3.getPermitTransferCallData(
-			contract: contract, amount: swapAmountBigNum.bigUInt,
+			contract: contract, amount: swapAmountBigUInt,
 			tokenAdd: srcToken.id,
 			signiture: signiture,
 			nonce: nonce,
@@ -122,7 +120,7 @@ class SwapManager: Web3ManagerProtocol {
 				guard let selectedProvider else { fatalError("provider errror") }
 				return checkAllowanceOfProvider(
 					approvingToken: srcToken,
-					approvingAmount: swapAmountBigNum.bigIntFormat,
+					approvingAmount: swapAmount.decimalString,
 					spenderAddress: selectedProvider.provider.contractAddress
 				).map { (signiture, $0) }
 			}.then { signiture, allowanceData -> Promise<(String, String?)> in
@@ -160,7 +158,7 @@ class SwapManager: Web3ManagerProtocol {
 			let fetchHashPromise = fetchHash()
 			let allowancePromise = checkAllowanceOfProvider(
 				approvingToken: srcToken,
-				approvingAmount: swapAmountBigNum.bigIntFormat,
+				approvingAmount: swapAmount.decimalString,
 				spenderAddress: selectedProvider.provider.contractAddress
 			)
 			let swapProvidersDataPromise = getSwapInfoFrom()
@@ -206,7 +204,7 @@ class SwapManager: Web3ManagerProtocol {
 				guard let selectedProvider else { fatalError("provider errror") }
 				return checkAllowanceOfProvider(
 					approvingToken: wethToken,
-					approvingAmount: swapAmountBigNum.bigIntFormat,
+					approvingAmount: swapAmount.decimalString,
 					spenderAddress: selectedProvider.provider.contractAddress
 				).map { ($0, wrapTokenData) }
 			}.then { [self] allowanceData, wrapTokenData -> Promise<(String, String?, String)> in
@@ -222,7 +220,7 @@ class SwapManager: Web3ManagerProtocol {
 				if let sweepData { callDatas.append(sweepData) }
 				if let allowanceData { callDatas.insert(allowanceData, at: 0) }
 				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
+					callProxyMultiCall(data: callDatas, value: swapAmountBigUInt)
 				}
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
@@ -246,7 +244,7 @@ class SwapManager: Web3ManagerProtocol {
 				// MultiCall
 				let callDatas = [wrapTokenData, sweepData!]
 				return attempt(maximumRetryCount: 3) { [self] in
-					callProxyMultiCall(data: callDatas, value: swapAmountBigNum.bigUInt)
+					callProxyMultiCall(data: callDatas, value: swapAmountBigUInt)
 				}
 			}.done { swapResult in
 				self.pendingSwapGasInfo = swapResult.1
@@ -286,7 +284,7 @@ class SwapManager: Web3ManagerProtocol {
 		Promise<String> { seal in
 			let hashREq = EIP712HashRequestModel(
 				tokenAdd: srcToken.id,
-				amount: swapAmountBigNum.bigIntFormat,
+				amount: swapAmountBigUInt.description,
 				spender: Web3Core.Constants.pinoSwapProxyAddress,
 				nonce: nonce.description,
 				deadline: deadline.description
@@ -323,7 +321,7 @@ class SwapManager: Web3ManagerProtocol {
 			SwapRequestModel(
 				srcToken: srcToken.id,
 				destToken: destToken.id,
-				amount: swapAmountBigNum.bigIntFormat,
+				amount: swapAmountBigUInt.description,
 				destAmount: selectedProvider.providerResponseInfo.destAmount,
 				receiver: walletManager.currentAccount.eip55Address,
 				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
@@ -448,7 +446,7 @@ class SwapManager: Web3ManagerProtocol {
 				type: ActivityType.swap.rawValue,
 				detail: .init(
 					fromToken: .init(
-						amount: swapAmountBigNum.bigIntFormat,
+						amount: swapAmountBigUInt.description,
 						tokenID: srcToken.id
 					),
 					toToken: .init(
