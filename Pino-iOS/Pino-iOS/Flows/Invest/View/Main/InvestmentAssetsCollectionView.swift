@@ -19,8 +19,9 @@ class InvestmentAssetsCollectionView: UICollectionView {
 		let flowLayout = UICollectionViewFlowLayout()
 		flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		flowLayout.scrollDirection = .horizontal
-		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40)
-		self.init(frame: CGRect(x: 0, y: 0, width: 300, height: 48), collectionViewLayout: flowLayout)
+		// It should be refactored later. section inset causes bugs in the view
+//		flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 40)
+		self.init(frame: .zero, collectionViewLayout: flowLayout)
 
 		configCollectionView()
 		setupStyle()
