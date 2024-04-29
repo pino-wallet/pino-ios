@@ -243,7 +243,7 @@ extension BigNumber: CustomStringConvertible {
 		let rawStr = Utilities.formatToPrecision(
 			number,
 			units: .custom(decimal),
-			formattingDecimals: 18,
+			formattingDecimals: decimal,
 			decimalSeparator: ".",
 			fallbackToScientific: false
 		)
