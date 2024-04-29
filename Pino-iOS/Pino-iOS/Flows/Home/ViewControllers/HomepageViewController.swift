@@ -128,7 +128,7 @@ class HomepageViewController: UIViewController {
 
 	@objc
 	private func openAccountsPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let navigationVC = UINavigationController()
 		let accountsVM = AccountsViewModel(currentWalletBalance: profileVM.walletBalance)
 		let accountsVC = AccountsViewController(accountsVM: accountsVM, profileVM: profileVM, hasDismiss: true) {
@@ -163,7 +163,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openCoinInfo(assetVM: AssetViewModel) {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let coinInfoVC = CoinInfoViewController(selectedAsset: assetVM, homeVM: homeVM)
 		let navigationVC = UINavigationController(rootViewController: coinInfoVC)
 		navigationVC.modalPresentationStyle = .formSheet
@@ -171,7 +171,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openPortfolioPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		guard let assets = GlobalVariables.shared.selectedManageAssetsList else { return }
 		let filteredAsset = assets.filter { !$0.isPosition && $0.isVerified }
 		let portfolioPerformanceVC = PortfolioPerformanceViewController(assets: filteredAsset)
@@ -181,7 +181,7 @@ class HomepageViewController: UIViewController {
 	}
 
 	private func openReceiveAssetPage() {
-		hapticManager.run(type: .heavyImpact)
+		hapticManager.run(type: .lightImpact)
 		let navigationVC = UINavigationController()
 		let receiveAssetVC = ReceiveAssetViewController(accountInfo: homeVM.walletInfo)
 		navigationVC.viewControllers = [receiveAssetVC]
@@ -191,7 +191,7 @@ class HomepageViewController: UIViewController {
 
 	private func openSendAssetPage() {
 		if let assetsList = GlobalVariables.shared.selectedManageAssetsList {
-			hapticManager.run(type: .heavyImpact)
+			hapticManager.run(type: .lightImpact)
 			let navigationVC = UINavigationController()
 			let selectAssetToSendVC = SelectAssetToSendViewController(assets: assetsList, onDismiss: { pageStatus in
 				if pageStatus == .pending {

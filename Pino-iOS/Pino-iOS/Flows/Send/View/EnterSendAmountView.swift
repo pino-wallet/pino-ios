@@ -87,7 +87,7 @@ class EnterSendAmountView: UIView {
 		amountTextFieldStackView.addArrangedSubview(amountTextfield)
 
 		continueButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.nextButtonTapped()
 		}), for: .touchUpInside)
 

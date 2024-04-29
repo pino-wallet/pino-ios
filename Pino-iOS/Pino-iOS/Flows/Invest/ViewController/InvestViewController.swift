@@ -90,7 +90,7 @@ class InvestViewController: UIViewController {
 		if isWalletSyncFinished && investVM.assets == nil {
 			return
 		}
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let investmentBoardVC = InvestmentBoardViewController(
 			assets: investVM.assets,
 			onDepositConfirm: { pageStatus in
@@ -108,7 +108,7 @@ class InvestViewController: UIViewController {
 		if isWalletSyncFinished && investVM.assets == nil {
 			return
 		}
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let investmentPerformanceVC = InvestmentPerformanceViewController(assets: investVM.assets)
 		let investmentPerformanceNavigationVC = UINavigationController(rootViewController: investmentPerformanceVC)
 		present(investmentPerformanceNavigationVC, animated: true)

@@ -48,7 +48,7 @@ class AddNewAccountViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -80,7 +80,7 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func openImportAccountPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let importWalletVC = ImportNewAccountViewController(accounts: accountsVM.accountsList)
 		importWalletVC.newAccountDidImport = { privateKey, avatar, accountName in
 			self.accountsVM.importAccount(privateKey: privateKey, accountName: accountName, accountAvatar: avatar)
@@ -94,7 +94,7 @@ class AddNewAccountViewController: UIViewController {
 	}
 
 	private func openCreateAccountPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let createWalletVC = CreateNewAccountViewController(accounts: accountsVM.accountsList)
 		createWalletVC.newAccountDidCreate = { avatar, accountName in
 			self.createNewAccount(accountName: accountName, accountAvatar: avatar).done {

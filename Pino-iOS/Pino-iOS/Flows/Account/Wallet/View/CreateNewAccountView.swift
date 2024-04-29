@@ -71,7 +71,7 @@ class CreateNewAccountView: UIView {
 		accountAvatarStackView.addGestureRecognizer(setAccountAvatarTapGesture)
 
 		createButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.createButtonDidTap()
 		}), for: .touchUpInside)
 
@@ -177,7 +177,7 @@ class CreateNewAccountView: UIView {
 
 	@objc
 	private func setNewAvatar() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		avatarButtonDidTap()
 	}
 

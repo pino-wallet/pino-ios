@@ -163,13 +163,13 @@ class ActivityDetailsView: UIScrollView {
 
 	@objc
 	private func openEthScan() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		UIApplication.shared.open(activityDetailsVM.properties.exploreURL)
 	}
 
 	@objc
 	private func openSpeedUpActionSheet() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		speedUpActionSheet = SpeedUpAlertViewController(activityDetailsVM: activityDetailsVM)
 		presentActionSheet(speedUpActionSheet) {
 			let speedUpAlertBackgroundTappedGesture = UITapGestureRecognizer(

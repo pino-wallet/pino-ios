@@ -67,7 +67,7 @@ class CoinPerformanceViewController: UIViewController {
 
 	@objc
 	private func closePage() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 

@@ -46,7 +46,7 @@ class EditAccountViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -97,12 +97,12 @@ class EditAccountViewController: UIViewController {
 
 	@objc
 	private func saveChanges() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
 	private func openAvatarPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let avatarVM = AvatarViewModel(selectedAvatar: editAccountVM.selectedAccount.profileImage)
 		let changeAvatarVC = ChangeAvatarViewController(avatarVM: avatarVM) { [weak self] avatarName in
 			self?.editAccountAvatar(newAvatar: avatarName)
@@ -111,7 +111,7 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func openRemoveAccountPage() {
-		hapticManager.run(type: .heavyImpact)
+		hapticManager.run(type: .lightImpact)
 		let removeAccountVC = RemoveAccountViewController()
 		present(removeAccountVC, animated: true)
 		removeAccountVC.walletIsDeleted = {

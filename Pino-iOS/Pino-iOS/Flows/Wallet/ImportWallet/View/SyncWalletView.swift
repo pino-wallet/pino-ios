@@ -155,7 +155,7 @@ class SyncWalletView: UIView {
 
 	@objc
 	private func onExpolePinoTap() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		switch syncWalletVM.syncStatus {
 		case .syncing:
 			presentTutorialPage()

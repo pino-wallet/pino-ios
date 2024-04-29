@@ -183,13 +183,13 @@ class SendTransactionStatusView: UIView {
 
 	@objc
 	private func onDissmissTap() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		onDissmiss(pageStatus)
 	}
 
 	@objc
 	private func onDissmissNavigationTap() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		onDissmiss(pageStatus)
 	}
 

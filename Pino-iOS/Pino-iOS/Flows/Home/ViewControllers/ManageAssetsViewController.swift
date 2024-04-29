@@ -112,7 +112,7 @@ class ManageAssetsViewController: UIViewController {
 
 	@objc
 	private func addCustomAssets() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let addCustomAssetVC = AddCustomAssetViewController(
 			userAddress: usersAddress
 		) { customAsset in

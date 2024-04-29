@@ -64,12 +64,12 @@ extension IntroView {
 		}
 
 		createWalletButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.createWallet()
 		}), for: .touchUpInside)
 
 		importWalletButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.importWallet()
 		}), for: .touchUpInside)
 	}

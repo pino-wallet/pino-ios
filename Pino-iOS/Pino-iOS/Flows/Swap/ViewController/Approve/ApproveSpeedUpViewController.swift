@@ -212,7 +212,7 @@ class ApproveSpeedUpViewController: UIAlertController {
 
 	@objc
 	private func confirmSpeedUpTransaction() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		switch pageStatus {
 		case .normal:
 			pageStatus = .speedUpLoading

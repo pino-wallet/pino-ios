@@ -186,21 +186,21 @@ class AllowNotificationsView: UIView {
 
 	@objc
 	private func onSkip() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		allowNotificationsVM.skipActivatingNotif()
 		dismissPage()
 	}
 
 	@objc
 	private func enableNotififcations() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		allowNotificationsVM.enableNotifications()
 		dismissPage()
 	}
 
 	@objc
 	private func onDismissTap() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismissPage()
 	}
 

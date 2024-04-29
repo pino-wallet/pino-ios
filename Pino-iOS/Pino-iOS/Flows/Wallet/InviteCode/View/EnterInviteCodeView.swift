@@ -167,20 +167,20 @@ class EnterInviteCodeView: UIView, UITextFieldDelegate {
 
 	@objc
 	private func onDismissSelf() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismissViewClosure()
 	}
 
 	@objc
 	private func dismissSelfAndPresentNextPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismissViewClosure()
 		presentNextPageClosure()
 	}
 
 	@objc
 	private func onGetInviteCode() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		presentGetInviteCodeClosure()
 	}
 

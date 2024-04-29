@@ -87,7 +87,7 @@ extension ImportSecretPhraseView {
 		}
 
 		importButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.importBtnTapped()
 		}), for: .touchUpInside)
 	}

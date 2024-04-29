@@ -110,7 +110,7 @@ class SwapConfirmationViewController: UIViewController {
 	}
 
 	private func confirmSwap() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let userSecurityMode = UserDefaultsManager.securityModesUser.getValue()
 		let isAuthOnTrxEnabled = userSecurityMode?
 			.contains(where: { $0 == SecurityOptionModel.LockType.on_transactions.rawValue })
@@ -143,7 +143,7 @@ class SwapConfirmationViewController: UIViewController {
 
 	@objc
 	private func dismissPage() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		swapConfirmationVM.destoryRateTimer()
 		dismiss(animated: true)
 	}

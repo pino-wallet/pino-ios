@@ -52,7 +52,7 @@ class InvestmentDetailViewController: UIViewController {
 
 		if isMovingFromParent, transitionCoordinator?.isInteractive == false {
 			// code here
-			hapticManager.run(type: .lightImpact)
+			hapticManager.run(type: .selectionChanged)
 		}
 	}
 
@@ -90,7 +90,7 @@ class InvestmentDetailViewController: UIViewController {
 	}
 
 	private func openInvestPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let depositVM = InvestDepositViewModel(
 			selectedAsset: selectedAsset,
 			selectedProtocol: selectedAsset.assetProtocol,
@@ -104,7 +104,7 @@ class InvestmentDetailViewController: UIViewController {
 	}
 
 	private func openWithdrawPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let withdrawVM = WithdrawViewModel(
 			selectedAsset: selectedAsset,
 			selectedProtocol: selectedAsset.assetProtocol

@@ -47,7 +47,7 @@ class RemoveAccountViewController: UIViewController {
 			actions: [
 				.cancel(),
 				.remove(handler: { _ in
-					self.hapticManager.run(type: .heavyImpact)
+					self.hapticManager.run(type: .lightImpact)
 					self.dismiss(animated: true)
 					self.walletIsDeleted()
 				}),

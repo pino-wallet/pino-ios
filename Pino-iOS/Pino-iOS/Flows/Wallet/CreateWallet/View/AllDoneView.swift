@@ -73,7 +73,7 @@ extension AllDoneView {
 		addSubview(getStartedStackView)
 
 		getStartedButton.addAction(UIAction(handler: { _ in
-			self.hapticManager.run(type: .mediumImpact)
+			self.hapticManager.run(type: .lightImpact)
 			self.getStartedButton.style = .loading
 			self.getStarted()
 		}), for: .touchUpInside)

@@ -100,7 +100,7 @@ class PaymentMethodOptionView: UIView {
 
 	@objc
 	private func onTap() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let url = URL(string: paymentMethodOptionVM!.url)
 		UIApplication.shared.open(url!)
 	}

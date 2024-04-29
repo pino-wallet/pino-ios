@@ -91,7 +91,7 @@ public class EmptyStateCardView: UIView {
 
 	@objc
 	private func actionButtonTapped() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		onActionButtonTap()
 	}
 }

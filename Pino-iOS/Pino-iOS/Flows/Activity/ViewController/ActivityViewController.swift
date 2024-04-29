@@ -65,7 +65,7 @@ class ActivityViewController: UIViewController {
 	}
 
 	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let navigationVC = UINavigationController()
 		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
 		navigationVC.viewControllers = [activityDetailsVC]

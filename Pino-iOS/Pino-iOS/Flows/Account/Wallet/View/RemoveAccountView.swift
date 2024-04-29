@@ -124,13 +124,13 @@ class RemoveAccountView: UIView {
 
 	@objc
 	private func presentConfirmActionsheet() {
-		hapticManager.run(type: .heavyImpact)
+		hapticManager.run(type: .lightImpact)
 		presentConfirmActionsheetClosure()
 	}
 
 	@objc
 	private func onDismissTap() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismissPage()
 	}
 }

@@ -93,7 +93,7 @@ class CoinInfoViewController: UIViewController {
 	}
 
 	private func openActivityDetailsPage(activityDetails: ActivityCellViewModel) {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .lightImpact)
 		let navigationVC = UINavigationController()
 		let activityDetailsVC = ActivityDetailsViewController(activityDetails: activityDetails)
 		navigationVC.viewControllers = [activityDetailsVC]
@@ -102,13 +102,13 @@ class CoinInfoViewController: UIViewController {
 
 	@objc
 	private func dismissCoinInfo() {
-		hapticManager.run(type: .lightImpact)
+		hapticManager.run(type: .selectionChanged)
 		dismiss(animated: true)
 	}
 
 	@objc
 	private func openCoinInfoChartPage() {
-		hapticManager.run(type: .mediumImpact)
+		hapticManager.run(type: .selectionChanged)
 		let coinPerformanceVC = CoinPerformanceViewController(selectedAsset: coinInfoVM.selectedAsset)
 		let navigationVC = UINavigationController(rootViewController: coinPerformanceVC)
 		navigationVC.modalPresentationStyle = .formSheet
