@@ -30,7 +30,7 @@ class SendConfirmationViewModel {
 		GlobalVariables.shared.manageAssetsList!.first(where: { $0.isEth })!
 	}
 
-	private var pendingSwapTrx: EthereumSignedTransaction?
+	private var pendingSendTrx: EthereumSignedTransaction?
 	private var sendAmount: BigNumber
 	private var sendAmountInDollar: BigNumber?
 
@@ -82,11 +82,11 @@ class SendConfirmationViewModel {
 	}
 
 	public var sendTransactions: [SendTransactionViewModel]? {
-		guard let swapTrx = pendingSwapTrx else { return nil }
-		let swapTrxStatus = SendTransactionViewModel(transaction: swapTrx) { pendingActivityTXHash in
+		guard let sendTrx = pendingSendTrx else { return nil }
+		let sendTrxStatus = SendTransactionViewModel(transaction: sendTrx) { pendingActivityTXHash in
 			self.addPendingTransferActivity(trxHash: pendingActivityTXHash)
 		}
-		return [swapTrxStatus]
+		return [sendTrxStatus]
 	}
 
 	@Published
@@ -149,7 +149,7 @@ class SendConfirmationViewModel {
 	public func getFee() {
 		feeCalculationState = .loading
 		getSendTrxInfo().done { [self] trxWithGas in
-			pendingSwapTrx = trxWithGas.0
+			pendingSendTrx = trxWithGas.0
 			let gasInfo = trxWithGas.1
 			gasFee = gasInfo.fee!
 			formattedFeeInDollar = gasInfo.feeInDollar!.priceFormat(of: selectedToken.assetType, withRule: .standard)

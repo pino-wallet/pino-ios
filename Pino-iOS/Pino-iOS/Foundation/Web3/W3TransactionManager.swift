@@ -58,7 +58,6 @@ public struct W3TransactionManager: Web3HelperProtocol {
 	) -> EthereumTransaction {
 		EthereumTransaction(
 			nonce: nonce,
-			gasPrice: nil,
 			maxFeePerGas: gasInfo.maxFeePerGas.etherumQuantity,
 			maxPriorityFeePerGas: gasInfo.priorityFeePerGas.etherumQuantity,
 			gasLimit: gasInfo.increasedGasLimit?.etherumQuantity,

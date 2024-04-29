@@ -71,8 +71,7 @@ public struct W3TransferManager: Web3HelperProtocol {
 		TrxWithGasInfo { [self] seal in
 
 			let contract = try Web3Core.getContractOfToken(address: tokenContractAddress, abi: .erc, web3: readWeb3)
-			let to = try EthereumAddress(hex: address, eip55: true)
-			let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(to, amount)
+			let solInvocation = contract[ABIMethodWrite.transfer.rawValue]?(address.eip55Address!, amount)
 
 			gasInfoManager.calculateGasOf(
 				method: .transfer,
