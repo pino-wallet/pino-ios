@@ -260,6 +260,7 @@ class InvestView: UIView {
 			startPoint: CGPoint(x: 0, y: 0.5),
 			endPoint: CGPoint(x: 1, y: 0.5)
 		)
+		assetsGradientLayer.opacity = 0.7
 		assetsGradientView.layer.addSublayer(assetsGradientLayer)
 	}
 
