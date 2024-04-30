@@ -57,9 +57,7 @@ class SwapPriceManager {
 			Publishers.Zip(
 				paraswapPublisher,
 				zeroXPublisher
-			)
-			.delay(for: 0.5, scheduler: RunLoop.main)
-			.sink { completed in
+			).sink { completed in
 				switch completed {
 				case .finished:
 					print("Swap quote received successfully")
