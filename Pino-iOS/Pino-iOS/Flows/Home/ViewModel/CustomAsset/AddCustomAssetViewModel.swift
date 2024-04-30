@@ -127,8 +127,8 @@ class AddCustomAssetViewModel {
 							self?.currentValidationStatus = .success
 						}
 					}.catch { error in
-						self.changeViewStatusClosure(.error(.networkConnection))
-						self.currentValidationStatus = .error(.networkConnection)
+						self.changeViewStatusClosure(.error(.tryAgain))
+						self.currentValidationStatus = .error(.tryAgain)
 					}
 			}
 		} else {
