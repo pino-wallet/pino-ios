@@ -15,6 +15,7 @@ enum Web3Error: Error {
 	case invalidSmartContractAddress
 	case failedTransaction
 	case insufficientBalance
+	case providerError
 }
 
 public class Web3Core {

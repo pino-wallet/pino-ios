@@ -194,33 +194,49 @@ class WithdrawManager: InvestW3ManagerProtocol {
 	private func getSTETHToETHSwapInfo() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 			let stethToken = selectedToken.copy(newId: tokenPositionID)
-			swapPriceManager.getSwapResponseFrom(
-				provider: .zeroX,
-				srcToken: stethToken,
-				destToken: selectedToken,
-				swapSide: .sell,
-				amount: tokenUIntNumber.description
-			).done { [weak self] priceResponce in
-				guard let self else { return }
-				let swapAmountBig = BigNumber(unSignedNumber: tokenUIntNumber, decimal: stethToken.decimal)
-				let destAmountBig = BigNumber(number: priceResponce.first!.destAmount, decimal: selectedToken.decimal)
+			firstly {
+				getSTETHToETHBestPrice(stethToken)
+			}.then { bestPriceProvider in
+				let swapAmountBigNumber = BigNumber(unSignedNumber: self.tokenUIntNumber, decimal: stethToken.decimal)
 				self.swapManager = SwapManager(
-					selectedProvider: SwapProviderViewModel(
-						providerResponseInfo: priceResponce.first!,
-						side: .sell,
-						destToken: self.selectedToken
-					),
+					selectedProvider: bestPriceProvider,
 					srcToken: stethToken,
 					destToken: self.selectedToken,
-					swapAmount: swapAmountBig,
-					destinationAmount: destAmountBig
+					swapAmount: swapAmountBigNumber,
+					destinationAmount: bestPriceProvider.swapAmount
 				)
-				self.swapManager!.getSwapInfo().done { trxWithGasInfo in
-					self.withdrawTrx = trxWithGasInfo.0
-					self.withdrawGasInfo = trxWithGasInfo.1
-					seal.fulfill(trxWithGasInfo)
-				}.catch { error in
-					seal.reject(error)
+				return self.swapManager!.getSwapInfo()
+			}.done { trxWithGasInfo in
+				self.withdrawTrx = trxWithGasInfo.0
+				self.withdrawGasInfo = trxWithGasInfo.1
+				seal.fulfill(trxWithGasInfo)
+			}.catch { error in
+				seal.reject(error)
+			}
+		}
+	}
+
+	private func getSTETHToETHBestPrice(_ stethToken: AssetViewModel) -> Promise<SwapProviderViewModel> {
+		Promise<SwapProviderViewModel> { seal in
+			let swapInfo = SwapPriceRequestModel(
+				srcToken: stethToken.id,
+				srcDecimals: stethToken.decimal,
+				destToken: selectedToken.id,
+				destDecimals: selectedToken.decimal,
+				amount: tokenUIntNumber.description,
+				side: .sell,
+				userAddress: Web3Core.Constants.pinoSwapProxyAddress,
+				receiver: walletManager.currentAccount.eip55Address
+			)
+			swapPriceManager.getLidoProvidersPrice(swapInfo: swapInfo).done { [weak self] priceResponce in
+				guard let self else { return }
+				let providers = priceResponce.compactMap {
+					SwapProviderViewModel(providerResponseInfo: $0, side: .sell, destToken: self.selectedToken)
+				}.sorted { $0.swapAmount > $1.swapAmount }
+				if let bestPriceProvider = providers.first {
+					seal.fulfill(bestPriceProvider)
+				} else {
+					seal.reject(Web3Error.providerError)
 				}
 			}.catch { error in
 				seal.reject(error)

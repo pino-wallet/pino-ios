@@ -154,7 +154,7 @@ class SwapManager: Web3ManagerProtocol {
 	private func swapERCtoETH() -> TrxWithGasInfo {
 		TrxWithGasInfo { seal in
 
-			guard let selectedProvider else { fatalError("provider errror") }
+			guard let selectedProvider else { fatalError("provider error") }
 			let fetchHashPromise = fetchHash()
 			let allowancePromise = checkAllowanceOfProvider(
 				approvingToken: srcToken,
