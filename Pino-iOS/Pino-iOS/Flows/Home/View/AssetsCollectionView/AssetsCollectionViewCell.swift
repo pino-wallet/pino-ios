@@ -73,8 +73,6 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 		assetTitleLabel.text = assetVM?.name
 		assetAmountLabel.text = assetVM?.amount
 		assetAmountLabel.lineBreakMode = .byTruncatingTail
-		assetAmountInDollorLabel.text = assetVM?.amountInDollor
-		assetVolatilityLabel.text = assetVM?.volatilityInDollor
 
 		if assetVM?.securityMode ?? false {
 			assetAmountLabel.font = .PinoStyle.boldTitle2
@@ -105,9 +103,13 @@ public class AssetsCollectionViewCell: UICollectionViewCell {
 
 		if let assetVM, !assetVM.isVerified {
 			assetImage.image = UIImage(named: assetVM.customAssetImage)
+			assetAmountInDollorLabel.text = "-"
+			assetVolatilityLabel.text = "-"
 		} else {
 			assetImage.kf.indicatorType = .activity
 			assetImage.kf.setImage(with: assetVM?.image)
+			assetAmountInDollorLabel.text = assetVM?.amountInDollor
+			assetVolatilityLabel.text = assetVM?.volatilityInDollor
 		}
 
 		backgroundColor = .Pino.background

@@ -142,6 +142,7 @@ class SpeedUpAlertViewModel {
 
 	private func calculateSpeedUpFee(increasedBigNumberGasPrice: BigNumber, gasUsed: EthereumQuantity) -> BigNumber {
 		let bigNumberTranscationGasUsed = BigNumber(number: "\(gasUsed.quantity)", decimal: 0)
+		#warning("Why fix 18 ")
 		let speedUpFee = BigNumber(number: increasedBigNumberGasPrice * bigNumberTranscationGasUsed, decimal: 18)
 
 		return speedUpFee
