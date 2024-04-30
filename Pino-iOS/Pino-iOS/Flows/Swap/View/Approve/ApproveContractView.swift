@@ -59,6 +59,8 @@ class ApproveContractView: UIView {
 		let learnMoreTapGesture = UITapGestureRecognizer(target: self, action: #selector(openLearnMorePage))
 		learnMoreLabel.addGestureRecognizer(learnMoreTapGesture)
 		learnMoreLabel.isUserInteractionEnabled = true
+        #warning("we will show this in future with a true URL")
+        learnMoreLabel.isHidden = true
 
 		approveButton.addTarget(self, action: #selector(onApproveButtonTap), for: .touchUpInside)
 

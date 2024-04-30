@@ -12,8 +12,7 @@ class ProfileViewModel {
 	// MARK: - Public Properties
 
 	public let pageTitle = "Settings"
-	#warning("this url is for test and we should change it")
-	public let feedbackURL = "https://www.google.com"
+	public let feedbackURL = "https://forms.gle/quYfsgfZupvgE3418"
 	public let dismissIconName = "dismiss"
 	@Published
 	public var walletInfo: AccountInfoViewModel!
