@@ -14,6 +14,7 @@ public enum CustomAssetValidationError: Error {
 	case unavailableNode
 	case unknownError
 	case alreadyAdded
+	case tryAgain
 
 	public var description: String {
 		switch self {
@@ -29,6 +30,8 @@ public enum CustomAssetValidationError: Error {
 			return "Unknown error"
 		case .alreadyAdded:
 			return "Already added"
+		case .tryAgain:
+			return "Something went wrong. Try again."
 		}
 	}
 }
