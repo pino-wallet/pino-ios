@@ -47,15 +47,15 @@ class ProfileViewController: UIViewController {
 	}
 
 	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-		if motion == .motionShake {
-			let devMode: Bool = UserDefaultsManager.isDevModeUser.getValue() ?? false
-			UserDefaultsManager.isDevModeUser.setValue(value: !devMode)
-			if devMode {
-				Toast.default(title: "DevMode DeActivated", style: .error).show(haptic: .success)
-			} else {
-				Toast.default(title: "DevMode Activated", style: .error).show(haptic: .success)
-			}
-		}
+//		if motion == .motionShake {
+//			let devMode: Bool = UserDefaultsManager.isDevModeUser.getValue() ?? false
+//			UserDefaultsManager.isDevModeUser.setValue(value: !devMode)
+//			if devMode {
+//				Toast.default(title: "DevMode DeActivated", style: .error).show(haptic: .success)
+//			} else {
+//				Toast.default(title: "DevMode Activated", style: .error).show(haptic: .success)
+//			}
+//		}
 	}
 
 	// MARK: - Private Methods
