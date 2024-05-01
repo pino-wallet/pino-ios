@@ -43,10 +43,9 @@ class AllDoneViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		let navigationBarHeight = navigationController?.navigationBar.bounds.height
 		allDoneView = AllDoneView(allDoneVM: allDoneVM, getStarted: {
 			self.getStarted()
-		}, navigationBarHeight: navigationBarHeight!)
+		})
 		view = allDoneView
 	}
 

@@ -24,16 +24,14 @@ class AllDoneView: UIView {
 	private let agreementLabel = UITextView()
 	private let getStartedButton = PinoButton(style: .deactive)
 	private let hapticManager = HapticManager()
-	private let navigationBarHeight: CGFloat
 	private var getStarted: () -> Void
 	private var allDoneVM: AllDoneViewModel
 
 	// MARK: - Initializers
 
-	init(allDoneVM: AllDoneViewModel, getStarted: @escaping (() -> Void), navigationBarHeight: CGFloat) {
+	init(allDoneVM: AllDoneViewModel, getStarted: @escaping (() -> Void)) {
 		self.getStarted = getStarted
 		self.allDoneVM = allDoneVM
-		self.navigationBarHeight = navigationBarHeight
 		super.init(frame: .zero)
 		setupView()
 		setupStyle()
@@ -126,9 +124,7 @@ extension AllDoneView {
 			.horizontalEdges
 		)
 		allDoneAnimationView.pin(
-			.horizontalEdges(to: safeAreaLayoutGuide),
-			.bottom(to: safeAreaLayoutGuide),
-			.top(to: safeAreaLayoutGuide, padding: -navigationBarHeight)
+			.allEdges
 		)
 		allDoneTitleImageView.pin(.fixedWidth(80), .fixedHeight(80))
 		getStartedButton.pin(
