@@ -17,6 +17,5 @@ struct GetInviteCodeViewModel {
 		"To get an invitation code, follow us on X and enable notifications to get a code as soon as we drop it!"
 	public let getCodeButtonText = "Follow Pino"
 	public let getCodeButtonImageName = "x_social"
-	#warning("pino url must replace here later")
-	public let pinoXURL = "https://www.google.com"
+	public let pinoXURL = "https://twitter.com/pinowallet"
 }

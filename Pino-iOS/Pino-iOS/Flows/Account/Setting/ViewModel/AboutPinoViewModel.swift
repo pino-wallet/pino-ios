@@ -13,8 +13,7 @@ struct AboutPinoViewModel {
 	public let logo = "appAboutIcon"
 	public let name = "Pino"
 	public let version = "Version 1.0.0"
-	#warning("we should change this")
-	public let termsOfServiceURL = "http://google.com/"
-	public let privacyPolicyURL = "http://google.com/"
-	public let websiteURL = "http://google.com/"
+	public let termsOfServiceURL = "https://pino.xyz/terms-of-use"
+	public let privacyPolicyURL = "https://pino.xyz/privacy-policy"
+	public let websiteURL = "https://pino.xyz"
 }

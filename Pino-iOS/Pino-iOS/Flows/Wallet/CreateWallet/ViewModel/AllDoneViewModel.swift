@@ -19,9 +19,8 @@ class AllDoneViewModel {
 	public let allDoneAnimationName = "AllDoneAnimation"
 
 	public var agreementAttributedTest: NSMutableAttributedString {
-		#warning("This must be replaced with pino urls")
-		let temporaryTermOfServiceURL = URL(string: "http://google.com/")!
-		let temporaryPrivacyPolicyURL = URL(string: "http://google.com/")!
+		let temporaryTermOfServiceURL = URL(string: "https://pino.xyz/terms-of-use")!
+		let temporaryPrivacyPolicyURL = URL(string: "https://pino.xyz/privacy-policy")!
 		let attributedText = NSMutableAttributedString(string: "I agree to the Term of use and Privacy policy")
 		let termOfUseRange = (attributedText.string as NSString).range(of: "Term of use")
 		let privacyPolicyRange = (attributedText.string as NSString).range(of: "Privacy policy")

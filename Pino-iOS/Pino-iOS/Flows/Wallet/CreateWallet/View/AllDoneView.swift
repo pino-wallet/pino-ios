@@ -147,7 +147,7 @@ extension AllDoneView {
 	private func setupAgreementLinks() {
 		agreementLabel.attributedText = allDoneVM.agreementAttributedTest
 		agreementLabel.isEditable = false
-		agreementLabel.isSelectable = false
+		agreementLabel.isSelectable = true
 		agreementLabel.isScrollEnabled = false
 		agreementLabel.linkTextAttributes = [
 			.foregroundColor: UIColor.Pino.primary,
