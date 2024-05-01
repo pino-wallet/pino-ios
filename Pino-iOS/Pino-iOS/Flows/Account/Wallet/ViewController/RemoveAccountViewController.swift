@@ -15,7 +15,7 @@ class RemoveAccountViewController: UIViewController {
 	private let dismissButtonContainerView = UIView()
 	private let hapticManager = HapticManager()
 
-    init(removeAccountVM: RemoveAccountViewModel, walletIsDeleted: @escaping (() -> Void)) {
+	init(removeAccountVM: RemoveAccountViewModel, walletIsDeleted: @escaping (() -> Void)) {
 		self.removeAccountVM = removeAccountVM
 		self.walletIsDeleted = walletIsDeleted
 		super.init(nibName: nil, bundle: nil)
