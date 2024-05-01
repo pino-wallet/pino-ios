@@ -25,6 +25,7 @@ class AccountsViewModel {
 	private let coreDataManager = CoreDataManager()
 	private let pinoWalletManager = PinoWalletManager()
 	private let accountActivationVM = AccountActivationViewModel()
+	private let accountingAPIClient = AccountingAPIClient()
 
 	// MARK: - Initializers
 
@@ -227,8 +228,28 @@ class AccountsViewModel {
 				seal.fulfill(())
 			}.catch { error in
 				print("Error: failed to remove account: \(error)")
-				seal.reject(error)
+				seal.reject(WalletOperationError.wallet(.accountDeletionFailed))
 			}
+		}
+	}
+
+	public func removeAccountFCMToken(_ token: String, userAdd: String) -> Promise<Void> {
+		Promise<Void> { seal in
+			accountingAPIClient.removeUserDeviceToken(fcmToken: token, userAdd: userAdd).sink { completed in
+				switch completed {
+				case .finished:
+					print("Info received successfully")
+				case let .failure(error):
+					print("Error: Removing FCM Token \(error)")
+					seal.reject(WalletOperationError.wallet(.accountDeletionFailed))
+				}
+			} receiveValue: { response in
+				if response.success {
+					seal.fulfill(())
+				} else {
+					seal.reject(WalletOperationError.wallet(.accountDeletionFailed))
+				}
+			}.store(in: &cancellables)
 		}
 	}
 
