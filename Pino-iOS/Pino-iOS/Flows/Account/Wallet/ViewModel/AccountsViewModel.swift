@@ -228,7 +228,7 @@ class AccountsViewModel {
 				seal.fulfill(())
 			}.catch { error in
 				print("Error: failed to remove account: \(error)")
-				seal.reject(WalletOperationError.wallet(.accountDeletionFailed))
+				seal.reject(error)
 			}
 		}
 	}
