@@ -113,11 +113,11 @@ class EditAccountViewController: UIViewController {
 
 	private func openRemoveAccountPage() {
 		hapticManager.run(type: .lightImpact)
-		let removeAccountVC = RemoveAccountViewController()
-		present(removeAccountVC, animated: true)
-		removeAccountVC.walletIsDeleted = {
+		let removeAccountVM = RemoveAccountViewModel(selectedAccountName: editAccountVM.selectedAccount.name)
+		let removeAccountVC = RemoveAccountViewController(removeAccountVM: removeAccountVM) {
 			self.removeAccount()
 		}
+		present(removeAccountVC, animated: true)
 	}
 
 	private func removeAccount() {

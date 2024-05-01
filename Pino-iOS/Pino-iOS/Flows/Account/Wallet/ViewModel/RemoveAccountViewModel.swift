@@ -8,7 +8,7 @@
 class RemoveAccountViewModel {
 	// MARK: - Private Properties
 
-	private let walletManager = PinoWalletManager()
+	private var selectedAccountName: String
 
 	// MARK: - Public Properties
 
@@ -23,6 +23,12 @@ class RemoveAccountViewModel {
 	public let dismissActionsheetButtonTitle = "Cancel"
 	public let confirmActionSheetTitle = "Are you sure you want to remove your wallet?"
 	public var titleText: String {
-		"Remove \(walletManager.currentAccount.name)"
+		"Remove \(selectedAccountName)"
+	}
+
+	// MARK: - Public Init
+
+	init(selectedAccountName: String) {
+		self.selectedAccountName = selectedAccountName
 	}
 }
