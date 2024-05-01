@@ -10,10 +10,20 @@ import UIKit
 class RemoveAccountViewController: UIViewController {
 	// MARK: - Private Properties
 
-	private let removeAccountVM = RemoveAccountViewModel()
+	private var removeAccountVM: RemoveAccountViewModel!
 	private let dismissButton = UIButton()
 	private let dismissButtonContainerView = UIView()
 	private let hapticManager = HapticManager()
+
+	init(removeAccountVM: RemoveAccountViewModel, walletIsDeleted: @escaping (() -> Void)) {
+		self.removeAccountVM = removeAccountVM
+		self.walletIsDeleted = walletIsDeleted
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
 	// MARK: - Public Properties
 
