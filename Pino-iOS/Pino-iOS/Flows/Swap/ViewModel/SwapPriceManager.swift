@@ -45,6 +45,34 @@ class SwapPriceManager {
 		}
 	}
 
+	public func getLidoProvidersPrice(swapInfo: SwapPriceRequestModel) -> Promise<[SwapPriceResponseProtocol]> {
+		cancelPreviousRequests()
+		return Promise<[SwapPriceResponseProtocol]> { seal in
+			let paraswapPublisher = paraSwapAPIClient.swapPrice(swapInfo: swapInfo)
+				.catch { _ in Just(nil) }
+
+			let zeroXPublisher = zeroXAPIClient.swapPrice(swapInfo: swapInfo)
+				.catch { _ in Just(nil) }
+
+			Publishers.Zip(
+				paraswapPublisher,
+				zeroXPublisher
+			).sink { completed in
+				switch completed {
+				case .finished:
+					print("Swap quote received successfully")
+				case let .failure(error):
+					print("Error: getting swap quote: \(error)")
+					seal.reject(error)
+				}
+			} receiveValue: { paraswapResponse, zeroXResponse in
+				let allResponses: [SwapPriceResponseProtocol?] = [paraswapResponse, zeroXResponse]
+				let valuableResponses = allResponses.compactMap { $0 }
+				seal.fulfill(valuableResponses)
+			}.store(in: &cancellables)
+		}
+	}
+
 	public func getSwapResponseFrom(
 		provider: SwapProvider,
 		srcToken: AssetViewModel,
