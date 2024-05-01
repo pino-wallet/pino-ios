@@ -154,6 +154,9 @@ extension ImportAccountsCollectionView: UICollectionViewDataSource {
 					self.hapticManager.run(type: .selectionChanged)
 					self.findAccountsDidTap()
 				}
+			} else if accountsVM.lastAccountIndex < 10 {
+				footerView.title = nil
+				footerView.findAccountDidTap = nil
 			} else {
 				footerView.title = accountsVM.noMoreAccountTitle
 				footerView.findAccountDidTap = nil

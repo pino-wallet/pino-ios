@@ -21,7 +21,6 @@ class ImportAccountsViewModel {
 	private var createdWallet: HDWallet?
 	private var randAvatarGen = RandGenerator()
 	private let accountActivationVM = AccountActivationViewModel()
-	private var lastAccountIndex: Int?
 
 	// MARK: Public Properties
 
@@ -44,13 +43,8 @@ class ImportAccountsViewModel {
 	public var walletMnemonics: String
 	public var findMoreAccountTitle = "Find more accounts"
 	public var noMoreAccountTitle = "No active accounts found"
-	public var isMoreAccountExist: Bool {
-		if lastAccountIndex == nil {
-			return false
-		} else {
-			return true
-		}
-	}
+	public var isMoreAccountExist = true
+	public var lastAccountIndex = 0
 
 	@Published
 	public var accounts: [ActiveAccountViewModel] = []
@@ -206,7 +200,7 @@ class ImportAccountsViewModel {
 				activeAddresses.contains($0.eip55Address.lowercased())
 			}
 			if !activeAccounts.compactMap({ $0.eip55Address }).contains(createdAccounts.last!.eip55Address) {
-				self.lastAccountIndex = nil
+				self.isMoreAccountExist = false
 			}
 			return self.getAccountsBalance(of: activeAccounts)
 		}.map { activatedAccounts in
@@ -246,6 +240,6 @@ class ImportAccountsViewModel {
 	}
 
 	public func findMoreAccounts() -> Promise<[ActiveAccountViewModel]> {
-		getActiveAccounts(form: lastAccountIndex! + 1, to: lastAccountIndex! + 10)
+		getActiveAccounts(form: lastAccountIndex + 1, to: lastAccountIndex + 10)
 	}
 }
