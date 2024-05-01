@@ -85,7 +85,7 @@ extension AllDoneView {
 
 	private func setupStyle() {
 		allDoneAnimationView.animation = LottieAnimation.named(allDoneVM.allDoneAnimationName)
-		allDoneAnimationView.loopMode = .playOnce
+		allDoneAnimationView.loopMode = .loop
 		allDoneAnimationView.contentMode = .scaleAspectFill
 		allDoneAnimationView.play()
 
@@ -124,7 +124,7 @@ extension AllDoneView {
 			.horizontalEdges
 		)
 		allDoneAnimationView.pin(
-			.allEdges(to: layoutMarginsGuide, padding: -16)
+			.allEdges
 		)
 		allDoneTitleImageView.pin(.fixedWidth(80), .fixedHeight(80))
 		getStartedButton.pin(

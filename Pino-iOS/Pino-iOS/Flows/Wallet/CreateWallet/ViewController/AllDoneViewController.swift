@@ -43,9 +43,9 @@ class AllDoneViewController: UIViewController {
 	// MARK: - Private Methods
 
 	private func setupView() {
-		allDoneView = AllDoneView(allDoneVM: allDoneVM) {
+		allDoneView = AllDoneView(allDoneVM: allDoneVM, getStarted: {
 			self.getStarted()
-		}
+		})
 		view = allDoneView
 	}
 
