@@ -129,7 +129,7 @@ class InvestView: UIView {
 		chartCardView.layer.masksToBounds = true
 		assetsGradientView.isUserInteractionEnabled = false
 		totalInvestmentLabel.isSkeletonable = true
-		totalInvestmentLabel.layer.cornerRadius = 15
+		totalInvestmentLabel.layer.cornerRadius = 18
 	}
 
 	private func setupContstraint() {
@@ -180,7 +180,7 @@ class InvestView: UIView {
 		)
 
 		NSLayoutConstraint.activate([
-			totalInvestmentLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
+			totalInvestmentLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 36),
 			totalInvestmentLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 160),
 		])
 	}
@@ -274,5 +274,11 @@ class InvestView: UIView {
 	public func reloadInvestments(_ assets: [InvestAssetViewModel]?) {
 		investmentAssets.assets = assets
 		investmentAssets.reloadData()
+	}
+
+	public func showLoading() {
+		reloadInvestments(nil)
+		showTotalInvestmentLoading()
+		showChartLoading()
 	}
 }

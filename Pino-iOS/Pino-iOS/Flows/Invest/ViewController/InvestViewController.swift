@@ -32,6 +32,8 @@ class InvestViewController: UIViewController {
 			investVM.getInvestData().catch { error in
 				self.showErrorToast(error)
 			}
+		} else {
+			investView.showLoading()
 		}
 	}
 
@@ -76,11 +78,6 @@ class InvestViewController: UIViewController {
 
 	private func setupBinding() {
 		investVM.$assets.sink { assets in
-			guard self.isWalletSyncFinished else {
-				self.investView.reloadInvestments(nil)
-				self.view = self.investView
-				return
-			}
 			if let assets, assets.isEmpty {
 				self.view = self.investEmptyPageView
 			} else {

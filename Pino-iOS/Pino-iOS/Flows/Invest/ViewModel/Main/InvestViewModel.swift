@@ -91,6 +91,7 @@ class InvestViewModel {
 	public func getInvestData() -> Promise<Void> {
 		Promise<Void> { seal in
 			GlobalVariables.shared.$manageAssetsList.sink { userTokens in
+				guard SyncWalletViewModel.isSyncFinished else { return }
 				if let userTokens {
 					self.getInvestData(userTokens: userTokens).done { result in
 						seal.fulfill(result)
