@@ -64,4 +64,10 @@ final class AccountingAPIMockClient: AccountingAPIService {
 			.setFailureType(to: APIError.self)
 			.eraseToAnyPublisher()
 	}
+
+	func removeUserDeviceToken(fcmToken: String, userAdd: String) -> AnyPublisher<FCMTokenRegistrationModel, APIError> {
+		Just(FCMTokenRegistrationModel(success: true))
+			.setFailureType(to: APIError.self)
+			.eraseToAnyPublisher()
+	}
 }

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import PromiseKit
 import UIKit
 
 class EditAccountViewController: UIViewController {
@@ -120,10 +121,17 @@ class EditAccountViewController: UIViewController {
 	}
 
 	private func removeAccount() {
-		accountsVM.removeAccount(editAccountVM.selectedAccount).catch { error in
+		let token = UserDefaultsManager.fcmToken.getValue()!
+		firstly {
+			accountsVM.removeAccountFCMToken(token, userAdd: editAccountVM.selectedAccount.address)
+		}.then { [unowned self] in
+			accountsVM.removeAccount(editAccountVM.selectedAccount)
+		}.done { [weak self] in
+			guard let self = self else { return }
+			self.navigationController!.popViewController(animated: true)
+		}.catch { error in
 			self.showErrorToast(error)
 		}
-		navigationController!.popViewController(animated: true)
 	}
 
 	private func openRevealPrivateKey() {
