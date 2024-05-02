@@ -4909,7 +4909,6 @@
 				DF3E0E092B6E18A700937955 /* XCLocalSwiftPackageReference "../../Libraries/Web3-Utility" */,
 				DF3E0E0C2B6E199800937955 /* XCLocalSwiftPackageReference "../../Libraries/BigInt" */,
 				DF3E0E0F2B6E19AA00937955 /* XCLocalSwiftPackageReference "../../Libraries/Charts" */,
-				DF3E0E142B6E19BB00937955 /* XCLocalSwiftPackageReference "../../Libraries/CryptoSwift" */,
 				DF3E0E172B6E19D600937955 /* XCLocalSwiftPackageReference "../../Libraries/OHHTTPStubs" */,
 				DF3E0E1C2B6E19E800937955 /* XCLocalSwiftPackageReference "../../Libraries/Hyperconnectivity" */,
 				DF3E0E1F2B6E1A6A00937955 /* XCLocalSwiftPackageReference "../../Libraries/Kingfisher" */,
@@ -6375,10 +6374,6 @@
 		DF3E0E0F2B6E19AA00937955 /* XCLocalSwiftPackageReference "../../Libraries/Charts" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../../Libraries/Charts;
-		};
-		DF3E0E142B6E19BB00937955 /* XCLocalSwiftPackageReference "../../Libraries/CryptoSwift" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Libraries/CryptoSwift;
 		};
 		DF3E0E172B6E19D600937955 /* XCLocalSwiftPackageReference "../../Libraries/OHHTTPStubs" */ = {
 			isa = XCLocalSwiftPackageReference;
