@@ -107,9 +107,11 @@ class AllowNotificationsView: UIView {
 		buttonsStackView.backgroundColor = .Pino.clear
 
 		sampleNotificationCard1.image = UIImage(named: allowNotificationsVM.sampleNotificationCardImage1)
+		sampleNotificationCard1.contentMode = .scaleAspectFill
 		sampleNotificationCard1.alpha = 0
 
 		sampleNotificationCard2.image = UIImage(named: allowNotificationsVM.sampleNotificationCardImage2)
+		sampleNotificationCard2.contentMode = .scaleAspectFill
 		sampleNotificationCard2.alpha = 0
 
 		enableNotificationsButton.title = allowNotificationsVM.enableNotificationsButtonTitleText
@@ -242,10 +244,10 @@ class AllowNotificationsView: UIView {
 						item: self?.sampleNotificationCard2 as Any,
 						attribute: .top,
 						relatedBy: .equal,
-						toItem: self?.sampleNotificationsContainerView,
+						toItem: self?.sampleNotificationCard1,
 						attribute: .top,
 						multiplier: 1,
-						constant: 148
+						constant: (self!.sampleNotificationCard1.frame.width * 0.31) + 12
 					)
 					sampleNotificationCard2Constraint.priority = UILayoutPriority(999)
 					NSLayoutConstraint.activate([sampleNotificationCard2Constraint])

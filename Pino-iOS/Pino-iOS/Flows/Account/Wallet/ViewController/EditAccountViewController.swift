@@ -113,7 +113,7 @@ class EditAccountViewController: UIViewController {
 
 	private func openRemoveAccountPage() {
 		hapticManager.run(type: .lightImpact)
-		let removeAccountVM = RemoveAccountViewModel(selectedAccountName: editAccountVM.selectedAccount.name)
+		let removeAccountVM = RemoveAccountViewModel(selectedAccount: editAccountVM.selectedAccount)
 		let removeAccountVC = RemoveAccountViewController(removeAccountVM: removeAccountVM) {
 			self.removeAccount()
 		}
