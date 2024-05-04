@@ -1,9 +1,9 @@
 
-<img src="resources/github-cover.png" align="center" title="Pino github Banner">
+<img src="resources/github-cover.png" align="center" title="Pino github Banner"></img>
 Pino is a DeFi-centric mobile wallet, aiming to maximize your efficiency in DeFi through elevating user experience, security, and insights.
-- Experience: Unlike conventional wallets that rely on embedded web browsers for dApp interactions, Pino utilizes dedicated mobile-native interfaces to allow lag-free and seamless user experiences for your DeFi activities.
-- Security: Pino routes your transactions through a proxy contract powered by Permit 2 that limits the token access to the transaction amount. It significantly secures your wallet, especially in the event of protocol hacks.
-- Insights: Pino shifts the narrative from mere asset price reporting to a more meaningful representation of your portfolio performance against USD over time, giving you a clearer understanding of your actual financial gains.
+- **Experience**: Unlike conventional wallets that rely on embedded web browsers for dApp interactions, Pino utilizes dedicated mobile-native interfaces to allow lag-free and seamless user experiences for your DeFi activities.
+- **Security**: Pino routes your transactions through a proxy contract powered by Permit 2 that limits the token access to the transaction amount. It significantly secures your wallet, especially in the event of protocol hacks.
+- **Insights**: Pino shifts the narrative from mere asset price reporting to a more meaningful representation of your portfolio performance against USD over time, giving you a clearer understanding of your actual financial gains.
 
 ## Installation Guide
 
