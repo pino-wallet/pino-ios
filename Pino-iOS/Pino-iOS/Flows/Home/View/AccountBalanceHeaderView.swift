@@ -145,9 +145,14 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 	}
 
 	private func setupBindings() {
+		let volatilityViewWidthConstraint = volatilityView.widthAnchor.constraint(equalToConstant: 132)
 		homeVM.$walletBalance.sink { [weak self] walletBalance in
-			guard let walletBalance = walletBalance else { return }
 			guard let self = self else { return }
+			guard let walletBalance = walletBalance else {
+				volatilityViewWidthConstraint.isActive = true
+				return
+			}
+			volatilityViewWidthConstraint.isActive = false
 			self.balanceLabel.text = walletBalance.balance
 			self.volatilityPercentageLabel.text = walletBalance.volatilityPercentage
 			self.volatilityInDollarLabel.text = walletBalance.volatilityInDollor
@@ -234,9 +239,6 @@ class AccountBalanceHeaderView: UICollectionReusableView {
 			balanceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 94),
 			balanceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
 			volatilityView.heightAnchor.constraint(greaterThanOrEqualToConstant: 28),
-			volatilityView.widthAnchor.constraint(greaterThanOrEqualToConstant: 132),
-			volatilityInDollarLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
-			volatilityPercentageLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 20),
 		])
 	}
 
