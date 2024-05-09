@@ -75,6 +75,9 @@ class AuthenticationLockManager {
 				case LAError.biometryNotAvailable.rawValue:
 					print("Biometeric authentication is not available on this device")
 					onFailure()
+                case LAError.authenticationFailed.rawValue:
+                    print("Authentication was not successful because user failed to provide valid credentials")
+                    self.unlockWithPasscode(onSuccess: onSuccess, onFailure: onFailure)
 				default:
 					print("Error in AUTH \(errorCode)")
 					self.openAppSettings()
