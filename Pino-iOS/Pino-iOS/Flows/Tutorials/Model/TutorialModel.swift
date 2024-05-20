@@ -35,15 +35,15 @@ struct TutorialModel {
 			desc: "Track the performance of your investments effortlessly.",
 			lottieFile: "InvestEasyProfitTracking"
 		),
-		.init(
-			title: "Get Loan Easily",
-			desc: "Get loans directly through top lending protocols.",
-			lottieFile: "BorrowLoansMadeEasy"
-		),
-		.init(
-			title: "Ensure Loan Safety",
-			desc: "Monitor and manage your loan positions easily.",
-			lottieFile: "BorrowEnsureLoanSafety"
-		),
+//		.init(
+//			title: "Get Loan Easily",
+//			desc: "Get loans directly through top lending protocols.",
+//			lottieFile: "BorrowLoansMadeEasy"
+//		),
+//		.init(
+//			title: "Ensure Loan Safety",
+//			desc: "Monitor and manage your loan positions easily.",
+//			lottieFile: "BorrowEnsureLoanSafety"
+//		),
 	]
 }
