@@ -43,7 +43,7 @@ extension SettingsViewModel {
 	)
 	public static let aboutPino = SettingsViewModel(
 		image: "setting_about",
-		title: "About pino",
+		title: "About Pino",
 		description: nil
 	)
 	public static let sendFeedback = SettingsViewModel(

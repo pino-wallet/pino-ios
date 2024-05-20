@@ -104,7 +104,6 @@ class AboutPinoView: UIView {
 		}
 
 		backgroundColor = .Pino.background
-		logoBackgroundView.backgroundColor = .Pino.primary
 		pinoInfoCardView.backgroundColor = .Pino.secondaryBackground
 		for line in separatorLines {
 			line.backgroundColor = .Pino.gray3
