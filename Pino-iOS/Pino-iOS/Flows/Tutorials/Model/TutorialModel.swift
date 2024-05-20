@@ -34,7 +34,7 @@ struct TutorialModel {
 			title: "Easy Profit Tracking",
 			desc: "Track the performance of your investments effortlessly.",
 			lottieFile: "InvestEasyProfitTracking"
-		)
+		),
 //		.init(
 //			title: "Get Loan Easily",
 //			desc: "Get loans directly through top lending protocols.",
