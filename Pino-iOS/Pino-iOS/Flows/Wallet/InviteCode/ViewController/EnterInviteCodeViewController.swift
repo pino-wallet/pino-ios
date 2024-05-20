@@ -7,6 +7,7 @@
 
 import UIKit
 
+#warning("This class should not be used")
 class EnterInviteCodeViewController: UIViewController {
 	// MARK: - Closures
 
