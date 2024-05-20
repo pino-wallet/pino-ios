@@ -106,19 +106,4 @@ extension IntroView {
 			.relative(.bottom, -24, to: signinStackView, .top)
 		)
 	}
-
-	// MARK: - Public Methods
-
-	public func showCreateWalletLoading() {
-		createWalletButton.style = .loading
-	}
-
-	public func showImportWalletLoading() {
-		importWalletButton.style = .clearLoading
-	}
-
-	public func resetButtonsStatus() {
-		createWalletButton.style = .active
-		importWalletButton.style = .clear
-	}
 }

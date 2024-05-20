@@ -34,38 +34,14 @@ class IntroViewController: UIViewController {
 		introView = IntroView(
 			introVM: introVM,
 			createWallet: {
-				self.openCreateWalletPage()
+				self.presentCreateWalletPage()
 			},
 			importWallet: {
-				self.openImportWalletPage()
+				self.presentImportWalletPage()
 			}
 		)
 		navigationController?.navigationBar.prefersLargeTitles = false
 		view = introView
-	}
-
-	private func openCreateWalletPage() {
-		introView.showCreateWalletLoading()
-		introVM.checkBetaAvailibity { isValid in
-			self.introView.resetButtonsStatus()
-			if isValid {
-				self.presentCreateWalletPage()
-			} else {
-				self.openInviteCodeFromCreateWalletPage()
-			}
-		}
-	}
-
-	private func openImportWalletPage() {
-		introView.showImportWalletLoading()
-		introVM.checkBetaAvailibity { isValid in
-			self.introView.resetButtonsStatus()
-			if isValid {
-				self.presentImportWalletPage()
-			} else {
-				self.openInviteCodeFromImportWalletPage()
-			}
-		}
 	}
 
 	private func presentCreateWalletPage() {
