@@ -16,5 +16,11 @@ struct AboutPinoViewModel {
 	public let termsOfServiceURL = "https://pino.xyz/terms-of-use"
 	public let privacyPolicyURL = "https://pino.xyz/privacy-policy"
 	public let websiteURL = "https://pino.xyz"
-	public let builtByNitoText = "Built by Nito Labs Ltd ©"
+	public var builtByNitoText: NSMutableAttributedString {
+		let nitoLabsURL = URL(string: "http://nitolabs.com")!
+		let attributedText = NSMutableAttributedString(string: "Built by Nito Labs Ltd ©")
+		let nitoLabsURLRange = (attributedText.string as NSString).range(of: "Nito Labs Ltd")
+		attributedText.setAttributes([.link: nitoLabsURL], range: nitoLabsURLRange)
+		return attributedText
+	}
 }

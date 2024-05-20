@@ -24,10 +24,10 @@ class AboutPinoView: UIView {
 	private let websiteStackView = UIStackView()
 	private let termsOfServiceTitle = UILabel()
 	private let privacyPolicyTitle = UILabel()
-	private let web3TextField = UITextField() // For debugging purposes
 	private let websiteTitle = UILabel()
 	private let separatorLines = [UIView(), UIView()]
 	private let detailIcons = [UIImageView(), UIImageView(), UIImageView()]
+	private let nitoLTDLabel = UITextView()
 	private let hapticManager = HapticManager()
 	private var aboutPinoVM: AboutPinoViewModel
 
@@ -43,7 +43,6 @@ class AboutPinoView: UIView {
 		setupView()
 		setupStyle()
 		setupContstraint()
-		setupTapGestures()
 	}
 
 	required init?(coder: NSCoder) {
@@ -51,13 +50,6 @@ class AboutPinoView: UIView {
 	}
 
 	// MARK: - Private Methods
-
-	private func setupTapGestures() {
-		let holdGesture = UILongPressGestureRecognizer(target: self, action: #selector(showHiddenWeb3Provider))
-		holdGesture.minimumPressDuration = 3
-		termsOfServiceStackView.addGestureRecognizer(holdGesture)
-		termsOfServiceStackView.isUserInteractionEnabled = true
-	}
 
 	private func setupView() {
 		contentStackView.addArrangedSubview(logoStackView)
@@ -80,7 +72,7 @@ class AboutPinoView: UIView {
 		pinoInfoStackView.addArrangedSubview(separatorLines[1])
 		pinoInfoStackView.addArrangedSubview(websiteStackView)
 		addSubview(contentStackView)
-		addSubview(web3TextField)
+		addSubview(nitoLTDLabel)
 
 		termsOfServiceStackView
 			.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showTermsOfServices)))
@@ -137,17 +129,21 @@ class AboutPinoView: UIView {
 
 		logoBackgroundView.layer.cornerRadius = 12
 		pinoInfoCardView.layer.cornerRadius = 12
+
+		nitoLTDLabel.attributedText = aboutPinoVM.builtByNitoText
+		nitoLTDLabel.linkTextAttributes = [
+			.foregroundColor: UIColor.Pino.primary,
+			.font: UIFont.PinoStyle.mediumSubheadline as Any,
+		]
+		nitoLTDLabel.textColor = .Pino.gray2
+		nitoLTDLabel.font = .PinoStyle.mediumSubheadline
+		nitoLTDLabel.backgroundColor = .Pino.clear
+		nitoLTDLabel.isEditable = false
+		nitoLTDLabel.isSelectable = true
+		nitoLTDLabel.isScrollEnabled = false
 	}
 
 	private func setupContstraint() {
-		// web3TextField is for debugging purposes
-		// Is not visible in UI
-		web3TextField.pin(
-			.top(to: layoutMarginsGuide, padding: 0),
-			.leading(to: layoutMarginsGuide, padding: 0),
-			.fixedWidth(300),
-			.fixedHeight(50)
-		)
 		contentStackView.pin(
 			.top(to: layoutMarginsGuide, padding: 40),
 			.horizontalEdges(padding: 16)
@@ -177,14 +173,11 @@ class AboutPinoView: UIView {
 				.trailing(padding: 12)
 			)
 		}
-	}
 
-	@objc
-	private func showHiddenWeb3Provider() {
-		web3TextField.delegate = self
-		web3TextField.autocorrectionType = .no
-		web3TextField.autocapitalizationType = .none
-		web3TextField.becomeFirstResponder()
+		nitoLTDLabel.pin(
+			.bottom(padding: 24),
+			.centerX
+		)
 	}
 
 	@objc
