@@ -16,4 +16,5 @@ struct AboutPinoViewModel {
 	public let termsOfServiceURL = "https://pino.xyz/terms-of-use"
 	public let privacyPolicyURL = "https://pino.xyz/privacy-policy"
 	public let websiteURL = "https://pino.xyz"
+	public let builtByNitoText = "Built by Nito Labs Ltd ©"
 }
